@@ -91,7 +91,8 @@ export default {
           patientId: this.config.userInfo.patientId,
           operId: this.config.userInfo.operId,
           visitId: this.config.userInfo.visitId,
-          itemClass: "3B"
+          itemClass: "3B",
+          eventNo: this.config.eventNo
         }
 
         this.api.selectMedAnesthesiaEventList(params)
@@ -109,6 +110,7 @@ export default {
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
         itemClass: "D",
+        eventNo: this.config.eventNo
       }
 
       this.api.selectMedAnesthesiaEventList(params1)

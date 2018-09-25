@@ -321,7 +321,7 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        eventNo: 0,
+        eventNo: this.config.eventNo
       }
 
       this.api.getSignName(params)
@@ -343,7 +343,8 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        itemClass: 'Y'
+        itemClass: 'Y',
+        eventNo: this.config.eventNo
       }
       this.api.selectMedAnesthesiaEventList(param)
         .then(

@@ -342,7 +342,7 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        eventNo: 0,
+        eventNo: this.config.eventNo,
         timePoint: new Date(this.clickItem.time),
         itemValue: moveValue,
         operator: this.config.userId
@@ -360,7 +360,7 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        eventNo: 0, //代表在麻醉室
+        eventNo: this.config.eventNo, //代表在麻醉室
       }
 
       this.api.getSignName(params)
@@ -386,7 +386,8 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        itemClass: 'Y'
+        itemClass: 'Y',
+        eventNo: this.config.eventNo
       }
       this.api.selectMedAnesthesiaEventList(param)
         .then(
@@ -397,7 +398,7 @@ export default {
               patientId: this.config.userInfo.patientId,
               operId: this.config.userInfo.operId,
               visitId: this.config.userInfo.visitId,
-              eventNo: 0
+              eventNo: this.config.eventNo
             }
 
             this.api.getNewTimeData(params)

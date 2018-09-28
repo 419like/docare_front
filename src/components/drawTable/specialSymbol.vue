@@ -63,7 +63,7 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        eventNo: 0,
+        eventNo: this.config.eventNo,
       }).then(
         res => {
           if (res.length > 0) {

@@ -169,7 +169,7 @@ export default {
       if (y + 1 == this.rows) {
         this.rows = this.rows + 1
       }
-      if (typeof (this.testList[y][x].positionValue) == "undefined") {
+      if (typeof(this.testList[y][x].positionValue) == "undefined") {
         this.dataAllList.push({
           patientId: this.config.userInfo.patientId,
           visitId: this.config.userInfo.visitId,
@@ -186,7 +186,7 @@ export default {
         })
       }
       this.dataChange(this.dataAllList);
-      if (typeof (this.testList[y][x].positionValue) == "undefined" || this.testList[y][x].addFlag) {
+      if (typeof(this.testList[y][x].positionValue) == "undefined" || this.testList[y][x].addFlag) {
 
         if (this.insertDataList.length > 0) {
           //判断这条数据是否存在在集合里面
@@ -379,6 +379,7 @@ export default {
         })
     },
     applyTemplate() {
+      debugger
       if (JSON.stringify(this.chooseItem) == "{}") {
         alert("选择模板")
         return false;
@@ -503,4 +504,5 @@ ul li.active {
   background-color: rgb(241, 112, 112);
   color: #fff;
 }
+
 </style>

@@ -43,9 +43,27 @@ export default {
           alert("同步完成");
         })
     },
+    getDate() {
+      let count = 3
+      let day = new Date(this.startTimeValue)
+      let targetday_milliseconds = day.getTime() + 1000 * 60 * 60 * 24 * count;
+      day.setTime(targetday_milliseconds);
+      let tYear = day.getFullYear();
+      let tMonth = day.getMonth();
+      let tDate = day.getDate();
+      tMonth = this.doHandleMonth(tMonth + 1);
+      tDate = this.doHandleMonth(tDate);
+      this.endTimeValue = tYear + "-" + tMonth + "-" + tDate;
+    },
+    doHandleMonth(month) {
+      var m = month;
+      if (month.toString().length == 1) { m = "0" + month; }
+      return m;
+    },
   },
   mounted() {
     this.startTimeValue = new Date().Format("yyyy-MM-dd");
+    this.getDate();
   }
 }
 

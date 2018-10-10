@@ -360,6 +360,9 @@ export default {
       let param = arr
       this.api.insertBatchMedQiXieTemplate(param)
         .then(res => {
+          if (res.success) {
+            alert("保存成功")
+          }
           this.saveTempView = false;
         })
       // console.log(arr)

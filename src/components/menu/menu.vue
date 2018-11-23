@@ -1,7 +1,7 @@
 <template>
   <div class="back">
-    <img style="width:200px;margin:10px;" src="../../assets/logo.png" alt="">
-    <h1 class="title">DoCare麻醉临床信息系统V5.0</h1>
+    <!-- <img style="width:200px;margin:10px;" src="../../assets/logo.png" alt=""> -->
+    <h1 class="title">麻醉临床信息系统</h1>
     <div class="buttonBox">
       <div class="surround">
         <div @click="goUrl('/scheduleList')" class="systemButton" style="left:0;top:0;">
@@ -16,8 +16,8 @@
         <div @click="goUrl('/management')" class="systemButton" style="left:540px;bottom:0;">
           <span>用户管理</span>
         </div>
-        <div @click="goUrl('/formDesigner')" class="systemButton" style="left:720px;top:0;">
-          <span>表单设计器</span>
+        <div @click="goUrl('/statsFilesLogin')" class="systemButton" style="left:720px;top:0;">
+          <span>统计系统</span>
         </div>
         <div @click="exitSystem()" class="systemButton" style="left:900px;bottom:0;">
           <span>退出系统</span>
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     goUrl(url) {
-      if (url == '/statistics' || url == '/formDesigner') {
+      if (url == '/statistics') {
         alert('暂无权限。')
       } else if (url == '/management') {
         if (this.config.userId == 'admin') {
@@ -47,6 +47,10 @@ export default {
         } else {
           alert('暂无权限。')
         }
+      } else if (url == '/statsFilesLogin') {
+        this.$router.push({
+          path: url
+        })
       } else {
         this.$router.push({
           path: url
@@ -60,7 +64,7 @@ export default {
         this.$router.push({
           path: 'login'
         })
-      } else {}
+      } else { }
     },
   },
   mounted() {
@@ -108,23 +112,18 @@ export default {
 
 .systemButton {
   position: absolute;
-  color: #fff;
+  color: #666;
   height: 100px;
   padding: 0 10px;
-  border: 1px solid rgba(142, 193, 238, 0.5);
+  border: 1px solid rgba(249, 249, 249, 0.8);
   box-sizing: border-box;
   width: 150px;
   text-align: center;
   line-height: 100px;
   cursor: pointer;
   text-align: center;
-  background-color: rgba(142, 193, 238, 0.5);
-  box-shadow: 1px 2px 10px rgba(142, 193, 238, 0.5);
-}
-
-.systemButton:hover {
-  color: #fff;
-  /* background-color: #00242D; */
+  background-color: rgba(249, 249, 249, 0.8);
+  box-shadow: 1px 2px 10px rgba(249, 249, 249, 0.8);
 }
 
 .copyRight {
@@ -136,5 +135,4 @@ export default {
   bottom: 0;
   padding-bottom: 5px;
 }
-
 </style>

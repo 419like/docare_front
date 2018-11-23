@@ -32,13 +32,21 @@ export default {
       viewList: [],
       dateTimeValue: '',
       tableTitleList: [{
-          title: '预约时间',
+          title: '手术费',
           field: 'SCHEDULED_TIME'
-        },
-        {
-          title: '间次',
-          field: 'OPERATING_ROOM_NO_SEQUENCE'
-        }, {
+        },{
+          title: '麻方',
+          field: 'SCHEDULED_TIME'
+        },{
+          title: '四级',
+          field: 'SCHEDULED_TIME'
+        },{
+          title: '手术间',
+          field: 'SCHEDULED_TIME'
+        },{
+          title: '科室',
+          field: 'SCHEDULED_TIME'
+        },{
           title: '姓名',
           field: 'PAT_NAME'
         }, {
@@ -48,18 +56,27 @@ export default {
           title: '年龄',
           field: 'PAT_AGE'
         }, {
-          title: '病区',
+          title: '住院号',
           field: 'OPERATING_DEPT_NAME'
         }, {
           title: '床号',
           field: 'BED_NO'
         }, {
+          title: '术前诊断',
+          field: 'SCHEDULED_TIME'
+        },{
           title: '手术名称',
           field: 'OPERATION_NAME'
         }, {
-          title: '麻醉方式',
+          title: '术者',
           field: 'ANESTHESIA_METHOD'
         }, {
+          title: '助手',
+          field: 'SCHEDULED_TIME'
+        },{
+          title: '洗手',
+          field: 'SCHEDULED_TIME'
+        },{
           title: '主麻医生',
           field: 'ANESTHESIA_DOCTOR_NAME'
         }, {

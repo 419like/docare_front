@@ -16,7 +16,7 @@
         <div :style="logo">
           <!-- <img src="../../assets/logo.jpg"> -->
         </div>
-        <div :style="logo1" style="background-color: rgb(21,111,174);color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
+        <div :style="logo1" style="background-color: #53e84e;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
           <span style="margin-left: 30px;font-size:13px;">{{nowTime}}</span>
         </div>
       </div>
@@ -135,7 +135,7 @@
     </div>
     <div class="down">
       <div class="left" style="overflow-y: auto;">
-        <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: rgb(29,117,181);margin-bottom:5px;">
+        <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: #53e84e;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_1.png" alt=""> 电子病历
@@ -149,7 +149,7 @@
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">病例病程</button> -->
           </div>
         </div>
-        <div style="height: auto;background-color: rgb(29,117,181);margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
+        <div style="height: auto;background-color: #53e84e;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_2.jpg" alt=""> 患者操作
@@ -165,7 +165,7 @@
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
           </div>
         </div>
-        <div style="height: auto;background-color: rgb(29,117,181);margin-bottom:5px;">
+        <div style="height: auto;background-color: #53e84e;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_3.png" alt=""> 常用功能
@@ -177,7 +177,7 @@
             <button @click="tempManage" class="list_button">模板管理</button>
           </div>
         </div>
-        <div style="height: auto;background-color: rgb(29,117,181);margin-bottom:5px;">
+        <div style="height: auto;background-color: #53e84e;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_4.png" alt=""> 其他
@@ -727,13 +727,13 @@ export default {
       dictView: false,
       res: '',
       logo: {
-        backgroundImage: "url(" + require("../../assets/Logo.jpg") + ")",
+        backgroundImage: "url(" + require("../../assets/LogoTop.png") + ")",
         backgroundRepeat: "no-repeat",
         height: "70px",
         backgroundSize: "cover",
       },
       logo1: {
-        backgroundImage: "url(" + require("../../assets/clock.jpg") + ")",
+        backgroundImage: "url(" + require("../../assets/clock.png") + ")",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "5px 3px",
         height: "30px",
@@ -2904,8 +2904,8 @@ export default {
   background-size: cover;
   display: flex;
   align-items: center;
-  border-right: 2px solid #0046A7;
-  border-bottom: 2px solid #0046A7;
+  border-right: 2px solid #00a723;
+  border-bottom: 2px solid #00a723;
 }
 
 .head {
@@ -2925,7 +2925,7 @@ export default {
 .left {
   width: 175px;
   height: 100%;
-  background: rgb(142, 193, 238);
+  background: #97f394;
   min-width: 175px;
   position: relative;
 }
@@ -2934,7 +2934,7 @@ export default {
   display: flex;
   width: calc(100% - 175px);
   height: 100%;
-  background: rgb(227, 239, 255);
+  background: #cbf9ac;
   min-width: 1178px;
 }
 
@@ -2951,7 +2951,7 @@ export default {
 .leftNoneBox {
   height: 100%;
   min-width: 12px;
-  background-color: #8DB8F0;
+  background-color: #97f394;
   position: relative;
   cursor: pointer;
   border-right: 1px solid #7F7F7F;

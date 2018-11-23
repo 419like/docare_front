@@ -2004,7 +2004,7 @@ export default {
   font-weight: 200;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background-color: #39578A;
+  background-color: #398a46;
   color: #fff;
 }
 
@@ -2174,14 +2174,14 @@ export default {
   border: 1px solid #999;
   box-sizing: border-box;
   margin-right: 10px;
-  background-color: #A3BDD9;
+  background-color: #a3d9b0;
   padding-top: 5px;
 }
 
 .itemChoose {
   width: 100%;
   color: white;
-  background: #597CA6;
+  background: #59a664;
   box-sizing: border-box;
   padding: 2px 0 2px 5px;
   font-size: 12px;
@@ -2197,14 +2197,14 @@ export default {
 .itemChooseBox {
   width: 100%;
   height: 299px;
-  background-color: #597CA6;
+  background-color: #59a664;
 }
 
 .itemBox {
   height: 30px;
   width: 100%;
   box-sizing: border-box;
-  border-top: 1px solid #0D508B;
+  border-top: 1px solid #0d8b1c;
   color: #fff;
   line-height: 30px;
   padding-left: 5px;

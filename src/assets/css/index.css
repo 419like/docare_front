@@ -38,7 +38,7 @@
 button {
   width: 80px;
   /* background-color:rgb(198, 229, 253); */
-  background: linear-gradient(#e3ebf5, #b9d5ee, #9fc9ee);
+  background: linear-gradient(#e3f5e7, #b9eec3, #9feeb2);
   line-height: 24px;
   border: none;
   color: rgb(35, 78, 147);
@@ -51,11 +51,11 @@ button {
 
 button:hover {
   cursor: pointer;
-  background: linear-gradient(#e3ebf5, #cbe5f7, #dbecf9);
+  background: linear-gradient(#e3f5e7, #cbf7d3, #dbf9e1);
 }
 
 button:active {
-  background: linear-gradient(#adc7cb, #99c4ec, #b4d4f2);
+  background: linear-gradient(#adcbb0, #99ecad, #b4f2c3);
 }
 
 ul {

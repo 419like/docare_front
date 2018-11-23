@@ -2,20 +2,20 @@
   <div :style="note" style="background-color: rgb(0,0,0);position: relative;">
     <div class="loginBox">
       <div style="display:flex;flex-direction:row-reverse;height:75px;box-sizing:border-box;padding:10px 20px 0 0;">
-        <img style="width:auto;height:100%;" src="../../assets/logo.png">
+        <!-- <img style="width:auto;height:100%;" src="../../assets/logo.png"> -->
       </div>
       <div style="height:250px;display:flex;justify-content: space-between;box-sizing:border-box;padding-top:20px;">
         <div style="width:40%;box-sizing:border-box;padding-left:20px;">
           <img style="width:225px;height:auto;" src="../../assets/doc.png">
         </div>
         <div style="width:60%;">
-          <h2 style="color:white;">DoCare麻醉临床信息系统V5.0</h2>
+          <h2 style="color:#222;">麻醉临床信息系统</h2>
           <div style="margin-top:20px;height:24px;">
-            <span style="display:inline-block;width:65px;height:100%;color:#fff;">用户名：</span>
+            <span style="display:inline-block;width:65px;height:100%;color:#222;">用户名：</span>
             <input type="" name="" style="width: 180px;height:22px;box-sizing:border-box;" v-model="loginName" @keyup.enter='nextInput' ref="inputEml">
           </div>
           <div style="margin-top:5px;height:24px;">
-            <span style="display:inline-block;width:65px;height:100%;color:#fff;">密 码：</span>
+            <span style="display:inline-block;width:65px;height:100%;color:#222;">密 码：</span>
             <input @keyup.enter='login' type="password" name="" style="width: 180px;height:22px;box-sizing:border-box;" ref="inputNext" v-model="loginPwd">
           </div>
           <div style="padding-right:50px;box-sizing:border-box;display:flex;flex-direction:row-reverse;margin-top:20px;height:30px;">
@@ -184,12 +184,14 @@ export default {
   position: absolute;
   left: 50%;
   top: 50%;
-  background: url('../../assets/loginBoxBack.jpg')no-repeat;
-  background-size: cover;
+  /* background: url('../../assets/loginBoxBack.jpg')no-repeat;
+  background-size: cover; */
+  background-color: #fff;
   width: 650px;
   height: 340px;
   margin-left: -325px;
   margin-top: -170px;
+  border: 1px solid #999;
 }
 
 .timePicker::-webkit-inner-spin-button {

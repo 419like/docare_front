@@ -1,7 +1,7 @@
 <template>
     <div style="height:100%;background-color:#f5f5f5;box-sizing:border-box;">
         <div class="flex w100 topal">
-            <img style="width:auto;height:55px;" src="../../assets/logo.png">
+            <img style="width:auto;height:55px;" src="../../assets/LogoTop.png">
             <div class="flex1 topButton" :class="{clickClass:clickDataOne}" @click="operationSchedulVue()">
                 <span :class="{clickClass:clickDataOne}">1</span>手术排班</div>
             <div class="flex1 topButton" :class="{clickClass:clickDataTwo}" @click="applicationVue()">
@@ -200,7 +200,7 @@ export default {
     width: 40px;
     height: 40px;
     border: 2px solid #C9E1FB;
-    background-color: #476793;
+    background-color: #479357;
     text-align: center;
     line-height: 40px;
     margin-right: 5px;

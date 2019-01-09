@@ -45,8 +45,8 @@
                 <div class="insideHover" @click="maskFun()">手术通知单</div>
               </div>
               <!-- <div @click="pushData()" v-if="showarrange" class="pushAuto" :style="{top:clickTop+'px',left:clickLeft+'px'}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                分配手术
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  分配手术
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </div> -->
             </div>
           </div>
           <div v-if="chooseOneType=='docoptions'" v-for="item in options" @click="joinData('docoptions',item)" class="docList rows">
@@ -106,7 +106,7 @@
             <!-- 清空 -->
             <!-- <div v-if="showList" style="width:100%;height:auto;z-index:9999;">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                    </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                      </div> -->
             <!-- </div> -->
           </div>
         </div>
@@ -371,113 +371,113 @@ export default {
         optin: false,
       }],
       infoMode: [{
-          text: '申请时间',
-          value: 'scheduledDateTime',
-          width: 60,
-          optin: false,
-        }, {
-          text: '科室名称',
-          value: 'deptName',
-          width: 60,
-          optin: false,
-        }, {
-          text: '手术医师',
-          value: 'surgeonName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '手术名称',
-          value: 'operationSchName',
-          width: 250,
-          optin: false,
-        }, {
-          text: '台次',
-          value: 'sequence',
-          width: 60,
-          optin: false,
-        }, {
-          text: '病人姓名',
-          value: 'patientName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '年龄',
-          value: 'patienAge',
-          width: 60,
-        }, {
-          text: '性别',
-          value: 'patientSex',
-          width: 60,
-          optin: false,
-        }, {
-          text: '床号',
-          value: 'bedNo',
-          width: 60,
-          optin: false,
-        }, {
-          text: '诊断',
-          value: 'diagBeforeOperation',
-          width: 200,
-          optin: false,
-        }, {
-          text: "手术审核时间",
-          type: "inSelect",
-          value: "reqDateTime",
-          width: 120,
-          optin: false,
-        },
-        {
-          text: '主麻医师',
-          value: 'anesthesiaDoctorName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '副麻医师1',
-          value: 'firstAnesthesiaAssistantName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '副麻医师2',
-          value: 'secondAnesthesiaAssistantName',
-          width: 100,
-          optin: false,
-        },
-        {
-          text: '手术助手1',
-          value: 'firstAssistantName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '手术助手2',
-          value: 'secondAssistantName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '洗手护士1',
-          value: 'firstOperationNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '洗手护士2',
-          value: 'secondOperationNurseName',
-          width: 100,
-          optin: false,
-        },{
-          text: '巡回护士1',
-          value: 'firstSupplyNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '巡回护士2',
-          value: 'secondSupplyNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '备注',
-          value: 'notesOnOperation',
-          width: 100,
-          optin: false,
-        }
+        text: '申请时间',
+        value: 'scheduledDateTime',
+        width: 60,
+        optin: false,
+      }, {
+        text: '科室名称',
+        value: 'deptName',
+        width: 60,
+        optin: false,
+      }, {
+        text: '手术医师',
+        value: 'surgeonName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '手术名称',
+        value: 'operationSchName',
+        width: 250,
+        optin: false,
+      }, {
+        text: '台次',
+        value: 'sequence',
+        width: 60,
+        optin: false,
+      }, {
+        text: '病人姓名',
+        value: 'patientName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '年龄',
+        value: 'patienAge',
+        width: 60,
+      }, {
+        text: '性别',
+        value: 'patientSex',
+        width: 60,
+        optin: false,
+      }, {
+        text: '床号',
+        value: 'bedNo',
+        width: 60,
+        optin: false,
+      }, {
+        text: '诊断',
+        value: 'diagBeforeOperation',
+        width: 200,
+        optin: false,
+      }, {
+        text: "手术审核时间",
+        type: "inSelect",
+        value: "reqDateTime",
+        width: 120,
+        optin: false,
+      },
+      {
+        text: '主麻医师',
+        value: 'anesthesiaDoctorName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '副麻医师1',
+        value: 'firstAnesthesiaAssistantName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '副麻医师2',
+        value: 'secondAnesthesiaAssistantName',
+        width: 100,
+        optin: false,
+      },
+      {
+        text: '手术助手1',
+        value: 'firstAssistantName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '手术助手2',
+        value: 'secondAssistantName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '洗手护士1',
+        value: 'firstOperationNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '洗手护士2',
+        value: 'secondOperationNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '巡回护士1',
+        value: 'firstSupplyNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '巡回护士2',
+        value: 'secondSupplyNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '备注',
+        value: 'notesOnOperation',
+        width: 100,
+        optin: false,
+      }
       ],
       getLength: '0',
       listChooseBody: [
@@ -628,11 +628,16 @@ export default {
       // if (dataInName) {
       this.api.submitMedOperationScheduleList(commitData)
         .then(
-          res => {
-            dataInName = false;
+        res => {
+          dataInName = false;
+          if (res.success == true) {
             this.getList(this.dateValue)
             alert('提交成功!')
-          })
+          } else {
+            alert('提交失败!')
+            alert(res.msg)
+          }
+        })
 
 
       // } else {
@@ -2004,7 +2009,7 @@ export default {
   font-weight: 200;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background-color: #398a46;
+  background-color: #4ebb60;
   color: #fff;
 }
 
@@ -2181,7 +2186,7 @@ export default {
 .itemChoose {
   width: 100%;
   color: white;
-  background: #59a664;
+  background: #86e092;
   box-sizing: border-box;
   padding: 2px 0 2px 5px;
   font-size: 12px;
@@ -2197,7 +2202,7 @@ export default {
 .itemChooseBox {
   width: 100%;
   height: 299px;
-  background-color: #59a664;
+  background-color: #86e092;
 }
 
 .itemBox {
@@ -2366,5 +2371,4 @@ export default {
 .hoverClass {
   background-color: #A3BDD9;
 }
-
 </style>

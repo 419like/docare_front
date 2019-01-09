@@ -15,8 +15,9 @@
       <div class="logo">
         <div :style="logo">
           <!-- <img src="../../assets/logo.jpg"> -->
+        <img style="height:70px;" src="../../assets/LogoTop.png">
         </div>
-        <div :style="logo1" style="background-color: #53e84e;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
+        <div :style="logo1" style="background-color: #96e894;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
           <span style="margin-left: 30px;font-size:13px;">{{nowTime}}</span>
         </div>
       </div>
@@ -135,7 +136,7 @@
     </div>
     <div class="down">
       <div class="left" style="overflow-y: auto;">
-        <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: #53e84e;margin-bottom:5px;">
+        <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_1.png" alt=""> 电子病历
@@ -149,7 +150,7 @@
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">病例病程</button> -->
           </div>
         </div>
-        <div style="height: auto;background-color: #53e84e;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
+        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_2.jpg" alt=""> 患者操作
@@ -165,7 +166,7 @@
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
           </div>
         </div>
-        <div style="height: auto;background-color: #53e84e;margin-bottom:5px;">
+        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_3.png" alt=""> 常用功能
@@ -177,7 +178,7 @@
             <button @click="tempManage" class="list_button">模板管理</button>
           </div>
         </div>
-        <div style="height: auto;background-color: #53e84e;margin-bottom:5px;">
+        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
               <img style="height:21px;padding-right:3px;" src="../../assets/icon_4.png" alt=""> 其他
@@ -196,7 +197,7 @@
       <div class="content" style="overflow-y:hidden;overflow-x: hidden; ">
         <!-- <div class="patientList" :class="{animationClassNone:showData,animationClassShow:showDataTwo}"> -->
         <div class="patientList" v-show="showData">
-          <div style="height:105px;border-bottom:1px solid rgb(175,205,242);box-sizing:border-box;">
+          <div style="height:105px;border-bottom:1px solid #96e894;box-sizing:border-box;">
             <div>
               <div class="container" style="padding-left: 5px;margin-bottom:10px;margin-top:5px;align-items:center;">
                 <img style="margin-right:10px;height:20px;" src="../../assets/people.png" alt="">
@@ -727,10 +728,11 @@ export default {
       dictView: false,
       res: '',
       logo: {
-        backgroundImage: "url(" + require("../../assets/LogoTop.png") + ")",
-        backgroundRepeat: "no-repeat",
+        // backgroundImage: "url(" + require("../../assets/LogoTop.png") + ")",
+        // backgroundRepeat: "no-repeat",
         height: "70px",
-        backgroundSize: "cover",
+        paddingLeft:"24px"
+        // backgroundSize: "cover",
       },
       logo1: {
         backgroundImage: "url(" + require("../../assets/clock.png") + ")",
@@ -2911,7 +2913,7 @@ export default {
 .head {
   height: 100px;
   width: 100%;
-  background: #CCC;
+  /* background: #CCC; */
   display: flex;
 }
 
@@ -2925,7 +2927,7 @@ export default {
 .left {
   width: 175px;
   height: 100%;
-  background: #97f394;
+  background: #96e894;
   min-width: 175px;
   position: relative;
 }
@@ -2934,7 +2936,7 @@ export default {
   display: flex;
   width: calc(100% - 175px);
   height: 100%;
-  background: #cbf9ac;
+  background: #CBF9C1;
   min-width: 1178px;
 }
 
@@ -2951,7 +2953,7 @@ export default {
 .leftNoneBox {
   height: 100%;
   min-width: 12px;
-  background-color: #97f394;
+  background-color: #96e894;
   position: relative;
   cursor: pointer;
   border-right: 1px solid #7F7F7F;

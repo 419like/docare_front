@@ -230,7 +230,7 @@ export default {
                 this.cancelData = [];
                 this.buttonWord = '全部';
             }
-        }
+        },
 
     },
 

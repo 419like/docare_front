@@ -186,7 +186,7 @@
           </div>
           <div v-if="concealmentFourData" style="padding:5px;display:flex;flex-wrap:wrap;">
             <button class="list_button">系统配置</button>
-            <button @click="getAboutUs" class="list_button">关于</button>
+            <!-- <button @click="getAboutUs" class="list_button">关于</button> -->
             <button @click="exitSystem" class="list_button">返回列表</button>
             <button @click="openChangePassWordView" class="list_button">修改密码</button>
           </div>

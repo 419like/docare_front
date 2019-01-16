@@ -1,6 +1,6 @@
 <template>
   <div class="dictionaries">
-    <div style="background-color: rgb(227, 239, 255);width: 1214px;z-index: 11;cursor: auto;position: absolute;top: calc(50% - 305px);height: 610px;left: calc(50% - 607px);border:2px solid rgb(54,157,200);z-index: 1;">
+    <div style="background-color: #e3fdec;width: 1214px;z-index: 11;cursor: auto;position: absolute;top: calc(50% - 305px);height: 610px;left: calc(50% - 607px);border:2px solid #36c85f;z-index: 1;">
       <div class="load_top" style="height: 30px;background-color: rgb(54,157,200);line-height: 30px;">
         <div>术中登记</div>
         <div @click="aboutNone" class="top_active">X</div>
@@ -8,10 +8,10 @@
       <div style="height: 20px;width: calc(100% - 15px);padding-left: 15px;">
         <span style="font-size: 14px;">麻醉事件</span>
       </div>
-      <div style="height: 349px;display:flex;border-bottom:3px solid #7774da;">
+      <div style="height: 349px;display:flex;border-bottom:3px solid #74da98;">
         <div style="width:80%;">
           <div style="display: flex;">
-            <div style="border:1px solid rgb(177,207,243);background-color:#fff;box-sizing:border-box;font-size:12px;" :style="{minWidth:cell.width+'px'}" v-for="cell in tbconfig">
+            <div style="border:1px solid #b1f3ba;background-color:#fff;box-sizing:border-box;font-size:12px;" :style="{minWidth:cell.width+'px'}" v-for="cell in tbconfig">
               {{cell.title}}
             </div>
           </div>

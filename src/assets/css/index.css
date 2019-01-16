@@ -84,8 +84,8 @@ ul {
   height: 80%;
   left: 20%;
   top: 10%;
-  background: rgb(227, 239, 255);
-  border: 2px solid rgb(22, 124, 172);
+  background: #e3ffeb;
+  border: 2px solid #16ac2b;
   border-top: 1px;
   cursor: auto;
 }

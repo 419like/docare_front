@@ -144,10 +144,11 @@
             <div class="active_back" @click="concealmentOne"><img :class="{transform:isTransformOne}" src="../../assets/bottom.png"></div>
           </div>
           <div v-if="concealmentOneData" style="padding:5px;display:flex;flex-wrap:wrap;">
-            <!-- <button v-if="lockedPatientInfo.patientId" @click="openCheckInfoView" class="list_button">检查信息</button> -->
+            <!-- <button v-if="lockedPatientInfo.patientId" @click="openCheckInfoView" class="list_button">检验信息</button> -->
+            <button v-if="lockedPatientInfo.patientId" @click="openLisCheck" class="list_button">检验信息</button>
             <button v-if="lockedPatientInfo.patientId" @click="openMedical" class="list_button">检查结果</button>
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">医嘱信息</button> -->
-            <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">病例病程</button> -->
+            <button v-if="lockedPatientInfo.patientId" @click="openRecodEmr" class="list_button">病例病程</button>
           </div>
         </div>
         <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
@@ -867,7 +868,7 @@ export default {
     lodopInit() {
       LODOP = getLodop();
       // if (LODOP) {
-      LODOP.SET_PRINT_PAGESIZE(0, "182mm", "270mm", "")
+      LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "")
       var _this = this;
       if (LODOP.CVERSION) CLODOP.On_Return = function(TaskID, Value) {
 
@@ -2686,7 +2687,26 @@ export default {
     //检查结果
     openMedical() {
       if (window.ipc) {
-        window.ipc.send('openMedical', this.config.userInfo.inpNo);
+        window.ipc.send('openMedical', this.config.userInfo.patientId);
+      }
+    },
+    //检验信息
+    openLisCheck(){
+      console.log(this.config.userInfo)
+      if (window.ipc) {
+        let str = '&HIS_PARAM_PATNO='+this.config.userInfo.inpNo+'&HIS_PARAM_DEPT='+this.config.userInfo.deptStayed+'&HIS_PARAM_WARD='+
+        this.config.userInfo.deptStayed
+
+        window.ipc.send('openLisCheck', str);
+      }
+    },
+    //调取病历病程
+    openRecodEmr(){
+      
+      if (window.ipc) {
+        let str = 'id='+this.config.userInfo.inpNo+'&date='+this.config.userInfo.admissionDateTime
+
+        window.ipc.send('openRecodEmr', str);
       }
     },
     //更换手术间

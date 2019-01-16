@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="!isEdit" style="display: flex;">
-      <div v-if="boxValue.MultiSelectMode=='false'" v-for="(item,index) in boxValue.listData" style="margin:0px 2px;">
+    <div v-if="!isEdit" style="display: flex;" :style="{flexDirection:boxValue.directionMode}">
+      <div v-if="boxValue.MultiSelectMode=='false'" v-for="(item,index) in boxValue.listData" style="margin:0px 2px;display:flex;">
         <!-- <div v-if="item.ItemValue==resultValue">
             <label><input type="checkbox" @change="test" v-model="content.state" v-bind:value="item.ItemValue"/>{{item.ItemName}}</label>
           </div>
@@ -21,7 +21,7 @@
         </label>
       </div>
     </div>
-    <div v-else style="display: flex;">
+    <div v-else style="display: flex;" :style="{flexDirection:boxValue.directionMode}">
       <div v-for="item in boxValue.listData" style="margin:0px 2px;">
         <label>
           <input type="checkbox" disabled="disabled" v-on:value="item.ItemValue" /><span :style="{fontSize:boxValue.fontSize+'pt'}">{{item.ItemName}}</span></label>

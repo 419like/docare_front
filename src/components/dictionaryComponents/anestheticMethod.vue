@@ -15,7 +15,7 @@
       </div>
       <div style="width: 100%;height:90%;margin-top:5px;overflow-y: auto;">
         <div v-for="list in commonTypeList" style="display: flex;">
-          <div v-for="cl in contentConfig" style="width: 25%;border:1px solid rgb(177,207,243);">
+          <div v-for="cl in contentConfig" style="width: 25%;border:1px solid #b1f3c2;">
             <div style="height:100%;width:100%;" v-if="cl.status=='inable'">
               <input v-if="list.writeAble" type="text" v-model="list[cl.value]" @blur="inputBlur(list)" @keyup="chan(list)" style="display:block;width:100%;border:0;height:100%;outline:none;">
               <input v-if="!list.writeAble" type="text" v-model="list[cl.value]" @click="valueWriteAble(list)" style="display:block;width:100%;border:0;height:100%;outline:none;">
@@ -216,8 +216,8 @@ export default {
 <style scoped>
 .topList {
   width: 25%;
-  border: 1px solid rgb(177, 207, 243);
-  color: #4C79BB;
+  border: 1px solid #b1f3c2;
+  color: #4cbb5c;
   background: url('../../assets/contentTitleBack.jpg')no-repeat;
   background-size: cover;
   /* box-sizing: border-box; */

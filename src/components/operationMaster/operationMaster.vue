@@ -314,7 +314,7 @@
         <div class="patientInfo" v-if="viewInfo">
           <div class="pat_title title_back">患者详情</div>
           <div style="margin-top: 5px;">
-            <div class="title_back" style="border:1px solid rgb(177,207,243);padding-left: 20px;">基本信息</div>
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">基本信息</div>
             <div class="patientContentBox">
               <div class="container">
                 <div>患者ID</div>
@@ -375,7 +375,7 @@
             </div>
           </div>
           <div>
-            <div class="title_back" style="border:1px solid rgb(177,207,243);padding-left: 20px;">手术信息</div>
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术信息</div>
             <div class="patientContentBox">
               <div class="container">
                 <div>主要诊断</div>
@@ -427,7 +427,7 @@
             </div>
           </div>
           <div>
-            <div class="title_back" style="border:1px solid rgb(177,207,243);padding-left: 20px;">手术人员</div>
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术人员</div>
             <div class="patientContentBox">
               <div class="container">
                 <div>麻醉医师</div>
@@ -534,7 +534,7 @@
           <div>字典</div>
           <div @click="dictNone" class="top_active">X</div>
         </div>
-        <div style="height: 50px;line-height: 50px;font-weight: bold;border-bottom: 2px solid rgb(177,207,243);">
+        <div style="height: 50px;line-height: 50px;font-weight: bold;border-bottom: 2px solid #b1f3c5;">
           <span style="margin-left: 30px;">字典维护</span>
         </div>
         <div style="display: flex;padding-left:10px;padding-top: 5px;">
@@ -569,7 +569,7 @@
               </div>
               <div style="overflow-y: auto;height:280px;box-sizing:border-box;" :class="{paddingRight18:this.paddingRight18}">
                 <div v-for="list in commonTypeList" style="display: flex;margin-left: 10px;" @click="getItem(list)">
-                  <div v-for="cl in contentConfig" style="width: 160px;border:1px solid rgb(177, 207, 243);">
+                  <div v-for="cl in contentConfig" style="width: 160px;border:1px solid #b1f3c5;">
                     <div style="height:calc(100% - 2px);" v-if="cl.status=='inable'">
                       <input v-if="list.writeAble" type="text" v-model="list[cl.value]" @blur="inputBlur(list)" @change="change" style="display:block;width:100%;border:0;height:100%;outline:none;">
                       <input v-if="!list.writeAble" type="text" v-model="list[cl.value]" readonly="readonly" @click="valueWriteAble(list)" style="display:block;width:100%;border:0;height:100%;outline:none;">
@@ -2901,7 +2901,7 @@ export default {
 
 .patientContent {
   height: 26px;
-  border-bottom: 1px solid rgb(177, 207, 243);
+  border-bottom: 1px solid #b1f3c5;
   line-height: 26px;
   color: rgb(23, 68, 140);
   padding: 0 5px;
@@ -2961,7 +2961,7 @@ export default {
 }
 
 .listBorder {
-  border: 1px solid rgb(177, 207, 243);
+  border: 1px solid #b1f3c5;
   padding-bottom: 5px;
   /* padding-left: 5px; */
 }
@@ -3008,7 +3008,7 @@ export default {
 
 .patientContentBox {
   padding: 15px 5px 10px 30px;
-  border: 1px solid rgb(177, 207, 243);
+  border: 1px solid #b1f3c5;
   box-sizing: border-box;
 }
 
@@ -3016,7 +3016,7 @@ export default {
   height: 35px;
   line-height: 35px;
   padding-left: 10px;
-  border: 1px solid rgb(177, 207, 243);
+  border: 1px solid #b1f3c5;
   font-size: 16px;
 }
 
@@ -3067,8 +3067,8 @@ export default {
   height: 30px;
   line-height: 30px;
   width: 100px;
-  border: 1px solid rgb(177, 207, 243);
-  background: rgb(76, 121, 187);
+  border: 1px solid #b1f3c5;
+  background: #4cbb64;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-align: center;
@@ -3088,12 +3088,12 @@ export default {
   width: 30%;
   overflow: auto;
   padding-top: 5px;
-  border-right: 2px solid rgb(177, 207, 243);
+  border-right: 2px solid #b1f3c5;
 }
 
 .backWight {
-  background-color: #E1EEFD;
-  color: rgb(76, 121, 187);
+  background-color: #e1fde8;
+  color: #4cbb64;
 }
 
 .information {
@@ -3129,7 +3129,7 @@ export default {
 
 .topList {
   width: 160px;
-  border: 1px solid rgb(177, 207, 243);
+  border: 1px solid #b1f3c5;
   color: #4C79BB;
   background: url('../../assets/contentTitleBack.jpg')no-repeat;
   background-size: cover;

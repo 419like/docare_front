@@ -362,7 +362,7 @@
         </div>
         <div style="display: flex;margin-top: 40px;">
           <div style="margin-right: 30px;margin-left: 10px;">
-            <div style="height: 150px;width: 200px;background:white;">
+            <div style="height: 150px;width: 200px;background:white;overflow:auto;">
               <div class="itemChooseInClick" v-for="(item,index) in chooseItemsTemp.listData" @click="getClickItem(item,index)">
                 {{item.ItemName}}({{item.ItemValue}})
               </div>

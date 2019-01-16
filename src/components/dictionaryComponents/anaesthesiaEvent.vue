@@ -279,15 +279,15 @@ export default {
 <style scoped>
 .topList {
   width: 160px;
-  border: 1px solid rgb(177, 207, 243);
-  color: #4C79BB;
+  border: 1px solid #b1f3c2;
+  color: #4cbb5c;
   background: url('../../assets/contentTitleBack.jpg')no-repeat;
   background-size: cover;
   padding-left: 5px;
 }
 
 .hoverStyle:hover {
-  background-color: #316AC5;
+  background-color: #51bb4c;
   color: #fff;
 }
 

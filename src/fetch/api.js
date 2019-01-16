@@ -2,7 +2,7 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'http://182.61.36.247:8080';
 // axios.defaults.baseURL = 'http://111.111.111.156:8080';
 axios.defaults.baseURL = 'http://192.168.1.12:8080';
-// axios.defaults.baseURL = 'http://localhost:8088';
+axios.defaults.baseURL = 'http://localhost:8088';
 //返回状态判断
 axios.interceptors.response.use((res) => {
     return res;
@@ -777,14 +777,14 @@ export default {
      * 
      */
     synchroSchedule(params, config) {
-        return fetch('medicalsystem/rest/synchro/synchroWebSchedule', params)
+        return fetch('medicalsystem/rest/synchro/synchroViewSchedule', params)
     },
     /**
      * 同步his用户与部门
      * 
      */
     synchroUserAndDept(params, config) {
-        return fetch('medicalsystem/rest/synchro/synchroUserAndDept', params)
+        return fetch('medicalsystem/rest/synchro/synchroUserAndDeptView', params)
     },
     /**
      * 修改用户密码

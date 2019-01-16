@@ -176,7 +176,7 @@
           </div>
           <div v-if="concealmentThreeData" style="padding:5px;display:flex;flex-wrap:wrap;">
             <button @click="dictShow" class="list_button">字典</button>
-            <button @click="tempManage" class="list_button">模板管理</button>
+            <!-- <button @click="tempManage" class="list_button">模板管理</button> -->
           </div>
         </div>
         <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
@@ -187,7 +187,7 @@
             <div class="active_back" @click="concealmentFour"><img :class="{transform:isTransformFour}" src="../../assets/bottom.png"></div>
           </div>
           <div v-if="concealmentFourData" style="padding:5px;display:flex;flex-wrap:wrap;">
-            <button class="list_button">系统配置</button>
+            <!-- <button class="list_button">系统配置</button> -->
             <!-- <button @click="getAboutUs" class="list_button">关于</button> -->
             <button @click="exitSystem" class="list_button">返回列表</button>
             <button @click="openChangePassWordView" class="list_button">修改密码</button>

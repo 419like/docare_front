@@ -45,8 +45,8 @@
                 <div class="insideHover" @click="maskFun()">手术通知单</div>
               </div>
               <!-- <div @click="pushData()" v-if="showarrange" class="pushAuto" :style="{top:clickTop+'px',left:clickLeft+'px'}">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  分配手术
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    分配手术
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </div> -->
             </div>
           </div>
           <div v-if="chooseOneType=='docoptions'" v-for="item in options" @click="joinData('docoptions',item)" class="docList rows">
@@ -106,7 +106,7 @@
             <!-- 清空 -->
             <!-- <div v-if="showList" style="width:100%;height:auto;z-index:9999;">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                      </div> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                        </div> -->
             <!-- </div> -->
           </div>
         </div>
@@ -626,18 +626,23 @@ export default {
       }
       // console.log(commitData)
       // if (dataInName) {
-      this.api.submitMedOperationScheduleList(commitData)
-        .then(
-        res => {
-          dataInName = false;
-          if (res.success == true) {
-            this.getList(this.dateValue)
-            alert('提交成功!')
-          } else {
-            alert('提交失败!')
-            alert(res.msg)
-          }
-        })
+      if (commitData == '') {
+        alert('当前没有手术可提交！')
+      } else {
+        this.api.submitMedOperationScheduleList(commitData)
+          .then(
+          res => {
+            dataInName = false;
+            console.log(res)
+            if (res.success == true) {
+              this.getList(this.dateValue)
+              alert('提交成功!')
+            } else {
+              alert('提交失败!')
+              alert(res.msg)
+            }
+          })
+      }
 
 
       // } else {
@@ -647,66 +652,67 @@ export default {
     },
     getNewPushData(item, index) {
       // console.log(item)
-      // console.log(index)
+      console.log(index)
+      console.log(this.infoMode)
       // console.log(this.handleItem[item.value])
-      // console.log(this.tableConfig[index])
-      if (this.tableConfig[index].value == 'anesthesiaDoctorName') {
+      console.log(this.infoMode[index])
+      if (this.infoMode[index].value == 'anesthesiaDoctorName') {
         // console.log(this.options)
         for (var a = 0; a < this.options.length; a++) {
           if (this.options[a].userName == this.handleItem[item.value]) {
             this.onchangeData.anesthesiaDoctorName = this.options[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'firstAnesthesiaAssistantName') {
+      } else if (this.infoMode[index].value == 'firstAnesthesiaAssistantName') {
         // console.log(this.MzkUsers)
         for (var a = 0; a < this.MzkUsers.length; a++) {
           if (this.MzkUsers[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstAnesthesiaAssistantName = this.MzkUsers[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'secondAnesthesiaAssistantName') {
+      } else if (this.infoMode[index].value == 'secondAnesthesiaAssistantName') {
         // console.log(this.MzkUsers)
         for (var a = 0; a < this.MzkUsers.length; a++) {
           if (this.MzkUsers[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondAnesthesiaAssistantName = this.MzkUsers[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'firstAssistantName') {
+      } else if (this.infoMode[index].value == 'firstAssistantName') {
         // console.log(this.assistant)
         for (var a = 0; a < this.assistant.length; a++) {
           if (this.assistant[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstAssistantName = this.assistant[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'secondAssistantName') {
+      } else if (this.infoMode[index].value == 'secondAssistantName') {
         // console.log(this.assistant)
         for (var a = 0; a < this.assistant.length; a++) {
           if (this.assistant[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondAssistantName = this.assistant[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'firstOperationNurseName') {
+      } else if (this.infoMode[index].value == 'firstOperationNurseName') {
         // console.log(this.wash)
         for (var a = 0; a < this.wash.length; a++) {
           if (this.wash[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstOperationNurseName = this.wash[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'secondOperationNurseName') {
+      } else if (this.infoMode[index].value == 'secondOperationNurseName') {
         // console.log(this.wash)
         for (var a = 0; a < this.wash.length; a++) {
           if (this.wash[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondOperationNurseName = this.wash[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'firstSupplyNurseName') {
+      } else if (this.infoMode[index].value == 'firstSupplyNurseName') {
         // console.log(this.tour)
         for (var a = 0; a < this.tour.length; a++) {
           if (this.tour[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstSupplyNurseName = this.tour[a].userId;
           }
         }
-      } else if (this.tableConfig[index].value == 'secondSupplyNurseName') {
+      } else if (this.infoMode[index].value == 'secondSupplyNurseName') {
         // console.log(this.tour)
         for (var a = 0; a < this.tour.length; a++) {
           if (this.tour[a].userName == this.handleItem[item.value]) {
@@ -714,10 +720,11 @@ export default {
           }
         }
       }
+      console.log(this.onchangeData)
     },
     modalSure() {
       // console.log(this.handleItem)
-      // console.log(this.onchangeData)
+      console.log(this.onchangeData)
       let params = {
         anesthesiaDoctor: this.onchangeData.anesthesiaDoctorName,
         anesthesiaAssistant: this.onchangeData.firstAnesthesiaAssistantName,
@@ -733,7 +740,7 @@ export default {
         visitId: this.handleItem.visitId,
         state: 1,
       }
-      // console.log(params)
+      console.log(params)
       this.api.editSchedule(params)
         .then(res => {
           // this.getList(this.dateValue)

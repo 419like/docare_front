@@ -4,22 +4,22 @@
     <h1 class="title">麻醉临床信息系统</h1>
     <div class="buttonBox">
       <div class="surround">
-        <div @click="goUrl('/scheduleList')" class="systemButton" style="left:0;top:0;">
+        <div @click="goUrl('/scheduleList')" class="systemButton" style="left:100px;top:0px;">
           <span>排班系统</span>
         </div>
-        <div @click="goUrl('/operationMaster')" class="systemButton" style="left:180px;bottom:0;">
+        <div @click="goUrl('/operationMaster')" class="systemButton" style="left:280px;bottom:0px;">
           <span>麻醉手术系统</span>
         </div>
-        <div @click="goUrl('/statistics')" class="systemButton" style="left:360px;top:0;">
+        <!-- <div @click="goUrl('/statistics')" class="systemButton" style="left:360px;top:0;">
           <span>工作量统计</span>
-        </div>
-        <div @click="goUrl('/management')" class="systemButton" style="left:540px;bottom:0;">
+        </div> -->
+        <div @click="goUrl('/management')" class="systemButton" style="left:460px;top:0px;">
           <span>用户管理</span>
         </div>
-        <div @click="goUrl('/statsFilesLogin')" class="systemButton" style="left:720px;top:0;">
+        <div @click="goUrl('/statsFilesLogin')" class="systemButton" style="left:640px;bottom:0px;">
           <span>统计系统</span>
         </div>
-        <div @click="exitSystem()" class="systemButton" style="left:900px;bottom:0;">
+        <div @click="exitSystem()" class="systemButton" style="left:820px;top:0px;">
           <span>退出系统</span>
         </div>
       </div>

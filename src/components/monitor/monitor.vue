@@ -43,7 +43,8 @@
           <input style="width:45px;" @blur="dataOfChange('4',$event)" :value="currentRecvtimesUplimit" type="text">
         </div>
         <div class="sureBox">
-          <button v-if="data" @click="aboutNone">关闭</button>
+          <button @click="aboutNone">关闭</button>
+          <!-- <button v-if="data" @click="aboutNone">关闭</button> -->
           <button @click="bindingFunction()">确定</button>
         </div>
       </div>

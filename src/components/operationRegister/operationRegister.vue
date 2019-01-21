@@ -2,7 +2,7 @@
   <div class="dictionaries">
     <div style="background-color: #e3fdec;width: 1214px;z-index: 11;cursor: auto;position: absolute;top: calc(50% - 305px);height: 610px;left: calc(50% - 607px);border:2px solid #36c85f;z-index: 1;">
       <div class="load_top" style="height: 30px;background-color: rgb(54,157,200);line-height: 30px;">
-        <div>术中登记</div>
+        <div>{{titleName}}</div>
         <div @click="aboutNone" class="top_active">X</div>
       </div>
       <div style="height: 20px;width: calc(100% - 15px);padding-left: 15px;">
@@ -84,7 +84,7 @@
               <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button> -->
               <span style="padding:20px;">类型筛选</span>
               <select v-model="filterType" @change="selectTypeFun" style="width: 50px;">
-                <option value="">
+                <option value="全部">
                   全部
                 </option>
                 <option v-for="option in eventTypeList" v-bind:value="option.typeId">
@@ -305,6 +305,7 @@ import dateTime from '@/components/plugins/dateTime.vue';
 export default {
   data() {
     return {
+      titleName:'术中登记',
       dataIn: this.parentToChild.dataInParent,
       tbconfig: [{
         title: "",
@@ -488,7 +489,7 @@ export default {
       this.api.medAnesthesiaEventOpenByItemClass(params)
         .then(res => {
           this.filterType = item.typeId;
-          this.selectTypeFun();
+          // this.selectTypeFun();
           this.eventNameList = res.list;
           if (this.eventNameList.length >= 6) {
             this.widthChange = false;
@@ -1292,6 +1293,11 @@ export default {
     dateTime
   },
   mounted() {
+    if(this.config.eventNo == 0){
+      this.titleName = '术中登记'
+    }else{
+      this.titleName = '复苏登记'
+    }
     this.filterType = "全部";
     this.canselEventList();
     this.allMedAnesthesiaEventType();

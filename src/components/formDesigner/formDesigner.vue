@@ -1,6 +1,6 @@
 <template>
   <div style="height: calc(100% - 30px);background-color: #F0F0F0;">
-    <div style="height:50px;width:100%;background-color:rgb(85,126,180);">
+    <div style="height:50px;width:100%;background-color:#9ae79a">
       <div style="height:20px;width:100%;"></div>
       <div class="outBox">
         <div @click="save" title="保存" class="buttonOfTop">
@@ -347,7 +347,7 @@
         </div>
       </div>
     </div>
-    <div style="width:100%;height:100px;background-color:rgb(85,126,180);">
+    <div style="width:100%;height:100px;background-color:#9ae79a;">
     </div>
     <!-- 显示默认表格数据 -->
     <qiXieTableDefault v-if="qixieTableView" v-on:closeView="closeQixieTableView"></qiXieTableDefault>

@@ -32,20 +32,17 @@ export default {
       viewList: [],
       dateTimeValue: '',
       tableTitleList: [{
-          title: '手术费',
-          field: 'SCHEDULED_TIME'
-        },{
-          title: '麻方',
-          field: 'SCHEDULED_TIME'
-        },{
-          title: '四级',
-          field: 'SCHEDULED_TIME'
-        },{
           title: '手术间',
-          field: 'SCHEDULED_TIME'
+          field: 'OPERATING_ROOM_NO'
+        },{
+          title: '台次',
+          field: 'SEQUENCE'
         },{
           title: '科室',
-          field: 'SCHEDULED_TIME'
+          field: 'OPERATING_DEPT_NAME'
+        },{
+          title: '床号',
+          field: 'BED_NO'
         },{
           title: '姓名',
           field: 'PAT_NAME'
@@ -57,43 +54,34 @@ export default {
           field: 'PAT_AGE'
         }, {
           title: '住院号',
-          field: 'OPERATING_DEPT_NAME'
-        }, {
-          title: '床号',
-          field: 'BED_NO'
-        }, {
+          field: 'INP_NO'
+        },{
           title: '术前诊断',
-          field: 'SCHEDULED_TIME'
+          field: 'DIAG_BEFORE_OPERATION'
         },{
           title: '手术名称',
           field: 'OPERATION_NAME'
         }, {
-          title: '术者',
+          title: '主刀医生',
+          field: 'SURGEON_NAME'
+        },{
+          title: '麻醉方式',
           field: 'ANESTHESIA_METHOD'
-        }, {
+        },{
+          title: '主麻',
+          field: 'ANESTHESIA_DOCTOR_NAME'
+        },{
           title: '助手',
-          field: 'SCHEDULED_TIME'
+          field: 'ANESTHESIA_ASSISTANT_NAME'
         },{
           title: '洗手',
-          field: 'SCHEDULED_TIME'
-        },{
-          title: '主麻医生',
-          field: 'ANESTHESIA_DOCTOR_NAME'
-        }, {
-          title: '副麻医生',
-          field: ''
-        }, {
-          title: '麻醉助手',
-          field: 'ANESTHESIA_ASSISTANT_NAME'
-        }, {
-          title: '主刀医师',
-          field: 'SURGEON_NAME'
-        }, {
-          title: '洗手护士',
           field: 'FIRST_OPERATION_NURSE_NAME'
-        }, {
-          title: '巡回护士',
+        },{
+          title: '巡回',
           field: 'FIRST_SUPPLY_NURSE_NAME'
+        },{
+          title: '备注',
+          field: 'SPECIAL_EQUIPMENT'
         },
       ]
     }

@@ -19,7 +19,7 @@
             <input @keyup.enter='login' type="password" name="" style="width: 180px;height:22px;box-sizing:border-box;" ref="inputNext" v-model="loginPwd">
           </div>
           <div style="padding-right:50px;box-sizing:border-box;display:flex;flex-direction:row-reverse;margin-top:20px;height:30px;">
-            <button style="width:100px;height:30px;" class="btn">取消</button>
+            <button style="width:100px;height:30px;" @click="close" class="btn">取消</button>
             <button style="width:100px;height:30px;margin-right:5px;" class="btn" @click="login">登录</button>
             <!-- <button @click="runexe()">click</button> -->
           </div>
@@ -79,7 +79,7 @@ export default {
     getValue(obj) {
       this.$set(this.arr, obj.index, obj.value)
     },
-    getValue2(value) {},
+    getValue2(value) { },
     doSql() {
       let params = {
         sql: this.sql
@@ -113,6 +113,9 @@ export default {
           }
         })
 
+    },
+    close() {
+      ipc.send('window-close');
     },
     move(e) {
       this.$refs.block.style.width = e.x + 'px';
@@ -197,5 +200,4 @@ export default {
 .timePicker::-webkit-inner-spin-button {
   display: none;
 }
-
 </style>

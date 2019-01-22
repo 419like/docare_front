@@ -8,7 +8,7 @@
     <div ref="tableView">
       <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0" cellpadding="0">
         <thead>
-          <th v-for="item in tableTitleList" style="font-weight: normal;padding: 5px">
+          <th v-for="item in tableTitleList" style="font-weight: normal;padding: 5px" :style="{width:item.width+'px'}">
             {{item.title}}
           </th>
         </thead>
@@ -33,55 +33,72 @@ export default {
       dateTimeValue: '',
       tableTitleList: [{
           title: '手术间',
-          field: 'OPERATING_ROOM_NO'
+          field: 'OPERATING_ROOM_NO',
+          width:60,
         },{
           title: '台次',
-          field: 'SEQUENCE'
+          field: 'SEQUENCE',
+          width:40,
         },{
           title: '科室',
-          field: 'OPERATING_DEPT_NAME'
+          field: 'OPERATING_DEPT_NAME',
+          // width:50,
         },{
           title: '床号',
-          field: 'BED_NO'
+          field: 'BED_NO',
+          width:50,
         },{
           title: '姓名',
           field: 'PAT_NAME'
+          // ,width:50,
         }, {
           title: '性别',
-          field: 'SEX'
+          field: 'SEX',
+          width:40,
         }, {
           title: '年龄',
-          field: 'PAT_AGE'
+          field: 'PAT_AGE',
+          width:40,
         }, {
           title: '住院号',
-          field: 'INP_NO'
+          field: 'INP_NO',
+          // width:50,
         },{
           title: '术前诊断',
-          field: 'DIAG_BEFORE_OPERATION'
+          field: 'DIAG_BEFORE_OPERATION',
+          // width:50,
         },{
           title: '手术名称',
-          field: 'OPERATION_NAME'
+          field: 'OPERATION_NAME',
+          // width:50,
         }, {
           title: '主刀医生',
-          field: 'SURGEON_NAME'
+          field: 'SURGEON_NAME',
+          // width:50,
         },{
           title: '麻醉方式',
-          field: 'ANESTHESIA_METHOD'
+          field: 'ANESTHESIA_METHOD',
+          // width:50,
         },{
           title: '主麻',
-          field: 'ANESTHESIA_DOCTOR_NAME'
+          field: 'ANESTHESIA_DOCTOR_NAME',
+          // width:50,
         },{
           title: '助手',
-          field: 'ANESTHESIA_ASSISTANT_NAME'
+          field: 'ANESTHESIA_ASSISTANT_NAME',
+          // width:50,
         },{
           title: '洗手',
-          field: 'FIRST_OPERATION_NURSE_NAME'
+          field: 'FIRST_OPERATION_NURSE_NAME',
+          // width:50,
         },{
           title: '巡回',
-          field: 'FIRST_SUPPLY_NURSE_NAME'
+          field: 'FIRST_SUPPLY_NURSE_NAME',
+          // width:50,
         },{
           title: '备注',
-          field: 'SPECIAL_EQUIPMENT'
+          field: 'SPECIAL_EQUIPMENT',
+          width:110
         },
       ]
     }

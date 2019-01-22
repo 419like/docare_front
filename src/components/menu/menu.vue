@@ -10,15 +10,16 @@
         <div @click="goUrl('/operationMaster')" class="systemButton" style="left:280px;bottom:0px;">
           <span>麻醉手术系统</span>
         </div>
+        <!-- <div @click="runCountExe" class="systemButton" style="left:360px;top:0;"> -->
         <!-- <div @click="goUrl('/statistics')" class="systemButton" style="left:360px;top:0;">
               <span>工作量统计</span>
             </div> -->
         <div @click="goUrl('/management')" class="systemButton" style="left:460px;top:0px;">
           <span>用户管理</span>
         </div>
-        <div @click="goUrl('/statsFilesLogin')" class="systemButton" style="left:640px;bottom:0px;">
-              <span>统计系统</span>
-            </div>
+        <div @click="runCountExe" class="systemButton" style="left:640px;bottom:0px;">
+          <span>统计系统</span>
+        </div>
         <div @click="exitSystem()" class="systemButton" style="left:820px;top:0px;">
           <span>退出系统</span>
         </div>
@@ -57,6 +58,10 @@ export default {
         })
       }
 
+    },
+    //统计客户端调用
+    runCountExe(){
+      window.ipc.send('runCountExe', 'test');
     },
     // 退出系统
     exitSystem() {

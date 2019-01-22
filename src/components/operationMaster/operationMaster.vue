@@ -1692,7 +1692,6 @@ export default {
 
       if (item.formName == '麻醉记录单' || item.formName == '复苏记录单') {
         // this.getMaxTime();
-        // this.config.eventNo = 0
         this.personView = true
         let inDateTime = this.config.userInfo.inDateTime
         this.tempButtonView = false;

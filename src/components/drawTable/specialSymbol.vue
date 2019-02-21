@@ -21,7 +21,7 @@
       <!-- <p v-else-if="item == 112" style="color:Blue">△ETCO2</p> -->
       <!-- <p v-else-if="item == 188" style="color:Blue">●SpO2</p> -->
       <!-- <p v-else-if="item == 202">△f</p> -->
-      <p v-else-if="item == 208">△Ppeak</p>
+      <!-- <p v-else-if="item == 208">△Ppeak</p> -->
       <p v-else-if="item == 209">△Pplat</p>
       <p v-else-if="item == 210">△Pmean</p>
       <!-- <p v-else-if="item == 212">△TVE</p> -->

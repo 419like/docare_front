@@ -932,7 +932,7 @@ export default {
       let imageWidth = 900
       let scale1 = 1
       let scale2 = 2
-      if (this.selectFormItemTemp.formName != '麻醉记录单') {
+      if (this.selectFormItemTemp.formName != '麻醉记录单'&&this.selectFormItemTemp.formName != '复苏记录单') {
         height = 1100;
       }
       if (window.scale1) {

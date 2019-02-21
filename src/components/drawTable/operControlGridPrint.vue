@@ -87,11 +87,11 @@
             <path stroke="#000" d="m-3.3,2.49836l3.256205,-5.698359l3.256205,5.698359l-6.512411,0z" fill-opacity="null" stroke-opacity="null" fill="none" />
           </g> -->
           <!-- Ppeak CODE:208 △ 暂无此代码颜色-->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '208'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
+          <!-- <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '208'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
           <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '208'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
             <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
             <path stroke="#000" d="m-3.3,2.49836l3.256205,-5.698359l3.256205,5.698359l-6.512411,0z" fill-opacity="null" stroke-opacity="null" fill="none" />
-          </g>
+          </g> -->
           <!-- Pplat CODE:209 △ 暂无此代码颜色-->
           <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '209'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
           <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '209'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
@@ -495,7 +495,7 @@ export default {
       let spo2List = []
       for (var i = 0; i < list1.length; i++) {
         for (var j = 0; j < list1[i].length; j++) {
-          if (list1[i][j].itemCode == 188 || list1[i][j].itemCode == 212 || list1[i][j].itemCode == 112 || list1[i][j].itemCode == 202) {
+          if (list1[i][j].itemCode == 188 || list1[i][j].itemCode == 212 || list1[i][j].itemCode == 112 || list1[i][j].itemCode == 202|| list1[i][j].itemCode == 208) {
             spo2List.push({ codeName: list1[i][j].itemData.itemName, dataList: list1[i] })
             break;
           }
@@ -706,7 +706,7 @@ export default {
       let spo2List = []
       for (var i = 0; i < list.length; i++) {
         for (var j = 0; j < list[i].length; j++) {
-          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202) {
+          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202|| list1[i][j].itemCode == 208) {
             spo2List.push({ codeName: list[i][j].itemData.itemName, dataList: list[i] })
             break;
           }

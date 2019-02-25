@@ -1,6 +1,6 @@
 <template>
   <div style="display:flex;flex-direction:column;flex-wrap:wrap;-webkit-flex-wrap:wrap;" :style="{width:value.width+'px',height:value.height+'px'}">
-    <div v-if="page == false" :title="item.titleWord" v-for="(item,index) in dataBody" style="width:auto;max-width:300px;min-width:220px;font-size:12px;padding:0 20px 2px 0;display:flex;cursor:default;">
+    <div v-if="page == false" :title="item.titleWord" v-for="(item,index) in dataBody" style="width:auto;max-width:300px;min-width:220px;font-size:13px;padding:0 20px 2px 0;display:flex;cursor:default;">
       <span v-if="item.itemNom" style="padding-right:0px;width:20px;display:block;">{{item.itemNom}}.</span>
       <span v-if="item.ADDTIME" style="padding-right:5px;">{{item.ADDTIME}}</span>
       <span>{{item.ITEM_NAME}}</span>

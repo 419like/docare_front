@@ -68,10 +68,6 @@ export default {
           this.resultValue = res[field];
           if (this.boxValue.MultiSelectMode == 'false') {
             for (var i = 0; i < this.boxValue.listData.length; i++) {
-              debugger
-              console.log("res[field]="+res[field])
-              console.log("this.boxValue.listData[i].ItemValue="+this.boxValue.listData[i].ItemValue)
-              console.log("this.boxValue.defaultValue="+this.boxValue.defaultValue)
               if (res[field] == "" || res[field] == null) {
                 if (this.boxValue.listData[i].ItemValue == this.boxValue.defaultValue && this.boxValue.defaultValue) {
                   this.isSelected.push(true);

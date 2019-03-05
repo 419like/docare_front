@@ -28,9 +28,14 @@
           <span v-if="item.obj.ITEM_NAME=='七氟烷1'" style="padding: 0 2px 0 0px;">{{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}</span>
           <span v-else style="padding: 0 2px 0 0px;">{{item.obj.DOSAGE}}</span>
         </div>
-        <div v-if="item.obj.DURATIVE_INDICATOR=='1'" style="position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+2+'px',left:item.x1+item.w/2-8+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray">
+        <div v-if="item.obj.DURATIVE_INDICATOR=='1'" style="position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+2+'px',left:item.x1+item.w/2-15+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray">
           <span v-if="item.obj.ITEM_NAME=='七氟烷1'" style="padding: 0 2px 0 0px;display: block;width: 16px;text-align: center;">{{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}</span>
-          <span v-else style="padding: 0 2px 0 0px;background-color: white;">{{item.obj.DOSAGE}}</span>
+          <span v-else style="padding: 0 2px 0 0px;">{{item.obj.DOSAGE}}
+          <span v-if="item.obj.PERFORM_SPEED">
+            ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}
+          {{item.obj.PERFORM_SPEED}}{{item.obj.CONCENTRATION_UNIT}})
+          </span>
+          </span>
         </div>
         <div v-if="tipView">
           <div style="position: absolute;max-width:300px;min-width:220px;width:auto;background-color: white;border: 0.5px solid;padding: 3px;font-size: 12px;z-index: 15" :style="{ top:tipTop+'px',left:tipLeft+'px'}">
@@ -219,6 +224,7 @@ export default {
     },
     //加载病人麻醉事件里面麻醉用药数据
     selectMedAnesthesiaEventList() {
+      debugger
       if (this.setTimeId) {
         clearTimeout(this.setTimeId)
       }
@@ -238,9 +244,11 @@ export default {
       if (this.page) {
         return;
       }
+
       this.api.selectMedAnesthesiaEventList(params)
         .then(res => {
           if (res.list.length > 0) {
+
             this.dataOperChange(res.list);
           }
           // this.setTimeId = setTimeout(_ => this.selectMedAnesthesiaEventList(), this.config.timeSet)
@@ -546,7 +554,7 @@ export default {
               list[i].vStartTime = '';
               list[i].nowTime = '';
               let _this = this
-
+              // list[i].PERFORM_SPEED = list[i].PERFORM_SPEED*(eMin-sMin)
               if (list[i].DURATIVE_INDICATOR == 1 && x2 >= 0 && m < this.rows) {
                 this.createLine(x1, x2, y1, y2, list[i]);
 

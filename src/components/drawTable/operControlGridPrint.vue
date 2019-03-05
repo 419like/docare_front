@@ -706,7 +706,7 @@ export default {
       let spo2List = []
       for (var i = 0; i < list.length; i++) {
         for (var j = 0; j < list[i].length; j++) {
-          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202|| list1[i][j].itemCode == 208) {
+          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202|| list[i][j].itemCode == 208) {
             spo2List.push({ codeName: list[i][j].itemData.itemName, dataList: list[i] })
             break;
           }

@@ -2890,12 +2890,17 @@ export default {
 </script>
 <style scoped>
 .lightBox {
-  padding-top: 5px;
+  padding: 9px 0 5px 0;
   display: flex;
   align-items: center;
   position: relative;
   /* padding-left: 5px; */
   /* box-sizing: border-box; */
+}
+
+.lightBox img{
+  width:22px;
+  padding: 0 5px;
 }
 
 .inseide {

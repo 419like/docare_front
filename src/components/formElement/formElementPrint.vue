@@ -63,6 +63,9 @@
     <div v-if="value.type=='specialSymbol'">
       <specialSymbol :page="isPage.isPage" :object="value" :style="{width:value.width*0.75+'pt',height:value.height*0.75+'pt'}"></specialSymbol>
     </div>
+    <div v-if="value.type=='bodyPosition'">
+      <bodyPosition :page="isPage.isPage" :object="value" :style="{width:value.width*0.75+'pt',height:value.height*0.75+'pt',fontSize:value.fontSize+'pt'}"></bodyPosition>
+    </div>
   </div>
 </template>
 <script>
@@ -76,6 +79,7 @@ import signGridPrint from '@/components/drawTable/signGridPrint.vue';
 import dataOfGridPrint from '@/components/drawTable/dataOfGridPrint.vue';
 import appliances from '@/components/appliances/appliances.vue';
 import specialSymbol from '@/components/drawTable/specialSymbol.vue';
+import bodyPosition from '@/components/drawTable/bodyPosition.vue';
 import textareaTable from '@/components/commonSelect/textareaTable.vue';
 export default {
   data() {
@@ -103,12 +107,12 @@ export default {
     appliances,
     specialSymbol,
     textareaTable,
+    bodyPosition,
   },
-  mounted() {}
+  mounted() { }
 }
 
 </script>
 <style type="text/css" scoped>
-
 
 </style>

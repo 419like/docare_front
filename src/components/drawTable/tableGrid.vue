@@ -1,6 +1,30 @@
 <template>
   <div style="position: relative;margin:2px;">
     <div v-if="!page">
+    <div v-if="changeEventView" style="width:100%;height:100%;position:fixed;z-index:14;top:0;left:0;">
+      <div class="addData" style="height:400px;width: 600px;background-color: white;">
+          <div class="load_top">
+            <div style="line-height: 30px;font-size: 18px;color:white;">术中事件</div>
+            <div @click="closeChangeEvent"  class="top_active">X</div>
+          </div>
+          <div style="padding: 15px;display:flex;flex-wrap:wrap;height:230px;">
+            <div style="display: flex;height:21px;">
+              <div style="width: 80px;">类型</div>
+              <input type="text"  v-model="eventObj.TYPE_NAME">
+            </div>
+            <div style="display: flex;height:21px;">
+              <div style="width: 80px;">事件名称</div>
+              <input type="text"  v-model="eventObj.ITEM_NAME">
+            </div>
+            <div style="display: flex;height:21px;">
+              <div style="width: 80px;">途径</div>
+              <input type="text"  >
+            </div>
+          </div>
+      </div> 
+    </div>
+
+
       <div style="max-height: 20px;">
         <div v-for="(item,index) in xTimeArray" v-if="index%6==0" style="width: 30px;margin-left: -8px;font-size: 12px;display: inline-block;" :title="item">{{item}}</div>
         <div v-else style="width: 12px;display: inline-block;"></div>
@@ -24,7 +48,7 @@
             <line x1="0" x2="700" :y1="item.y.y1" :y2="item.y.y1" style="stroke:#8391a2;stroke-width:1px;"></line>
           </g>
         </svg>
-        <div @mousemove.stop="mouseMoveInfo(item,$event)" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-if="item.obj.DURATIVE_INDICATOR=='0'||!item.obj.DURATIVE_INDICATOR" style="csursor: pointer;position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+'px',left:item.x1-1+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray">
+        <div @mousemove.stop="mouseMoveInfo(item,$event)" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-if="item.obj.DURATIVE_INDICATOR=='0'||!item.obj.DURATIVE_INDICATOR" style="csursor: pointer;position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+'px',left:item.x1-1+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray" >
           <span v-if="item.obj.ITEM_NAME=='七氟烷1'" style="padding: 0 2px 0 0px;">{{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}</span>
           <span v-else style="padding: 0 2px 0 0px;">{{item.obj.DOSAGE}}</span>
         </div>
@@ -62,9 +86,12 @@
             </div>
           </div>
         </div>
-        <div v-if="item.obj.DURATIVE_INDICATOR=='1'" style="position: absolute;z-index: 5;" :style="{top:item.y1-svgHeight/rows/8+'px',left:item.x1+'px',width:item.w+'px',height:svgHeight/rows/4+'px'}" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-for="item in xArray" @mousemove.stop="mouseMoveInfo(item,$event)">
+        <!-- 持续用药 -->
+        <div v-if="item.obj.DURATIVE_INDICATOR=='1'" style="position: absolute;z-index: 5;" :style="{top:item.y1-svgHeight/rows/8+'px',left:item.x1+'px',width:item.w+'px',height:svgHeight/rows/4+'px'}" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-for="item in xArray" @mousemove.stop="mouseMoveInfo(item,$event)" @dblclick="openChangeEvent(item)">
         </div>
+
       </div>
+     
     </div>
     <div v-else>
       <div style="max-height: 20px;">
@@ -120,6 +147,12 @@ export default {
       percentPageData: [],
       setTimeId: '', //定时器返回的一个ID
       svgObj: '',
+      roadList: [], //途径列表
+      concentrationList: [], //用药浓度列表,
+      speedUnitList: [], //速度单位列表
+      dosageUnitsList: [], //用药单位列表
+      eventObj:{},
+      changeEventView:false,
 
     }
   },
@@ -223,8 +256,7 @@ export default {
 
     },
     //加载病人麻醉事件里面麻醉用药数据
-    selectMedAnesthesiaEventList() {
-      debugger
+    selectMedAnesthesiaEventList() { 
       if (this.setTimeId) {
         clearTimeout(this.setTimeId)
       }
@@ -598,8 +630,50 @@ export default {
         this.dataArray.push(m)
       }
     },
+    openChangeEvent(item){
+      this.eventObj = item.obj
+      this.changeEventView = true
+      
+      console.log(item)
+    },
+    //关闭修改事件界面
+    closeChangeEvent(){
+      this.changeEventView = false
+    },
+        //获取途径列表
+    getRoadList() {
+      this.api.getMedAnesthesiaCommDictByItemClass({
+        itemClass: '用药途径'
+      })
+        .then(
+        res => {
+          this.roadList = res.list;
+        });
+      this.api.getMedAnesthesiaCommDictByItemClass({
+        itemClass: '用药浓度单位'
+      })
+        .then(
+        rest => {
+          this.concentrationList = rest.list
+        });
+      this.api.getMedAnesthesiaCommDictByItemClass({
+        itemClass: '用药速度单位'
+      })
+        .then(
+        rs => {
+          this.speedUnitList = rs.list
+        });
+      this.api.getMedAnesthesiaCommDictByItemClass({
+        itemClass: '用药单位'
+      })
+        .then(
+        rt => {
+          this.dosageUnitsList = rt.list
+        });
+    },
   },
   mounted() {
+    this.getRoadList();
     this.svgObj = d3.select("#tableSvg")
     if (this.setTimeId) {
       clearTimeout(this.setTimeId);
@@ -637,6 +711,19 @@ path {
   fill: none;
   stroke: red;
   stroke-width: 1px;
+}
+
+.addData {
+  width: 700px;
+  min-height: 340px;
+  background-color: white;
+  z-index: 3;
+  position: absolute;
+  top: calc(50% - 250px);
+  left: calc(50% - 350px);
+  border: 2px solid rgb(61, 164, 206);
+  box-shadow: 1px 1px 20px #AAA;
+  background-color: #E3EFFF;
 }
 
 </style>

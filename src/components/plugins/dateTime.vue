@@ -103,9 +103,9 @@ export default {
   display: none;
 }
 
-.timePicker::-webkit-clear-button {
+/*.timePicker::-webkit-clear-button {
   display: none;
-}
+}*/
 
 input {
   height: 20px;

@@ -179,49 +179,10 @@
             </div>
           </div>
         </div>
-        <!--  <div style="display: flex;padding-left: 10px;">
-                                                                          <div>
-                                                                            <div style="width: 100px;">名称</div>
-                                                                            <div style="height: 22px;width: 100px;" v-for="item in itemNameList" @click="getDeleteItem(item)">{{item.itemName}}</div>
-                                                                          </div>
-                                                                          <div class="flex">
-                                                                            <div v-for="sItem in signdataList" @click="getSignClickData(sItem)">
-                                                                              <div style="width: 60px;" :title="sItem.time">
-                                                                                {{sItem.time | discount}}
-                                                                              </div>
-                                                                              <div v-for="(secItem,index) in sItem.dataValue" style="height: 22px;">
-                                                                                <input :value="secItem" style="width: 60px;" @change="signChange($event,index,sItem)">
-                                                                              </div>
-                                                                            </div>
-                                                                          </div>
-                                                                        </div> -->
-        <!-- <div class="flex">
-                                                                                <div v-for="(title,index) in titleArr">
-                                                                                  <div v-if="index==0" style="width: 100px;">{{title}}</div>
-                                                                                  <div v-else style="width: 60px;" :title="title">{{title | discount}}</div>
-                                                                                </div>
-                                                                              </div>
-                                                                              <div class="flex" style="overflow-y:hidden;overflow-x: auto;">
-                                                                                <div>
-                                                                                  <div style="height: 22px;width: 100px;" v-for="name in itemNameList">{{name.itemName}}</div>
-                                                                                </div>
-                                                                                <div>
-                                                                                  <div v-for="item in dataArr" class="flex">
-                                                                                    <div v-for="data in item">
-                                                                                      <input :value="data" style="width: 60px;" @change="signChange($event,index,data)">
-                                                                                    </div>
-                                                                                  </div>
-                                                                                </div>
-                                                                                <div>
-                                                                                </div>
-                                                                              </div> -->
+         
       </div>
       <div v-if="signItemView" id="codeSelect" ref="codeSelect" style="position: absolute;bottom:35px;left: 150px;">
-        <!-- <select v-model="selected" v-on:change="getSeclectItem">
-                                                                        <option v-for="option in allSignItems" v-bind:value="option">
-                                                                          {{ option.itemName }}
-                                                                        </option>
-                                                                      </select> -->
+ 
         <div>
           <input ref="inSelect" v-model="serchZmItem" @keyup="serchJmItem">
         </div>
@@ -663,7 +624,6 @@ export default {
           this.api.updateMedAnesthesiaEventBatch(arrs)
             .then(res => {
               this.selectMedAnesthesiaEventList();
-              console.log(this.filterType)
               this.changeEvent = [];
               if (res.success) {
                 alert("保存成功")

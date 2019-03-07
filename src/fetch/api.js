@@ -304,6 +304,12 @@ export default {
     medAnesthesiaEventOpenByItemClass(params, config) {
         return fetch('medicalsystem/rest/medAnesthesiaComm/medAnesthesiaEventOpenByItemClass', params)
     },
+    /*
+    获取具体麻醉事件
+    */
+    selectMapByKey(params, config) {
+        return fetch('medicalsystem/rest/medAnesthesiaComm/selectMapByKey', params)
+    },
     /**
      * 插入麻醉事件记录
      * 

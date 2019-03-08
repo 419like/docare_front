@@ -1922,7 +1922,7 @@ export default {
     this.area = window;
     let totalWidth = this.plusAll();
     this.$set(this.$data, 'totalWidth', totalWidth)
-    this.dateValue = new Date().Format("yyyy-MM-dd");
+    this.dateValue = new Date(new Date().getTime() + 24*60*60*1000).Format("yyyy-MM-dd");
     this.getList(this.dateValue);
 
   },

@@ -62,7 +62,8 @@ export default {
     },
   },
   mounted() {
-    this.startTimeValue = new Date().Format("yyyy-MM-dd");
+    let curDate = new Date();
+    this.startTimeValue = new Date(curDate.getTime() + 24*60*60*1000).Format("yyyy-MM-dd");
     this.getDate();
   }
 }

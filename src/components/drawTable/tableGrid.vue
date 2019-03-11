@@ -1,69 +1,69 @@
 <template>
   <div style="position: relative;margin:2px;">
     <div v-if="!page">
-    <div v-if="changeEventView" style="width:100%;height:100%;position:fixed;z-index:14;top:0;left:0;">
-      <div class="addData" style="height:400px;width: 600px;background-color: #E3EFFF;">
+      <div v-if="changeEventView" style="width:100%;height:100%;position:fixed;z-index:14;top:0;left:0;">
+        <div class="addData" style="height:400px;width: 600px;background-color: #E3EFFF;">
           <div class="load_top">
             <div style="line-height: 30px;font-size: 18px;color:white;">术中事件</div>
-            <div @click="closeChangeEvent"  class="top_active">X</div>
+            <div @click="closeChangeEvent" class="top_active">X</div>
           </div>
-          
+
           <div style="padding: 15px;display:flex;flex-wrap:wrap;height:230px;">
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;">类型</div>
-              <input type="text"  v-model="eventObj.TYPE_NAME">
+              <input type="text" style="width:170px;" v-model="eventObj.TYPE_NAME">
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;text-align: right">事件名称</div>
-              <input type="text"  v-model="eventObj.ITEM_NAME">
+              <input type="text" style="width:170px;" v-model="eventObj.ITEM_NAME">
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;">途径</div>
-              <select v-model="eventObj.ADMINISTRATOR" style="display:inline-block;height:100%;width:100%;height:22px;">
+              <select v-model="eventObj.ADMINISTRATOR" style="display:inline-block;height:100%;width:174px;height:22px;">
                 <option value=""></option>
                 <option style="background-color: white;" v-for="(item,index) in roadList" :value="item.itemName">{{ item.itemName }}</option>
               </select>
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;text-align: right">浓度</div>
-              <input type="text"  v-model="eventObj.CONCENTRATION">
+              <input type="text" style="width:170px;" v-model="eventObj.CONCENTRATION">
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;">单位</div>
-              <select v-model="eventObj.CONCENTRATION_UNIT" style="display:inline-block;height:100%;width:100%;height:22px;">
+              <select v-model="eventObj.CONCENTRATION_UNIT" style="display:inline-block;height:100%;width:174px;height:22px;">
                 <option value=""></option>
                 <option style="background-color: white;" v-for="(item,index) in concentrationList" :value="item.itemName">{{ item.itemName }}</option>
               </select>
             </div>
-            <div style="display: flex;height:21px;">
-              <div style="width: 80px;">速度</div>
-              <input style="width: 50px" type="text"  v-model="eventObj.PERFORM_SPEED">
+            <div style="display: flex;height:21px;width:255px;">
+              <div style="width: 80px;text-align: right;">速度</div>
+              <input style="width:170px;" type="text" v-model="eventObj.PERFORM_SPEED">
             </div>
-            <div style="display: flex;height:21px;">
-              <div style="width: 80px;text-align: right">单位</div>
-              <select v-model="eventObj.SPEED_UNIT" style="display:inline-block;height:100%;width:100%;height:22px;">
+            <div style="display: flex;height:21px;width:255px;">
+              <div style="width: 80px;">单位</div>
+              <select v-model="eventObj.SPEED_UNIT" style="display:inline-block;height:100%;width:174px;height:22px;">
                 <option value=""></option>
                 <option style="background-color: white;" v-for="(item,index) in speedUnitList" :value="item.itemName">{{ item.itemName }}</option>
               </select>
             </div>
-             <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;text-align: right">剂量</div>
-              <input style="width: 50px" type="text"  v-model="eventObj.DOSAGE">
+              <input style="width: 170px;" type="text" v-model="eventObj.DOSAGE">
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;">单位</div>
-              <select v-model="eventObj.DOSAGE_UNITS" style="display:inline-block;height:100%;width:100%;height:22px;">
+              <select v-model="eventObj.DOSAGE_UNITS" style="display:inline-block;height:100%;width:174px;height:22px;">
                 <option value=""></option>
                 <option style="background-color: white;" v-for="(item,index) in dosageUnitsList" :value="item.itemName">{{ item.itemName }}</option>
               </select>
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;text-align: right">开始时间</div>
-              <dateTime width="98" style="display:block;font-size:12px;"  v-model="eventObj.START_TIME"></dateTime>
+              <dateTime width="174" style="display:block;font-size:12px;" v-model="eventObj.START_TIME"></dateTime>
             </div>
-            <div style="display: flex;height:21px;">
+            <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;">是否持续</div>
-              <select style="width: 80px;height:22px;width:65px;display:block;font-size:12px;" v-model="eventObj.DURATIVE_INDICATOR">
+              <select style="width: 174px;height:22px;display:block;font-size:12px;" v-model="eventObj.DURATIVE_INDICATOR">
                 <option style="background-color: white;" v-bind:value="0">
                   不持续
                 </option>
@@ -72,18 +72,17 @@
                 </option>
               </select>
             </div>
-            <div style="display: flex;height:21px;">
-              <div style="width: 80px;">结束时间</div>
-              <dateTime width="98" style="display:block;font-size:12px;"  v-model="eventObj.ENDDATE"></dateTime>
+            <div style="display: flex;height:21px;width:255px;">
+              <div style="width: 80px;text-align: right;">结束时间</div>
+              <dateTime width="174" style="display:block;font-size:12px;" v-model="eventObj.ENDDATE"></dateTime>
             </div>
           </div>
           <div style="margin-right: 100px;text-align: right;">
-              <button @click="saveEvent" >保存</button>
-              <button @click="cancleEditeEvent" >取消</button>
+            <button @click="saveEvent">保存</button>
+            <button @click="cancleEditeEvent">取消</button>
           </div>
-      </div> 
-    </div>
-
+        </div>
+      </div>
 
       <div style="max-height: 20px;">
         <div v-for="(item,index) in xTimeArray" v-if="index%6==0" style="width: 30px;margin-left: -8px;font-size: 12px;display: inline-block;" :title="item">{{item}}</div>
@@ -108,17 +107,16 @@
             <line x1="0" x2="700" :y1="item.y.y1" :y2="item.y.y1" style="stroke:#8391a2;stroke-width:1px;"></line>
           </g>
         </svg>
-        <div @mousemove.stop="mouseMoveInfo(item,$event)" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-if="item.obj.DURATIVE_INDICATOR=='0'||!item.obj.DURATIVE_INDICATOR" style="csursor: pointer;position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+'px',left:item.x1-1+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray" >
+        <div @mousemove.stop="mouseMoveInfo(item,$event)" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-if="item.obj.DURATIVE_INDICATOR=='0'||!item.obj.DURATIVE_INDICATOR" style="csursor: pointer;position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+'px',left:item.x1-1+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray">
           <span v-if="item.obj.ITEM_NAME=='七氟烷1'" style="padding: 0 2px 0 0px;">{{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}</span>
           <span v-else style="padding: 0 2px 0 0px;">{{item.obj.DOSAGE}}</span>
         </div>
         <div v-if="item.obj.DURATIVE_INDICATOR=='1'" style="position: absolute;font-size: 8pt;color: blue;" :style="{top:item.top+2+'px',left:item.x1+item.w/2-15+'px',height:svgHeight/rows-3+'px',lineHeight:svgHeight/rows+'px'}" v-for="(item,index) in xArray">
           <span v-if="item.obj.ITEM_NAME=='七氟烷1'" style="padding: 0 2px 0 0px;display: block;width: 16px;text-align: center;">{{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}</span>
           <span v-else style="padding: 0 2px 0 0px;">{{item.obj.DOSAGE}}
-          <span v-if="item.obj.PERFORM_SPEED">
-            ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}
-          {{item.obj.PERFORM_SPEED}}{{item.obj.CONCENTRATION_UNIT}})
-          </span>
+            <span v-if="item.obj.PERFORM_SPEED">
+              ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}} {{item.obj.PERFORM_SPEED}}{{item.obj.CONCENTRATION_UNIT}})
+            </span>
           </span>
         </div>
         <div v-if="tipView">
@@ -151,7 +149,7 @@
         </div>
 
       </div>
-     
+
     </div>
     <div v-else>
       <div style="max-height: 20px;">
@@ -212,10 +210,10 @@ export default {
       concentrationList: [], //用药浓度列表,
       speedUnitList: [], //速度单位列表
       dosageUnitsList: [], //用药单位列表
-      eventObj:{},
-      changeEventView:false,
-      tempObj:{},
-      tempObj1:{},
+      eventObj: {},
+      changeEventView: false,
+      tempObj: {},
+      tempObj1: {},
 
     }
   },
@@ -319,7 +317,7 @@ export default {
 
     },
     //加载病人麻醉事件里面麻醉用药数据
-    selectMedAnesthesiaEventList() { 
+    selectMedAnesthesiaEventList() {
       if (this.setTimeId) {
         clearTimeout(this.setTimeId)
       }
@@ -540,7 +538,7 @@ export default {
                 if (new Date(this.config.patientMaxTime) > new Date(this.config.initTime)) {
                   list[i].vStartTime = new Date(this.config.initTime).Format("yyyy-MM-dd hh:mm:ss");
                   arrayList.push(list[i]);
-                } else {}
+                } else { }
               } else {
                 if (new Date(list[i].ENDDATE) > new Date(this.config.initTime)) {
                   list[i].vStartTime = new Date(this.config.initTime).Format("yyyy-MM-dd hh:mm:ss");
@@ -694,50 +692,50 @@ export default {
         this.dataArray.push(m)
       }
     },
-    openChangeEvent(item){
+    openChangeEvent(item) {
       this.tempObj = item.obj
       let params = {
-          patientId: item.obj.PATIENT_ID,
-          operId: item.obj.OPER_ID,
-          visitId: item.obj.VISIT_ID,
-          itemNo: item.obj.ITEM_NO,
-          eventNo: item.obj.EVENT_NO,
-          itemName: item.obj.ITEM_NAME
-        }
+        patientId: item.obj.PATIENT_ID,
+        operId: item.obj.OPER_ID,
+        visitId: item.obj.VISIT_ID,
+        itemNo: item.obj.ITEM_NO,
+        eventNo: item.obj.EVENT_NO,
+        itemName: item.obj.ITEM_NAME
+      }
       this.api.selectMapByKey(params)
-       .then(res => {
-               this.eventObj = res
-               this.tempObj1 = res
-            })
+        .then(res => {
+          this.eventObj = res
+          this.tempObj1 = res
+        })
       // this.eventObj = item.obj
-      this.changeEventView = true 
+      this.changeEventView = true
     },
     //取消编辑事件
-    cancleEditeEvent(){
+    cancleEditeEvent() {
       debugger
       let params = {
-          patientId: this.tempObj1.PATIENT_ID,
-          operId: this.tempObj1.OPER_ID,
-          visitId: this.tempObj1.VISIT_ID,
-          itemNo: this.tempObj1.ITEM_NO,
-          eventNo: this.tempObj1.EVENT_NO
-        }
+        patientId: this.tempObj1.PATIENT_ID,
+        operId: this.tempObj1.OPER_ID,
+        visitId: this.tempObj1.VISIT_ID,
+        itemNo: this.tempObj1.ITEM_NO,
+        eventNo: this.tempObj1.EVENT_NO
+      }
       this.api.selectMapByKey(params)
-       .then(res => {
-               this.eventObj = res
-               this.tempObj1 = res
-            })
+        .then(res => {
+          this.eventObj = res
+          this.tempObj1 = res
+        })
       // this.eventObj = this.tempObj1
 
     },
     //关闭修改事件界面
-    closeChangeEvent(){
+    closeChangeEvent() {
       this.eventObj = {}
       this.tempObj1 = {}
       this.tempObj = {}
       this.changeEventView = false
     },
-        //获取途径列表
+    //获取途径列表
     getRoadList() {
       this.api.getMedAnesthesiaCommDictByItemClass({
         itemClass: '用药途径'
@@ -769,13 +767,13 @@ export default {
         });
     },
     //保存事件修改
-    saveEvent(){  
+    saveEvent() {
       // console.log(this.tempObj)
       // console.log(this.eventObj)
       // return
       // console.log(new Date(this.tempObj.START_TIME))
       // console.log(new Date(this.eventObj.START_TIME))
-      if(this.tempObj.START_TIME!=null&&new Date(this.tempObj.START_TIME)<new Date(this.eventObj.START_TIME)){
+      if (this.tempObj.START_TIME != null && new Date(this.tempObj.START_TIME) < new Date(this.eventObj.START_TIME)) {
         //插入一条术中登记记录
         let arr1 = []
         let arr2 = []
@@ -791,60 +789,60 @@ export default {
           performSpeed: this.eventObj.PERFORM_SPEED,
           speedUnit: this.eventObj.SPEED_UNIT,
           dosage: this.eventObj.DOSAGE,
-          itemClass: this.eventObj.ITEM_CLASS, 
+          itemClass: this.eventObj.ITEM_CLASS,
           dosageUnits: this.eventObj.DOSAGE_UNITS,
           durativeIndicator: this.eventObj.DURATIVE_INDICATOR,
           startTime: new Date(this.eventObj.START_TIME),
           endDate: this.eventObj.ENDDATE ? new Date(this.eventObj.ENDDATE) : '',
-        } 
-        if(this.eventObj.ENDDATE==this.tempObj.ENDDATE){
+        }
+        if (this.eventObj.ENDDATE == this.tempObj.ENDDATE) {
           insertparams.endDate = ''
         }
         arr1.push(insertparams)
         this.api.insertMedAnesthesiaEventBatch(arr1)
-          .then(res=>{
+          .then(res => {
             let updateparms = {
-            patientId: this.tempObj.PATIENT_ID,
-            operId: this.tempObj.OPER_ID,
-            visitId: this.tempObj.VISIT_ID,
-            itemNo: this.tempObj.ITEM_NO,
-            eventNo: this.tempObj.EVENT_NO,
-            itemName: this.tempObj.ITEM_NAME,
-            administrator: this.tempObj.ADMINISTRATOR,
-            concentration: this.tempObj.CONCENTRATION,
-            concentrationUnit: this.tempObj.CONCENTRATION_UNIT,
-            performSpeed: this.tempObj.PERFORM_SPEED,
-            speedUnit: this.tempObj.SPEED_UNIT,
-            dosage: this.tempObj.DOSAGE,
-            itemClass: this.tempObj.ITEM_CLASS,
-            dosageUnits: this.tempObj.DOSAGE_UNITS,
-            durativeIndicator: this.tempObj.DURATIVE_INDICATOR,
-            startTime: new Date(this.tempObj.START_TIME),
-            endDate: new Date(this.eventObj.START_TIME),
-        }
-        if(this.tempObj1.ENDDATE==null||this.tempObj1.ENDDATE){
-          updateparms.endDate = new Date(this.eventObj.START_TIME)
-        }
-        else{
-           updateparms.endDate = new Date(this.tempObj1.ENDDATE)
-        }
-      arr2.push(updateparms)
-      this.api.updateMedAnesthesiaEventBatch(arr2)
-            .then(rest => { 
-              if (rest.success) {
-                this.xTimeInit();
-                alert("保存成功")
-              } else {
-                alert("保存失败")
-              }
-            })
+              patientId: this.tempObj.PATIENT_ID,
+              operId: this.tempObj.OPER_ID,
+              visitId: this.tempObj.VISIT_ID,
+              itemNo: this.tempObj.ITEM_NO,
+              eventNo: this.tempObj.EVENT_NO,
+              itemName: this.tempObj.ITEM_NAME,
+              administrator: this.tempObj.ADMINISTRATOR,
+              concentration: this.tempObj.CONCENTRATION,
+              concentrationUnit: this.tempObj.CONCENTRATION_UNIT,
+              performSpeed: this.tempObj.PERFORM_SPEED,
+              speedUnit: this.tempObj.SPEED_UNIT,
+              dosage: this.tempObj.DOSAGE,
+              itemClass: this.tempObj.ITEM_CLASS,
+              dosageUnits: this.tempObj.DOSAGE_UNITS,
+              durativeIndicator: this.tempObj.DURATIVE_INDICATOR,
+              startTime: new Date(this.tempObj.START_TIME),
+              endDate: new Date(this.eventObj.START_TIME),
+            }
+            if (this.tempObj1.ENDDATE == null || this.tempObj1.ENDDATE) {
+              updateparms.endDate = new Date(this.eventObj.START_TIME)
+            }
+            else {
+              updateparms.endDate = new Date(this.tempObj1.ENDDATE)
+            }
+            arr2.push(updateparms)
+            this.api.updateMedAnesthesiaEventBatch(arr2)
+              .then(rest => {
+                if (rest.success) {
+                  this.xTimeInit();
+                  alert("保存成功")
+                } else {
+                  alert("保存失败")
+                }
+              })
           })
 
-          
+
 
       }
       //否则更新
-      else{
+      else {
         let arr = []
         let params = {
           patientId: this.eventObj.PATIENT_ID,
@@ -866,18 +864,18 @@ export default {
           endDate: this.eventObj.ENDDATE ? new Date(this.eventObj.ENDDATE) : '',
         }
 
-      arr.push(params)
-      this.api.updateMedAnesthesiaEventBatch(arr)
-            .then(res => {
-              if (res.success) {
-                this.xTimeInit();
-                alert("保存成功")
-              } else {
-                alert("保存失败")
-              }
-            })
+        arr.push(params)
+        this.api.updateMedAnesthesiaEventBatch(arr)
+          .then(res => {
+            if (res.success) {
+              this.xTimeInit();
+              alert("保存成功")
+            } else {
+              alert("保存失败")
+            }
+          })
       }
-      
+
     }
   },
   mounted() {
@@ -933,5 +931,4 @@ path {
   box-shadow: 1px 1px 20px #AAA;
   background-color: #E3EFFF;
 }
-
 </style>

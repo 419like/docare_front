@@ -567,6 +567,11 @@ export default {
         type: "specialSymbol",
         width: "140",
         height: "400",
+      },{
+        text: "人体位置图",
+        type: "bodyPosition",
+        width: "200",
+        height: "130",
       },
       ],
       handleItem: {},

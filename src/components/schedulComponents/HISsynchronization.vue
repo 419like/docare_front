@@ -30,7 +30,14 @@ export default {
       }
       this.api.synchroSchedule(params)
         .then(res => {
-          alert("同步完成");
+          if(res.success){
+             alert("同步完成");
+          }
+          else
+          {
+             alert("同步失败");
+          }
+         
         })
 
     },

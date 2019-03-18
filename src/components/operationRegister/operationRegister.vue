@@ -80,8 +80,8 @@
           </div>
           <div style="height: 60px;padding-top: 10px;padding-left:15px;display:flex;justify-content: space-between;box-sizing:border-box;">
             <div style="font-size:12px;">
-              <!--               <button style="width: 70px;font-size:12px;height:25px;" @click="saveTempletViewFun">保存模板</button>
-                  <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button> -->
+                            <button style="width: 70px;font-size:12px;height:25px;" @click="saveTempletViewFun">保存模板</button>
+                  <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button>
               <span style="padding:20px;">类型筛选</span>
               <select v-model="filterType" @change="selectTypeFun" style="width: 50px;">
                 <option value="全部">

@@ -2,7 +2,7 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'http://182.61.36.247:8080';
 // axios.defaults.baseURL = 'http://111.111.111.156:8080';
 axios.defaults.baseURL = 'http://192.168.1.12:8080';
-// axios.defaults.baseURL = 'http://localhost:8088';
+axios.defaults.baseURL = 'http://localhost:8088';
 //返回状态判断
 axios.interceptors.response.use((res) => {
     return res;
@@ -130,11 +130,18 @@ export default {
         return fetch('medicalsystem/rest/medHisUsers/getHsUsers', params)
     },
     /**
-     * 获取获取麻醉科的医生
+     * 获取麻醉科的医生
      * 
      */
     getMzkUsers(params, config) {
         return fetch('medicalsystem/rest/medHisUsers/getMzkUsers', params)
+    },
+    /**
+     * 获取手术助手
+     * 
+     */
+    getAnesHsUsers(params, config) {
+        return fetch('medicalsystem/rest/medHisUsers/getAnesHsUsers', params)
     },
     /**
      * 获取麻醉医生护士角色

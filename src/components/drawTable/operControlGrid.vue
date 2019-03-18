@@ -578,6 +578,7 @@ export default {
         }
       }
       this.spo2List = spo2List;
+
       this.calculatePath();
     },
 
@@ -796,6 +797,7 @@ export default {
         }
       }
       this.spo2List = spo2List;
+      console.log(spo2List)
       this.calculatePath();
       return false;
       // var list = this.signNameLisg;

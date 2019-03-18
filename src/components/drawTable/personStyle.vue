@@ -93,8 +93,7 @@ export default {
               })
               .then(rest => {
                 let list = []
-                if (rest.length > 0) {
-
+                if (rest.length > 0) {  
                   for (var i = 0; i < rest.length; i++) {
                     list.push(rest[i].itemCode)
                   }
@@ -114,8 +113,7 @@ export default {
 
           })
     },
-    commitSave() {
-      console.log(this.itemNameList)
+    commitSave() { 
       let params = []
       let depar = []
       this.itemNameList.forEach(item => {

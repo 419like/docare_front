@@ -81,7 +81,7 @@
           <div style="height: 60px;padding-top: 10px;padding-left:15px;display:flex;justify-content: space-between;box-sizing:border-box;">
             <div style="font-size:12px;"> 
                   <button style="width: 70px;font-size:12px;height:25px;" @click="saveTempletViewFun">保存模板</button>
-                  <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button> 
+                  <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button>  
               <span style="padding:20px;">类型筛选</span>
               <select v-model="filterType" @change="selectTypeFun" style="width: 50px;">
                 <option value="全部">
@@ -156,7 +156,8 @@
         <!-- 上部时间栏目 -->
         <div ref="timeScroll" style="width: calc(100% - 110px);position: absolute;top:0;left: 100px;overflow:hidden;">
           <div class="flex" :style="{width: signdataList.length*60+'px'}">
-            <div v-for="sItem in signdataList" @click="getSignClickData(sItem)">
+            <div v-for="sItem in signdataList" @click="getSignClickData(sItem)" style="position:relative;">
+              <input type="text" style="width:100%;height:100%;position:absolute;border:0;readonly:true;opacity:0;">
               <div style="width: 60px;height: 18px;border:1px solid #C1C1C1;box-sizing:border-box;" :class="{chooseClass:sItem.thoose}" :title="sItem.time">
                 {{sItem.time | discount}}
               </div>
@@ -900,6 +901,7 @@ export default {
     //获取生命体征选中列
     getSignClickData(item) {
       console.log(item)
+      let sameItem = false;
       if (this.getMoreData == false) {
         this.getClickSignData = item;
         for (var a = 0; a < this.signdataList.length; a++) {
@@ -907,8 +909,20 @@ export default {
         }
         item.thoose = true;
       } else {
-        this.getClickSignData.push(item);
-        item.thoose = true;
+        for (var b = 0; b < this.getClickSignData.length; b++) {
+          if (this.getClickSignData[b].time == item.time) {
+            sameItem = true;
+            break;
+          } else {
+
+          }
+          console.log(sameItem)
+        }
+        if (sameItem == false) {
+          this.getClickSignData.push(item);
+          item.thoose = true;
+        }
+
       }
       console.log(this.getClickSignData)
       console.log(this.getClickSignData.length)
@@ -921,13 +935,13 @@ export default {
         return false;
       } else if (this.getClickSignData.length) {
         let paramsArray = [];
-        for(var len = 0;len<this.getClickSignData.length;len++){
+        for (var len = 0; len < this.getClickSignData.length; len++) {
           paramsArray.push({
-          patientId: this.objectItem.patientId,
-          operId: this.objectItem.operId,
-          visitId: this.objectItem.visitId,
-          eventNo: this.config.eventNo,
-          timePoint: this.stringToDate(this.getClickSignData[len].time),
+            patientId: this.objectItem.patientId,
+            operId: this.objectItem.operId,
+            visitId: this.objectItem.visitId,
+            eventNo: this.config.eventNo,
+            timePoint: this.stringToDate(this.getClickSignData[len].time),
           })
         }
         this.api.deleteBatchMedPatientMonitorData(paramsArray)

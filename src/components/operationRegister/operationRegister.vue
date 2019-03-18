@@ -79,9 +79,9 @@
             </div>
           </div>
           <div style="height: 60px;padding-top: 10px;padding-left:15px;display:flex;justify-content: space-between;box-sizing:border-box;">
-            <div style="font-size:12px;">
-                            <button style="width: 70px;font-size:12px;height:25px;" @click="saveTempletViewFun">保存模板</button>
-                  <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button>
+            <div style="font-size:12px;"> 
+                  <button style="width: 70px;font-size:12px;height:25px;" @click="saveTempletViewFun">保存模板</button>
+                  <button style="width: 70px;font-size:12px;height:25px;" @click="openTempLet">套用模板</button> 
               <span style="padding:20px;">类型筛选</span>
               <select v-model="filterType" @change="selectTypeFun" style="width: 50px;">
                 <option value="全部">
@@ -148,7 +148,7 @@
       <div style="height: 25px;padding-left: 15px;">
         <span style="line-height: 25px;font-size:14px;">体征数据</span>
       </div>
-      <div style="height: 145px;background-color:#fff;font-size:12px;position: relative;width: 1214px;" ref="signContent">
+      <div style="height: 145px;background-color:#fff;font-size:12px;position: relative;width: 1214px;" ref="signContent" @keydown.17="moreFun" @keyup.17="exitMore">
         <!-- 名称 -->
         <div style="position: absolute;top: 0;left:10px;width: 90px;">
           <div style="width: 90px;height: 18px;font-weight: 600">名称</div>
@@ -179,10 +179,10 @@
             </div>
           </div>
         </div>
-         
+
       </div>
       <div v-if="signItemView" id="codeSelect" ref="codeSelect" style="position: absolute;bottom:35px;left: 150px;">
- 
+
         <div>
           <input ref="inSelect" v-model="serchZmItem" @keyup="serchJmItem">
         </div>
@@ -381,6 +381,7 @@ export default {
       serchZmItem: '',
       showItemList: [],
       morClick: false,
+      getMoreData: false,
     }
   },
   methods: {
@@ -880,13 +881,37 @@ export default {
       this.changeEvent.push(params);
       this.updateEvent = params;
     },
+    // 获取生命体征多选
+    moreFun() {
+      this.getMoreData = true;
+      if (this.getClickSignData.length) {
+
+      } else {
+        let firstData = this.getClickSignData;
+        this.getClickSignData = [];
+        this.getClickSignData.push(firstData);
+      }
+
+      console.log(this.getClickSignData)
+    },
+    exitMore() {
+      this.getMoreData = false;
+    },
     //获取生命体征选中列
     getSignClickData(item) {
-      this.getClickSignData = item;
-      for (var a = 0; a < this.signdataList.length; a++) {
-        this.signdataList[a].thoose = false;
+      console.log(item)
+      if (this.getMoreData == false) {
+        this.getClickSignData = item;
+        for (var a = 0; a < this.signdataList.length; a++) {
+          this.signdataList[a].thoose = false;
+        }
+        item.thoose = true;
+      } else {
+        this.getClickSignData.push(item);
+        item.thoose = true;
       }
-      item.thoose = true;
+      console.log(this.getClickSignData)
+      console.log(this.getClickSignData.length)
 
     },
     //删除生命体征某个时间点
@@ -894,24 +919,45 @@ export default {
       if (this.getClickSignData == '') {
         alert("请选择删除的时间点数据")
         return false;
+      } else if (this.getClickSignData.length) {
+        let paramsArray = [];
+        for(var len = 0;len<this.getClickSignData.length;len++){
+          paramsArray.push({
+          patientId: this.objectItem.patientId,
+          operId: this.objectItem.operId,
+          visitId: this.objectItem.visitId,
+          eventNo: this.config.eventNo,
+          timePoint: this.stringToDate(this.getClickSignData[len].time),
+          })
+        }
+        this.api.deleteBatchMedPatientMonitorData(paramsArray)
+          .then(res => {
+            if (res.success) {
+              this.getSignName();
+              alert("删除成功")
+            } else {
+              alert("删除失败")
+            }
+          })
+      } else {
+        let params = {
+          patientId: this.objectItem.patientId,
+          operId: this.objectItem.operId,
+          visitId: this.objectItem.visitId,
+          eventNo: this.config.eventNo,
+          timePoint: this.stringToDate(this.getClickSignData.time),
+        }
+        this.api.deleteMedPatientMonitorData(params)
+          .then(res => {
+            if (res.success) {
+              this.getSignName();
+              alert("删除成功")
+            } else {
+              alert("删除失败")
+            }
+          })
       }
-      let params = {
-        patientId: this.objectItem.patientId,
-        operId: this.objectItem.operId,
-        visitId: this.objectItem.visitId,
-        eventNo: this.config.eventNo,
-        timePoint: this.stringToDate(this.getClickSignData.time),
-      }
-      this.api.deleteMedPatientMonitorData(params)
-        .then(res => {
-          if (res.success) {
-            this.getClickSignData = "";
-            this.getSignName();
-            alert("删除成功")
-          } else {
-            alert("删除失败")
-          }
-        })
+      this.getClickSignData = "";
     },
     insertView() {
       this.addView = !this.addView;
@@ -1086,7 +1132,7 @@ export default {
         this.itemNameList[h].choose = false;
       }
       item.choose = true;
-      
+
     },
     //得到添加生命体征项目
     getSeclectItem(item) {

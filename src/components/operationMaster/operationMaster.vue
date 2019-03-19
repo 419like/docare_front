@@ -1031,17 +1031,17 @@ export default {
     },
     searchPatientList() {
       if (this.getTime == "" && this.operStatus == "" && this.patientName == "" && this.patientId == "" && this.operatingRoomNo == "") {
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = (now.getMonth() + 1).toString();
-        var day = (now.getDate()).toString();
-        if (month.length == 1) {
-          month = "0" + month;
-        }
-        if (day.length == 1) {
-          day = "0" + day;
-        }
-        this.getTime = year + "-" + month + "-" + day;
+        // var now = new Date();
+        // var year = now.getFullYear();
+        // var month = (now.getMonth() + 1).toString();
+        // var day = (now.getDate()).toString();
+        // if (month.length == 1) {
+        //   month = "0" + month;
+        // }
+        // if (day.length == 1) {
+        //   day = "0" + day;
+        // }
+        // this.getTime = year + "-" + month + "-" + day;
       }
       let params = {
         count: this.size,
@@ -1150,17 +1150,17 @@ export default {
     },
     searchPatientListScreen() {
       if (this.getTime == "" && this.operStatus == "" && this.patientName == "" && this.patientId == "" && this.operatingRoomNo == "") {
-        var now = new Date();
-        var year = now.getFullYear();
-        var month = (now.getMonth() + 1).toString();
-        var day = (now.getDate()).toString();
-        if (month.length == 1) {
-          month = "0" + month;
-        }
-        if (day.length == 1) {
-          day = "0" + day;
-        }
-        this.getTime = year + "-" + month + "-" + day;
+        // var now = new Date();
+        // var year = now.getFullYear();
+        // var month = (now.getMonth() + 1).toString();
+        // var day = (now.getDate()).toString();
+        // if (month.length == 1) {
+        //   month = "0" + month;
+        // }
+        // if (day.length == 1) {
+        //   day = "0" + day;
+        // }
+        // this.getTime = year + "-" + month + "-" + day;
       }
       let params = {
         count: this.size,

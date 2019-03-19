@@ -1,7 +1,7 @@
 import axios from 'axios'
 // axios.defaults.baseURL = 'http://182.61.36.247:8080';
-// axios.defaults.baseURL = 'http://111.111.111.156:8080';
-// axios.defaults.baseURL = 'http://192.168.1.12:8080';
+// axios.defaults.baseURL = 'http://111.111.111.156:8080'; 
+// axios.defaults.baseURL = 'http://192.168.1.12:8080'; 
 axios.defaults.baseURL = 'http://localhost:8088';
 //返回状态判断
 axios.interceptors.response.use((res) => {
@@ -28,7 +28,7 @@ export function fetch(url, params, config) {
                 "Accept": "*/*",
             },
             datatype: "json",
-        }).then(function (response) {
+        }).then(function(response) {
             resolve(response.data);
             // if (!config.noAlert) {
             //   if (response.data.success) {
@@ -38,7 +38,7 @@ export function fetch(url, params, config) {
             //   } else {
             //   }
             // }
-        }).catch(function (error) {
+        }).catch(function(error) {
             reject(error);
             alert("网络请求失败")
         });
@@ -130,11 +130,18 @@ export default {
         return fetch('medicalsystem/rest/medHisUsers/getHsUsers', params)
     },
     /**
-     * 获取获取麻醉科的医生
+     * 获取麻醉科的医生
      * 
      */
     getMzkUsers(params, config) {
         return fetch('medicalsystem/rest/medHisUsers/getMzkUsers', params)
+    },
+    /**
+     * 获取手术助手
+     * 
+     */
+    getAnesHsUsers(params, config) {
+        return fetch('medicalsystem/rest/medHisUsers/getAnesHsUsers', params)
     },
     /**
      * 获取麻醉医生护士角色
@@ -401,9 +408,9 @@ export default {
         return fetch('medicalsystem/rest/medSignData/deleteMedPatientMonitorData', params)
     },
     /**
-  * 批量删除病人某个时间点的生命体征数据
-  * 
-  */
+     * 批量删除病人某个时间点的生命体征数据
+     * 
+     */
     deleteBatchMedPatientMonitorData(params, config) {
         return fetch('medicalsystem/rest/medSignData/deleteBatchMedPatientMonitorData', params)
     },

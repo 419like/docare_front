@@ -1502,13 +1502,17 @@ export default {
         .then(res => {
           this.options = res.list;
           this.MzkUsers = res.list;
-          this.assistant = res.list;
+          // this.assistant = res.list;
         })
       //获取洗手 巡回护士
       this.api.getSupplyNurseList(params)
         .then(res => {
           this.wash = res.list;
           this.tour = res.list;
+        })
+      this.api.getAnesHsUsers(params)
+        .then(rest => {
+          this.assistant = rest.list;
         })
       // this.api.selectUserListByType({ userType: '主麻医师' })
       //   .then(res => {

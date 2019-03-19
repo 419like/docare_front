@@ -178,7 +178,7 @@
           </div>
           <div v-if="concealmentThreeData" style="padding:5px;display:flex;flex-wrap:wrap;">
             <button @click="dictShow" class="list_button">字典</button>
-            <!-- <button @click="tempManage" class="list_button">模板管理</button> -->
+            <button @click="tempManage" class="list_button">模板管理</button>
           </div>
         </div>
         <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">

@@ -571,7 +571,7 @@ export default {
       let spo2List = []
       for (var i = 0; i < list1.length; i++) {
         for (var j = 0; j < list1[i].length; j++) {
-          if (list1[i][j].itemCode == 188 || list1[i][j].itemCode == 212 || list1[i][j].itemCode == 112 || list1[i][j].itemCode == 202|| list[i][j].itemCode == 208) {
+          if (list1[i][j].itemCode == 188 || list1[i][j].itemCode == 212 || list1[i][j].itemCode == 112 || list1[i][j].itemCode == 202 || list[i][j].itemCode == 208) {
             spo2List.push({ codeName: list1[i][j].itemData.itemName, dataList: list1[i] })
             break;
           }
@@ -790,7 +790,7 @@ export default {
       let spo2List = []
       for (var i = 0; i < list.length; i++) {
         for (var j = 0; j < list[i].length; j++) {
-          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202|| list[i][j].itemCode == 208) {
+          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202 || list[i][j].itemCode == 208) {
             spo2List.push({ codeName: list[i][j].itemData.itemName, dataList: list[i] })
             break;
           }
@@ -883,6 +883,4 @@ export default {
 
 </script>
 <style scoped>
-
-
 </style>

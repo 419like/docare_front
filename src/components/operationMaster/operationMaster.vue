@@ -393,7 +393,7 @@
                                     <div class="left15">急诊择期</div>
                                     <div class="in_con" style="width:100px;">
                                       <span v-if="patientInfo.EMERGENCY_INDICATOR=='1'">急诊</span>
-                                      <span v-if="patientInfo.EMERGENCY_INDICATOR=='0'">急诊</span>
+                                      <span v-if="patientInfo.EMERGENCY_INDICATOR=='0'">择期</span>
                                     </div>
                                   </div>
                                   <div class="container">
@@ -1653,8 +1653,6 @@ export default {
           });
     },
     scollFun(event) {
-      console.log(event)
-      console.log
       if (event.deltaY > 0) {
         // 滚轮向下
         this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft + 100
@@ -1805,6 +1803,7 @@ export default {
             }
           })
       } else if (item.formName == '手术清点单') {
+        this.config.eventType = 0
         let params = {
           formName: item.formName,
           id: item.id
@@ -1861,6 +1860,9 @@ export default {
         this.tempButtonView = true;
         this.initComponementConfig();
       } else {
+        if (item.formName == '手术护理单') {
+          this.config.eventType = 1
+        }
         this.tempButtonView = false;
         this.initComponementConfig();
         let params = {
@@ -2262,7 +2264,7 @@ export default {
     },
     //提交单子修改
     submitSaveForm() {
-      if (this.selectFormItemTemp.formName == '手术清点单') {
+      if (this.selectFormItemTemp.formName == '手术清点单' || '手术护理单') {
         Bus.$emit('saveFun', '保存');
         alert("保存成功")
       } else {

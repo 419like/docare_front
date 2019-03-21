@@ -7,7 +7,6 @@
             <div style="line-height: 30px;font-size: 18px;color:white;">术中事件</div>
             <div @click="closeChangeEvent" class="top_active">X</div>
           </div>
-
           <div style="padding: 15px;display:flex;flex-wrap:wrap;height:230px;">
             <div style="display: flex;height:21px;width:255px;">
               <div style="width: 80px;">类型</div>
@@ -83,7 +82,6 @@
           </div>
         </div>
       </div>
-
       <div style="max-height: 20px;">
         <div v-for="(item,index) in xTimeArray" v-if="index%6==0" style="width: 30px;margin-left: -8px;font-size: 12px;display: inline-block;" :title="item">{{item}}</div>
         <div v-else style="width: 12px;display: inline-block;"></div>
@@ -147,9 +145,7 @@
         <!-- 持续用药 -->
         <div v-if="item.obj.DURATIVE_INDICATOR=='1'" style="position: absolute;z-index: 5;" :style="{top:item.y1-svgHeight/rows/8+'px',left:item.x1+'px',width:item.w+'px',height:svgHeight/rows/4+'px'}" @mouseenter="showTipInfo(item,$event)" @mouseleave="hideTipInfo()" v-for="item in xArray" @mousemove.stop="mouseMoveInfo(item,$event)" @dblclick="openChangeEvent(item)">
         </div>
-
       </div>
-
     </div>
     <div v-else>
       <div style="max-height: 20px;">
@@ -538,7 +534,7 @@ export default {
                 if (new Date(this.config.patientMaxTime) > new Date(this.config.initTime)) {
                   list[i].vStartTime = new Date(this.config.initTime).Format("yyyy-MM-dd hh:mm:ss");
                   arrayList.push(list[i]);
-                } else { }
+                } else {}
               } else {
                 if (new Date(list[i].ENDDATE) > new Date(this.config.initTime)) {
                   list[i].vStartTime = new Date(this.config.initTime).Format("yyyy-MM-dd hh:mm:ss");
@@ -738,33 +734,33 @@ export default {
     //获取途径列表
     getRoadList() {
       this.api.getMedAnesthesiaCommDictByItemClass({
-        itemClass: '用药途径'
-      })
+          itemClass: '用药途径'
+        })
         .then(
-        res => {
-          this.roadList = res.list;
-        });
+          res => {
+            this.roadList = res.list;
+          });
       this.api.getMedAnesthesiaCommDictByItemClass({
-        itemClass: '用药浓度单位'
-      })
+          itemClass: '用药浓度单位'
+        })
         .then(
-        rest => {
-          this.concentrationList = rest.list
-        });
+          rest => {
+            this.concentrationList = rest.list
+          });
       this.api.getMedAnesthesiaCommDictByItemClass({
-        itemClass: '用药速度单位'
-      })
+          itemClass: '用药速度单位'
+        })
         .then(
-        rs => {
-          this.speedUnitList = rs.list
-        });
+          rs => {
+            this.speedUnitList = rs.list
+          });
       this.api.getMedAnesthesiaCommDictByItemClass({
-        itemClass: '用药单位'
-      })
+          itemClass: '用药单位'
+        })
         .then(
-        rt => {
-          this.dosageUnitsList = rt.list
-        });
+          rt => {
+            this.dosageUnitsList = rt.list
+          });
     },
     //保存事件修改
     saveEvent() {
@@ -822,8 +818,7 @@ export default {
             }
             if (this.tempObj1.ENDDATE == null || this.tempObj1.ENDDATE) {
               updateparms.endDate = new Date(this.eventObj.START_TIME)
-            }
-            else {
+            } else {
               updateparms.endDate = new Date(this.tempObj1.ENDDATE)
             }
             arr2.push(updateparms)
@@ -931,4 +926,5 @@ path {
   box-shadow: 1px 1px 20px #AAA;
   background-color: #E3EFFF;
 }
+
 </style>

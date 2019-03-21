@@ -109,19 +109,21 @@ export default {
   props: ['object', 'page'],
   methods: {
     selectQiXieTitle() {
+      //获取title列表数据显示
       let params = {}
       this.api.selectQiXieTitle(params)
         .then(res => {
           this.titileList = res;
         })
 
+
       let params1 = {
         patientId: this.config.userInfo.patientId,
         visitId: this.config.userInfo.visitId,
-        operId: this.config.userInfo.operId
+        operId: this.config.userInfo.operId,
+        eventType: this.config.eventType
       }
-
-      //查询病人
+      //查询病人的清点单数据
       this.api.getPatientQiXieList(params1)
         .then(rest => {
           this.isNullArry = rest;
@@ -177,6 +179,7 @@ export default {
           yPosition: y,
           xPosition: x,
           positionValue: ev.currentTarget.value,
+          eventType: this.config.eventType,
           addFlag: true,
         })
       } else {
@@ -205,7 +208,8 @@ export default {
               operId: this.config.userInfo.operId,
               yPosition: y,
               xPosition: x,
-              positionValue: ev.currentTarget.value
+              positionValue: ev.currentTarget.value,
+              eventType: this.config.eventType
             })
           }
         } else {
@@ -215,7 +219,8 @@ export default {
             operId: this.config.userInfo.operId,
             yPosition: y,
             xPosition: x,
-            positionValue: ev.currentTarget.value
+            positionValue: ev.currentTarget.value,
+            eventType: this.config.eventType
           })
         }
       } else {
@@ -237,7 +242,8 @@ export default {
               operId: this.config.userInfo.operId,
               yPosition: y,
               xPosition: x,
-              positionValue: ev.currentTarget.value
+              positionValue: ev.currentTarget.value,
+              eventType: this.config.eventType
             })
           }
         } else {
@@ -247,7 +253,8 @@ export default {
             operId: this.config.userInfo.operId,
             yPosition: y,
             xPosition: x,
-            positionValue: ev.currentTarget.value
+            positionValue: ev.currentTarget.value,
+            eventType: this.config.eventType
           })
         }
       }
@@ -261,7 +268,7 @@ export default {
           item.patientId = this.config.userInfo.patientId;
           item.visitId = this.config.userInfo.visitId;
           item.operId = this.config.userInfo.operId;
-
+          item.eventType = this.config.eventType;
         })
         this.api.insertBatchMedQiXieQingDian(list)
           .then(rest => {
@@ -382,7 +389,7 @@ export default {
         })
     },
     applyTemplate() {
-      debugger
+
       if (JSON.stringify(this.chooseItem) == "{}") {
         alert("选择模板")
         return false;

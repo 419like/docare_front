@@ -1,18 +1,18 @@
 <template>
   <div>
     <!-- <p style="color:SeaGreen">●心率</p>
-                                              <p style="color:DarkGreen">●PULSE</p>
-                                              <p style="color:red">∨收缩压</p>
-                                              <p style="color:red">∧舒张压</p>
-                                              <p style="color:pink">○自主呼吸</p>
-                                              <p style="color:SpringGreen">△中心静脉压</p>
-                                              <p style="color:DarkGreen">X麻醉开始</p>
-                                              <p style="color:DarkGreen">⊙手术开始</p>
-                                              <p style="color:red">X手术结束</p>
-                                              <p style="color:red">ⓧ麻醉结束</p> -->
+          <p style="color:DarkGreen">●PULSE</p>
+          <p style="color:red">∨收缩压</p>
+          <p style="color:red">∧舒张压</p>
+          <p style="color:pink">○自主呼吸</p>
+          <p style="color:SpringGreen">△中心静脉压</p>
+          <p style="color:DarkGreen">X麻醉开始</p>
+          <p style="color:DarkGreen">⊙手术开始</p>
+          <p style="color:red">X手术结束</p>
+          <p style="color:red">ⓧ麻醉结束</p> -->
     <div v-for="item in eventTypeList" :style="{fontSize:object.fontSize*0.75+'pt'}">
-      <p v-if="item == 71" style="color:Crimson">△中心静脉压</p>
-      <p v-else-if="item == 89" style="color:Blue">∨无创收缩压</p>
+      <!-- <p v-if="item == 71" style="color:Crimson">△中心静脉压</p> -->
+      <p v-if="item == 89" style="color:Blue">∨无创收缩压</p>
       <p v-else-if="item == 90" style="color:Blue">∧无创舒张压</p>
       <p v-else-if="item == 92" style="color:Magenta">○呼吸</p>
       <p v-else-if="item == 100" style="color:Red">X体温</p>
@@ -160,6 +160,4 @@ export default {
 
 </script>
 <style scoped>
-
-
 </style>

@@ -61,6 +61,7 @@ export default {
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
         eventNo: this.config.eventNo,
+        regFlag: "1"
       }
       this.api.getSignName(params)
         .then(
@@ -93,7 +94,7 @@ export default {
               })
               .then(rest => {
                 let list = []
-                if (rest.length > 0) {  
+                if (rest.length > 0) {
                   for (var i = 0; i < rest.length; i++) {
                     list.push(rest[i].itemCode)
                   }
@@ -113,7 +114,7 @@ export default {
 
           })
     },
-    commitSave() { 
+    commitSave() {
       let params = []
       let depar = []
       this.itemNameList.forEach(item => {

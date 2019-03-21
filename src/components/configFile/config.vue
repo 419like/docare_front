@@ -20,6 +20,7 @@ const roomId = ''; //定义手术间
 const allOperList = []; //所有手术名称
 const allDiagnosis = []; //所有诊断
 const eventNo = ''; //在麻醉室还是复苏室 0代表麻醉室 1代表复苏室
+const eventType = 0; //0表示手术清点单 1表示手术护理单
 
 export default {
   userId,
@@ -42,6 +43,7 @@ export default {
   allOperList,
   allDiagnosis,
   eventNo,
+  eventType,
 }
 
 </script>

@@ -2646,7 +2646,11 @@ export default {
 
           })
       }
-      this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)
+      if (this.lockedPatientInfo.operStatus == 5 || this.lockedPatientInfo.operStatus == 10 || this.lockedPatientInfo.operStatus == 15 || this.lockedPatientInfo.operStatus == 25 || this.lockedPatientInfo.operStatus == 30) {
+        this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)
+      }
+      console.log(this.lockedPatientInfo)
+      // this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)
       // console.log(new Date())
 
     },

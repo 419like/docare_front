@@ -107,7 +107,6 @@ export default {
 
                 //根据itemcode排序
                 this.itemNameList = res.sort(compare("itemCode"));
-                console.log(this.itemNameList)
               })
             //根据itemcode排序
             // this.itemNameList = res.sort(compare("itemCode"));

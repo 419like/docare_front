@@ -162,8 +162,8 @@
                     </div>
                     <div v-if="concealmentTweData" style="padding:5px;display:flex;flex-wrap:wrap;">
                       <button class="list_button" @click="openChangeRoom">更换房间</button>
-                      <button v-if="formDetail" class="list_button" @click="getOperationRegister">术中登记</button>
-                      <button v-if="formDetail" class="list_button" @click="getRecoverRegister">复苏登记</button>
+                      <button v-if="regButtonView" class="list_button" @click="getOperationRegister">术中登记</button>
+                      <button v-if="recoverButtonView" class="list_button" @click="getRecoverRegister">复苏登记</button>
                       <button @click="cancel" class="list_button">取消手术</button>
                       <button v-if="formDetail" class="list_button" @click="monitor">监护仪</button>
                       <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
@@ -173,7 +173,7 @@
                     <div class="stretch">
                       <div style="display:flex;">
                         <img style="height:21px;padding-right:3px;" src="../../assets/icon_3.png" alt=""> 常用功能
-            </div>
+                      </div>
                         <div class="active_back" @click="concealmentThree"><img :class="{transform:isTransformThree}" src="../../assets/bottom.png"></div>
                         </div>
                         <div v-if="concealmentThreeData" style="padding:5px;display:flex;flex-wrap:wrap;">
@@ -843,6 +843,8 @@ export default {
       personView: false,
       tempView: false, //模板管理
       inleft: '',
+      regButtonView:false,//控制术中登记按钮
+      recoverButtonView:false,//控制复苏登记按钮
 
     }
   },
@@ -869,11 +871,10 @@ export default {
     //打印插件初始化
     lodopInit() {
       LODOP = getLodop();
-      // if (LODOP) {
+      if (LODOP) {
       LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "")
       var _this = this;
       if (LODOP.CVERSION) CLODOP.On_Return = function(TaskID, Value) {
-
         //不在打印预览界面
         if (Value) {
           _this.printLoading = false;
@@ -885,7 +886,7 @@ export default {
         }
 
       };
-      // }
+      }
 
     },
     removeTempDom() {
@@ -1663,11 +1664,20 @@ export default {
     },
     selectMedFormTemp(item) {
       this.lodopInit();
+      this.formItems = [];
       if (item.formName == '麻醉记录单') {
         this.config.eventNo = 0
+        this.regButtonView = true
+        this.recoverButtonView = false
       }
-      if (item.formName == '复苏记录单') {
+      else if (item.formName == '复苏记录单') {
         this.config.eventNo = 1
+        this.regButtonView = false
+        this.recoverButtonView = true
+      }
+      else{
+         this.regButtonView = false
+         this.recoverButtonView = false
       }
 
       let timeParam = {
@@ -2220,6 +2230,7 @@ export default {
     },
     //获取单子修改的数据
     getValue(dataValue) {
+      debugger
       var modifyValue = '';
       if (dataValue.dictShowFiled != '' && dataValue.dictShowFiled != null) {
         modifyValue = dataValue.modifyFiledValue
@@ -2264,7 +2275,7 @@ export default {
     },
     //提交单子修改
     submitSaveForm() {
-      if (this.selectFormItemTemp.formName == '手术清点单' || '手术护理单') {
+      if (this.selectFormItemTemp.formName == '手术清点单' || this.selectFormItemTemp.formName =='手术护理单') {
         Bus.$emit('saveFun', '保存');
         alert("保存成功")
       } else {
@@ -2647,7 +2658,7 @@ export default {
           })
       }
       if (this.lockedPatientInfo.operStatus == 5 || this.lockedPatientInfo.operStatus == 10 || this.lockedPatientInfo.operStatus == 15 || this.lockedPatientInfo.operStatus == 25 || this.lockedPatientInfo.operStatus == 30) {
-        this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)
+        this.setTimeId = setTimeout(_ => this.getMaxTime(), 30000)
       }
       console.log(this.lockedPatientInfo)
       // this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)

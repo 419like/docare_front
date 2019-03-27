@@ -125,7 +125,7 @@ export default {
         }
 
         this.api.selectMedAnesthesiaEventList(params)
-          .then(res => {
+          .then(res => { 
             var list = res.list;
             this.dataListOperFun(list)
             this.getOutList()
@@ -342,7 +342,7 @@ export default {
       this.dataObj = item.obj;
     },
     //数据处理
-    dataListOperFun(list) {
+    dataListOperFun(list) { 
       var svg = d3.selectAll(".dosagegrid")
       svg.remove();
       var m = 0;

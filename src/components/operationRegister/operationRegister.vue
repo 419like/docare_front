@@ -872,7 +872,7 @@ export default {
           itemClass: item.ITEM_CALSS,
           dosageUnits: item.DOSAGE_UNITS,
           durativeIndicator: item.DURATIVE_INDICATOR,
-          startTime: new Date(item.START_TIME),
+          startTime: item.START_TIME ? new Date(item.START_TIME) : '',
           endDate: item.ENDDATE ? new Date(item.ENDDATE) : '',
         }
       }

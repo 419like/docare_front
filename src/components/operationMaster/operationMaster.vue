@@ -17,598 +17,612 @@
           <!-- <img src="../../assets/logo.jpg"> -->
           <img style="height:70px;" src="../../assets/LogoTop.png">
         </div>
-          <div :style="logo1" style="background-color: #96e894;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
-            <span style="margin-left: 30px;font-size:13px;">{{nowTime}}</span>
+        <div :style="logo1" style="background-color: #96e894;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
+          <span style="margin-left: 30px;font-size:13px;">{{nowTime}}</span>
+        </div>
+      </div>
+      <div class="currentPatientInfo">
+        <span style="color:#CD5C5C;font-size:24px;font-weight: bold;">{{lockedPatientInfo.operatingRoomNo}}</span>
+        <img style="margin:0 6px;" src="../../assets/people.png" alt="">
+        <div style="width:90px;">
+          <div style="padding-bottom:5px;border-bottom:1px solid #8B8B8B;font-size:16px;">{{lockedPatientInfo.patientId}}</div>
+          <div style="color:#001AFA;font-size:18px;">{{lockedPatientInfo.patientName}}</div>
+        </div>
+      </div>
+      <div class="procedure" style="position: relative;">
+        <div style="display: flex;height:70px;" v-if="showFormView">
+          <div style="margin:0px 10px;">
+            <div class="lightBox" @contextmenu.prevent="showDoubleListOne(lockedPatientInfo.operStatus)">
+              <img v-if="lockedPatientInfo.operStatus == 0" style="display:block" src="../../assets/grayLight.png" alt="">
+              <img v-else-if="lockedPatientInfo.operStatus == 5" style="display:block" src="../../assets/redLight.png" alt="">
+              <img v-else style="display:block" src="../../assets/light.png" alt="">
+              <span style="font-size:18px;">入手术室</span>
+              <div v-if="doShowDataOne" class="inseide">
+                <div class="insideHover" @click="finalStatus('0')">取消状态【入手术室】</div>
+              </div>
+            </div>
+            <div style="position: relative;">
+              <!-- <input type="" name="" @click="testclick"> -->
+              <dateTime width="110" v-model="inDateTime" @change="changeStatus('5','inDateTime',$event)"></dateTime>
+              <!-- <input ref="intest" id="intest" class="timePicker" type="datetime-local" v-model="inDateTime" @blur="changeStatus('5','inDateTime',$event)"> -->
+            </div>
+          </div>
+          <div style="margin:0px 10px;" v-if="inDateTime">
+            <div class="lightBox" @contextmenu.prevent="showDoubleListTwo(lockedPatientInfo.operStatus)">
+              <img v-if="lockedPatientInfo.operStatus == 10" style="display:block" src="../../assets/redLight.png" alt="">
+              <img v-else-if="lockedPatientInfo.operStatus == 5" style="display:block" src="../../assets/grayLight.png" alt="">
+              <img v-else style="display:block" src="../../assets/light.png" alt="">
+              <span style="font-size:18px;">麻醉开始</span>
+              <div v-if="doShowDataTwo" class="inseide">
+                <div class="insideHover" @click="finalStatus('5')">转入状态【入手术室】</div>
+              </div>
+            </div>
+            <div>
+              <dateTime width="110" v-model="anesStartTime" @change="changeStatus('10','anesStartTime',$event)"></dateTime>
+              <!-- <input class="timePicker" type="datetime-local" name="" v-model="anesStartTime" @blur="changeStatus('10','anesStartTime',$event)"> -->
+              <!-- <vue-date-calendar id="demo1" :option.sync="option"></vue-date-calendar> -->
+            </div>
+          </div>
+          <div style="margin:0px 10px;" v-if="anesStartTime">
+            <div class="lightBox" @contextmenu.prevent="showDoubleListThree(lockedPatientInfo.operStatus)">
+              <img v-if="lockedPatientInfo.operStatus == 10" style="display:block" src="../../assets/grayLight.png" alt="">
+              <img v-else-if="lockedPatientInfo.operStatus == 15" style="display:block" src="../../assets/redLight.png" alt="">
+              <img v-else style="display:block" src="../../assets/light.png" alt="">
+              <span style="font-size:18px;">手术开始</span>
+              <div v-if="doShowDataThree" class="inseide">
+                <div class="insideHover" @click="finalStatus('10')">转入状态【麻醉开始】</div>
+              </div>
+            </div>
+            <div>
+              <dateTime width="110" v-model="startDateTime" @change="changeStatus('15','startDateTime',$event)"></dateTime>
+              <!-- <input class="timePicker" type="datetime-local" name="" v-model="startDateTime" @blur="changeStatus('15','startDateTime',$event)"> -->
+            </div>
+          </div>
+          <div style="margin:0px 10px;" v-if="startDateTime">
+            <div class="lightBox" @contextmenu.prevent="showDoubleListFour(lockedPatientInfo.operStatus)">
+              <img v-if="lockedPatientInfo.operStatus == 15" style="display:block" src="../../assets/grayLight.png" alt="">
+              <img v-else-if="lockedPatientInfo.operStatus == 25" style="display:block" src="../../assets/redLight.png" alt="">
+              <img v-else style="display:block" src="../../assets/light.png" alt="">
+              <span style="font-size:18px;">手术结束</span>
+              <div v-if="doShowDataFour" class="inseide">
+                <div class="insideHover" @click="finalStatus('15')">转入状态【手术开始】</div>
+              </div>
+            </div>
+            <div>
+              <dateTime width="110" v-model="endDateTime" @change="changeStatus('25','endDateTime',$event)"></dateTime>
+              <!-- <input class="timePicker" type="datetime-local" name="" v-model="endDateTime" @blur="changeStatus('25','endDateTime',$event)"> -->
+            </div>
+          </div>
+          <div style="margin:0px 10px;" v-if="endDateTime">
+            <div class="lightBox" @contextmenu.prevent="showDoubleListFive(lockedPatientInfo.operStatus)">
+              <img v-if="lockedPatientInfo.operStatus == 25" style="display:block" src="../../assets/grayLight.png" alt="">
+              <img v-else-if="lockedPatientInfo.operStatus == 30" style="display:block" src="../../assets/redLight.png" alt="">
+              <img v-else style="display:block" src="../../assets/light.png" alt="">
+              <span style="font-size:18px;">麻醉结束</span>
+              <div v-if="doShowDataFive" class="inseide">
+                <div class="insideHover" @click="finalStatus('25')">转入状态【手术结束】</div>
+              </div>
+            </div>
+            <div>
+              <dateTime width="110" v-model="anesEndTime" @change="changeStatus('30','anesEndTime',$event)"></dateTime>
+              <!-- <input class="timePicker" type="datetime-local" name="" v-model="anesEndTime" @blur="changeStatus('30','anesEndTime',$event)"> -->
+            </div>
+          </div>
+          <div style="margin:0px 10px;" v-if="anesEndTime">
+            <div ref="area" @contextmenu.prevent="showDoubleListSix(lockedPatientInfo.operStatus)" class="lightBox">
+              <img v-if="lockedPatientInfo.operStatus == 30" style="display:block" src="../../assets/grayLight.png" alt="">
+              <img v-else-if="lockedPatientInfo.operStatus == 35" style="display:block" src="../../assets/redLight.png" alt="">
+              <img v-else style="display:block" src="../../assets/light.png" alt="">
+              <span style="font-size:18px;">出手术室</span>
+              <div v-if="doShowDataSix" class="inseide">
+                <div class="insideHover" @click="finalStatus('30')">转入状态【麻醉结束】</div>
+                <div class="insideHover" @click="finalStatus('60')">转入病房</div>
+                <div class="insideHover" @click="finalStatus('45')">进复苏室</div>
+                <div class="insideHover" @click="finalStatus('65')">转入ICU</div>
+              </div>
+            </div>
+            <div>
+              <dateTime width="110" v-model="outDateTime" @change="changeStatus('35','outDateTime',$event)"></dateTime>
+              <!-- <input class="timePicker" type="datetime-local" name="" v-model="outDateTime" @blur="changeStatus('35','outDateTime',$event)"> -->
+            </div>
           </div>
         </div>
-        <div class="currentPatientInfo">
-          <span style="color:#CD5C5C;font-size:24px;font-weight: bold;">{{lockedPatientInfo.operatingRoomNo}}</span>
-          <img style="margin:0 6px;" src="../../assets/people.png" alt="">
-          <div style="width:90px;">
-            <div style="padding-bottom:5px;border-bottom:1px solid #8B8B8B;font-size:16px;">{{lockedPatientInfo.patientId}}</div>
-            <div style="color:#001AFA;font-size:18px;">{{lockedPatientInfo.patientName}}</div>
-          </div>
-        </div>
-        <div class="procedure" style="position: relative;">
-          <div style="display: flex;height:70px;" v-if="showFormView">
-            <div style="margin:0px 10px;">
-              <div class="lightBox" @contextmenu.prevent="showDoubleListOne(lockedPatientInfo.operStatus)">
-                <img v-if="lockedPatientInfo.operStatus == 0" style="display:block" src="../../assets/grayLight.png" alt="">
-                <img v-else-if="lockedPatientInfo.operStatus == 5" style="display:block" src="../../assets/redLight.png" alt="">
-                <img v-else style="display:block" src="../../assets/light.png" alt="">
-                <span style="font-size:18px;">入手术室</span>
-                <div v-if="doShowDataOne" class="inseide">
-                  <div class="insideHover" @click="finalStatus('0')">取消状态【入手术室】</div>
-                </div>
-              </div>
-              <div style="position: relative;">
-                <!-- <input type="" name="" @click="testclick"> -->
-                <dateTime width="110" v-model="inDateTime" @change="changeStatus('5','inDateTime',$event)"></dateTime>
-                <!-- <input ref="intest" id="intest" class="timePicker" type="datetime-local" v-model="inDateTime" @blur="changeStatus('5','inDateTime',$event)"> -->
-              </div>
-            </div>
-            <div style="margin:0px 10px;" v-if="inDateTime">
-              <div class="lightBox" @contextmenu.prevent="showDoubleListTwo(lockedPatientInfo.operStatus)">
-                <img v-if="lockedPatientInfo.operStatus == 10" style="display:block" src="../../assets/redLight.png" alt="">
-                <img v-else-if="lockedPatientInfo.operStatus == 5" style="display:block" src="../../assets/grayLight.png" alt="">
-                <img v-else style="display:block" src="../../assets/light.png" alt="">
-                <span style="font-size:18px;">麻醉开始</span>
-                <div v-if="doShowDataTwo" class="inseide">
-                  <div class="insideHover" @click="finalStatus('5')">转入状态【入手术室】</div>
-                </div>
-              </div>
-              <div>
-                <dateTime width="110" v-model="anesStartTime" @change="changeStatus('10','anesStartTime',$event)"></dateTime>
-                <!-- <input class="timePicker" type="datetime-local" name="" v-model="anesStartTime" @blur="changeStatus('10','anesStartTime',$event)"> -->
-                <!-- <vue-date-calendar id="demo1" :option.sync="option"></vue-date-calendar> -->
-              </div>
-            </div>
-            <div style="margin:0px 10px;" v-if="anesStartTime">
-              <div class="lightBox" @contextmenu.prevent="showDoubleListThree(lockedPatientInfo.operStatus)">
-                <img v-if="lockedPatientInfo.operStatus == 10" style="display:block" src="../../assets/grayLight.png" alt="">
-                <img v-else-if="lockedPatientInfo.operStatus == 15" style="display:block" src="../../assets/redLight.png" alt="">
-                <img v-else style="display:block" src="../../assets/light.png" alt="">
-                <span style="font-size:18px;">手术开始</span>
-                <div v-if="doShowDataThree" class="inseide">
-                  <div class="insideHover" @click="finalStatus('10')">转入状态【麻醉开始】</div>
-                </div>
-              </div>
-              <div>
-                <dateTime width="110" v-model="startDateTime" @change="changeStatus('15','startDateTime',$event)"></dateTime>
-                <!-- <input class="timePicker" type="datetime-local" name="" v-model="startDateTime" @blur="changeStatus('15','startDateTime',$event)"> -->
-              </div>
-            </div>
-            <div style="margin:0px 10px;" v-if="startDateTime">
-              <div class="lightBox" @contextmenu.prevent="showDoubleListFour(lockedPatientInfo.operStatus)">
-                <img v-if="lockedPatientInfo.operStatus == 15" style="display:block" src="../../assets/grayLight.png" alt="">
-                <img v-else-if="lockedPatientInfo.operStatus == 25" style="display:block" src="../../assets/redLight.png" alt="">
-                <img v-else style="display:block" src="../../assets/light.png" alt="">
-                <span style="font-size:18px;">手术结束</span>
-                <div v-if="doShowDataFour" class="inseide">
-                  <div class="insideHover" @click="finalStatus('15')">转入状态【手术开始】</div>
-                </div>
-              </div>
-              <div>
-                <dateTime width="110" v-model="endDateTime" @change="changeStatus('25','endDateTime',$event)"></dateTime>
-                <!-- <input class="timePicker" type="datetime-local" name="" v-model="endDateTime" @blur="changeStatus('25','endDateTime',$event)"> -->
-              </div>
-            </div>
-            <div style="margin:0px 10px;" v-if="endDateTime">
-              <div class="lightBox" @contextmenu.prevent="showDoubleListFive(lockedPatientInfo.operStatus)">
-                <img v-if="lockedPatientInfo.operStatus == 25" style="display:block" src="../../assets/grayLight.png" alt="">
-                <img v-else-if="lockedPatientInfo.operStatus == 30" style="display:block" src="../../assets/redLight.png" alt="">
-                <img v-else style="display:block" src="../../assets/light.png" alt="">
-                <span style="font-size:18px;">麻醉结束</span>
-                <div v-if="doShowDataFive" class="inseide">
-                  <div class="insideHover" @click="finalStatus('25')">转入状态【手术结束】</div>
-                </div>
-              </div>
-              <div>
-                <dateTime width="110" v-model="anesEndTime" @change="changeStatus('30','anesEndTime',$event)"></dateTime>
-                <!-- <input class="timePicker" type="datetime-local" name="" v-model="anesEndTime" @blur="changeStatus('30','anesEndTime',$event)"> -->
-              </div>
-            </div>
-            <div style="margin:0px 10px;" v-if="anesEndTime">
-              <div ref="area" @contextmenu.prevent="showDoubleListSix(lockedPatientInfo.operStatus)" class="lightBox">
-                <img v-if="lockedPatientInfo.operStatus == 30" style="display:block" src="../../assets/grayLight.png" alt="">
-                <img v-else-if="lockedPatientInfo.operStatus == 35" style="display:block" src="../../assets/redLight.png" alt="">
-                <img v-else style="display:block" src="../../assets/light.png" alt="">
-                <span style="font-size:18px;">出手术室</span>
-                <div v-if="doShowDataSix" class="inseide">
-                  <div class="insideHover" @click="finalStatus('30')">转入状态【麻醉结束】</div>
-                  <div class="insideHover" @click="finalStatus('60')">转入病房</div>
-                  <div class="insideHover" @click="finalStatus('45')">进复苏室</div>
-                  <div class="insideHover" @click="finalStatus('65')">转入ICU</div>
-                </div>
-              </div>
-              <div>
-                <dateTime width="110" v-model="outDateTime" @change="changeStatus('35','outDateTime',$event)"></dateTime>
-                <!-- <input class="timePicker" type="datetime-local" name="" v-model="outDateTime" @blur="changeStatus('35','outDateTime',$event)"> -->
-              </div>
-            </div>
-          </div>
-          <div style="overflow:hidden;position:relative;height:30px;">
-            <div v-if="lockedPatientInfo.patientId" ref="scollDiv" @mousewheel="scollFun($event)" style="position:absolute;top:0px;height: 45px;position: absolute;bottom: 0px;width: 940px;display:flex;border-top: 1px solid black;overflow-x:auto;overflow-y:hidden;margin-left:5px;">
-              <div v-for="item in medBillList" @click="selectMedFormTemp(item)" :class="{bindClass:item.bindClassData}" class="listButton">
-                {{item.formName}}
-              </div>
+        <div style="overflow:hidden;position:relative;height:30px;">
+          <div v-if="lockedPatientInfo.patientId" ref="scollDiv" @mousewheel="scollFun($event)" style="position:absolute;top:0px;height: 45px;position: absolute;bottom: 0px;width: 940px;display:flex;border-top: 1px solid black;overflow-x:auto;overflow-y:hidden;margin-left:5px;">
+            <div v-for="item in medBillList" @click="selectMedFormTemp(item)" :class="{bindClass:item.bindClassData}" class="listButton">
+              {{item.formName}}
             </div>
           </div>
         </div>
       </div>
-      <div class="down">
-        <div class="left" style="overflow-y: auto;">
-          <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
-            <div class="stretch">
-              <div style="display:flex;">
-                <img style="height:21px;padding-right:3px;" src="../../assets/icon_1.png" alt=""> 电子病历
+    </div>
+    <div class="down">
+      <div class="left" style="overflow-y: auto;">
+        <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
+          <div class="stretch">
+            <div style="display:flex;">
+              <img style="height:21px;padding-right:3px;" src="../../assets/icon_1.png" alt=""> 电子病历
             </div>
-                <div class="active_back" @click="concealmentOne"><img :class="{transform:isTransformOne}" src="../../assets/bottom.png"></div>
+            <div class="active_back" @click="concealmentOne"><img :class="{transform:isTransformOne}" src="../../assets/bottom.png"></div>
+          </div>
+          <div v-if="concealmentOneData" style="padding:5px;display:flex;flex-wrap:wrap;">
+            <!-- <button v-if="lockedPatientInfo.patientId" @click="openCheckInfoView" class="list_button">检验信息</button> -->
+            <button v-if="lockedPatientInfo.patientId" @click="openLisCheck" class="list_button">检验信息</button>
+            <button v-if="lockedPatientInfo.patientId" @click="openMedical" class="list_button">检查结果</button>
+            <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">医嘱信息</button> -->
+            <button v-if="lockedPatientInfo.patientId" @click="openRecodEmr" class="list_button">病例病程</button>
+          </div>
+        </div>
+        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
+          <div class="stretch">
+            <div style="display:flex;">
+              <img style="height:21px;padding-right:3px;" src="../../assets/icon_2.jpg" alt=""> 患者操作
+            </div>
+            <div class="active_back" @click="concealmentTwe"><img :class="{transform:isTransformTwe}" src="../../assets/bottom.png"></div>
+          </div>
+          <div v-if="concealmentTweData" style="padding:5px;display:flex;flex-wrap:wrap;">
+            <button class="list_button" @click="openChangeRoom">更换房间</button>
+            <button v-if="regButtonView" class="list_button" @click="getOperationRegister">术中登记</button>
+            <button v-if="recoverButtonView" class="list_button" @click="getRecoverRegister">复苏登记</button>
+            <button @click="cancel" class="list_button">取消手术</button>
+            <button v-if="formDetail" class="list_button" @click="monitor">监护仪</button>
+            <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
+          </div>
+        </div>
+        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
+          <div class="stretch">
+            <div style="display:flex;">
+              <img style="height:21px;padding-right:3px;" src="../../assets/icon_3.png" alt=""> 常用功能
+            </div>
+            <div class="active_back" @click="concealmentThree"><img :class="{transform:isTransformThree}" src="../../assets/bottom.png"></div>
+          </div>
+          <div v-if="concealmentThreeData" style="padding:5px;display:flex;flex-wrap:wrap;">
+            <button @click="dictShow" class="list_button">字典</button>
+            <button @click="tempManage" class="list_button">模板管理</button>
+          </div>
+        </div>
+        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
+          <div class="stretch">
+            <div style="display:flex;">
+              <img style="height:21px;padding-right:3px;" src="../../assets/icon_4.png" alt=""> 其他
+            </div>
+            <div class="active_back" @click="concealmentFour"><img :class="{transform:isTransformFour}" src="../../assets/bottom.png"></div>
+          </div>
+          <div v-if="concealmentFourData" style="padding:5px;display:flex;flex-wrap:wrap;">
+            <!-- <button class="list_button">系统配置</button> -->
+            <!-- <button @click="getAboutUs" class="list_button">关于</button> -->
+            <button @click="exitSystem" class="list_button">返回列表</button>
+            <button @click="openChangePassWordView" class="list_button">修改密码</button>
+          </div>
+        </div>
+        <div style="position: absolute;bottom:3px;width:100%;text-align:center;color:rgb(35, 78, 147);font-size:12px;">当前用户:{{nowUser}}</div>
+      </div>
+      <div class="content" style="overflow-y:hidden;overflow-x: hidden; ">
+        <!-- <div class="patientList" :class="{animationClassNone:showData,animationClassShow:showDataTwo}"> -->
+        <div class="patientList" v-show="showData">
+          <div style="height:105px;border-bottom:1px solid #96e894;box-sizing:border-box;">
+            <div>
+              <div class="container" style="padding-left: 5px;margin-bottom:10px;margin-top:5px;align-items:center;">
+                <img style="margin-right:10px;height:20px;" src="../../assets/people.png" alt="">
+                <div style="line-height:24px;display:flex;align-items:center;">
+                  <input type="radio" id="all" @click="searchPatientList" v-model="operStatus" value="">
+                  <label for="all">全部</label>
+                  <input type="radio" id="one" @click="searchPatientList" value="0" v-model="operStatus">
+                  <label for="one">术前</label>
+                  <input type="radio" id="two" @click="searchPatientList" value="15" v-model="operStatus">
+                  <label for="two">术中</label>
+                  <input type="radio" id="three" @click="searchPatientList" value="25" v-model="operStatus">
+                  <label for="three">术后</label>
+                  <br>
                 </div>
-                <div v-if="concealmentOneData" style="padding:5px;display:flex;flex-wrap:wrap;">
-                  <!-- <button v-if="lockedPatientInfo.patientId" @click="openCheckInfoView" class="list_button">检验信息</button> -->
-                  <button v-if="lockedPatientInfo.patientId" @click="openLisCheck" class="list_button">检验信息</button>
-                  <button v-if="lockedPatientInfo.patientId" @click="openMedical" class="list_button">检查结果</button>
-                  <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">医嘱信息</button> -->
-                  <button v-if="lockedPatientInfo.patientId" @click="openRecodEmr" class="list_button">病例病程</button>
+                <div style="margin-left:15px;">
+                  <span>手术间</span>
+                  <select style="width: 60px;" v-model="operatingRoomNo" @change="searchPatientList">
+                    <option value=""></option>
+                    <option v-for="(item,index) in roomList" :value="item.roomNo">{{ item.roomNo}}</option>
+                  </select>
                 </div>
               </div>
-              <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
-                <div class="stretch">
-                  <div style="display:flex;">
-                    <img style="height:21px;padding-right:3px;" src="../../assets/icon_2.jpg" alt=""> 患者操作
+              <div class="container" style="padding-left: 5px;margin-bottom:10px;">
+                <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
+                  <span>ID</span>
+                  <input @keyup.enter='searchPatientList' style="width: 84px;font-size:12px;" type="text" v-model="patientId">
+                </div>
+                <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
+                  <span>姓名</span>
+                  <input @keyup.enter='searchPatientList' type="text" style="width: 60px;font-size:12px;" v-model="patientName">
+                </div>
+                <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
+                  <span>日期</span>
+                  <input v-model="getTime" type="date" style="width: 125px;font-size:12px;" @keyup.enter='searchPatientList'>
+                  <!-- <myDatepicker :date="startTime" :option="option" :limit="limit"></myDatepicker> -->
+                </div>
+              </div>
             </div>
-                    <div class="active_back" @click="concealmentTwe"><img :class="{transform:isTransformTwe}" src="../../assets/bottom.png"></div>
+            <div style="padding-left: 5px;">
+              <button style="font-size:12px;" @click='openJzView'>急诊登记</button>
+              <button style="font-size:12px;" @click='searchPatientList'>搜索</button>
+            </div>
+          </div>
+          <div style="overflow-y: auto;height:calc(100% - 105px - 80px);font-size:12px;">
+            <div v-for="item in patientList" class="listBorder" :class="{thisClickBackClass:item.thisClickBack}" v-on:click="patientDeatilInfo(item)" v-on:dblclick="lockedPatient(item)">
+              <div class="patientContent title_back" style="display:flex;justify-content:space-between;">
+                <span style="font-weight:bold;">手术间 {{item.operatingRoomNo}}</span>
+                <span v-if="item.emergencyIndicator == 1" style="color:red;font-weight:bold;">急诊</span>
+                <span v-if="item.operStatus == 0" style="color:#15428B;font-weight:bold;">准备手术</span>
+                <span v-if="item.operStatus == 5" style="color:red;font-weight:bold;">入手术室</span>
+                <span v-else-if="item.operStatus == 10" style="color:red;font-weight:bold;">麻醉开始</span>
+                <span v-else-if="item.operStatus == 15" style="color:red;font-weight:bold;">手术开始</span>
+                <span v-else-if="item.operStatus == 25" style="color:red;font-weight:bold;">手术结束</span>
+                <span v-else-if="item.operStatus == 30" style="color:red;font-weight:bold;">麻醉结束</span>
+                <span v-else-if="item.operStatus == 35" style="color:green;font-weight:bold;">出手术室</span>
+                <span v-else-if="item.operStatus == 60" style="color:green;font-weight:bold;">转入病房</span>
+                <span v-else-if="item.operStatus == 45" style="color:green;font-weight:bold;">进复苏室</span>
+                <span v-else-if="item.operStatus == 40" style="color:green;font-weight:bold;">待复苏</span>
+                <span v-else-if="item.operStatus == 65" style="color:green;font-weight:bold;">转入ICU</span>
+              </div>
+              <ul style="padding-left:5px;">
+                <li>患者 {{item.patientName}} {{item.patientId}} 住院号 {{item.inpNo}}</li>
+                <li>手术 {{item.operationName}}</li>
+                <li v-if="item.inDateTime==null||item.inDateTime==''">时间 {{item.scheduledDateTime}}</li>
+                <li v-if="item.inDateTime!=null&&item.inDateTime!=''">时间 {{item.inDateTime}}</li>
+                <li>术者 {{item.surgeonName}} 麻醉 {{item.anesthesiaDoctorName}} {{item.anesthesiaAssistantName}}</li>
+              </ul>
+            </div>
+          </div>
+          <div v-if="pageShowData" class="pageClass">
+            <div>
+              <div style="display:flex;items-align:center;padding-top:3px;">
+                <span>患者数量:</span>
+                <span style="color:rgb(0, 26, 250);padding:0 5px;">{{pageLength}}</span>
+                <span style="padding-right:5px;">共{{pages}}页</span>
+                <span>每页显示</span>
+                <input style="width:50px;" type="number" min="5" max="100" @change="dataInSize($event)" v-model="size">
+              </div>
+              <div style="display:flex;items-align:center;padding-top:10px;">
+                <button @click="firstPage" style="width:60px;font-size:12px;">首页</button>
+                <button @click="pageRe" style="width:60px;font-size:12px;">上一页</button>
+                <div @click="showSelect" class="pageInDiv">
+                  <span>{{pageNum}}</span>
+                  <div @click.stop="noClick" v-if="dataInSelect" class="pageInSelect">
+                    <div @click="pageChoose(item.number)" v-for="item in dataTypeInAllSelect">{{item.number}}</div>
+                  </div>
+                </div>
+                <button @click="pageAd" style="width:60px;font-size:12px;">下一页</button>
+                <button @click="lastPage" style="width:60px;font-size:12px;">末页</button>
+              </div>
+            </div>
+            <div>
+              <span>排序方式</span>
+              <div @click="sort1">
+                <input type="radio" id="house" name="sort">
+                <label for="house">术间</label>
+              </div>
+              <div @click="sort0">
+                <input type="radio" id="timeHo" name="sort">
+                <label for="timeHo">时间</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="leftNoneBox" @click="leftNone">
+          <div :class="{trans:transData}" class="leftNoneImg">
+            <img src="../../assets/left.png" alt="">
+            <img src="../../assets/left.png" alt="">
+            <img src="../../assets/left.png" alt="">
+            <img src="../../assets/left.png" alt="">
+          </div>
+        </div>
+        <div class="patientInfo" v-if="viewInfo">
+          <div class="pat_title title_back">患者详情</div>
+          <div style="margin-top: 5px;">
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">基本信息</div>
+            <div class="patientContentBox">
+              <div class="container">
+                <div>患者ID</div>
+                <div class="in_con" style="width:100px;">
+                  {{patientInfo.PATIENT_ID}}
+                </div>
+                <div class="left15">住院号</div>
+                <div class="in_con" style="width:80px;">
+                  {{patientInfo.INP_NO}}
+                </div>
+                <div class="left15">姓名</div>
+                <div class="in_con" style="width:60px;">
+                  {{patientInfo.NAME}}
+                </div>
+                <div class="left15">年龄</div>
+                <div class="in_con" style="width:60px;">
+                  {{patientInfo.PAT_AGE}}
+                </div>
+                <div class="left15">性别</div>
+                <div class="in_con" style="width:50px;">
+                  {{patientInfo.SEX}}
+                </div>
+              </div>
+              <div class="container">
+                <div>所在科室</div>
+                <div class="in_con" style="width:130px;">
+                  {{patientInfo.DEPT_NAME}}
+                </div>
+                <div>床号</div>
+                <div class="in_con" style="width:50px;">
+                  {{patientInfo.BED_NO}}
+                </div>
+                <div class="left15">付费方式</div>
+                <div class="in_con">
+                  <!-- {{patientInfo.NAME}} -->
+                </div>
+              </div>
+              <div class="container">
+                <div>住址</div>
+                <div class="in_con" style="width: 400px;">{{patientInfo.MAILING_ADDRESS}}</div>
+                <div class="left15">职业</div>
+                <div class="in_con" style="width: 200px;"> </div>
+              </div>
+              <div class="container">
+                <div>身份证号</div>
+                <div class="in_con" style="width: 200px;">
+                  {{patientInfo.ID_NO}}
+                </div>
+                <div class="left15">联系电话</div>
+                <div class="in_con">
+                  {{patientInfo.NEXT_OF_KIN_PHONE}}
+                </div>
+                <div class="left15">联系人</div>
+                <div class="in_con">
+                  {{patientInfo.NEXT_OF_KIN}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术信息</div>
+            <div class="patientContentBox">
+              <div class="container">
+                <div>主要诊断</div>
+                <div class="in_con" style="width: 600px;">{{patientInfo.DIAG_BEFORE_OPERATION}}</div>
+              </div>
+              <div class="container">
+                <div>病情</div>
+                <div class="in_con" style="width: 600px;">{{patientInfo.PATIENT_CONDITION}}</div>
+              </div>
+              <div class="container">
+                <div>手术名称</div>
+                <div class="in_con" style="width: 450px;max-height:42px;">{{patientInfo.OPERATION_NAME}}</div>
+                <div class="left15">急诊择期</div>
+                <div class="in_con" style="width:100px;">
+                  <span v-if="patientInfo.EMERGENCY_INDICATOR=='1'">急诊</span>
+                  <span v-if="patientInfo.EMERGENCY_INDICATOR=='0'">择期</span>
+                </div>
+              </div>
+              <div class="container">
+                <div>手术时间</div>
+                <div class="in_con" style="width: 160px;">{{patientInfo.SCHEDULED_DATE_TIME}}</div>
+                <div class="left15">台次</div>
+                <div class="in_con" style="width: 60px;">
+                  {{patientInfo.SEQUENCE}}
+                </div>
+                <div class="left15">手术间</div>
+                <div class="in_con" style="width: 45px;">
+                  {{patientInfo.OPERATING_ROOM_NO}}
+                </div>
+                <div class="left15">隔离</div>
+                <div class="in_con" style="width:60px;">{{patientInfo.ISOLATION_INDICATOR}}</div>
+                <div class="left15">手术等级</div>
+                <div class="in_con" style="width:60px;">
+                  {{patientInfo.OPERATION_SCALE}}
+                </div>
+              </div>
+              <div class="container">
+                <div>麻醉方法</div>
+                <div class="in_con" style="width: 300px;">
+                  {{patientInfo.ANESTHESIA_METHOD}}
+                </div>
+                <div class="left15">切口等级</div>
+                <div class="in_con" style="width: 90px;">{{patientInfo.QIEKOU_CLASS}}</div>
+                <div class="left15">切口个数</div>
+                <div class="in_con" style="width: 90px;">
+                  {{patientInfo.QIEKOU_NUMBER}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术人员</div>
+            <div class="patientContentBox">
+              <div class="container">
+                <div>麻醉医师</div>
+                <div class="in_con100">{{patientInfo.ANESTHESIA_DOCTOR_NAME}}</div>
+                <div class="in_con100">{{patientInfo.ANESTHESIA_ASSISTANT_NAME}}</div>
+                <div class="in_con100">{{patientInfo.THIRD_ANESTHESIA_DOCTOR_NAME}}</div>
+              </div>
+              <div class="container">
+                <div>手术医师</div>
+                <div class="in_con100">{{patientInfo.SURGEON_NAME}}</div>
+                <div class="left30">手术助手</div>
+                <div class="in_con100">{{patientInfo.FIRST_ASSISTANT_NAME}}</div>
+                <div class="in_con100">{{patientInfo.SECOND_ASSISTANT_NAME}}</div>
+                <div class="in_con100">{{patientInfo.THIRD_ASSISTANT_NAME}}</div>
+                <div class="in_con100">{{patientInfo.FOURTH_ASSISTANT_NAME}}</div>
+              </div>
+              <div class="container">
+                <div>洗手护士</div>
+                <div class="in_con100">{{patientInfo.FIRST_OPERATION_NURSE_NAME}}</div>
+                <div class="in_con100">{{patientInfo.SECOND_OPERATION_NURSE_NAME}}</div>
+                <div class="left30">巡回护士</div>
+                <div class="in_con100">{{patientInfo.FIRST_SUPPLY_NURSE_NAME}}</div>
+                <div class="in_con100">{{patientInfo.SECOND_SUPPLY_NURSE_NAME}}</div>
+                <div class="in_con100">{{patientInfo.THIRD_SUPPLY_NURSE_NAME}}</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">病人信息修改</div>
+            <div class="patientContentBox">
+              <div class="container">
+                <div style="line-height:22px;padding-right:10px;">出生日期</div>
+                <!-- <dateTime width="110" v-model="inDateTime"></dateTime> -->
+                <input type="date" v-model="burnDate" @change="getDateIn(burnDate,$event)" style="background-color:rgba(0,0,0,0);outline:none;border:1px solid rgb(197, 197, 197);">
+              </div>
+              <div>
+                <button @click="saveBirth">保存</button>
+                <button @click="escBirth">取消</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 单子信息 -->
+        <div class="information" v-if="formDetail" :class="{allWidth:widthData}">
+          <div ref="mybox1">
+            <div class="designArea" ref="normal" :style="{height: areaheight+'px'}">
+              <div v-if="item.type == 'div'&&(item.width/2) <= 450" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:('450' - (item.width/2))+'px'}">
+                <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
+              </div>
+              <div v-if="item.type == 'div'&&(item.width/2) >= 451" class="item" style="position:absolute;min-height: 3px;min-width:3px;left:0;" :class="{choosed:item.chosen}" v-for="item in formItems">
+                <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
+              </div>
+              <div v-if="item.type !== 'div'" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:item.x+'px',top:item.y+'px'}">
+                <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
+              </div>
+            </div>
+          </div>
+          <div ref="mybox" id="mybox" :style="{'display':showPrint?'inline':'none'}">
+            <div class="designArea" style="font-size: 14pt;font-family: SimSun;height: 1900px;">
+              <div v-if="item.type == 'div'&&(item.width/2) <= 450" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:('450*0.75' - (item.width/2))+'px'}">
+                <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
+              </div>
+              <div v-if="item.type == 'div'&&(item.width/2) >= 451" class="item" style="position:absolute;min-height: 3px;min-width:3px;left:0;" :class="{choosed:item.chosen}" v-for="item in formItems">
+                <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
+              </div>
+              <div v-if="item.type !== 'div'" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:item.x+'px',top:item.y+'px'}">
+                <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
+              </div>
+            </div>
+          </div>
+          <div v-if="formDetail" style="position: absolute;bottom:30px;right: 20px;">
+            <button ref="buttonTest" v-if="pageButtonView" @click="toChangePage(0)">首页</button>
+            <button v-if="pageButtonView" @click="toChangePage(-1)">上一页</button>
+            <button v-if="pageButtonView" @click="toChangePage(1)">下一页</button>
+            <button v-if="pageButtonView" @click="toChangePage(2)">末页</button>
+            <button v-if="tempButtonView" @click="applyTemplateFun">应用模板</button>
+            <button v-if="tempButtonView" @click="openSaveTemView">保存模板</button>
+            <button @click="submitSaveForm">保存</button>
+            <button v-if="personView" @click="openPatSetting">体征设置</button>
+            <button @click="CreateOneFormPage">打印</button>
+            <button @click="formSetting">配置</button>
+            <button @click="refreshForm">刷新</button>
+          </div>
+        </div>
+        <!-- 显示个性化体征设置 -->
+        <div class="dictionaries" v-if="personStyleView">
+          <personStyle v-on:closePatSetting="closePatSetting"></personStyle>
+        </div>
+      </div>
+    </div>
+    <monitor v-if="monitorDataShow.noneData" :dataOfNoneClick="firstRoom" :parentToChild="monitorDataShow"></monitor>
+    <patientOperationInfo v-if="patientOperationInfoView.dataInParent" :info="patientInfo" :parentToChild="patientOperationInfoView" v-on:submitSave="submitPatientInfo" v-on:turnToSetting="toSetting"></patientOperationInfo>
+    <operationRegister @refreshTime="timeChangeBus()" v-if="operationRegisterView.dataInParent" :objectItem="lockedPatientInfo" :parentToChild="operationRegisterView"></operationRegister>
+    <!-- 模板管理 -->
+    <div v-if="tempView" class="dictionaries">
+      <updateTemplet style="position: absolute;top: 10%;" :style="{left:inleft+'px'}" v-on:closeWin="closeTempManage"></updateTemplet>
+    </div>
+    <!-- <div  style="position: absolute;top: 10%;width: 1214px;" :style="{left:inleft+'px'}">
+                <updateTemplet v-on:closeWin="closeTempManage"></updateTemplet>
+              </div> -->
+    <aboutUs v-if="aboutUsData.dataInParent" :parentToChild="aboutUsData"></aboutUs>
+    <!-- 检验信息 -->
+    <checkInfo v-if="checkInfoView" v-on:closeView="closeCheckInfoView"></checkInfo>
+    <!-- 检验结果 -->
+    <checkResult v-if="checkResultShow" v-on:closeView="closeCheckInfoShow"></checkResult>
+    <!-- 密码修改 -->
+    <div class="dictionaries" v-if="changePassWord">
+      <changePassWord @closeChangePassWordView="closeChangePassWordView"></changePassWord>
+    </div>
+    <!-- 更换手术间 -->
+    <div class="dictionaries" v-if="changeRoomView">
+      <changeRoom @closeChangeRoom="closeChangeRoom"></changeRoom>
+    </div>
+    <!-- 字典显示界面 -->
+    <div v-if="dictView" class="dictionaries">
+      <div class="window_load">
+        <div class="load_top">
+          <div>字典</div>
+          <div @click="dictNone" class="top_active">X</div>
+        </div>
+        <div style="height: 50px;line-height: 50px;font-weight: bold;border-bottom: 2px solid #b1f3c5;">
+          <span style="margin-left: 30px;">字典维护</span>
+        </div>
+        <div style="display: flex;padding-left:10px;padding-top: 5px;">
+          <div class="tab_div" :class="{backWight:isBackOne}" @click="getComType">
+            <span>常用术语</span>
+          </div>
+          <div class="tab_div" :class="{backWight:isBackTwo}" @click="getEvent">
+            <span>麻醉事件</span>
+          </div>
+          <div class="tab_div" :class="{backWight:isBackThree}" @click="getMethods">
+            <span>麻醉方法</span>
+          </div>
+          <div class="tab_div" :class="{backWight:isBackFour}" @click="getConstant">
+            <span>麻醉常用量</span>
+          </div>
+        </div>
+        <!-- 字典按钮内容 -->
+        <div v-if="commoTerms" style="height:310px;">
+          <div style="display: flex;height: 100%;background:white;margin:10px;">
+            <!-- 显示类别 -->
+            <div class="dictionaryBox">
+              <ul v-for="item in comTypeList">
+                <li class="hoverStyle" style="cursor:pointer;" @click="getTypeDetail(item)">
+                  <div style="margin-left: 20px;">{{item.typeName}}</div>
+                </li>
+              </ul>
+            </div>
+            <!-- 显示详细内容 -->
+            <div style="width: 70%;margin-top:5px;">
+              <div style="display: flex;margin-left: 10px;box-sizing:border-box;padding-right:18px;">
+                <div class="topList" v-for="cell in contentConfig">{{cell.text}}</div>
+              </div>
+              <div style="overflow-y: auto;height:280px;box-sizing:border-box;" :class="{paddingRight18:this.paddingRight18}">
+                <div v-for="list in commonTypeList" style="display: flex;margin-left: 10px;" @click="getItem(list)">
+                  <div v-for="cl in contentConfig" style="width: 160px;border:1px solid #b1f3c5;">
+                    <div style="height:calc(100% - 2px);" v-if="cl.status=='inable'">
+                      <input v-if="list.writeAble" type="text" v-model="list[cl.value]" @blur="inputBlur(list)" @change="change" style="display:block;width:100%;border:0;height:100%;outline:none;">
+                      <input v-if="!list.writeAble" type="text" v-model="list[cl.value]" readonly="readonly" @click="valueWriteAble(list)" style="display:block;width:100%;border:0;height:100%;outline:none;">
                     </div>
-                    <div v-if="concealmentTweData" style="padding:5px;display:flex;flex-wrap:wrap;">
-                      <button class="list_button" @click="openChangeRoom">更换房间</button>
-                      <button v-if="regButtonView" class="list_button" @click="getOperationRegister">术中登记</button>
-                      <button v-if="recoverButtonView" class="list_button" @click="getRecoverRegister">复苏登记</button>
-                      <button @click="cancel" class="list_button">取消手术</button>
-                      <button v-if="formDetail" class="list_button" @click="monitor">监护仪</button>
-                      <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
+                    <div v-if="cl.status!='inable'">
+                      {{list[cl.value]}}
                     </div>
                   </div>
-                  <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
-                    <div class="stretch">
-                      <div style="display:flex;">
-                        <img style="height:21px;padding-right:3px;" src="../../assets/icon_3.png" alt=""> 常用功能
-                      </div>
-                        <div class="active_back" @click="concealmentThree"><img :class="{transform:isTransformThree}" src="../../assets/bottom.png"></div>
-                        </div>
-                        <div v-if="concealmentThreeData" style="padding:5px;display:flex;flex-wrap:wrap;">
-                          <button @click="dictShow" class="list_button">字典</button>
-                          <button @click="tempManage" class="list_button">模板管理</button>
-                        </div>
-                      </div>
-                      <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
-                        <div class="stretch">
-                          <div style="display:flex;">
-                            <img style="height:21px;padding-right:3px;" src="../../assets/icon_4.png" alt=""> 其他
+                </div>
+              </div>
             </div>
-                            <div class="active_back" @click="concealmentFour"><img :class="{transform:isTransformFour}" src="../../assets/bottom.png"></div>
-                            </div>
-                            <div v-if="concealmentFourData" style="padding:5px;display:flex;flex-wrap:wrap;">
-                              <!-- <button class="list_button">系统配置</button> -->
-                              <!-- <button @click="getAboutUs" class="list_button">关于</button> -->
-                              <button @click="exitSystem" class="list_button">返回列表</button>
-                              <button @click="openChangePassWordView" class="list_button">修改密码</button>
-                            </div>
-                          </div>
-                          <div style="position: absolute;bottom:3px;width:100%;text-align:center;color:rgb(35, 78, 147);font-size:12px;">当前用户:{{nowUser}}</div>
-                        </div>
-                        <div class="content" style="overflow-y:hidden;overflow-x: hidden; ">
-                          <!-- <div class="patientList" :class="{animationClassNone:showData,animationClassShow:showDataTwo}"> -->
-                          <div class="patientList" v-show="showData">
-                            <div style="height:105px;border-bottom:1px solid #96e894;box-sizing:border-box;">
-                              <div>
-                                <div class="container" style="padding-left: 5px;margin-bottom:10px;margin-top:5px;align-items:center;">
-                                  <img style="margin-right:10px;height:20px;" src="../../assets/people.png" alt="">
-                                  <div style="line-height:24px;display:flex;align-items:center;">
-                                    <input type="radio" id="all" @click="searchPatientList" v-model="operStatus" value="">
-                                    <label for="all">全部</label>
-                                    <input type="radio" id="one" @click="searchPatientList" value="0" v-model="operStatus">
-                                    <label for="one">术前</label>
-                                    <input type="radio" id="two" @click="searchPatientList" value="15" v-model="operStatus">
-                                    <label for="two">术中</label>
-                                    <input type="radio" id="three" @click="searchPatientList" value="25" v-model="operStatus">
-                                    <label for="three">术后</label>
-                                    <br>
-                                  </div>
-                                  <div style="margin-left:15px;">
-                                    <span>手术间</span>
-                                    <select style="width: 60px;" v-model="operatingRoomNo" @change="searchPatientList">
-                                      <option value=""></option>
-                                      <option v-for="(item,index) in roomList" :value="item.roomNo">{{ item.roomNo}}</option>
-                                    </select>
-                                  </div>
-                                </div>
-                                <div class="container" style="padding-left: 5px;margin-bottom:10px;">
-                                  <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
-                                    <span>ID</span>
-                                    <input @keyup.enter='searchPatientList' style="width: 84px;font-size:12px;" type="text" v-model="patientId">
-                                  </div>
-                                  <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
-                                    <span>姓名</span>
-                                    <input @keyup.enter='searchPatientList' type="text" style="width: 60px;font-size:12px;" v-model="patientName">
-                                  </div>
-                                  <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
-                                    <span>日期</span>
-                                    <input v-model="getTime" type="date" style="width: 125px;font-size:12px;" @keyup.enter='searchPatientList'>
-                                    <!-- <myDatepicker :date="startTime" :option="option" :limit="limit"></myDatepicker> -->
-                                  </div>
-                                </div>
-                              </div>
-                              <div style="padding-left: 5px;">
-                                <button style="font-size:12px;" @click='openJzView'>急诊登记</button>
-                                <button style="font-size:12px;" @click='searchPatientList'>搜索</button>
-                              </div>
-                            </div>
-                            <div style="overflow-y: auto;height:calc(100% - 105px - 80px);font-size:12px;">
-                              <div v-for="item in patientList" class="listBorder" :class="{thisClickBackClass:item.thisClickBack}" v-on:click="patientDeatilInfo(item)" v-on:dblclick="lockedPatient(item)">
-                                <div class="patientContent title_back" style="display:flex;justify-content:space-between;">
-                                  <span style="font-weight:bold;">手术间 {{item.operatingRoomNo}}</span>
-                                  <span v-if="item.emergencyIndicator == 1" style="color:red;font-weight:bold;">急诊</span>
-                                  <span v-if="item.operStatus == 0" style="color:#15428B;font-weight:bold;">准备手术</span>
-                                  <span v-if="item.operStatus == 5" style="color:red;font-weight:bold;">入手术室</span>
-                                  <span v-else-if="item.operStatus == 10" style="color:red;font-weight:bold;">麻醉开始</span>
-                                  <span v-else-if="item.operStatus == 15" style="color:red;font-weight:bold;">手术开始</span>
-                                  <span v-else-if="item.operStatus == 25" style="color:red;font-weight:bold;">手术结束</span>
-                                  <span v-else-if="item.operStatus == 30" style="color:red;font-weight:bold;">麻醉结束</span>
-                                  <span v-else-if="item.operStatus == 35" style="color:green;font-weight:bold;">出手术室</span>
-                                  <span v-else-if="item.operStatus == 60" style="color:green;font-weight:bold;">转入病房</span>
-                                  <span v-else-if="item.operStatus == 45" style="color:green;font-weight:bold;">进复苏室</span>
-                                  <span v-else-if="item.operStatus == 40" style="color:green;font-weight:bold;">待复苏</span>
-                                  <span v-else-if="item.operStatus == 65" style="color:green;font-weight:bold;">转入ICU</span>
-                                </div>
-                                <ul style="padding-left:5px;">
-                                  <li>患者 {{item.patientName}} {{item.patientId}} 住院号 {{item.inpNo}}</li>
-                                  <li>手术 {{item.operationName}}</li>
-                                  <li v-if="item.inDateTime==null||item.inDateTime==''">时间 {{item.scheduledDateTime}}</li>
-                                  <li v-if="item.inDateTime!=null&&item.inDateTime!=''">时间 {{item.inDateTime}}</li>
-                                  <li>术者 {{item.surgeonName}} 麻醉 {{item.anesthesiaDoctorName}} {{item.anesthesiaAssistantName}}</li>
-                                </ul>
-                              </div>
-                            </div>
-                            <div v-if="pageShowData" class="pageClass">
-                              <div>
-                                <div style="display:flex;items-align:center;padding-top:3px;">
-                                  <span>患者数量:</span>
-                                  <span style="color:rgb(0, 26, 250);padding:0 5px;">{{pageLength}}</span>
-                                  <span style="padding-right:5px;">共{{pages}}页</span>
-                                  <span>每页显示</span>
-                                  <input style="width:50px;" type="number" min="5" max="100" @change="dataInSize($event)" v-model="size">
-                                </div>
-                                <div style="display:flex;items-align:center;padding-top:10px;">
-                                  <button @click="firstPage" style="width:60px;font-size:12px;">首页</button>
-                                  <button @click="pageRe" style="width:60px;font-size:12px;">上一页</button>
-                                  <div @click="showSelect" class="pageInDiv">
-                                    <span>{{pageNum}}</span>
-                                    <div @click.stop="noClick" v-if="dataInSelect" class="pageInSelect">
-                                      <div @click="pageChoose(item.number)" v-for="item in dataTypeInAllSelect">{{item.number}}</div>
-                                    </div>
-                                  </div>
-                                  <button @click="pageAd" style="width:60px;font-size:12px;">下一页</button>
-                                  <button @click="lastPage" style="width:60px;font-size:12px;">末页</button>
-                                </div>
-                              </div>
-                              <div>
-                                <span>排序方式</span>
-                                <div @click="sort1">
-                                  <input type="radio" id="house" name="sort">
-                                  <label for="house">术间</label>
-                                </div>
-                                <div @click="sort0">
-                                  <input type="radio" id="timeHo" name="sort">
-                                  <label for="timeHo">时间</label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="leftNoneBox" @click="leftNone">
-                            <div :class="{trans:transData}" class="leftNoneImg">
-                              <img src="../../assets/left.png" alt="">
-                              <img src="../../assets/left.png" alt="">
-                              <img src="../../assets/left.png" alt="">
-                              <img src="../../assets/left.png" alt="">
           </div>
-                            </div>
-                            <div class="patientInfo" v-if="viewInfo">
-                              <div class="pat_title title_back">患者详情</div>
-                              <div style="margin-top: 5px;">
-                                <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">基本信息</div>
-                                <div class="patientContentBox">
-                                  <div class="container">
-                                    <div>患者ID</div>
-                                    <div class="in_con" style="width:100px;">
-                                      {{patientInfo.PATIENT_ID}}
-                                    </div>
-                                    <div class="left15">住院号</div>
-                                    <div class="in_con" style="width:80px;">
-                                      {{patientInfo.INP_NO}}
-                                    </div>
-                                    <div class="left15">姓名</div>
-                                    <div class="in_con" style="width:60px;">
-                                      {{patientInfo.NAME}}
-                                    </div>
-                                    <div class="left15">年龄</div>
-                                    <div class="in_con" style="width:60px;">
-                                      {{patientInfo.PAT_AGE}}
-                                    </div>
-                                    <div class="left15">性别</div>
-                                    <div class="in_con" style="width:50px;">
-                                      {{patientInfo.SEX}}
-                                    </div>
-                                  </div>
-                                  <div class="container">
-                                    <div>所在科室</div>
-                                    <div class="in_con" style="width:130px;">
-                                      {{patientInfo.DEPT_NAME}}
-                                    </div>
-                                    <div>床号</div>
-                                    <div class="in_con" style="width:50px;">
-                                      {{patientInfo.BED_NO}}
-                                    </div>
-                                    <div class="left15">付费方式</div>
-                                    <div class="in_con">
-                                      <!-- {{patientInfo.NAME}} -->
-                                    </div>
-                                  </div>
-                                  <div class="container">
-                                    <div>住址</div>
-                                    <div class="in_con" style="width: 400px;">{{patientInfo.MAILING_ADDRESS}}</div>
-                                    <div class="left15">职业</div>
-                                    <div class="in_con" style="width: 200px;"> </div>
-                                  </div>
-                                  <div class="container">
-                                    <div>身份证号</div>
-                                    <div class="in_con" style="width: 200px;">
-                                      {{patientInfo.ID_NO}}
-                                    </div>
-                                    <div class="left15">联系电话</div>
-                                    <div class="in_con">
-                                      {{patientInfo.NEXT_OF_KIN_PHONE}}
-                                    </div>
-                                    <div class="left15">联系人</div>
-                                    <div class="in_con">
-                                      {{patientInfo.NEXT_OF_KIN}}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div>
-                                <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术信息</div>
-                                <div class="patientContentBox">
-                                  <div class="container">
-                                    <div>主要诊断</div>
-                                    <div class="in_con" style="width: 600px;">{{patientInfo.DIAG_BEFORE_OPERATION}}</div>
-                                  </div>
-                                  <div class="container">
-                                    <div>病情</div>
-                                    <div class="in_con" style="width: 600px;">{{patientInfo.PATIENT_CONDITION}}</div>
-                                  </div>
-                                  <div class="container">
-                                    <div>手术名称</div>
-                                    <div class="in_con" style="width: 450px;max-height:42px;">{{patientInfo.OPERATION_NAME}}</div>
-                                    <div class="left15">急诊择期</div>
-                                    <div class="in_con" style="width:100px;">
-                                      <span v-if="patientInfo.EMERGENCY_INDICATOR=='1'">急诊</span>
-                                      <span v-if="patientInfo.EMERGENCY_INDICATOR=='0'">择期</span>
-                                    </div>
-                                  </div>
-                                  <div class="container">
-                                    <div>手术时间</div>
-                                    <div class="in_con" style="width: 160px;">{{patientInfo.SCHEDULED_DATE_TIME}}</div>
-                                    <div class="left15">台次</div>
-                                    <div class="in_con" style="width: 60px;">
-                                      {{patientInfo.SEQUENCE}}
-                                    </div>
-                                    <div class="left15">手术间</div>
-                                    <div class="in_con" style="width: 45px;">
-                                      {{patientInfo.OPERATING_ROOM_NO}}
-                                    </div>
-                                    <div class="left15">隔离</div>
-                                    <div class="in_con" style="width:60px;">{{patientInfo.ISOLATION_INDICATOR}}</div>
-                                    <div class="left15">手术等级</div>
-                                    <div class="in_con" style="width:60px;">
-                                      {{patientInfo.OPERATION_SCALE}}
-                                    </div>
-                                  </div>
-                                  <div class="container">
-                                    <div>麻醉方法</div>
-                                    <div class="in_con" style="width: 300px;">
-                                      {{patientInfo.ANESTHESIA_METHOD}}
-                                    </div>
-                                    <div class="left15">切口等级</div>
-                                    <div class="in_con" style="width: 90px;">{{patientInfo.QIEKOU_CLASS}}</div>
-                                    <div class="left15">切口个数</div>
-                                    <div class="in_con" style="width: 90px;">
-                                      {{patientInfo.QIEKOU_NUMBER}}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div>
-                                <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术人员</div>
-                                <div class="patientContentBox">
-                                  <div class="container">
-                                    <div>麻醉医师</div>
-                                    <div class="in_con100">{{patientInfo.ANESTHESIA_DOCTOR_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.ANESTHESIA_ASSISTANT_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.THIRD_ANESTHESIA_DOCTOR_NAME}}</div>
-                                  </div>
-                                  <div class="container">
-                                    <div>手术医师</div>
-                                    <div class="in_con100">{{patientInfo.SURGEON_NAME}}</div>
-                                    <div class="left30">手术助手</div>
-                                    <div class="in_con100">{{patientInfo.FIRST_ASSISTANT_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.SECOND_ASSISTANT_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.THIRD_ASSISTANT_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.FOURTH_ASSISTANT_NAME}}</div>
-                                  </div>
-                                  <div class="container">
-                                    <div>洗手护士</div>
-                                    <div class="in_con100">{{patientInfo.FIRST_OPERATION_NURSE_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.SECOND_OPERATION_NURSE_NAME}}</div>
-                                    <div class="left30">巡回护士</div>
-                                    <div class="in_con100">{{patientInfo.FIRST_SUPPLY_NURSE_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.SECOND_SUPPLY_NURSE_NAME}}</div>
-                                    <div class="in_con100">{{patientInfo.THIRD_SUPPLY_NURSE_NAME}}</div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- 单子信息 -->
-                            <div class="information" v-if="formDetail" :class="{allWidth:widthData}">
-                              <div ref="mybox1">
-                                <div class="designArea" ref="normal" :style="{height: areaheight+'px'}">
-                                  <div v-if="item.type == 'div'&&(item.width/2) <= 450" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:('450' - (item.width/2))+'px'}">
-                                    <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
-                                  </div>
-                                  <div v-if="item.type == 'div'&&(item.width/2) >= 451" class="item" style="position:absolute;min-height: 3px;min-width:3px;left:0;" :class="{choosed:item.chosen}" v-for="item in formItems">
-                                    <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
-                                  </div>
-                                  <div v-if="item.type !== 'div'" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:item.x+'px',top:item.y+'px'}">
-                                    <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
-                                  </div>
-                                </div>
-                              </div>
-                              <div ref="mybox" id="mybox" :style="{'display':showPrint?'inline':'none'}">
-                                <div class="designArea" style="font-size: 14pt;font-family: SimSun;height: 1900px;">
-                                  <div v-if="item.type == 'div'&&(item.width/2) <= 450" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:('450*0.75' - (item.width/2))+'px'}">
-                                    <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
-                                  </div>
-                                  <div v-if="item.type == 'div'&&(item.width/2) >= 451" class="item" style="position:absolute;min-height: 3px;min-width:3px;left:0;" :class="{choosed:item.chosen}" v-for="item in formItems">
-                                    <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
-                                  </div>
-                                  <div v-if="item.type !== 'div'" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:item.x+'px',top:item.y+'px'}">
-                                    <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
-                                  </div>
-                                </div>
-                              </div>
-                              <div v-if="formDetail" style="position: absolute;bottom:30px;right: 20px;">
-                                <button ref="buttonTest" v-if="pageButtonView" @click="toChangePage(0)">首页</button>
-                                <button v-if="pageButtonView" @click="toChangePage(-1)">上一页</button>
-                                <button v-if="pageButtonView" @click="toChangePage(1)">下一页</button>
-                                <button v-if="pageButtonView" @click="toChangePage(2)">末页</button>
-                                <button v-if="tempButtonView" @click="applyTemplateFun">应用模板</button>
-                                <button v-if="tempButtonView" @click="openSaveTemView">保存模板</button>
-                                <button @click="submitSaveForm">保存</button>
-                                <button v-if="personView" @click="openPatSetting">体征设置</button>
-                                <button @click="CreateOneFormPage">打印</button>
-                                <button @click="formSetting">配置</button>
-                                <button @click="refreshForm">刷新</button>
-                              </div>
-                            </div>
-                            <!-- 显示个性化体征设置 -->
-                            <div class="dictionaries" v-if="personStyleView">
-                              <personStyle v-on:closePatSetting="closePatSetting"></personStyle>
-                            </div>
-                          </div>
-                        </div>
-                        <monitor v-if="monitorDataShow.noneData" :dataOfNoneClick="firstRoom" :parentToChild="monitorDataShow"></monitor>
-                        <patientOperationInfo v-if="patientOperationInfoView.dataInParent" :info="patientInfo" :parentToChild="patientOperationInfoView" v-on:submitSave="submitPatientInfo" v-on:turnToSetting="toSetting"></patientOperationInfo>
-                        <operationRegister @refreshTime="timeChangeBus()" v-if="operationRegisterView.dataInParent" :objectItem="lockedPatientInfo" :parentToChild="operationRegisterView"></operationRegister>
-                        <!-- 模板管理 -->
-                        <div v-if="tempView" class="dictionaries">
-                          <updateTemplet style="position: absolute;top: 10%;" :style="{left:inleft+'px'}" v-on:closeWin="closeTempManage"></updateTemplet>
-                        </div>
-                        <!-- <div  style="position: absolute;top: 10%;width: 1214px;" :style="{left:inleft+'px'}">
-        <updateTemplet v-on:closeWin="closeTempManage"></updateTemplet>
-      </div> -->
-                        <aboutUs v-if="aboutUsData.dataInParent" :parentToChild="aboutUsData"></aboutUs>
-                        <!-- 检验信息 -->
-                        <checkInfo v-if="checkInfoView" v-on:closeView="closeCheckInfoView"></checkInfo>
-                        <!-- 检验结果 -->
-                        <checkResult v-if="checkResultShow" v-on:closeView="closeCheckInfoShow"></checkResult>
-                        <!-- 密码修改 -->
-                        <div class="dictionaries" v-if="changePassWord">
-                          <changePassWord @closeChangePassWordView="closeChangePassWordView"></changePassWord>
-                        </div>
-                        <!-- 更换手术间 -->
-                        <div class="dictionaries" v-if="changeRoomView">
-                          <changeRoom @closeChangeRoom="closeChangeRoom"></changeRoom>
-                        </div>
-                        <!-- 字典显示界面 -->
-                        <div v-if="dictView" class="dictionaries">
-                          <div class="window_load">
-                            <div class="load_top">
-                              <div>字典</div>
-                              <div @click="dictNone" class="top_active">X</div>
-                            </div>
-                            <div style="height: 50px;line-height: 50px;font-weight: bold;border-bottom: 2px solid #b1f3c5;">
-                              <span style="margin-left: 30px;">字典维护</span>
-                            </div>
-                            <div style="display: flex;padding-left:10px;padding-top: 5px;">
-                              <div class="tab_div" :class="{backWight:isBackOne}" @click="getComType">
-                                <span>常用术语</span>
-                              </div>
-                              <div class="tab_div" :class="{backWight:isBackTwo}" @click="getEvent">
-                                <span>麻醉事件</span>
-                              </div>
-                              <div class="tab_div" :class="{backWight:isBackThree}" @click="getMethods">
-                                <span>麻醉方法</span>
-                              </div>
-                              <div class="tab_div" :class="{backWight:isBackFour}" @click="getConstant">
-                                <span>麻醉常用量</span>
-                              </div>
-                            </div>
-                            <!-- 字典按钮内容 -->
-                            <div v-if="commoTerms" style="height:310px;">
-                              <div style="display: flex;height: 100%;background:white;margin:10px;">
-                                <!-- 显示类别 -->
-                                <div class="dictionaryBox">
-                                  <ul v-for="item in comTypeList">
-                                    <li class="hoverStyle" style="cursor:pointer;" @click="getTypeDetail(item)">
-                                      <div style="margin-left: 20px;">{{item.typeName}}</div>
-                                    </li>
-                                  </ul>
-                                </div>
-                                <!-- 显示详细内容 -->
-                                <div style="width: 70%;margin-top:5px;">
-                                  <div style="display: flex;margin-left: 10px;box-sizing:border-box;padding-right:18px;">
-                                    <div class="topList" v-for="cell in contentConfig">{{cell.text}}</div>
-                                  </div>
-                                  <div style="overflow-y: auto;height:280px;box-sizing:border-box;" :class="{paddingRight18:this.paddingRight18}">
-                                    <div v-for="list in commonTypeList" style="display: flex;margin-left: 10px;" @click="getItem(list)">
-                                      <div v-for="cl in contentConfig" style="width: 160px;border:1px solid #b1f3c5;">
-                                        <div style="height:calc(100% - 2px);" v-if="cl.status=='inable'">
-                                          <input v-if="list.writeAble" type="text" v-model="list[cl.value]" @blur="inputBlur(list)" @change="change" style="display:block;width:100%;border:0;height:100%;outline:none;">
-                                          <input v-if="!list.writeAble" type="text" v-model="list[cl.value]" readonly="readonly" @click="valueWriteAble(list)" style="display:block;width:100%;border:0;height:100%;outline:none;">
-                                        </div>
-                                        <div v-if="cl.status!='inable'">
-                                          {{list[cl.value]}}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div style="text-align: right;margin-right: 30px;">
-                                <button style="width: 80px;height: 25px;font-size:12px;" @click="addMedAnesthesiaInputDict" :disabled="isAdd">新增</button>
-                                <button style="width: 80px;height: 25px;font-size:12px;" :disabled="isSave" @click="saveValue">保存</button>
-                                <button style="width: 80px;height: 25px;font-size:12px;" @click="cancleEdit" :disabled="isCancle">取消</button>
-                                <button style="width: 80px;height: 25px;font-size:12px;" :disabled="isDelete" @click="deleteByMedAnesthesiaInputDict">删除</button>
-                              </div>
-                            </div>
-                            <anaesthesiaEvent v-if="anaesthesiaEvent" :eventChildData="eventDataType"></anaesthesiaEvent>
-                            <anestheticMethod v-if="anestheticMethod"></anestheticMethod>
-                            <anestheticConstant v-if="anestheticConstant"></anestheticConstant>
-                          </div>
-                        </div>
-                        <div>
-                          <!-- 急诊登记 -->
-                          <jzRegisterContent v-if="jzPatientView" v-on:closeJzViewChild="closeJzView"></jzRegisterContent>
-                        </div>
-                        <cancel v-if="cancelData.dataInParent" :dataInParent="cancelData"></cancel>
-                      </div>
-                      <div v-else style="height: 100%;width: 100%;z-index: 99;position:relative;">
-                        <div class="load_top">
-                          <div>表单设计器</div>
-                          <div @click="formSetting" class="top_active">X</div>
-                        </div>
-                        <formDesigner :dataInfo="selectFormItemTemp"></formDesigner>
-                      </div>
+          <div style="text-align: right;margin-right: 30px;">
+            <button style="width: 80px;height: 25px;font-size:12px;" @click="addMedAnesthesiaInputDict" :disabled="isAdd">新增</button>
+            <button style="width: 80px;height: 25px;font-size:12px;" :disabled="isSave" @click="saveValue">保存</button>
+            <button style="width: 80px;height: 25px;font-size:12px;" @click="cancleEdit" :disabled="isCancle">取消</button>
+            <button style="width: 80px;height: 25px;font-size:12px;" :disabled="isDelete" @click="deleteByMedAnesthesiaInputDict">删除</button>
+          </div>
+        </div>
+        <anaesthesiaEvent v-if="anaesthesiaEvent" :eventChildData="eventDataType"></anaesthesiaEvent>
+        <anestheticMethod v-if="anestheticMethod"></anestheticMethod>
+        <anestheticConstant v-if="anestheticConstant"></anestheticConstant>
+      </div>
+    </div>
+    <div>
+      <!-- 急诊登记 -->
+      <jzRegisterContent v-if="jzPatientView" v-on:closeJzViewChild="closeJzView"></jzRegisterContent>
+    </div>
+    <cancel v-if="cancelData.dataInParent" :dataInParent="cancelData"></cancel>
+  </div>
+  <div v-else style="height: 100%;width: 100%;z-index: 99;position:relative;">
+    <div class="load_top">
+      <div>表单设计器</div>
+      <div @click="formSetting" class="top_active">X</div>
+    </div>
+    <formDesigner :dataInfo="selectFormItemTemp"></formDesigner>
+  </div>
 </template>
 <script>
 import formDesigner from '@/components/formDesigner/formDesigner.vue';
@@ -709,23 +723,23 @@ export default {
       anestheticConstant: false,
       paddingRight18: false,
       contentConfig: [{
-          text: "序号",
-          value: "serialNo"
-        },
-        {
-          text: "分类",
-          value: "itemClass"
-        },
-        {
-          text: "名称",
-          value: "newItemName",
-          status: "inable"
-        },
-        {
-          text: "编码",
-          value: "newItemCode",
-          status: "inable"
-        },
+        text: "序号",
+        value: "serialNo"
+      },
+      {
+        text: "分类",
+        value: "itemClass"
+      },
+      {
+        text: "名称",
+        value: "newItemName",
+        status: "inable"
+      },
+      {
+        text: "编码",
+        value: "newItemCode",
+        status: "inable"
+      },
       ],
       commonTypeList: [],
       dictView: false,
@@ -843,9 +857,10 @@ export default {
       personView: false,
       tempView: false, //模板管理
       inleft: '',
-      regButtonView:false,//控制术中登记按钮
-      recoverButtonView:false,//控制复苏登记按钮
-
+      regButtonView: false,//控制术中登记按钮
+      recoverButtonView: false,//控制复苏登记按钮
+      burnDate: '',
+      nowDate:'',
     }
   },
   methods: {
@@ -872,20 +887,20 @@ export default {
     lodopInit() {
       LODOP = getLodop();
       if (LODOP) {
-      LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "")
-      var _this = this;
-      if (LODOP.CVERSION) CLODOP.On_Return = function(TaskID, Value) {
-        //不在打印预览界面
-        if (Value) {
-          _this.printLoading = false;
-          _this.toChangePage(0);
-          if (window.ipc) {
-            window.ipc.send('deleteImages', "delete");
+        LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "")
+        var _this = this;
+        if (LODOP.CVERSION) CLODOP.On_Return = function(TaskID, Value) {
+          //不在打印预览界面
+          if (Value) {
+            _this.printLoading = false;
+            _this.toChangePage(0);
+            if (window.ipc) {
+              window.ipc.send('deleteImages', "delete");
+            }
+
           }
 
-        }
-
-      };
+        };
       }
 
     },
@@ -1053,57 +1068,58 @@ export default {
       }
       this.api.getMedOperationMasterList(params)
         .then(
-          res => {
-            for (var p = 0; p < res.list.length; p++) {
-              this.$set(res.list[p], 'thisClickBack', false);
+        res => {
+          for (var p = 0; p < res.list.length; p++) {
+            this.$set(res.list[p], 'thisClickBack', false);
+          }
+          if (res.total > 5) {
+            this.pageShowData = true;
+            this.pages = res.pages;
+            this.patientList = res.list;
+            this.pageLength = res.total;
+            this.sortData = '';
+            this.dataTypeInAllSelect = [];
+            for (var i = 1; i <= this.pages; i++) {
+              this.dataTypeInAllSelect.push({
+                number: i
+              })
             }
-            if (res.total > 5) {
-              this.pageShowData = true;
-              this.pages = res.pages;
-              this.patientList = res.list;
-              this.pageLength = res.total;
-              this.sortData = '';
-              this.dataTypeInAllSelect = [];
-              for (var i = 1; i <= this.pages; i++) {
-                this.dataTypeInAllSelect.push({
-                  number: i
-                })
-              }
-              let paramsTwo = {
-                count: this.size,
-                page: this.pageNum,
-                dateTime: this.getTime,
-                operStatus: this.operStatus,
-                patientName: this.patientName,
-                patientId: this.patientId,
-                operatingRoom: this.operatingRoomNo,
-              }
-              this.api.getMedOperationMasterList(paramsTwo)
-                .then(
-                  res => {
-                    for (var p = 0; p < res.list.length; p++) {
-                      this.$set(res.list[p], 'thisClickBack', false);
-                    }
-                    this.pageShowData = true;
-                    this.pages = res.pages;
-                    this.patientList = res.list;
-                    this.pageLength = res.total;
-                    this.sortData = '';
-                    this.dataTypeInAllSelect = [];
-                    for (var i = 1; i <= this.pages; i++) {
-                      this.dataTypeInAllSelect.push({
-                        number: i
-                      })
-                    }
-                  });
-            } else {
-              this.patientList = res.list;
-              this.pageShowData = false;
-              this.size = 6;
-              this.pageNum = 1;
-              this.sortData = '';
+            let paramsTwo = {
+              count: this.size,
+              page: this.pageNum,
+              dateTime: this.getTime,
+              operStatus: this.operStatus,
+              patientName: this.patientName,
+              patientId: this.patientId,
+              operatingRoom: this.operatingRoomNo,
             }
-          });
+            this.api.getMedOperationMasterList(paramsTwo)
+              .then(
+              res => {
+                for (var p = 0; p < res.list.length; p++) {
+                  this.$set(res.list[p], 'thisClickBack', false);
+                }
+                this.pageShowData = true;
+                this.pages = res.pages;
+                console.log(res.list)
+                this.patientList = res.list;
+                this.pageLength = res.total;
+                this.sortData = '';
+                this.dataTypeInAllSelect = [];
+                for (var i = 1; i <= this.pages; i++) {
+                  this.dataTypeInAllSelect.push({
+                    number: i
+                  })
+                }
+              });
+          } else {
+            this.patientList = res.list;
+            this.pageShowData = false;
+            this.size = 6;
+            this.pageNum = 1;
+            this.sortData = '';
+          }
+        });
     },
     sort0() {
       this.sortData = 0;
@@ -1119,12 +1135,12 @@ export default {
       }
       this.api.getMedOperationMasterList(params)
         .then(
-          res => {
-            for (var p = 0; p < res.list.length; p++) {
-              this.$set(res.list[p], 'thisClickBack', false);
-            }
-            this.patientList = res.list;
-          });
+        res => {
+          for (var p = 0; p < res.list.length; p++) {
+            this.$set(res.list[p], 'thisClickBack', false);
+          }
+          this.patientList = res.list;
+        });
     },
     sort1() {
       this.sortData = 1;
@@ -1140,12 +1156,12 @@ export default {
       }
       this.api.getMedOperationMasterList(params)
         .then(
-          res => {
-            for (var p = 0; p < res.list.length; p++) {
-              this.$set(res.list[p], 'thisClickBack', false);
-            }
-            this.patientList = res.list;
-          });
+        res => {
+          for (var p = 0; p < res.list.length; p++) {
+            this.$set(res.list[p], 'thisClickBack', false);
+          }
+          this.patientList = res.list;
+        });
     },
     searchPatientListScreen() {
       if (this.getTime == "" && this.operStatus == "" && this.patientName == "" && this.patientId == "" && this.operatingRoomNo == "") {
@@ -1173,17 +1189,17 @@ export default {
       }
       this.api.getMedOperationMasterList(params)
         .then(
-          res => {
-            for (var p = 0; p < res.list.length; p++) {
-              this.$set(res.list[p], 'thisClickBack', false);
-            }
-            this.patientList = res.list;
-          });
+        res => {
+          for (var p = 0; p < res.list.length; p++) {
+            this.$set(res.list[p], 'thisClickBack', false);
+          }
+          this.patientList = res.list;
+        });
     },
     showSelect() {
       this.dataInSelect = !this.dataInSelect;
     },
-    noClick() {},
+    noClick() { },
     // 选择麻醉列表显示数量
     dataInSize(value) {
       this.pageNum = 1;
@@ -1204,14 +1220,14 @@ export default {
     },
     // 当前页减一
     pageRe() {
-      if (this.pageNum == 1) {} else {
+      if (this.pageNum == 1) { } else {
         this.pageNum = this.pageNum - 1;
         this.searchPatientListScreen();
       }
     },
     // 当前页加一
     pageAd() {
-      if (this.pages == this.pageNum) {} else {
+      if (this.pages == this.pageNum) { } else {
         this.pageNum = this.pageNum + 1;
         this.searchPatientListScreen();
       }
@@ -1226,6 +1242,28 @@ export default {
       this.pageNum = pageC;
       this.searchPatientListScreen();
       this.dataInSelect = false;
+    },
+    getDateIn(burnDate, event) {
+      // var date = new Date(burnDate);
+      // console.log(date);
+      console.log(this.lockedPatientInfo)
+      this.nowDate = burnDate;
+
+    },
+    saveBirth() {
+      let params = {
+        patientId: this.lockedPatientInfo.patientId,
+        dateOfBirth: this.nowDate,
+      }
+      this.api.updatePatientBirth(params)
+        .then(
+        res => {
+          alert('保存成功！')
+          // console.log(res)
+        });
+    },
+    escBirth() {
+      this.burnDate = this.patientInfo.BIRTH_DATE;
     },
     patientDeatilInfo(item) {
       for (var p = 0; p < this.patientList.length; p++) {
@@ -1243,9 +1281,9 @@ export default {
       }
       this.api.getPatienDetailInfo(params)
         .then(
-          res => {
-            this.patientInfo = res;
-          });
+        res => {
+          this.patientInfo = res;
+        });
       this.viewInfo = true;
     },
     setIntervaled() {
@@ -1287,6 +1325,7 @@ export default {
     },
     lockedPatient(item) {
       this.showFormView = true
+      this.burnDate = this.patientInfo.BIRTH_DATE;
       this.lockedPatientInfo = item;
       //当前病人信息存储起来
       this.config.userInfo = item;
@@ -1411,37 +1450,37 @@ export default {
       // console.log(params)
       this.api.changeBeforeStatus(params)
         .then(
-          res => {
-            if (res.success == true) {
-              this.api.selectMedOperationMaster({
-                patientId: this.lockedPatientInfo.patientId,
-                visitId: this.lockedPatientInfo.visitId,
-                operId: this.lockedPatientInfo.operId,
-              }).then(
-                afs => {
-                  // console.log(afs)
-                  this.lockedPatientInfo = afs;
-                  //当前病人信息存储起来
-                  this.config.userInfo = afs;
-                  this.inDateTime = this.changeDateFormat(afs.inDateTime);
-                  this.anesStartTime = this.changeDateFormat(afs.anesStartTime);
-                  this.startDateTime = this.changeDateFormat(afs.startDateTime);
-                  this.endDateTime = this.changeDateFormat(afs.endDateTime);
-                  this.anesEndTime = this.changeDateFormat(afs.anesEndTime);
-                  this.outDateTime = this.changeDateFormat(afs.outDateTime);
-                  this.searchPatientListScreen();
-                }
-              )
-              this.doShowData = false;
-              if (this.setTimeId) {
-                this.refreshForm();
+        res => {
+          if (res.success == true) {
+            this.api.selectMedOperationMaster({
+              patientId: this.lockedPatientInfo.patientId,
+              visitId: this.lockedPatientInfo.visitId,
+              operId: this.lockedPatientInfo.operId,
+            }).then(
+              afs => {
+                // console.log(afs)
+                this.lockedPatientInfo = afs;
+                //当前病人信息存储起来
+                this.config.userInfo = afs;
+                this.inDateTime = this.changeDateFormat(afs.inDateTime);
+                this.anesStartTime = this.changeDateFormat(afs.anesStartTime);
+                this.startDateTime = this.changeDateFormat(afs.startDateTime);
+                this.endDateTime = this.changeDateFormat(afs.endDateTime);
+                this.anesEndTime = this.changeDateFormat(afs.anesEndTime);
+                this.outDateTime = this.changeDateFormat(afs.outDateTime);
+                this.searchPatientListScreen();
               }
-
-            } else {
-              alert(res.msg)
+              )
+            this.doShowData = false;
+            if (this.setTimeId) {
+              this.refreshForm();
             }
 
-          });
+          } else {
+            alert(res.msg)
+          }
+
+        });
 
     },
     allNone() {
@@ -1495,9 +1534,9 @@ export default {
       let params = {}
       this.api.getMedAnesthesiaCommType(params)
         .then(
-          res => {
-            this.comTypeList = res.list;
-          });
+        res => {
+          this.comTypeList = res.list;
+        });
     },
     getEvent() {
       this.isBackOne = false;
@@ -1511,9 +1550,9 @@ export default {
       let params = {}
       this.api.allMedAnesthesiaEventType(params)
         .then(
-          res => {
-            this.eventDataType = res.list;
-          });
+        res => {
+          this.eventDataType = res.list;
+        });
     },
     getMethods() {
       this.isBackOne = false;
@@ -1551,20 +1590,20 @@ export default {
       }
       this.api.getMedAnesthesiaCommDictByItemClass(params)
         .then(
-          res => {
-            var m = res.list.length;
-            if (m > 12) {
-              this.paddingRight18 = false;
-            } else {
-              this.paddingRight18 = true;
-            }
-            for (var i = 0; i < m; i++) {
-              res.list[i].newItemName = res.list[i].itemName;
-              res.list[i].newItemCode = res.list[i].itemCode;
+        res => {
+          var m = res.list.length;
+          if (m > 12) {
+            this.paddingRight18 = false;
+          } else {
+            this.paddingRight18 = true;
+          }
+          for (var i = 0; i < m; i++) {
+            res.list[i].newItemName = res.list[i].itemName;
+            res.list[i].newItemCode = res.list[i].itemCode;
 
-            }
-            this.commonTypeList = res.list;
-          });
+          }
+          this.commonTypeList = res.list;
+        });
     },
     dictShow() {
       this.dictView = true;
@@ -1583,9 +1622,9 @@ export default {
       }
       this.api.deleteByMedAnesthesiaInputDict(params)
         .then(
-          res => {
-            this.getTypeDetail(this.tempTypeItem);
-          });
+        res => {
+          this.getTypeDetail(this.tempTypeItem);
+        });
     },
     addMedAnesthesiaInputDict() {
       this.commonTypeList.push({ serialNo: this.commonTypeList.length, itemClass: this.tempTypeItem.typeName, newItemName: "", newItemCode: "", itemName: "", itemCode: "" });
@@ -1624,17 +1663,17 @@ export default {
           }
           this.api.insertMedAnesthesiaInputDict(params1)
             .then(
-              res => {
-                this.getTypeDetail(this.tempTypeItem);
-              });
+            res => {
+              this.getTypeDetail(this.tempTypeItem);
+            });
         }
       }
       if (params.length > 0) {
         this.api.updateMedAnesthesiaInputDict(params)
           .then(
-            res => {
-              this.getTypeDetail(this.tempTypeItem);
-            });
+          res => {
+            this.getTypeDetail(this.tempTypeItem);
+          });
       }
       this.isCancle = true;
       this.isAdd = false;
@@ -1644,14 +1683,14 @@ export default {
       let params = {}
       this.api.selectMedFormList(params)
         .then(
-          res => {
-            this.medBillList = res.list;
-            this.bindClassData = false;
-            for (var i = 0; i <= res.list.length - 1; i++) {
-              this.$set(this.medBillList[i], 'bindClassData', this.bindClassData);
-            }
+        res => {
+          this.medBillList = res.list;
+          this.bindClassData = false;
+          for (var i = 0; i <= res.list.length - 1; i++) {
+            this.$set(this.medBillList[i], 'bindClassData', this.bindClassData);
+          }
 
-          });
+        });
     },
     scollFun(event) {
       if (event.deltaY > 0) {
@@ -1675,9 +1714,9 @@ export default {
         this.regButtonView = false
         this.recoverButtonView = true
       }
-      else{
-         this.regButtonView = false
-         this.recoverButtonView = false
+      else {
+        this.regButtonView = false
+        this.recoverButtonView = false
       }
 
       let timeParam = {
@@ -1762,50 +1801,50 @@ export default {
             let arry = [];
             this.api.selectMedFormTemp(params)
               .then(
-                res => {
-                  if (res.formContent == "null" || res.formContent == null) {
-                    return;
+              res => {
+                if (res.formContent == "null" || res.formContent == null) {
+                  return;
+                }
+                let tempItems = JSON.parse(res.formContent);
+                this.formItems = JSON.parse(res.formContent);
+                var list = this.formItems;
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].fieldName) {
+                    arry.push({
+                      "patientId": this.lockedPatientInfo.patientId,
+                      "visitId": this.lockedPatientInfo.visitId,
+                      "operId": this.lockedPatientInfo.operId,
+                      "tableName": list[i].tableName,
+                      "coluName": list[i].fieldName,
+                      "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
+                      "dictTableName": list[i].dictTableName, //字典表名称
+                      "dictField": list[i].dictField, //字典字段名称
+                      "dictSelect": list[i].dictSelect,
+                    })
                   }
-                  let tempItems = JSON.parse(res.formContent);
-                  this.formItems = JSON.parse(res.formContent);
-                  var list = this.formItems;
-                  for (var i = 0; i < list.length; i++) {
-                    if (list[i].fieldName) {
-                      arry.push({
-                        "patientId": this.lockedPatientInfo.patientId,
-                        "visitId": this.lockedPatientInfo.visitId,
-                        "operId": this.lockedPatientInfo.operId,
-                        "tableName": list[i].tableName,
-                        "coluName": list[i].fieldName,
-                        "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                        "dictTableName": list[i].dictTableName, //字典表名称
-                        "dictField": list[i].dictField, //字典字段名称
-                        "dictSelect": list[i].dictSelect,
-                      })
-                    }
-                  }
-                  this.api.getFormSqlResult(arry)
-                    .then(
-                      result => {
-                        for (var i = 0; i < list.length; i++) {
-                          if (list[i].fieldName) {
-                            if (list[i].fieldName == "page") {
-                              let obj = this.formItems[i];
-                              obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                              let tempObj = JSON.parse(JSON.stringify(obj));
-                              this.$set(this.formItems, i, tempObj);
-                            } else {
-                              let obj = this.formItems[i];
-                              obj.value = result[list[i].tableName + list[i].fieldName];
-                              let tempObj = JSON.parse(JSON.stringify(obj));
-                              this.$set(this.formItems, i, tempObj);
-                            }
-
-                          }
+                }
+                this.api.getFormSqlResult(arry)
+                  .then(
+                  result => {
+                    for (var i = 0; i < list.length; i++) {
+                      if (list[i].fieldName) {
+                        if (list[i].fieldName == "page") {
+                          let obj = this.formItems[i];
+                          obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
+                          let tempObj = JSON.parse(JSON.stringify(obj));
+                          this.$set(this.formItems, i, tempObj);
+                        } else {
+                          let obj = this.formItems[i];
+                          obj.value = result[list[i].tableName + list[i].fieldName];
+                          let tempObj = JSON.parse(JSON.stringify(obj));
+                          this.$set(this.formItems, i, tempObj);
                         }
 
-                      });
-                });
+                      }
+                    }
+
+                  });
+              });
             if (this.setTimeId) {
               this.$nextTick(function() {
                 Bus.$emit('timeSetChange');
@@ -1822,51 +1861,51 @@ export default {
         // this.formItems = [];
         this.api.selectMedFormTemp(params)
           .then(
-            res => {
-              if (res.formContent == "null" || res.formContent == null) {
-                return;
-              }
-              let tempItems = JSON.parse(res.formContent);
-              this.formItems = JSON.parse(res.formContent);
+          res => {
+            if (res.formContent == "null" || res.formContent == null) {
+              return;
+            }
+            let tempItems = JSON.parse(res.formContent);
+            this.formItems = JSON.parse(res.formContent);
 
-              var list = this.formItems;
-              for (var i = 0; i < list.length; i++) {
-                if (list[i].fieldName) {
-                  arry.push({
-                    "patientId": this.lockedPatientInfo.patientId,
-                    "visitId": this.lockedPatientInfo.visitId,
-                    "operId": this.lockedPatientInfo.operId,
-                    "tableName": list[i].tableName,
-                    "coluName": list[i].fieldName,
-                    "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                    "dictTableName": list[i].dictTableName, //字典表名称
-                    "dictField": list[i].dictField, //字典字段名称
-                    "dictSelect": list[i].dictSelect,
-                  })
-                }
+            var list = this.formItems;
+            for (var i = 0; i < list.length; i++) {
+              if (list[i].fieldName) {
+                arry.push({
+                  "patientId": this.lockedPatientInfo.patientId,
+                  "visitId": this.lockedPatientInfo.visitId,
+                  "operId": this.lockedPatientInfo.operId,
+                  "tableName": list[i].tableName,
+                  "coluName": list[i].fieldName,
+                  "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
+                  "dictTableName": list[i].dictTableName, //字典表名称
+                  "dictField": list[i].dictField, //字典字段名称
+                  "dictSelect": list[i].dictSelect,
+                })
               }
-              this.api.getFormSqlResult(arry)
-                .then(
-                  result => {
-                    for (var i = 0; i < list.length; i++) {
-                      if (list[i].fieldName) {
-                        if (list[i].fieldName == "page") {
-                          let obj = this.formItems[i];
-                          obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        } else {
-                          let obj = this.formItems[i];
-                          obj.value = result[list[i].tableName + list[i].fieldName];
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        }
-
-                      }
+            }
+            this.api.getFormSqlResult(arry)
+              .then(
+              result => {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].fieldName) {
+                    if (list[i].fieldName == "page") {
+                      let obj = this.formItems[i];
+                      obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
+                      let tempObj = JSON.parse(JSON.stringify(obj));
+                      this.$set(this.formItems, i, tempObj);
+                    } else {
+                      let obj = this.formItems[i];
+                      obj.value = result[list[i].tableName + list[i].fieldName];
+                      let tempObj = JSON.parse(JSON.stringify(obj));
+                      this.$set(this.formItems, i, tempObj);
                     }
 
-                  });
-            })
+                  }
+                }
+
+              });
+          })
         this.tempButtonView = true;
         this.initComponementConfig();
       } else {
@@ -1883,50 +1922,50 @@ export default {
         // this.formItems = [];
         this.api.selectMedFormTemp(params)
           .then(
-            res => {
-              if (res.formContent == "null" || res.formContent == null) {
-                return;
+          res => {
+            if (res.formContent == "null" || res.formContent == null) {
+              return;
+            }
+            let tempItems = JSON.parse(res.formContent);
+            this.formItems = JSON.parse(res.formContent);
+            var list = this.formItems;
+            for (var i = 0; i < list.length; i++) {
+              if (list[i].fieldName) {
+                arry.push({
+                  "patientId": this.lockedPatientInfo.patientId,
+                  "visitId": this.lockedPatientInfo.visitId,
+                  "operId": this.lockedPatientInfo.operId,
+                  "tableName": list[i].tableName,
+                  "coluName": list[i].fieldName,
+                  "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
+                  "dictTableName": list[i].dictTableName, //字典表名称
+                  "dictField": list[i].dictField, //字典字段名称
+                  "dictSelect": list[i].dictSelect,
+                })
               }
-              let tempItems = JSON.parse(res.formContent);
-              this.formItems = JSON.parse(res.formContent);
-              var list = this.formItems;
-              for (var i = 0; i < list.length; i++) {
-                if (list[i].fieldName) {
-                  arry.push({
-                    "patientId": this.lockedPatientInfo.patientId,
-                    "visitId": this.lockedPatientInfo.visitId,
-                    "operId": this.lockedPatientInfo.operId,
-                    "tableName": list[i].tableName,
-                    "coluName": list[i].fieldName,
-                    "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                    "dictTableName": list[i].dictTableName, //字典表名称
-                    "dictField": list[i].dictField, //字典字段名称
-                    "dictSelect": list[i].dictSelect,
-                  })
-                }
-              }
-              this.api.getFormSqlResult(arry)
-                .then(
-                  result => {
-                    for (var i = 0; i < list.length; i++) {
-                      if (list[i].fieldName) {
-                        if (list[i].fieldName == "page") {
-                          let obj = this.formItems[i];
-                          obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        } else {
-                          let obj = this.formItems[i];
-                          obj.value = result[list[i].tableName + list[i].fieldName];
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        }
-
-                      }
+            }
+            this.api.getFormSqlResult(arry)
+              .then(
+              result => {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].fieldName) {
+                    if (list[i].fieldName == "page") {
+                      let obj = this.formItems[i];
+                      obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
+                      let tempObj = JSON.parse(JSON.stringify(obj));
+                      this.$set(this.formItems, i, tempObj);
+                    } else {
+                      let obj = this.formItems[i];
+                      obj.value = result[list[i].tableName + list[i].fieldName];
+                      let tempObj = JSON.parse(JSON.stringify(obj));
+                      this.$set(this.formItems, i, tempObj);
                     }
 
-                  });
-            })
+                  }
+                }
+
+              });
+          })
       }
     },
     priClick() {
@@ -2054,89 +2093,89 @@ export default {
         this.nextDATA = params;
         this.api.changeOperationStatus(params)
           .then(
-            res => {
-              if (res.success == true) {
-                if (this.lockedPatientInfo.operStatus === 0 && status == 5) {
-                  this.firstRoom.noneData = false;
-                  // 获取监护仪数据
-                  let monitor = {
-                    itemType: 0,
-                    wardCode: this.config.wardCode,
-                    wardType: 0
-                  }
-                  this.api.selectMonitorList(params)
-                    .then(raa => {
-                      console.log(raa.list)
-                      // 默认绑定监护仪
-                      let binding = {
-                        bedNo: this.config.userInfo.operatingRoomNo,
-                        itemType: 0,
-                        wardCode: this.config.wardCode,
-                        wardType: 0,
-                        operId: this.config.userInfo.operId,
-                        patientId: this.config.userInfo.patientId,
-                        visitId: this.config.userInfo.visitId,
-                        currentRecvFrequency: raa.list[0].currentRecvFrequency,
-                        currentRecvtimesUplimit: raa.list[0].currentRecvtimesUplimit,
-                        datalogStartTime: new Date().Format('yyyy-MM-dd hh:mm'),
-                        defaultRecvFrequency: raa.list[0].defaultRecvFrequency,
-                        monitorLabel: raa.list[0].monitorLabel,
-                      }
-                      this.api.bindPatientMonitor(binding).then(
-                        ref => {
-                          console.log(binding)
-                          if (ref.success == true) {
-                            console.log(ref)
-                            // 查询监护仪名称并调用程序
-                            let afgT = {
-                              monitorLabel: binding.monitorLabel
-                            }
-                            this.api.selectMonitor(afgT)
-                              .then(kkk => {
-                                // 打开监护仪界面
-                                this.monitorDataShow.noneData = true;
-                                window.ipc.send('runexe', kkk.driverProg);
-                              })
-
+          res => {
+            if (res.success == true) {
+              if (this.lockedPatientInfo.operStatus === 0 && status == 5) {
+                this.firstRoom.noneData = false;
+                // 获取监护仪数据
+                let monitor = {
+                  itemType: 0,
+                  wardCode: this.config.wardCode,
+                  wardType: 0
+                }
+                this.api.selectMonitorList(params)
+                  .then(raa => {
+                    console.log(raa.list)
+                    // 默认绑定监护仪
+                    let binding = {
+                      bedNo: this.config.userInfo.operatingRoomNo,
+                      itemType: 0,
+                      wardCode: this.config.wardCode,
+                      wardType: 0,
+                      operId: this.config.userInfo.operId,
+                      patientId: this.config.userInfo.patientId,
+                      visitId: this.config.userInfo.visitId,
+                      currentRecvFrequency: raa.list[0].currentRecvFrequency,
+                      currentRecvtimesUplimit: raa.list[0].currentRecvtimesUplimit,
+                      datalogStartTime: new Date().Format('yyyy-MM-dd hh:mm'),
+                      defaultRecvFrequency: raa.list[0].defaultRecvFrequency,
+                      monitorLabel: raa.list[0].monitorLabel,
+                    }
+                    this.api.bindPatientMonitor(binding).then(
+                      ref => {
+                        console.log(binding)
+                        if (ref.success == true) {
+                          console.log(ref)
+                          // 查询监护仪名称并调用程序
+                          let afgT = {
+                            monitorLabel: binding.monitorLabel
                           }
+                          this.api.selectMonitor(afgT)
+                            .then(kkk => {
+                              // 打开监护仪界面
+                              this.monitorDataShow.noneData = true;
+                              window.ipc.send('runexe', kkk.driverProg);
+                            })
+
                         }
-                      )
-                    })
+                      }
+                    )
+                  })
 
-                }
-                this.searchPatientList();
-                this.api.selectMedOperationMaster({
-                  patientId: this.lockedPatientInfo.patientId,
-                  visitId: this.lockedPatientInfo.visitId,
-                  operId: this.lockedPatientInfo.operId,
-                }).then(
-                  ref => {
-                    this.lockedPatientInfo = ref;
-                    this.config.userInfo = ref;
-                    this.timeChangeBus();
-                  }
-                )
-              } else {
-                if (status == 5 && this.anesStartTime == '') {
-                  this.inDateTime = '';
-                } else if (status == 10 && this.startDateTime == '') {
-                  this.anesStartTime = '';
-                } else if (status == 15 && this.endDateTime == '') {
-                  this.startDateTime = '';
-                } else if (status == 25 && this.anesEndTime == '') {
-                  this.endDateTime = '';
-                } else if (status == 30 && this.outDateTime == '') {
-                  this.anesEndTime = '';
-                } else if (status == 35) {
-                  this.outDateTime = '';
-                }
-                alert(res.msg)
               }
-              // if (this.setTimeId) {
-              //   this.refreshForm();
-              // }
+              this.searchPatientList();
+              this.api.selectMedOperationMaster({
+                patientId: this.lockedPatientInfo.patientId,
+                visitId: this.lockedPatientInfo.visitId,
+                operId: this.lockedPatientInfo.operId,
+              }).then(
+                ref => {
+                  this.lockedPatientInfo = ref;
+                  this.config.userInfo = ref;
+                  this.timeChangeBus();
+                }
+                )
+            } else {
+              if (status == 5 && this.anesStartTime == '') {
+                this.inDateTime = '';
+              } else if (status == 10 && this.startDateTime == '') {
+                this.anesStartTime = '';
+              } else if (status == 15 && this.endDateTime == '') {
+                this.startDateTime = '';
+              } else if (status == 25 && this.anesEndTime == '') {
+                this.endDateTime = '';
+              } else if (status == 30 && this.outDateTime == '') {
+                this.anesEndTime = '';
+              } else if (status == 35) {
+                this.outDateTime = '';
+              }
+              alert(res.msg)
+            }
+            // if (this.setTimeId) {
+            //   this.refreshForm();
+            // }
 
-            });
+          });
       } else {
         if (status == 5 && this.anesStartTime == '') {
           this.inDateTime = '';
@@ -2202,7 +2241,7 @@ export default {
         this.$router.push({
           path: 'menu'
         })
-      } else {}
+      } else { }
     },
     // 左部选项按下拉显示隐藏及图片切换
     concealmentOne() {
@@ -2275,7 +2314,7 @@ export default {
     },
     //提交单子修改
     submitSaveForm() {
-      if (this.selectFormItemTemp.formName == '手术清点单' || this.selectFormItemTemp.formName =='手术护理单') {
+      if (this.selectFormItemTemp.formName == '手术清点单' || this.selectFormItemTemp.formName == '手术护理单') {
         Bus.$emit('saveFun', '保存');
         alert("保存成功")
       } else {
@@ -2305,7 +2344,7 @@ export default {
         let params = []
         params = arry;
         this.api.updateSqlBatch(params)
-          .then(res => {})
+          .then(res => { })
       }
     },
     toSetting(item) {
@@ -2549,59 +2588,59 @@ export default {
       var pro = new Promise((resolve, reject) => {
         this.api.selectMedFormTemp(params)
           .then(
-            res => {
-              if (res.formContent == "null" || res.formContent == null) {
-                return;
+          res => {
+            if (res.formContent == "null" || res.formContent == null) {
+              return;
+            }
+            let tempItems = JSON.parse(res.formContent);
+            this.formItems = JSON.parse(res.formContent);
+            var list = this.formItems;
+            for (var i = 0; i < list.length; i++) {
+              if (list[i].fieldName) {
+                arry.push({
+                  "patientId": this.lockedPatientInfo.patientId,
+                  "visitId": this.lockedPatientInfo.visitId,
+                  "operId": this.lockedPatientInfo.operId,
+                  "tableName": list[i].tableName,
+                  "coluName": list[i].fieldName,
+                  "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
+                  "dictTableName": list[i].dictTableName, //字典表名称
+                  "dictField": list[i].dictField, //字典字段名称
+                  "dictSelect": list[i].dictSelect,
+                })
               }
-              let tempItems = JSON.parse(res.formContent);
-              this.formItems = JSON.parse(res.formContent);
-              var list = this.formItems;
-              for (var i = 0; i < list.length; i++) {
-                if (list[i].fieldName) {
-                  arry.push({
-                    "patientId": this.lockedPatientInfo.patientId,
-                    "visitId": this.lockedPatientInfo.visitId,
-                    "operId": this.lockedPatientInfo.operId,
-                    "tableName": list[i].tableName,
-                    "coluName": list[i].fieldName,
-                    "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                    "dictTableName": list[i].dictTableName, //字典表名称
-                    "dictField": list[i].dictField, //字典字段名称
-                    "dictSelect": list[i].dictSelect,
-                  })
+            }
+            this.api.getFormSqlResult(arry)
+              .then(
+              result => {
+                for (var i = 0; i < list.length; i++) {
+                  if (list[i].fieldName) {
+                    if (list[i].fieldName == "page") {
+                      let obj = this.formItems[i];
+                      obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
+                      let tempObj = JSON.parse(JSON.stringify(obj));
+                      this.$set(this.formItems, i, tempObj);
+                    } else {
+                      let obj = this.formItems[i];
+                      obj.value = result[list[i].tableName + list[i].fieldName];
+                      let tempObj = JSON.parse(JSON.stringify(obj));
+                      this.$set(this.formItems, i, tempObj);
+                    }
+                  }
                 }
-              }
-              this.api.getFormSqlResult(arry)
-                .then(
-                  result => {
-                    for (var i = 0; i < list.length; i++) {
-                      if (list[i].fieldName) {
-                        if (list[i].fieldName == "page") {
-                          let obj = this.formItems[i];
-                          obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        } else {
-                          let obj = this.formItems[i];
-                          obj.value = result[list[i].tableName + list[i].fieldName];
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        }
-                      }
-                    }
-                    Bus.$emit('test', '--');
-                    let loadTime = 1000;
-                    if (window.loadTime) {
-                      loadTime = window.loadTime
-                    }
-                    setTimeout(() => {
+                Bus.$emit('test', '--');
+                let loadTime = 1000;
+                if (window.loadTime) {
+                  loadTime = window.loadTime
+                }
+                setTimeout(() => {
 
-                      resolve(result);
-                    }, loadTime)
+                  resolve(result);
+                }, loadTime)
 
-                  })
+              })
 
-            });
+          });
       });
       return pro;
 
@@ -3152,7 +3191,7 @@ export default {
 
 .tab_div:hover span {
   text-shadow: 18px 15px 20px #E3EFFF,
-    -15px 15px 20px #E3EFFF;
+  -15px 15px 20px #E3EFFF;
 }
 
 .dictionaryBox {
@@ -3383,5 +3422,4 @@ export default {
 .loading span:nth-child(5) {
   -webkit-animation-delay: 0.65s;
 }
-
 </style>

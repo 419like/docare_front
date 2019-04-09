@@ -688,6 +688,7 @@ export default {
         operId: this.objectItem.operId,
         visitId: this.objectItem.visitId,
         eventNo: this.config.eventNo,
+        regFlag:1
       }
       this.api.getSignName(params)
         .then(
@@ -760,7 +761,8 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        eventNo: this.config.eventNo
+        eventNo: this.config.eventNo,
+        regFlag:1
       }
       this.api.getNewTimeData(params)
         .then(res => {

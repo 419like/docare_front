@@ -166,7 +166,7 @@
                       <button v-if="recoverButtonView" class="list_button" @click="getRecoverRegister">复苏登记</button>
                       <button @click="cancel" class="list_button">取消手术</button>
                       <button v-if="formDetail" class="list_button" @click="monitor">监护仪</button>
-                      <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
+                      <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button>
                     </div>
                   </div>
                   <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">

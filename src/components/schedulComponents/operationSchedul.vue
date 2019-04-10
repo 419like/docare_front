@@ -652,15 +652,17 @@ export default {
     },
     getNewPushData(item, index) {
       // console.log(item)
-      console.log(index)
-      console.log(this.infoMode)
+      // console.log(index)
+      // console.log(this.infoMode)
       // console.log(this.handleItem[item.value])
-      console.log(this.infoMode[index])
+      // console.log(this.infoMode[index])
       if (this.infoMode[index].value == 'anesthesiaDoctorName') {
         // console.log(this.options)
         for (var a = 0; a < this.options.length; a++) {
           if (this.options[a].userName == this.handleItem[item.value]) {
             this.onchangeData.anesthesiaDoctorName = this.options[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.anesthesiaDoctorName = '';
           }
         }
       } else if (this.infoMode[index].value == 'firstAnesthesiaAssistantName') {
@@ -668,6 +670,8 @@ export default {
         for (var a = 0; a < this.MzkUsers.length; a++) {
           if (this.MzkUsers[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstAnesthesiaAssistantName = this.MzkUsers[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.firstAnesthesiaAssistantName = '';
           }
         }
       } else if (this.infoMode[index].value == 'secondAnesthesiaAssistantName') {
@@ -675,6 +679,8 @@ export default {
         for (var a = 0; a < this.MzkUsers.length; a++) {
           if (this.MzkUsers[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondAnesthesiaAssistantName = this.MzkUsers[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.secondAnesthesiaAssistantName = '';
           }
         }
       } else if (this.infoMode[index].value == 'firstAssistantName') {
@@ -682,6 +688,8 @@ export default {
         for (var a = 0; a < this.assistant.length; a++) {
           if (this.assistant[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstAssistantName = this.assistant[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.firstAssistantName = '';
           }
         }
       } else if (this.infoMode[index].value == 'secondAssistantName') {
@@ -689,6 +697,8 @@ export default {
         for (var a = 0; a < this.assistant.length; a++) {
           if (this.assistant[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondAssistantName = this.assistant[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.secondAssistantName = '';
           }
         }
       } else if (this.infoMode[index].value == 'firstOperationNurseName') {
@@ -696,6 +706,8 @@ export default {
         for (var a = 0; a < this.wash.length; a++) {
           if (this.wash[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstOperationNurseName = this.wash[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.firstOperationNurseName = '';
           }
         }
       } else if (this.infoMode[index].value == 'secondOperationNurseName') {
@@ -703,6 +715,8 @@ export default {
         for (var a = 0; a < this.wash.length; a++) {
           if (this.wash[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondOperationNurseName = this.wash[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.secondOperationNurseName = '';
           }
         }
       } else if (this.infoMode[index].value == 'firstSupplyNurseName') {
@@ -710,6 +724,8 @@ export default {
         for (var a = 0; a < this.tour.length; a++) {
           if (this.tour[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstSupplyNurseName = this.tour[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.firstSupplyNurseName = '';
           }
         }
       } else if (this.infoMode[index].value == 'secondSupplyNurseName') {
@@ -717,6 +733,8 @@ export default {
         for (var a = 0; a < this.tour.length; a++) {
           if (this.tour[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondSupplyNurseName = this.tour[a].userId;
+          }else if(this.handleItem[item.value] == ''){
+            this.onchangeData.secondSupplyNurseName = '';
           }
         }
       }

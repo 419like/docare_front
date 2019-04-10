@@ -5,9 +5,13 @@
       <button @click="getView">查询</button>
       <button @click="print">打印</button>
     </div>
-    <div ref="tableView">
-      <div style="text-align:center;padding-bottom:10px;font-size:18px;">毕节市中医医院麻醉科手术通知单</div>
-      <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0" cellpadding="0">
+    <div ref="tableView" style="padding-top:20px;">
+      <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;position:relative;" border="1" cellspacing="0" cellpadding="0">
+        <div style="position:absolute;display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;width:800px;">
+          <div></div>
+          <div style="text-align:center;font-size:18px;">毕节市中医医院麻醉科手术通知单</div>
+          <div>{{'共计'+allNo+'台'}}</div>
+        </div>
         <thead>
           <th v-for="item in tableTitleList" style="font-weight: normal;padding: 5px" :style="{width:item.width+'px'}">
             {{item.title}}
@@ -31,80 +35,81 @@ export default {
   data() {
     return {
       viewList: [],
+      allNo: '',
       dateTimeValue: '',
       tableTitleList: [{
-          title: '手术间',
-          field: 'OPERATING_ROOM_NO',
-          width:60,
-        },{
-          title: '台次',
-          field: 'SEQUENCE',
-          width:40,
-        },{
-          title: '科室',
-          field: 'OPERATING_DEPT_NAME',
-          // width:50,
-        },{
-          title: '床号',
-          field: 'BED_NO',
-          width:50,
-        },{
-          title: '姓名',
-          field: 'PAT_NAME'
-          // ,width:50,
-        }, {
-          title: '性别',
-          field: 'SEX',
-          width:40,
-        }, {
-          title: '年龄',
-          field: 'PAT_AGE',
-          width:40,
-        }, {
-          title: '住院号',
-          field: 'INP_NO',
-          // width:50,
-        },{
-          title: '术前诊断',
-          field: 'DIAG_BEFORE_OPERATION',
-          // width:50,
-        },{
-          title: '手术名称',
-          field: 'OPERATION_NAME',
-          // width:50,
-        }, {
-          title: '主刀医生',
-          field: 'SURGEON_NAME',
-          // width:50,
-        },{
-          title: '手术助手',
-          field: 'FIRST_ASSISTANT_NAME',
-          // width:50,
-        },{
-          title: '麻醉方式',
-          field: 'ANESTHESIA_METHOD',
-          // width:50,
-        },{
-          title: '主麻',
-          field: 'ANESTHESIA_DOCTOR_NAME',
-          // width:50,
-        },{
-          title: '助手',
-          field: 'ANESTHESIA_ASSISTANT_NAME',
-          // width:50,
-        },{
-          title: '洗手',
-          field: 'FIRST_OPERATION_NURSE_NAME',
-          // width:50,
-        },{
-          title: '巡回',
-          field: 'FIRST_SUPPLY_NURSE_NAME',
-          // width:50,
-        },{
-          title: '备注',
-          field: 'SPECIAL_EQUIPMENT',
-          width:110
-        },
+        title: '手术间',
+        field: 'OPERATING_ROOM_NO',
+        width: 60,
+      }, {
+        title: '台次',
+        field: 'SEQUENCE',
+        width: 40,
+      }, {
+        title: '科室',
+        field: 'OPERATING_DEPT_NAME',
+        // width:50,
+      }, {
+        title: '床号',
+        field: 'BED_NO',
+        width: 50,
+      }, {
+        title: '姓名',
+        field: 'PAT_NAME'
+        // ,width:50,
+      }, {
+        title: '性别',
+        field: 'SEX',
+        width: 40,
+      }, {
+        title: '年龄',
+        field: 'PAT_AGE',
+        width: 40,
+      }, {
+        title: '住院号',
+        field: 'INP_NO',
+        // width:50,
+      }, {
+        title: '术前诊断',
+        field: 'DIAG_BEFORE_OPERATION',
+        // width:50,
+      }, {
+        title: '手术名称',
+        field: 'OPERATION_NAME',
+        // width:50,
+      }, {
+        title: '主刀医生',
+        field: 'SURGEON_NAME',
+        // width:50,
+      }, {
+        title: '手术助手',
+        field: 'FIRST_ASSISTANT_NAME',
+        // width:50,
+      }, {
+        title: '麻醉方式',
+        field: 'ANESTHESIA_METHOD',
+        // width:50,
+      }, {
+        title: '主麻',
+        field: 'ANESTHESIA_DOCTOR_NAME',
+        // width:50,
+      }, {
+        title: '助手',
+        field: 'ANESTHESIA_ASSISTANT_NAME',
+        // width:50,
+      }, {
+        title: '洗手',
+        field: 'FIRST_OPERATION_NURSE_NAME',
+        // width:50,
+      }, {
+        title: '巡回',
+        field: 'FIRST_SUPPLY_NURSE_NAME',
+        // width:50,
+      }, {
+        title: '备注',
+        field: 'SPECIAL_EQUIPMENT',
+        width: 110
+      },
       ]
     }
   },
@@ -119,6 +124,7 @@ export default {
             alert("所选日期没有手术")
           }
           this.viewList = res.list;
+          this.allNo = res.list.length;
         })
     },
     print() {

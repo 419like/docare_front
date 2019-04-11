@@ -5,13 +5,20 @@
       <button @click="getView">查询</button>
       <button @click="print">打印</button>
     </div>
-    <div ref="tableView" style="padding-top:20px;">
-      <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;position:relative;" border="1" cellspacing="0" cellpadding="0">
-        <div style="position:absolute;display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;width:800px;">
-          <div></div>
-          <div style="text-align:center;font-size:18px;">毕节市中医医院麻醉科手术通知单</div>
-          <div>{{'共计'+allNo+'台'}}</div>
-        </div>
+    <div ref="tableView" style="">
+      <div style="display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;width:800px;margin:auto;width:950px;">
+        <div></div>
+        <div style="text-align:center;font-size:20px;font-weight:blod;">毕节市中医医院麻醉科手术通知单</div>
+        <div style="font-size:20px;font-weight:blod;">{{'共计'+allNo+'台'}}</div>
+      </div>
+      <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr v-for="tr in viewList">
+            <td v-for="td in tableTitleList" style="word-wrap:break-word;word-break:break-all;">
+              {{tr[td.field]}}
+            </td>
+          </tr>
+        </tbody>
         <thead>
           <th v-for="item in tableTitleList" style="font-weight: normal;padding: 5px" :style="{width:item.width+'px'}">
             {{item.title}}
@@ -130,8 +137,8 @@ export default {
     print() {
       LODOP = getLodop();
       // LODOP.ADD_PRINT_TABLE(100, 1, "99.8%", 250, this.$refs.tableView.innerHTML);
-      LODOP.ADD_PRINT_TABLE(10, 5, "99%", "BottomMargin:1mm", this.$refs.tableView.innerHTML);
-
+      // console.log(this.$refs.tableView.innerHTML)
+      LODOP.ADD_PRINT_HTM(10, 5, "99%", "BottomMargin:1mm", this.$refs.tableView.innerHTML);
       LODOP.PREVIEW();
     }
   },

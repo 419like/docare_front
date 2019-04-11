@@ -113,7 +113,7 @@
           <span v-if="item.obj.ITEM_NAME=='七氟烷1'" style="padding: 0 2px 0 0px;display: block;width: 16px;text-align: center;">{{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}</span>
           <span v-else style="padding: 0 2px 0 0px;">{{item.obj.DOSAGE}}
             <span v-if="item.obj.PERFORM_SPEED">
-              ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}} {{item.obj.PERFORM_SPEED}}{{item.obj.CONCENTRATION_UNIT}})
+              ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}} {{item.obj.PERFORM_SPEED}}{{item.obj.SPEED_UNIT}})
             </span>
           </span>
         </div>

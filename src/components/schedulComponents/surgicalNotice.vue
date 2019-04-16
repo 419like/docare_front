@@ -12,13 +12,6 @@
         <div style="font-size:20px;font-weight:blod;">{{'共计'+allNo+'台'}}</div>
       </div>
       <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0" cellpadding="0">
-        <tbody>
-          <tr v-for="tr in viewList">
-            <td v-for="td in tableTitleList" style="word-wrap:break-word;word-break:break-all;">
-              {{tr[td.field]}}
-            </td>
-          </tr>
-        </tbody>
         <thead>
           <th v-for="item in tableTitleList" style="font-weight: normal;padding: 5px" :style="{width:item.width+'px'}">
             {{item.title}}
@@ -131,6 +124,7 @@ export default {
             alert("所选日期没有手术")
           }
           this.viewList = res.list;
+          console.log(this.viewList)
           this.allNo = res.list.length;
         })
     },

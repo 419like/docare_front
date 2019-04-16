@@ -18,7 +18,8 @@
     </div>
     <div v-else>
       <div v-if="infoData.strFormatMode == 'yyyy-MM-dd'||infoData.strFormatMode == 'hh:mm'||infoData.strFormatMode == 'yyyy-MM-dd hh:mm'">
-        <input :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="strToDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="true">
+        <input v-if="infoData.value == ''" @dblclick="getNewDate()" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="newDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="true">
+        <input v-else :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="strToDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="true">
       </div>
       <div v-else>
         <input v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="infoData.value" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="true">
@@ -39,6 +40,7 @@ export default {
       // infoData: this.conInfo,
       changeTimes: 0,
       focusState: false,
+      newDate: '',
 
     }
   },
@@ -106,6 +108,14 @@ export default {
       this.$emit('toparentevent', this.conInfo);
       this.nameView = !this.nameView;
     },
+    getNewDate() {
+        this.newDate = new Date().Format(this.conInfo.strFormatMode);
+      console.log(this.newDate)
+      // var new = this.newDate.;
+      // console.log(this.conInfo.modifyFiledValue)
+      // this.$set(this.conInfo, 'modifyFiledValue', this.newDate);
+      // this.$emit('toparentevent', this.conInfo);
+    },
     disapear(dataInput) {
       if (this.conInfo.nullStringMode == 'false') {
         if (dataInput == '') {
@@ -141,8 +151,9 @@ export default {
       } else {
         this.$set(this.conInfo, 'modifyFiledValue', "");
       }
+      console.log(this.conInfo)
       // this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
-      this.$emit('toparentevent', this.conInfo);
+      // this.$emit('toparentevent', this.conInfo);
     },
 
   },
@@ -161,6 +172,8 @@ export default {
         var time = new Date(this.conInfo.value).Format(this.conInfo.strFormatMode);
         return time;
       }
+      // console.log(this.conInfo)
+      console.log(this.infoData.value)
     }
 
   },
@@ -215,5 +228,4 @@ export default {
   background: #C1C1C1;
   border-radius: 2px;
 }
-
 </style>

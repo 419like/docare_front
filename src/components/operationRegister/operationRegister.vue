@@ -1128,7 +1128,10 @@ export default {
         return false;
       }
       if (this.deleteTzItem.itemCode == 40 || this.deleteTzItem.itemCode == 44 || this.deleteTzItem.itemCode == 188 ||
-        this.deleteTzItem.itemCode == 89 || this.deleteTzItem.itemCode == 90) {
+        this.deleteTzItem.itemCode == 89 || this.deleteTzItem.itemCode == 90 
+        || this.deleteTzItem.itemCode == 324 || this.deleteTzItem.itemCode == 209 || this.deleteTzItem.itemCode == 211
+        || this.deleteTzItem.itemCode == 212 || this.deleteTzItem.itemCode == 202 || this.deleteTzItem.itemCode == 210
+        || this.deleteTzItem.itemCode == 208) {
         alert("此项目不能删除")
         return false;
       }
@@ -1141,6 +1144,11 @@ export default {
       }
       this.api.deleteMedPatientMonitorDataCode(params)
         .then(res => {
+          if(res.success){
+            alert("删除成功")
+          }
+          else
+          alert("删除失败")
           this.deleteTzItem = "";
           this.getSignName();
         })

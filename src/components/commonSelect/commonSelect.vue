@@ -108,10 +108,14 @@ export default {
     },
     disapear(dataInput) {
       if (this.conInfo.nullStringMode == 'false') {
-        if (dataInput == '') {
+        if (!dataInput&&!this.nameView) {
+          alert("内容不能为空")
           this.focusState = true;
-        } else {
-
+        } else if(!dataInput&&this.nameView) {
+           this.focusState = true;
+        }
+        else{
+          
         }
       } else {
 

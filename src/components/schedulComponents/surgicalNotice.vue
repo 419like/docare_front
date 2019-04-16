@@ -24,13 +24,7 @@
             {{item.title}}
           </th>
         </thead>
-        <tbody>
-          <tr v-for="tr in viewList">
-            <td v-for="td in tableTitleList" style="word-wrap:break-word;word-break:break-all;">
-              {{tr[td.field]}}
-            </td>
-          </tr>
-        </tbody>
+
       </table>
     </div>
   </div>

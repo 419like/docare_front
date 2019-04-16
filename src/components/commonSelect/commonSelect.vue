@@ -1,29 +1,97 @@
 <template>
   <div style="position: relative;">
     <div v-if="conInfo.dictTableName">
-      <div v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'" @dblclick="showView" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}" style="display:inline-block;border:none;border-bottom: 1px dashed #000;min-height:19px;font-size:13.3333px;font-family:Arial;">{{infoData[attrName]}}</div>
-      <input @change="busToTop" v-if="conInfo.isEditMode=='true'&&conInfo.readOnlyMode=='false'" @dblclick="showView" v-focus="focusState" @blur="focusState =  false,disapear(infoData[attrName])" v-model="infoData[attrName]" :style="{width:conInfo.width+'px',color:conInfo.ForeColor,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',textAlign:conInfo.TextAlignMode,}" style="border:none;border-bottom: 1px dashed #000;">
-      <input v-else-if="conInfo.readOnlyMode=='true'" v-model="infoData[attrName]" :style="{width:conInfo.width+'px',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}" :readonly="true" style="border:none;border-bottom: 1px dashed #000;">
-      <div v-if="nameView" style="position: absolute;top: 0px;height: 300px;overflow: auto;border:1px solid;z-index: 20;background-color:white;" :style="{width:conInfo.width+'px'}">
+      <div
+        v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'"
+        @dblclick="showView"
+        :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}"
+        style="display:inline-block;border:none;border-bottom: 1px dashed #000;min-height:19px;font-size:13.3333px;font-family:Arial;"
+      >{{infoData[attrName]}}</div>
+      <input
+        @change="busToTop"
+        v-if="conInfo.isEditMode=='true'&&conInfo.readOnlyMode=='false'"
+        @dblclick="showView"
+        v-focus="focusState"
+        @blur="focusState =  false,disapear(infoData[attrName])"
+        v-model="infoData[attrName]"
+        :style="{width:conInfo.width+'px',color:conInfo.ForeColor,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',textAlign:conInfo.TextAlignMode,}"
+        style="border:none;border-bottom: 1px dashed #000;"
+      >
+      <input
+        v-else-if="conInfo.readOnlyMode=='true'"
+        v-model="infoData[attrName]"
+        :style="{width:conInfo.width+'px',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}"
+        :readonly="true"
+        style="border:none;border-bottom: 1px dashed #000;"
+      >
+      <div
+        v-if="nameView"
+        style="position: absolute;top: 0px;height: 300px;overflow: auto;border:1px solid;z-index: 20;background-color:white;"
+        :style="{width:conInfo.width+'px'}"
+      >
         <div>
-          <input id="inSelect" ref="inSelect" v-model="serchZm" @keyup="serchJm" :style="{width:conInfo.width+'px'}">
+          <input
+            id="inSelect"
+            ref="inSelect"
+            v-model="serchZm"
+            @keyup="serchJm"
+            :style="{width:conInfo.width+'px'}"
+          >
         </div>
-        <div class="listIngt" v-for="item in medAnaesthesiaDictList" :style="{width:conInfo.width+'px'}">
-          <div @click="getSelected(item)" v-if="conInfo.dictShowFiled!=''&&conInfo.dictShowFiled!=null">
+        <div
+          class="listIngt"
+          v-for="item in medAnaesthesiaDictList"
+          :style="{width:conInfo.width+'px'}"
+        >
+          <div
+            @click="getSelected(item)"
+            v-if="conInfo.dictShowFiled!=''&&conInfo.dictShowFiled!=null"
+          >
             {{item.DICTSHOWFILED}}
           </div>
-          <div @click="getSelected(item)" v-else>{{item.DICTFILED}}</div>
+          <div
+            @click="getSelected(item)"
+            v-else
+          >{{item.DICTFILED}}</div>
         </div>
       </div>
     </div>
     <div v-else>
       <div v-if="infoData.strFormatMode == 'yyyy-MM-dd'||infoData.strFormatMode == 'hh:mm'||infoData.strFormatMode == 'yyyy-MM-dd hh:mm'">
-        <input v-if="infoData.value == ''" @dblclick="getNewDate()" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="newDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="conInfo[readOnlyMode]">
-        <input v-else :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="strToDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="conInfo[readOnlyMode]">
+        <input
+          :readonly="conInfo.isEditMode=='true'"
+          v-if="!infoData.value"
+          @dblclick="getNewDate()"
+          @change="busToTop"
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          v-model="newDate"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+        >
+        <input
+          :readonly="conInfo.isEditMode=='true'"
+          ref="gettime"
+          @change="busToTop"
+          v-else
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          v-model="strToDate"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+        >
       </div>
       <div v-else>
-        <input v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="infoData.value" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="true">
-        <input v-else :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" @change="busToTop" v-model="infoData.value" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;">
+        <input
+          v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'"
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          v-model="infoData.value"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+          :readonly="true"
+        >
+        <input
+          v-else
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          @change="busToTop"
+          v-model="infoData.value"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+        >
       </div>
     </div>
   </div>
@@ -35,14 +103,13 @@ export default {
       nameView: false,
       medAnaesthesiaDictList: [],
       allList: [],
-      serchZm: '',
+      serchZm: "",
       updateData: [],
       // infoData: this.conInfo,
       changeTimes: 0,
       focusState: false,
-      newDate: '',
-
-    }
+      newDate: ""
+    };
   },
   methods: {
     showView() {
@@ -54,83 +121,88 @@ export default {
         tableName: this.conInfo.dictTableName,
         dictSelect: this.conInfo.dictSelect,
         coluName: this.conInfo.dictField,
-        dictShowFiled: this.conInfo.dictShowFiled, //字典显示字段名称
-      }
-      this.api.getColumContext(params)
-        .then(res => {
-          document.getElementById("inSelect").focus()
-          this.medAnaesthesiaDictList = res;
-          // this.allList = res;
-        })
+        dictShowFiled: this.conInfo.dictShowFiled //字典显示字段名称
+      };
+      this.api.getColumContext(params).then(res => {
+        document.getElementById("inSelect").focus();
+        this.medAnaesthesiaDictList = res;
+        // this.allList = res;
+      });
       if (this.conInfo.dictTableName == "MED_DIAGNOSIS_DICT") {
-        this.allList = this.config.allDiagnosis
+        this.allList = this.config.allDiagnosis;
       } else if (this.conInfo.dictTableName == "MED_OPERATION_DICT") {
-        this.allList = this.config.allOperList
+        this.allList = this.config.allOperList;
       } else {
-        this.api.allColumContext(params)
-          .then(res => {
-            this.allList = res;
-          })
+        this.api.allColumContext(params).then(res => {
+          this.allList = res;
+        });
       }
-
     },
     getSelected(item) {
-      if (this.conInfo.dictShowFiled != '' && this.conInfo.dictShowFiled != null) {
-        if (this.infoData.MultiSelectMode == 'true') {
-          if (this.conInfo.value == null || this.conInfo.value == '') {
+      if (
+        this.conInfo.dictShowFiled != "" &&
+        this.conInfo.dictShowFiled != null
+      ) {
+        if (this.infoData.MultiSelectMode == "true") {
+          if (this.conInfo.value == null || this.conInfo.value == "") {
             this.conInfo.value = item.DICTSHOWFILED;
             //实际要修改表的值
-            this.$set(this.conInfo, 'modifyFiledValue', item.DICTFIELD);
+            this.$set(this.conInfo, "modifyFiledValue", item.DICTFIELD);
             // this.conInfo.modifyFiledValue = item.DICTFILED;
           } else {
             this.conInfo.value = this.conInfo.value + "," + item.DICTSHOWFILED;
             // this.conInfo.modifyFiledValue = this.conInfo.value + "," + item.DICTFILED;
-            this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value + "," + item.DICTFIELD);
+            this.$set(
+              this.conInfo,
+              "modifyFiledValue",
+              this.conInfo.value + "," + item.DICTFIELD
+            );
           }
         } else {
           this.conInfo.value = item.DICTSHOWFILED;
-          this.$set(this.conInfo, 'modifyFiledValue', item.DICTFIELD);
+          this.$set(this.conInfo, "modifyFiledValue", item.DICTFIELD);
         }
       } else {
-        if (this.infoData.MultiSelectMode == 'true') {
-          if (this.conInfo.value == null || this.conInfo.value == '') {
+        if (this.infoData.MultiSelectMode == "true") {
+          if (this.conInfo.value == null || this.conInfo.value == "") {
             this.conInfo.value = item.DICTFIELD;
-            this.$set(this.conInfo, 'modifyFiledValue', item.DICTFIELD);
+            this.$set(this.conInfo, "modifyFiledValue", item.DICTFIELD);
           } else {
             this.conInfo.value = this.conInfo.value + "," + item.DICTFIELD;
-            this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value + "," + item.DICTFIELD);
+            this.$set(
+              this.conInfo,
+              "modifyFiledValue",
+              this.conInfo.value + "," + item.DICTFIELD
+            );
           }
         } else {
           this.conInfo.value = item.DICTFIELD;
-          this.$set(this.conInfo, 'modifyFiledValue', item.DICTFIELD);
+          this.$set(this.conInfo, "modifyFiledValue", item.DICTFIELD);
         }
       }
-      this.$emit('toparentevent', this.conInfo);
+      this.$emit("toparentevent", this.conInfo);
       this.nameView = !this.nameView;
     },
     getNewDate() {
-        this.newDate = new Date().Format(this.conInfo.strFormatMode);
-        this.conInfo.value = this.newDate
+      this.newDate = new Date().Format(this.conInfo.strFormatMode);
+      this.conInfo.value = this.newDate;
       if (this.conInfo.value) {
-        this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
+        this.$set(this.conInfo, "modifyFiledValue", this.conInfo.value);
       } else {
-        this.$set(this.conInfo, 'modifyFiledValue', "");
+        this.$set(this.conInfo, "modifyFiledValue", "");
       }
-      this.$emit('toparentevent', this.conInfo);
+      this.$emit("toparentevent", this.conInfo);
     },
     disapear(dataInput) {
-      if (this.conInfo.nullStringMode == 'false') {
-        if (!dataInput&&!this.nameView) {
-          alert("内容不能为空")
+      if (this.conInfo.nullStringMode == "false") {
+        if (!dataInput && !this.nameView) {
+          alert("内容不能为空");
           this.focusState = true;
-        } else if(!dataInput&&this.nameView) {
-           this.focusState = true;
-        }
-        else{
-          
+        } else if (!dataInput && this.nameView) {
+          this.focusState = true;
+        } else {
         }
       } else {
-
       }
     },
     //失去焦点的时候消失
@@ -146,68 +218,84 @@ export default {
         if (list[i].PYJM && list[i].PYJM.indexOf(m) >= 0) {
           newList.push(list[i]);
         }
-
       }
       this.medAnaesthesiaDictList = newList;
     },
     //数据返回上级
     busToTop() {
+      debugger;
       if (this.conInfo.value) {
-        this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
+        this.$set(this.conInfo, "modifyFiledValue", this.conInfo.value);
       } else {
-        this.$set(this.conInfo, 'modifyFiledValue', "");
+        this.$set(this.conInfo, "modifyFiledValue", "");
+        this.conInfo.value = "";
       }
-      this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
-      this.$emit('toparentevent', this.conInfo);
-    },
-
+      this.$emit("toparentevent", this.conInfo);
+    }
   },
   directives: {
     focus: {
       update: function(el, { value }) {
         if (value) {
-          el.focus()
+          el.focus();
         }
       }
     }
   },
   computed: {
-    strToDate() {
-      if (this.infoData.value) {
-        var time = new Date(this.conInfo.value).Format(this.conInfo.strFormatMode);
-        return time;
-      }
-      // console.log(this.conInfo)
-      console.log(this.infoData.value)
-    }
+    // strToDate() {
+    //   if (this.infoData.value) {
+    //     var time = new Date(this.conInfo.value).Format(
+    //       this.conInfo.strFormatMode
+    //     );
+    //     return time;
+    //   }
+    // }
 
+    strToDate: {
+      get: function() {
+        if (
+          this.infoData.value &&
+          typeof this.infoData.value === "number" &&
+          !isNaN(this.infoData.value)
+        ) {
+          var time = new Date(this.conInfo.value).Format(
+            this.conInfo.strFormatMode
+          );
+          return time;
+        } else {
+          return this.conInfo.value;
+        }
+      },
+      set: function(newValue) {
+        this.conInfo.value = newValue;
+      }
+    }
   },
-  props: ['conInfo', 'attrName', 'data', 'infoData'],
+  props: ["conInfo", "attrName", "data", "infoData"],
   mounted() {
-    this.conInfo.modifyFiledValue = '';
-    // console.log(this.conInfo.value)
-    if (this.conInfo.value == '' && this.conInfo.defaultValue) {
-      this.conInfo.value = this.conInfo.defaultValue
+    this.conInfo.modifyFiledValue = "";
+    if (this.conInfo.value == "" && this.conInfo.defaultValue) {
+      this.conInfo.value = this.conInfo.defaultValue;
     }
   },
   created() {
     // 点击其他不在的区域触发事件
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", e => {
       if (!this.$el.contains(e.target)) {
         this.nameView = false;
-        this.serchZm = '';
+        this.serchZm = "";
       }
-    })
+    });
   },
   watch: {
     "conInfo.value": function() {
       if (!this.conInfo.value) {
-        this.conInfo.value = this.conInfo.defaultValue
+        this.conInfo.value = this.conInfo.defaultValue;
       }
     }
   }
-}
-
+};
 </script>
 <style scoped>
 .listIngt {
@@ -216,7 +304,7 @@ export default {
 }
 
 .listIngt:hover {
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   color: #fff;
 }
 
@@ -226,11 +314,11 @@ export default {
 }
 
 ::-webkit-scrollbar-track {
-  background: #E3E3E3;
+  background: #e3e3e3;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C1C1C1;
+  background: #c1c1c1;
   border-radius: 2px;
 }
 </style>

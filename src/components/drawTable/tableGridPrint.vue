@@ -36,7 +36,7 @@ f
           <span v-else style="padding: 0 2px 0 0px;background-color: white;">{{item.obj.DOSAGE}}
           <span v-if="item.obj.PERFORM_SPEED">
             ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}}
-           {{item.obj.PERFORM_SPEED}}{{item.obj.CONCENTRATION_UNIT}})
+           {{item.obj.PERFORM_SPEED}}{{item.obj.SPEED_UNIT}})
           </span>
           </span>
         </div>

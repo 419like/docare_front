@@ -28,7 +28,7 @@ export function fetch(url, params, config) {
                 "Accept": "*/*",
             },
             datatype: "json",
-        }).then(function (response) {
+        }).then(function(response) {
             resolve(response.data);
             // if (!config.noAlert) {
             //   if (response.data.success) {
@@ -38,7 +38,7 @@ export function fetch(url, params, config) {
             //   } else {
             //   }
             // }
-        }).catch(function (error) {
+        }).catch(function(error) {
             reject(error);
             alert("网络请求失败")
         });
@@ -188,10 +188,10 @@ export default {
         return fetch('medicalsystem/rest/medOperationMaster/selectMedOperationMaster', params)
     },
     /**
- * 修改单个病人的信息
- * 
- */
-updatePatientBirth(params, config) {
+     * 修改单个病人的信息
+     * 
+     */
+    updatePatientBirth(params, config) {
         return fetch('medicalsystem/rest/medAnesthesiaComm/updatePatientBirth', params)
     },
     /**

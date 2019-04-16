@@ -638,6 +638,9 @@ export default {
         ITEM_CODE: item.itemCode,
         thooseItem: false,
       };
+      if(!obj.START_TIME&&obj.ITEM_CLASS=='Y'){
+        obj.START_TIME = new Date()
+      }
       this.eventList.push(obj);
       this.$nextTick(() => {
         var div = this.$refs.eventContent

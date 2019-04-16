@@ -602,6 +602,9 @@ export default {
         thooseItem: false,
         EVENT_NO: this.config.eventNo
       };
+      if(!obj.START_TIME&&obj.ITEM_CLASS=='Y'){
+        obj.START_TIME = new Date()
+      }
       this.eventList.push(obj);
       this.$nextTick(() => {
         var div = this.$refs.eventContent
@@ -688,6 +691,7 @@ export default {
         operId: this.objectItem.operId,
         visitId: this.objectItem.visitId,
         eventNo: this.config.eventNo,
+        regFlag:1
       }
       this.api.getSignName(params)
         .then(
@@ -760,7 +764,8 @@ export default {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        eventNo: this.config.eventNo
+        eventNo: this.config.eventNo,
+        regFlag:1
       }
       this.api.getNewTimeData(params)
         .then(res => {
@@ -827,12 +832,12 @@ export default {
                 }
               }
               this.signdataList = sortArray;
+              
             }
           })
     },
     //获取改变的值
-    getChangeValue(item) {
-      // debugger
+    getChangeValue(item) { 
       let params = {}
       if (item.addFlag) {
         params = {

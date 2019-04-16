@@ -50,48 +50,64 @@ export default {
       nameView: false,
       medAnaesthesiaDictList: [],
       allList: [],
-      serchZm: '',
+      serchZm: "",
       updateData: [],
       infoData: this.conInfo,
       changeTimes: 0,
-      focusState: false,
-    }
+      focusState: false
+    };
   },
-  methods: {
-
-  },
+  methods: {},
   directives: {
     focus: {
       update: function(el, { value }) {
         if (value) {
-          el.focus()
+          el.focus();
         }
       }
     }
   },
   computed: {
-    strToDate() {
-      if (this.conInfo.value && this.conInfo.strFormatMode ==
-        'yyyy-MM-dd' || this.conInfo.strFormatMode == 'hh:mm' || this.conInfo.strFormatMode == 'yyyy-MM-dd hh:mm') {
-        var time = new Date(this.conInfo.value).Format(this.conInfo.strFormatMode);
-        return time;
+    // strToDate() {
+    //   if (this.conInfo.value && this.conInfo.strFormatMode ==
+    //     'yyyy-MM-dd' || this.conInfo.strFormatMode == 'hh:mm' || this.conInfo.strFormatMode == 'yyyy-MM-dd hh:mm') {
+    //     var time = new Date(this.conInfo.value).Format(this.conInfo.strFormatMode);
+    //     return time;
+    //   }
+    // }
+
+    strToDate: {
+      get: function() {
+        if (
+          this.infoData.value &&
+          typeof this.infoData.value === "number" &&
+          !isNaN(this.infoData.value)
+        ) {
+          var time = new Date(this.conInfo.value).Format(
+            this.conInfo.strFormatMode
+          );
+          return time;
+        } else {
+          return this.conInfo.value;
+        }
+      },
+      set: function(newValue) {
+        this.conInfo.value = newValue;
       }
     }
   },
-  props: ['conInfo', 'attrName', 'data'],
-  mounted() {
-
-  },
+  props: ["conInfo", "attrName", "data"],
+  mounted() { },
   created() {
     // 点击其他不在的区域触发事件
-    document.addEventListener('click', (e) => {
+    document.addEventListener("click", e => {
       //console.log(this.$el.contains(e.target));
       if (!this.$el.contains(e.target)) {
         this.nameView = false;
-        this.serchZm = '';
+        this.serchZm = "";
       }
-    })
-  },
+    });
+  }
   // watch: {
   //   "conInfo.value": function() {
   //     if (!this.conInfo.value) {
@@ -99,9 +115,7 @@ export default {
   //     }
   //   }
   // }
-
-}
-
+};
 </script>
 <style scoped>
 .listIngt {
@@ -110,7 +124,7 @@ export default {
 }
 
 .listIngt:hover {
-  background-color: #1E90FF;
+  background-color: #1e90ff;
   color: #fff;
 }
 
@@ -119,5 +133,4 @@ export default {
   border-bottom: 1px solid #222;
   color: red !important;
 }
-
 </style>

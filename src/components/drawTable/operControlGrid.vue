@@ -1,17 +1,51 @@
 <template>
-  <div style="position: relative;margin:2px;" @contextmenu="showMenu">
+  <div
+    style="position: relative;margin:2px;"
+    @contextmenu="showMenu"
+  >
     <div>
       <!-- ETCO2 CODE:112，Sp02 CODE:188，TVE CODE:212,f code=202应该显示数字，ppeak code=208 -->
-      <svg :width="svgWidth" :height="svgHeight" id="opercontrolgridprint" ref="area">
+      <svg
+        :width="svgWidth"
+        :height="svgHeight"
+        id="opercontrolgridprint"
+        ref="area"
+      >
         <g v-for="(item,index) in lineArray">
           <!-- <line :x1="item.x.x1" :x2="item.x.x1" y1="0" :y2="svgHeight" style="stroke:#8391a2;stroke-width:0.8px;"></line> -->
-          <line v-if="index%6==0" :x1="item.x.x1" :x2="item.x.x1" y1="0" :y2="svgHeight" style="stroke:rgba(0,0,0,0.6);stroke-width:2px;"></line>
-          <line v-else :x1="item.x.x1" :x2="item.x.x1" y1="0" :y2="svgHeight" style="stroke:#8391a2;stroke-width:1px;"></line>
+          <line
+            v-if="index%6==0"
+            :x1="item.x.x1"
+            :x2="item.x.x1"
+            y1="0"
+            :y2="svgHeight"
+            style="stroke:rgba(0,0,0,0.6);stroke-width:2px;"
+          ></line>
+          <line
+            v-else
+            :x1="item.x.x1"
+            :x2="item.x.x1"
+            y1="0"
+            :y2="svgHeight"
+            style="stroke:#8391a2;stroke-width:1px;"
+          ></line>
         </g>
-        <g v-for="(item,index) in lineArray" v-if="index < rows">
-          <line x1="0" x2="700" :y1="item.y.y1" :y2="item.y.y1" style="stroke:#8391a2;stroke-width:0.5px;"></line>
+        <g
+          v-for="(item,index) in lineArray"
+          v-if="index < rows"
+        >
+          <line
+            x1="0"
+            x2="700"
+            :y1="item.y.y1"
+            :y2="item.y.y1"
+            style="stroke:#8391a2;stroke-width:0.5px;"
+          ></line>
         </g>
-        <g v-for="(item,index1) in dataPathArray" style="z-index: 22">
+        <g
+          v-for="(item,index1) in dataPathArray"
+          style="z-index: 22"
+        >
           <!-- <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
                                                 <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '89'" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
                                                   <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
@@ -24,57 +58,371 @@
             <path stroke="SpringGreen" d="m-3.3,2.49836l3.256205,-5.698359l3.256205,5.698359l-6.512411,0z" fill-opacity="null" stroke-opacity="null" fill="none" />
           </g> -->
           <!-- 无创收缩压 CODE:89 ∨ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '89'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '89'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <path d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106" transform="rotate(-180)" fill-opacity="null" stroke-opacity="null" stroke="blue" stroke-width="1.5" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '89'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="blue"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '89'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <path
+              d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106"
+              transform="rotate(-180)"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke="blue"
+              stroke-width="1.5"
+              fill="none"
+            />
           </g>
           <!-- 无创舒张压 CODE:90 ∧ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '90'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '90'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <path d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106" fill-opacity="null" stroke-opacity="null" stroke="blue" stroke-width="1.5" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '90'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="blue"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '90'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <path
+              d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke="blue"
+              stroke-width="1.5"
+              fill="none"
+            />
           </g>
           <!-- 呼吸 CODE:92 ○ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '92'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="magenta" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '92'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <ellipse stroke="magenta" ry="3" rx="3" id="svg_8" cy="0" cx="0" stroke-width="0.8" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '92'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="magenta"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '92'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <ellipse
+              stroke="magenta"
+              ry="3"
+              rx="3"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.8"
+              fill="none"
+            />
           </g>
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == 'zzhx'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="magenta" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == 'zzhx'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <ellipse stroke="magenta" ry="3" rx="3" id="svg_8" cy="0" cx="0" stroke-width="0.8" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == 'zzhx'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="magenta"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == 'zzhx'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <ellipse
+              stroke="magenta"
+              ry="3"
+              rx="3"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.8"
+              fill="none"
+            />
           </g>
           <!-- ~ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == 'kzhx'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="magenta" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == 'kzhx'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mouseenter="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <path stroke="magenta" id="svg_1" d="m-5.75,-2.75c0,0 4.705594,4.705594 4.567194,4.567194c0.1384,0.1384 4.290395,-4.013595 4.151995,-4.428795c0.002306,0.274494 4.807215,5.084015 4.705594,4.705594" opacity="0.5" stroke-width="1.5" fill="#fff" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == 'kzhx'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="magenta"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == 'kzhx'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mouseenter="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <path
+              stroke="magenta"
+              id="svg_1"
+              d="m-5.75,-2.75c0,0 4.705594,4.705594 4.567194,4.567194c0.1384,0.1384 4.290395,-4.013595 4.151995,-4.428795c0.002306,0.274494 4.807215,5.084015 4.705594,4.705594"
+              opacity="0.5"
+              stroke-width="1.5"
+              fill="#fff"
+            />
           </g>
           <!-- A -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == 'fzhx'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="magenta" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == 'fzhx'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mouseenter="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <text stroke="#000" transform="matrix(0.4555555820465088,0,0,0.4555555820465088,0,0) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="22" id="svg_1" y="8" x="1" stroke-width="0" fill="magenta">A</text>
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == 'fzhx'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="magenta"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == 'fzhx'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mouseenter="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <text
+              stroke="#000"
+              transform="matrix(0.4555555820465088,0,0,0.4555555820465088,0,0) "
+              xml:space="preserve"
+              text-anchor="start"
+              font-family="Helvetica, Arial, sans-serif"
+              font-size="22"
+              id="svg_1"
+              y="8"
+              x="1"
+              stroke-width="0"
+              fill="magenta"
+            >A</text>
           </g>
           <!-- 体温 CODE:100 X -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '100'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="red" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '100'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <text stroke="red" transform="matrix(0.44269931316375727,0,0,0.44269931316375727,164.78615606576204,120.13502615876496) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_34" y="-260.674143" x="-380.226641" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">X</text>
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '100'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="red"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '100'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <text
+              stroke="red"
+              transform="matrix(0.44269931316375727,0,0,0.44269931316375727,164.78615606576204,120.13502615876496) "
+              xml:space="preserve"
+              text-anchor="start"
+              font-family="Helvetica, Arial, sans-serif"
+              font-size="24"
+              id="svg_34"
+              y="-260.674143"
+              x="-380.226641"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke-width="0"
+              fill="#000000"
+            >X</text>
           </g>
           <!-- 肝温 CODE:104 X -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '104'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="rgb(128,128,255)" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '104'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <text stroke="rgb(128,128,255)" transform="matrix(0.44269931316375727,0,0,0.44269931316375727,164.78615606576204,120.13502615876496) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_34" y="-260.674143" x="-380.226641" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">X</text>
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '104'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="rgb(128,128,255)"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '104'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <text
+              stroke="rgb(128,128,255)"
+              transform="matrix(0.44269931316375727,0,0,0.44269931316375727,164.78615606576204,120.13502615876496) "
+              xml:space="preserve"
+              text-anchor="start"
+              font-family="Helvetica, Arial, sans-serif"
+              font-size="24"
+              id="svg_34"
+              y="-260.674143"
+              x="-380.226641"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke-width="0"
+              fill="#000000"
+            >X</text>
           </g>
           <!-- 鼻咽温 CODE:105 X -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '105'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="rgb(255,128,128)" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '105'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <text stroke="rgb(255,128,128)" transform="matrix(0.44269931316375727,0,0,0.44269931316375727,164.78615606576204,120.13502615876496) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_34" y="-260.674143" x="-380.226641" fill-opacity="null" stroke-opacity="null" stroke-width="0" fill="#000000">X</text>
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '105'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="rgb(255,128,128)"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '105'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <text
+              stroke="rgb(255,128,128)"
+              transform="matrix(0.44269931316375727,0,0,0.44269931316375727,164.78615606576204,120.13502615876496) "
+              xml:space="preserve"
+              text-anchor="start"
+              font-family="Helvetica, Arial, sans-serif"
+              font-size="24"
+              id="svg_34"
+              y="-260.674143"
+              x="-380.226641"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke-width="0"
+              fill="#000000"
+            >X</text>
           </g>
           <!-- ETCO2 CODE:112 △ -->
           <!-- <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '112'" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="blue" stroke-width="1.5"></line>
@@ -119,36 +467,198 @@
               <path stroke="#000" d="m-3.3,2.49836l3.256205,-5.698359l3.256205,5.698359l-6.512411,0z" fill-opacity="null" stroke-opacity="null" fill="none" />
             </g> -->
           <!-- 心率 CODE:40 ● -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '40'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="SeaGreen" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '40'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <circle class="opercontrol" r="3" fill="SeaGreen"></circle>
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '40'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="SeaGreen"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '40'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <circle
+              class="opercontrol"
+              r="3"
+              fill="SeaGreen"
+            ></circle>
           </g>
           <!-- PILSE CODE:44 ● -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '44'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="DarkGreen" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '44'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <circle class="opercontrol" r="3" fill="DarkGreen"></circle>
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '44'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="DarkGreen"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '44'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <circle
+              class="opercontrol"
+              r="3"
+              fill="DarkGreen"
+            ></circle>
           </g>
           <!-- 动脉收缩压 CODE:65 ∨ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '65'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="red" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '65'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <path d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106" transform="rotate(-180)" fill-opacity="null" stroke-opacity="null" stroke="red" stroke-width="1.5" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '65'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="red"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '65'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <path
+              d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106"
+              transform="rotate(-180)"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke="red"
+              stroke-width="1.5"
+              fill="none"
+            />
           </g>
           <!-- 动脉舒张压 CODE:66 ∧ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '66'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="red" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '66'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <path d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106" fill-opacity="null" stroke-opacity="null" stroke="red" stroke-width="1.5" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '66'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="red"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '66'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <path
+              d="m-3.3,2.532892c0,0 3.2484,-5.53107 3.1606,-5.53107c-0.078586,-0.117878 3.24841,5.53107 3.2484,5.53106"
+              fill-opacity="null"
+              stroke-opacity="null"
+              stroke="red"
+              stroke-width="1.5"
+              fill="none"
+            />
           </g>
           <!-- 动脉平均压 CODE:67 △ -->
-          <line v-for="(cir,index2) in item.circleData" v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '67'&&cir.value>0&&item.circleData[index2+1].y!=420" :x1="cir.x" :x2="item.circleData[index2+1].x" :y1="cir.y" :y2="item.circleData[index2+1].y" stroke="red" stroke-width="1.5"></line>
-          <g v-for="(cir,index2) in item.circleData" v-if="cir.itemData.itemCode == '67'&&cir.value>0&&cir.x<=700" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
-            <ellipse ry="8pt" rx="8pt" id="svg_8" cy="0" cx="0" stroke-width="0.1" fill="rgba(0,0,0,0)" />
-            <path stroke="red" d="m-3.3,2.49836l3.256205,-5.698359l3.256205,5.698359l-6.512411,0z" fill-opacity="null" stroke-opacity="null" fill="none" />
+          <line
+            v-for="(cir,index2) in item.circleData"
+            v-if="index2<item.circleData.length-1&&cir.x<=700&&item.circleData[index2+1].x<700&&item.circleData[index2+1].x-cir.x<20&&cir.itemData.itemCode == '67'&&cir.value>0&&item.circleData[index2+1].y!=420"
+            :x1="cir.x"
+            :x2="item.circleData[index2+1].x"
+            :y1="cir.y"
+            :y2="item.circleData[index2+1].y"
+            stroke="red"
+            stroke-width="1.5"
+          ></line>
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="cir.itemData.itemCode == '67'&&cir.value>0&&cir.x<=700"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
+            <ellipse
+              ry="8pt"
+              rx="8pt"
+              id="svg_8"
+              cy="0"
+              cx="0"
+              stroke-width="0.1"
+              fill="rgba(0,0,0,0)"
+            />
+            <path
+              stroke="red"
+              d="m-3.3,2.49836l3.256205,-5.698359l3.256205,5.698359l-6.512411,0z"
+              fill-opacity="null"
+              stroke-opacity="null"
+              fill="none"
+            />
           </g>
-          <g v-for="(cir,index2) in item.circleData" v-if="item.flag==1" :transform="'translate('+cir.x+','+cir.y+')'" fill="green" @mousedown.stop="itemMouseDown($event,cir,index1,index2)" @mouseenter="showData(cir,$event)" @mouseleave="showData(cir,$event)">
+          <g
+            v-for="(cir,index2) in item.circleData"
+            v-if="item.flag==1"
+            :transform="'translate('+cir.x+','+cir.y+')'"
+            fill="green"
+            @mousedown.stop="itemMouseDown($event,cir,index1,index2)"
+            @mouseenter="showData(cir,$event)"
+            @mouseleave="showData(cir,$event)"
+          >
           </g>
         </g>
       </svg>
@@ -176,15 +686,28 @@
       <!-- A -->
       <!-- <text stroke="#000" transform="matrix(0.5555555820465088,0,0,0.5555555820465088,0,0) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_1" y="22" x="1" stroke-width="0" fill="#000000">A</text> -->
       <div v-for="(data,index1) in spo2List">
-        <div v-if="index2%2==0&&item.x<700&&item.value>0&&item.x>0" v-for="(item,index2) in data.dataList" style="position: absolute;top: 0px;color: blue;font-size:12px;" :style="{left:item.x+'px',top:index1*14+'px'}">
+        <div
+          v-if="index2%2==0&&item.x<700&&item.value>0&&item.x>0"
+          v-for="(item,index2) in data.dataList"
+          style="position: absolute;top: 0px;color: blue;font-size:12px;"
+          :style="{left:item.x+'px',top:index1*14+'px'}"
+        >
           {{item.value}}
         </div>
       </div>
-      <div v-if="spo2List.length>0" v-for="(data,index1) in spo2List" :style="{top:index1*14+'px'}" style="position: absolute;top: 0px;left:-40px;font-size:12px;color: blue;">
+      <div
+        v-if="spo2List.length>0"
+        v-for="(data,index1) in spo2List"
+        :style="{top:index1*14+'px'}"
+        style="position: absolute;top: 0px;left:-40px;font-size:12px;color: blue;"
+      >
         {{data.codeName}}
       </div>
       <div v-if=" tipView ">
-        <div style="position: absolute;width:auto;background-color: white;border: 0.5px solid;padding: 3px;font-size: 12px;z-index: 10; " :style="{ top:tipTop+ 'px',left:tipLeft+ 'px'} ">
+        <div
+          style="position: absolute;width:auto;background-color: white;border: 0.5px solid;padding: 3px;font-size: 12px;z-index: 10; "
+          :style="{ top:tipTop+ 'px',left:tipLeft+ 'px'} "
+        >
           <div>
             {{mouseItem.itemData.itemName}}
           </div>
@@ -200,26 +723,43 @@
         </div>
       </div>
       <div style="position: absolute;bottom: 0px;left: -25px;text-align: right;font-size: 12px; ">
-        <div v-if="index==0" v-for="(item,index) in yValueArray " style="height: 20px; position: absolute;" :style="{bottom:0+'px'}">
+        <div
+          v-if="index==0"
+          v-for="(item,index) in yValueArray "
+          style="height: 20px; position: absolute;"
+          :style="{bottom:0+'px'}"
+        >
           {{item}}
         </div>
-        <div v-if="index!=0" v-for="(item,index) in yValueArray " style=" position: absolute;" :style="{bottom:index*27+'px'}">
+        <div
+          v-if="index!=0"
+          v-for="(item,index) in yValueArray "
+          style=" position: absolute;"
+          :style="{bottom:index*27+'px'}"
+        >
           {{item}}
         </div>
       </div>
     </div>
-    <div v-if="showStyleView " style="background-color: #e6e6e6;position: absolute;top: 30%; " :style="{ top:rightViewY+ 'px',left:rightViewX+ 'px'} ">
-      <div style="padding: 10px; " @click="tipShowPersonStyle ">
+    <div
+      v-if="showStyleView "
+      style="background-color: #e6e6e6;position: absolute;top: 30%; "
+      :style="{ top:rightViewY+ 'px',left:rightViewX+ 'px'} "
+    >
+      <div
+        style="padding: 10px; "
+        @click="tipShowPersonStyle "
+      >
         个性化体征显示
       </div>
     </div>
   </div>
 </template>
 <script type="text/javascript ">
-import * as d3 from 'd3';
-import Bus from '@/bus.js';
+import * as d3 from "d3";
+import Bus from "@/bus.js";
 export default {
-  name: 'opercontrolgridprint',
+  name: "opercontrolgridprint",
   data() {
     return {
       showStyleView: false,
@@ -236,28 +776,27 @@ export default {
       tipLeft: 0,
       tipView: false,
       dataObj: {},
-      clickItem: '',
-      clickIndex: '',
-      pathIndex: '',
-      pathData: '',
+      clickItem: "",
+      clickIndex: "",
+      pathIndex: "",
+      pathData: "",
       pathArray: [],
       dataPathArray: [],
       signdataList: [],
       tipTop: 0,
       tipLeft: 0,
       tipView: false,
-      mouseItem: '',
+      mouseItem: "",
       updateDataArray: [],
       yValueArray: [],
-      rightViewX: '',
-      rightViewY: '',
+      rightViewX: "",
+      rightViewY: "",
       signNameLisg: [],
-      setTimeId: '', //定时器执行
+      setTimeId: "", //定时器执行
       spo2List: [],
       breathData: [], //呼吸数据
-      patSetting: [],
-    }
-
+      patSetting: []
+    };
   },
   methods: {
     showMenu: function(parameter) {
@@ -265,7 +804,6 @@ export default {
       // this.rightViewX = parameter.offsetX;
       // this.rightViewY = parameter.offsetY;
       // this.showStyleView = true;
-
     },
     getLineXy() {
       var array = [];
@@ -273,47 +811,40 @@ export default {
         array.push({
           x: {
             x1: i * (this.svgWidth / this.columns),
-            x2: i * (this.svgWidth / this.columns),
+            x2: i * (this.svgWidth / this.columns)
           },
           y: {
             y1: i * (this.svgHeight / this.rows),
             y2: i * (this.svgHeight / this.rows)
           }
-        })
+        });
       }
       this.lineArray = array;
-
     },
     calculatePath() {
       this.dataPathArray = [];
       //构造器会将数据集中的每一个数据传入访问器函数，并使用其返回值作为 x坐标或y坐标：
-      const dataone = d3.line()
-        .x(
-          (data) => {
-            return data.x
-          }
-        )
-        .y(
-          (data) => {
-            return data.y
-          }
-        );
+      const dataone = d3
+        .line()
+        .x(data => {
+          return data.x;
+        })
+        .y(data => {
+          return data.y;
+        });
       for (var i = 0; i < this.pathArray.length; i++) {
-        dataone(this.pathArray[i])
+        dataone(this.pathArray[i]);
         this.dataPathArray.push({
           circleData: this.pathArray[i]
-        })
+        });
       }
-
-
     },
     itemMouseDown(e, currentItem, index1, index2) {
-      this.area.addEventListener('mousemove', this.areaMouseMove);
-      this.area.addEventListener('mouseup', this.areaMouseUp);
+      this.area.addEventListener("mousemove", this.areaMouseMove);
+      this.area.addEventListener("mouseup", this.areaMouseUp);
       this.clickItem = currentItem;
       this.clickIndex = index2;
       this.pathIndex = index1;
-
     },
     areaMouseMove(e) {
       this.clickItem.y = e.offsetY;
@@ -321,20 +852,25 @@ export default {
       var arr2 = arr1[this.clickIndex];
       arr1[this.clickIndex] = this.clickItem;
       if (this.svgHeight - 0.5 <= this.clickItem.y) {
-        this.clickItem.value = 0
+        this.clickItem.value = 0;
       } else {
-        this.clickItem.value = Math.round((this.svgHeight - e.offsetY) / (this.svgHeight / this.rows) * 10)
+        this.clickItem.value = Math.round(
+          ((this.svgHeight - e.offsetY) / (this.svgHeight / this.rows)) * 10
+        );
       }
       this.calculatePath();
     },
     areaMouseUp(e) {
-      this.area.removeEventListener('mousemove', this.areaMouseMove);
-      this.area.removeEventListener('mouseup', this.areaMouseUp);
-      let moveValue
+      this.area.removeEventListener("mousemove", this.areaMouseMove);
+      this.area.removeEventListener("mouseup", this.areaMouseUp);
+      let moveValue;
       if (this.svgHeight - 0.5 <= this.clickItem.y) {
         moveValue = 0;
       } else {
-        moveValue = Math.round((this.svgHeight - this.clickItem.y) / (this.svgHeight / this.rows) * 10);
+        moveValue = Math.round(
+          ((this.svgHeight - this.clickItem.y) / (this.svgHeight / this.rows)) *
+            10
+        );
       }
 
       this.updateDataArray.push({
@@ -346,13 +882,13 @@ export default {
         timePoint: new Date(this.clickItem.time),
         itemValue: moveValue,
         operator: this.config.userId
-      })
+      });
       let params = this.updateDataArray;
-      this.api.updateMedPatientMonitorDatas(params, { noAlert: true })
+      this.api
+        .updateMedPatientMonitorDatas(params, { noAlert: true })
         .then(res => {
           this.updateDataArray = [];
-        })
-
+        });
     },
     //获取病人生命体征项目
     getSignName() {
@@ -362,86 +898,79 @@ export default {
         visitId: this.config.userInfo.visitId,
         eventNo: this.config.eventNo, //代表在麻醉室
         regFlag: "1"
-      }
+      };
 
-      this.api.getSignName(params)
-        .then(
-          res => {
-            // for (var i = 0; i < res.length; i++) {
-            //   res[i].itemValue = " ";
-            // }
-            if (res.length > 0) {
-              this.signNameLisg = res;
-              this.getSignTimeData();
-            } else {
-              this.signNameLisg = []
-              this.dataPathArray = []
-              this.getSignTimeData();
-            }
+      this.api.getSignName(params).then(res => {
+        // for (var i = 0; i < res.length; i++) {
+        //   res[i].itemValue = " ";
+        // }
+        if (res.length > 0) {
+          this.signNameLisg = res;
+          this.getSignTimeData();
+        } else {
+          this.signNameLisg = [];
+          this.dataPathArray = [];
+          this.getSignTimeData();
+        }
 
-            // this.setTimeId = setTimeout(_ => this.getSignName(), this.config.timeSet)
-          })
+        // this.setTimeId = setTimeout(_ => this.getSignName(), this.config.timeSet)
+      });
     },
     getSignTimeData() {
       let param = {
         patientId: this.config.userInfo.patientId,
         operId: this.config.userInfo.operId,
         visitId: this.config.userInfo.visitId,
-        itemClass: 'Y',
+        itemClass: "Y",
         eventNo: this.config.eventNo
-      }
-      this.api.selectMedAnesthesiaEventList(param)
-        .then(
-          res => {
-            let list = res.list
-            this.breathData = list
-            let params = {
-              patientId: this.config.userInfo.patientId,
-              operId: this.config.userInfo.operId,
-              visitId: this.config.userInfo.visitId,
-              eventNo: this.config.eventNo,
-              regFlag: "1"
-            }
+      };
+      this.api.selectMedAnesthesiaEventList(param).then(res => {
+        let list = res.list;
+        this.breathData = list;
+        let params = {
+          patientId: this.config.userInfo.patientId,
+          operId: this.config.userInfo.operId,
+          visitId: this.config.userInfo.visitId,
+          eventNo: this.config.eventNo,
+          regFlag: "1"
+        };
 
-            this.api.getNewTimeData(params)
-              .then(res => {
-                if (res.length > 0) {
-                  res.sort(function(a, b) {
-                    return Date.parse(a.time) - Date.parse(b.time); //时间正序
-                  });
-                  this.api.getMedPatSetting({
-                      patientId: this.config.userInfo.patientId,
-                      operId: this.config.userInfo.operId,
-                      visitId: this.config.userInfo.visitId
-                    })
-                    .then(rest => {
-                      this.patSetting = []
-                      if (rest.length > 0) {
-
-                        for (var i = 0; i < rest.length; i++) {
-                          this.patSetting.push(rest[i].itemCode)
-                        }
-                      }
-
-                      this.dataOperFun(res);
-                    })
-
-                } else {
-                  this.dataPathArray = []
-                  this.dataOperNoFun();
+        this.api.getNewTimeData(params).then(res => {
+          if (res.length > 0) {
+            res.sort(function(a, b) {
+              return Date.parse(a.time) - Date.parse(b.time); //时间正序
+            });
+            this.api
+              .getMedPatSetting({
+                patientId: this.config.userInfo.patientId,
+                operId: this.config.userInfo.operId,
+                visitId: this.config.userInfo.visitId
+              })
+              .then(rest => {
+                this.patSetting = [];
+                if (rest.length > 0) {
+                  for (var i = 0; i < rest.length; i++) {
+                    this.patSetting.push(rest[i].itemCode);
+                  }
                 }
 
-              })
-          });
+                this.dataOperFun(res);
+              });
+          } else {
+            this.dataPathArray = [];
+            this.dataOperNoFun();
+          }
+        });
+      });
     },
 
     //计算时间差分钟
     getMinuteDif(startTime, endTime) {
-      let sTime = new Date(startTime).getTime()
-      let enTime = new Date(endTime).getTime()
-      var min = '';
+      let sTime = new Date(startTime).getTime();
+      let enTime = new Date(endTime).getTime();
+      var min = "";
       min = (enTime - sTime) / 1000 / 60;
-      return Math.round(min)
+      return Math.round(min);
     },
 
     showData(item, ev) {
@@ -461,14 +990,12 @@ export default {
         this.tipView = false;
       }
       // })
-
-
     },
 
     getYDataArray() {
       var arry = [0];
       for (var i = 0; i < 11; i++) {
-        arry.push(i * 20 + 20)
+        arry.push(i * 20 + 20);
       }
       // this.yValueArray = arry.reverse();
       this.yValueArray = arry;
@@ -480,24 +1007,22 @@ export default {
       this.pathArray = [];
       this.getSignName();
       // this.initFun();
-      return
+      return;
       let arryList = this.signdataList;
       let sortArray = [];
       for (var i = 0; i < arryList.length; i++) {
         if (new Date(arryList[i].time) > new Date(this.config.initTime)) {
-          sortArray.push(arryList[i])
+          sortArray.push(arryList[i]);
         }
       }
 
       if (sortArray.length < 1) {
         this.pathArray = [];
         this.calculatePath();
-        return
+        return;
       }
 
       this.dataOperFun(sortArray);
-
-
     },
     obj2key(obj, keys) {
       var n = keys.length,
@@ -505,7 +1030,7 @@ export default {
       while (n--) {
         key.push(obj[keys[n]]);
       }
-      return key.join('|');
+      return key.join("|");
     },
 
     uniqeByKeys(array, keys) {
@@ -524,58 +1049,76 @@ export default {
     dataOperNoFun() {
       let list = this.breathData;
       //定义一个总数组把几个呼吸数据进行组合
-      let allArrData = []
+      let allArrData = [];
       for (let i = 0; i < list.length; i++) {
-        let endEvTime = ''
+        let endEvTime = "";
         //如果有结束时间
         if (list[i].ENDDATE) {
-          endEvTime = list[i].ENDDATE
-
+          endEvTime = list[i].ENDDATE;
         } else {
-          endEvTime = this.config.patientMaxTime
+          endEvTime = this.config.patientMaxTime;
         }
-        let countMin = this.coutTimes(new Date(list[i].START_TIME), new Date(endEvTime), 'minute');
-        let numCount = countMin / 5
-        let dataArr = []
+        let countMin = this.coutTimes(
+          new Date(list[i].START_TIME),
+          new Date(endEvTime),
+          "minute"
+        );
+        let numCount = countMin / 5;
+        let dataArr = [];
         for (let l = 0; l < numCount; l++) {
           dataArr.push({
             itemCode: list[i].ITEM_CODE,
-            time: new Date(new Date(list[i].START_TIME).getTime() + 1000 * 60 * 5 * l).Format("yyyy-MM-dd hh:mm"),
+            time: new Date(
+              new Date(list[i].START_TIME).getTime() + 1000 * 60 * 5 * l
+            ).Format("yyyy-MM-dd hh:mm"),
             value: list[i].DOSAGE,
             itemData: {
               itemCode: list[i].ITEM_CODE,
               itemName: list[i].ITEM_NAME
             }
-          })
+          });
         }
-        allArrData.push.apply(allArrData, dataArr)
-
+        allArrData.push.apply(allArrData, dataArr);
       }
       for (var n = 0; n < allArrData.length; n++) {
-        let min = '';
+        let min = "";
         if (new Date(allArrData[n].time) > new Date(this.config.maxTime)) {
           min = 700 + 1;
         } else {
           min = this.getMinuteDif(this.config.initTime, allArrData[n].time);
         }
-        let x = Math.round(min / this.tbMin * (this.svgWidth / this.columns))
-        let y = this.svgHeight - Math.round(allArrData[n].value / 10 * (this.svgHeight / this.rows))
+        let x = Math.round((min / this.tbMin) * (this.svgWidth / this.columns));
+        let y =
+          this.svgHeight -
+          Math.round((allArrData[n].value / 10) * (this.svgHeight / this.rows));
         allArrData[n].x = x;
         allArrData[n].y = y;
-
       }
 
       this.pathArray.push(allArrData);
 
-      let list1 = this.pathArray
-      let spo2List = []
+      let list1 = this.pathArray;
+      let spo2List = [];
       for (var i = 0; i < list1.length; i++) {
         for (var j = 0; j < list1[i].length; j++) {
-          if (list1[i][j].itemCode == 188 || list1[i][j].itemCode == 212 || list1[i][j].itemCode == 112 
-          || list1[i][j].itemCode == 202 || list1[i][j].itemCode == 208 || list1[i][j].itemCode == 209 || 
-          list1[i][j].itemCode == 210 || list1[i][j].itemCode == 211 || list1[i][j].itemCode == 324 
-          || list1[i][j].itemCode == 71 || list1[i][j].itemCode == 69 || list1[i][j].itemCode == 70) {
-            spo2List.push({ codeName: list1[i][j].itemData.itemName, dataList: list1[i] })
+          if (
+            list1[i][j].itemCode == 188 ||
+            list1[i][j].itemCode == 212 ||
+            list1[i][j].itemCode == 112 ||
+            list1[i][j].itemCode == 202 ||
+            list1[i][j].itemCode == 208 ||
+            list1[i][j].itemCode == 209 ||
+            list1[i][j].itemCode == 210 ||
+            list1[i][j].itemCode == 211 ||
+            list1[i][j].itemCode == 324 ||
+            list1[i][j].itemCode == 71 ||
+            list1[i][j].itemCode == 69 ||
+            list1[i][j].itemCode == 70
+          ) {
+            spo2List.push({
+              codeName: list1[i][j].itemData.itemName,
+              dataList: list1[i]
+            });
             break;
           }
         }
@@ -587,19 +1130,17 @@ export default {
 
     //数据处理
     dataOperFun(sortArray) {
-      this.spo2List = []
-      this.pathArray = []
-      let testArr = []
-      console.log(sortArray)
+      this.spo2List = [];
+      this.pathArray = [];
+      let testArr = [];
       sortArray.forEach(item => {
         item.dataValue.forEach(va => {
-          let obj = {}
+          let obj = {};
           obj.time = "20" + va.TIME_POINT;
-          obj.value = va.ITEM_VALUE,
-            obj.itemCode = va.ITEM_NAME
-          testArr.push(obj)
-        })
-      })
+          (obj.value = va.ITEM_VALUE), (obj.itemCode = va.ITEM_NAME);
+          testArr.push(obj);
+        });
+      });
       //整理每个项目的不同时间点
       var map = {},
         dest = [];
@@ -623,12 +1164,13 @@ export default {
         }
       }
       // console.log(dest)
-      let listSet = this.patSetting
-      let ar = []
+      let listSet = this.patSetting;
+      let ar = [];
       if (listSet.length > 0) {
         for (let s = 0; s < dest.length; s++) {
-          if (listSet.indexOf(dest[s].itemCode) >= 0) {} else {
-            ar.push(dest[s])
+          if (listSet.indexOf(dest[s].itemCode) >= 0) {
+          } else {
+            ar.push(dest[s]);
           }
         }
         dest = [];
@@ -636,108 +1178,140 @@ export default {
       }
 
       for (var i = 0; i < dest.length; i++) {
-
         isData = false;
         //判断整个数据里面是否有体征呼吸数据
         if (dest[i].itemCode == 92) {
-          isData = true
+          isData = true;
         }
-        let listOne = dest[i].itemData
+        let listOne = dest[i].itemData;
         //如果插入了控制呼吸
         if (isData && this.breathData.length > 0) {
-          let list = this.breathData
-          let tempArr = []
-          let firstIn = false
+          let list = this.breathData;
+          let tempArr = [];
+          let firstIn = false;
           for (var m = 0; m < list.length; m++) {
-            let name = '控制呼吸'
-            let startTime = list[m].START_TIME
+            let name = "控制呼吸";
+            let startTime = list[m].START_TIME;
             //对控制呼吸的数据进行生成
-            let time = ''
+            let time = "";
             //如果没有控制呼吸的结束时间
             if (!list[m].ENDDATE) {
-              time = this.config.patientMaxTime
-
+              time = this.config.patientMaxTime;
             }
             //如果有结束时间
             else {
-              time = list[m].ENDDATE
+              time = list[m].ENDDATE;
             }
             //计算事件呼吸与当前最大时间的差值
-            let countMin = this.coutTimes(new Date(startTime), new Date(time), 'minute');
+            let countMin = this.coutTimes(
+              new Date(startTime),
+              new Date(time),
+              "minute"
+            );
             //一组数据5分钟
-            let numCount = countMin / 5
-            let dataArr = []
+            let numCount = countMin / 5;
+            let dataArr = [];
             for (var l = 0; l < numCount; l++) {
               dataArr.push({
                 itemCode: list[m].ITEM_CODE,
-                time: new Date(new Date(startTime).getTime() + 1000 * 60 * 5 * l).Format("yyyy-MM-dd hh:mm"),
+                time: new Date(
+                  new Date(startTime).getTime() + 1000 * 60 * 5 * l
+                ).Format("yyyy-MM-dd hh:mm"),
                 value: list[m].DOSAGE,
                 itemData: {
                   itemCode: list[m].ITEM_CODE,
                   itemName: list[m].ITEM_NAME
                 }
-              })
+              });
             }
             //找出体征呼吸在控制呼吸发生之前的数据
-            let signBreathArr = []
-            let signTimeArr = []
-            let si = list.length - 1
+            let signBreathArr = [];
+            let signTimeArr = [];
+            let si = list.length - 1;
             for (var j = 0; j < listOne.length; j++) {
               //体征呼吸数据时间在事件呼吸时间之前
               if (new Date(listOne[j].time) < new Date(startTime) && !firstIn) {
-                listOne[j].itemData = { itemCode: listOne[j].itemCode, itemName: "呼吸" }
-                signBreathArr.push(listOne[j])
+                listOne[j].itemData = {
+                  itemCode: listOne[j].itemCode,
+                  itemName: "呼吸"
+                };
+                signBreathArr.push(listOne[j]);
               }
-              if (list[si].ENDDATE && new Date(list[si].ENDDATE) <= new Date(listOne[j].time) && m == si) {
-                listOne[j].itemData = { itemCode: listOne[j].itemCode, itemName: "呼吸" }
-                signTimeArr.push(listOne[j])
+              if (
+                list[si].ENDDATE &&
+                new Date(list[si].ENDDATE) <= new Date(listOne[j].time) &&
+                m == si
+              ) {
+                listOne[j].itemData = {
+                  itemCode: listOne[j].itemCode,
+                  itemName: "呼吸"
+                };
+                signTimeArr.push(listOne[j]);
               }
             }
-            firstIn = true
+            firstIn = true;
             //合并呼吸与控制呼吸的数据
-            signBreathArr.push.apply(signBreathArr, signTimeArr)
-            signBreathArr.push.apply(signBreathArr, dataArr)
+            signBreathArr.push.apply(signBreathArr, signTimeArr);
+            signBreathArr.push.apply(signBreathArr, dataArr);
             signBreathArr.sort(function(a, b) {
               return Date.parse(a.time) - Date.parse(b.time); //时间正序
             });
             for (var n = 0; n < signBreathArr.length; n++) {
-              let min = '';
+              let min = "";
               if (new Date(signBreathArr[n].time) > this.config.maxTime) {
                 min = 700 + 1;
               } else {
-                min = this.getMinuteDif(this.config.initTime, signBreathArr[n].time);
+                min = this.getMinuteDif(
+                  this.config.initTime,
+                  signBreathArr[n].time
+                );
               }
-              let x = Math.round(min / this.tbMin * (this.svgWidth / this.columns))
-              let y = this.svgHeight - Math.round(signBreathArr[n].value / 10 * (this.svgHeight / this.rows))
+              let x = Math.round(
+                (min / this.tbMin) * (this.svgWidth / this.columns)
+              );
+              let y =
+                this.svgHeight -
+                Math.round(
+                  (signBreathArr[n].value / 10) * (this.svgHeight / this.rows)
+                );
               signBreathArr[n].x = x;
               signBreathArr[n].y = y;
             }
-            tempArr.push.apply(tempArr, signBreathArr)
+            tempArr.push.apply(tempArr, signBreathArr);
           }
-          listOne = tempArr
+          listOne = tempArr;
         } else {
           for (var j = 0; j < listOne.length; j++) {
-            let name = ''
-            let min = '';
+            let name = "";
+            let min = "";
             if (new Date(listOne[j].time) > this.config.maxTime) {
               min = 700 + 1;
             } else {
               min = this.getMinuteDif(this.config.initTime, listOne[j].time);
             }
-            let x = Math.round(min / this.tbMin * (this.svgWidth / this.columns))
-            let y = this.svgHeight - Math.round(listOne[j].value / 10 * (this.svgHeight / this.rows))
+            let x = Math.round(
+              (min / this.tbMin) * (this.svgWidth / this.columns)
+            );
+            let y =
+              this.svgHeight -
+              Math.round(
+                (listOne[j].value / 10) * (this.svgHeight / this.rows)
+              );
             listOne[j].x = x;
             listOne[j].y = y;
-            let nameList = this.signNameLisg
+            let nameList = this.signNameLisg;
             nameList.forEach(it => {
               if (listOne[j].itemCode == it.itemCode && it.itemCode) {
-                name = it.itemName
+                name = it.itemName;
               }
-            })
-            listOne[j].itemData = { itemCode: listOne[j].itemCode, itemName: name }
+            });
+            listOne[j].itemData = {
+              itemCode: listOne[j].itemCode,
+              itemName: name
+            };
           }
         }
-        let temp = this.uniqeByKeys(listOne, ['itemCode', 'time']);
+        let temp = this.uniqeByKeys(listOne, ["itemCode", "time"]);
         this.pathArray.push(temp);
         // this.pathArray.push(listOne);
       }
@@ -745,64 +1319,86 @@ export default {
       if (!isData && this.breathData.length > 0) {
         let list = this.breathData;
         //定义一个总数组把几个呼吸数据进行组合
-        let allArrData = []
+        let allArrData = [];
         for (let i = 0; i < list.length; i++) {
-          let endEvTime = ''
+          let endEvTime = "";
           //如果有结束时间
           if (list[i].ENDDATE) {
-            endEvTime = list[i].ENDDATE
-
+            endEvTime = list[i].ENDDATE;
           } else {
-            endEvTime = this.config.patientMaxTime
+            endEvTime = this.config.patientMaxTime;
           }
-          let countMin = this.coutTimes(new Date(list[i].START_TIME), new Date(endEvTime), 'minute');
-          let numCount = countMin / 5
-          let dataArr = []
+          let countMin = this.coutTimes(
+            new Date(list[i].START_TIME),
+            new Date(endEvTime),
+            "minute"
+          );
+          let numCount = countMin / 5;
+          let dataArr = [];
           for (let l = 0; l < numCount; l++) {
             dataArr.push({
               itemCode: list[i].ITEM_CODE,
-              time: new Date(new Date(list[i].START_TIME).getTime() + 1000 * 60 * 5 * l).Format("yyyy-MM-dd hh:mm"),
+              time: new Date(
+                new Date(list[i].START_TIME).getTime() + 1000 * 60 * 5 * l
+              ).Format("yyyy-MM-dd hh:mm"),
               value: list[i].DOSAGE,
               itemData: {
                 itemCode: list[i].ITEM_CODE,
                 itemName: list[i].ITEM_NAME
               }
-            })
+            });
           }
-          allArrData.push.apply(allArrData, dataArr)
-
+          allArrData.push.apply(allArrData, dataArr);
         }
         for (var n = 0; n < allArrData.length; n++) {
-          let min = '';
+          let min = "";
           if (new Date(allArrData[n].time) > new Date(this.config.maxTime)) {
             min = 700 + 1;
           } else {
             min = this.getMinuteDif(this.config.initTime, allArrData[n].time);
           }
-          let x = Math.round(min / this.tbMin * (this.svgWidth / this.columns))
-          let y = this.svgHeight - Math.round(allArrData[n].value / 10 * (this.svgHeight / this.rows))
+          let x = Math.round(
+            (min / this.tbMin) * (this.svgWidth / this.columns)
+          );
+          let y =
+            this.svgHeight -
+            Math.round(
+              (allArrData[n].value / 10) * (this.svgHeight / this.rows)
+            );
           allArrData[n].x = x;
           allArrData[n].y = y;
-
         }
 
         this.pathArray.push(allArrData);
       }
-      let list = this.pathArray
+      let list = this.pathArray;
 
-
-      let spo2List = []
+      let spo2List = [];
       for (var i = 0; i < list.length; i++) {
         for (var j = 0; j < list[i].length; j++) {
-          if (list[i][j].itemCode == 188 || list[i][j].itemCode == 212 || list[i][j].itemCode == 112 || list[i][j].itemCode == 202 || list[i][j].itemCode == 208 || list[i][j].itemCode == 209 || list[i][j].itemCode == 210 || list[i][j].itemCode == 211 ||
-            list[i][j].itemCode == 324 || list[i][j].itemCode == 71|| list[i][j].itemCode == 69|| list[i][j].itemCode == 70) {
-            spo2List.push({ codeName: list[i][j].itemData.itemName, dataList: list[i] })
+          if (
+            list[i][j].itemCode == 188 ||
+            list[i][j].itemCode == 212 ||
+            list[i][j].itemCode == 112 ||
+            list[i][j].itemCode == 202 ||
+            list[i][j].itemCode == 208 ||
+            list[i][j].itemCode == 209 ||
+            list[i][j].itemCode == 210 ||
+            list[i][j].itemCode == 211 ||
+            list[i][j].itemCode == 324 ||
+            list[i][j].itemCode == 71 ||
+            list[i][j].itemCode == 69 ||
+            list[i][j].itemCode == 70
+          ) {
+            spo2List.push({
+              codeName: list[i][j].itemData.itemName,
+              dataList: list[i]
+            });
             break;
           }
         }
       }
       this.spo2List = spo2List;
-      console.log(spo2List)
       this.calculatePath();
       return false;
       // var list = this.signNameLisg;
@@ -849,7 +1445,7 @@ export default {
     //显示个性化体征
     tipShowPersonStyle() {
       this.showStyleView = false;
-      Bus.$emit('showPersonStyle', 1);
+      Bus.$emit("showPersonStyle", 1);
     },
     //初始化执行函数
     initFun() {
@@ -859,7 +1455,7 @@ export default {
       }
 
       this.getYDataArray();
-    },
+    }
   },
   mounted() {
     if (this.setTimeId) {
@@ -869,23 +1465,18 @@ export default {
     this.area = this.$refs.area;
   },
   created() {
-    Bus.$on('test', this.pageTurnFun)
-    Bus.$on('timeSetChange', this.pageTurnFun)
+    Bus.$on("test", this.pageTurnFun);
+    Bus.$on("timeSetChange", this.pageTurnFun);
   },
   beforeDestroy() {
-    Bus.$off('test', this.pageTurnFun);
-    Bus.$off('timeSetChange', this.pageTurnFun)
+    Bus.$off("test", this.pageTurnFun);
+    Bus.$off("timeSetChange", this.pageTurnFun);
     clearTimeout(this.setTimeId);
   },
-  components: {
-
-  },
-  props: ['page'],
-  computed: {
-
-  }
-}
-
+  components: {},
+  props: ["page"],
+  computed: {}
+};
 </script>
 <style scoped>
 </style>

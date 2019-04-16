@@ -1,6 +1,13 @@
 <template>
-  <div v-if="!settingView" style="height:100%;position:relative;overflow-y:hidden;" @click="allNone()">
-    <div style="width: 100%;height: 100%;background-color: #ebf1f9;position: absolute;top: 0;left:0;z-index: 999;" v-if="printLoading">
+  <div
+    v-if="!settingView"
+    style="height:100%;position:relative;overflow-y:hidden;"
+    @click="allNone()"
+  >
+    <div
+      style="width: 100%;height: 100%;background-color: #ebf1f9;position: absolute;top: 0;left:0;z-index: 999;"
+      v-if="printLoading"
+    >
       <div class="loading">
         {{config.pagePercentNum}}/{{config.pageTotal}}打印数据加载中....
         <br>
@@ -15,121 +22,340 @@
       <div class="logo">
         <div :style="logo">
           <!-- <img src="../../assets/logo.jpg"> -->
-          <img style="height:70px;" src="../../assets/LogoTop.png">
+          <img
+            style="height:70px;"
+            src="../../assets/LogoTop.png"
+          >
         </div>
-        <div :style="logo1" style="background-color: #96e894;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;">
+        <div
+          :style="logo1"
+          style="background-color: #96e894;color:white;line-height: 30px;box-sizing:border-box;padding-left:5px;"
+        >
           <span style="margin-left: 30px;font-size:13px;">{{nowTime}}</span>
         </div>
       </div>
       <div class="currentPatientInfo">
         <span style="color:#CD5C5C;font-size:24px;font-weight: bold;">{{lockedPatientInfo.operatingRoomNo}}</span>
-        <img style="margin:0 6px;" src="../../assets/people.png" alt="">
+        <img
+          style="margin:0 6px;"
+          src="../../assets/people.png"
+          alt=""
+        >
         <div style="width:90px;">
           <div style="padding-bottom:5px;border-bottom:1px solid #8B8B8B;font-size:16px;">{{lockedPatientInfo.patientId}}</div>
           <div style="color:#001AFA;font-size:18px;">{{lockedPatientInfo.patientName}}</div>
         </div>
       </div>
-      <div class="procedure" style="position: relative;">
-        <div style="display: flex;height:70px;" v-if="showFormView">
+      <div
+        class="procedure"
+        style="position: relative;"
+      >
+        <div
+          style="display: flex;height:70px;"
+          v-if="showFormView"
+        >
           <div style="margin:0px 10px;">
-            <div class="lightBox" @contextmenu.prevent="showDoubleListOne(lockedPatientInfo.operStatus)">
-              <img v-if="lockedPatientInfo.operStatus == 0" style="display:block" src="../../assets/grayLight.png" alt="">
-              <img v-else-if="lockedPatientInfo.operStatus == 5" style="display:block" src="../../assets/redLight.png" alt="">
-              <img v-else style="display:block" src="../../assets/light.png" alt="">
+            <div
+              class="lightBox"
+              @contextmenu.prevent="showDoubleListOne(lockedPatientInfo.operStatus)"
+            >
+              <img
+                v-if="lockedPatientInfo.operStatus == 0"
+                style="display:block"
+                src="../../assets/grayLight.png"
+                alt=""
+              >
+              <img
+                v-else-if="lockedPatientInfo.operStatus == 5"
+                style="display:block"
+                src="../../assets/redLight.png"
+                alt=""
+              >
+              <img
+                v-else
+                style="display:block"
+                src="../../assets/light.png"
+                alt=""
+              >
               <span style="font-size:18px;">入手术室</span>
-              <div v-if="doShowDataOne" class="inseide">
-                <div class="insideHover" @click="finalStatus('0')">取消状态【入手术室】</div>
+              <div
+                v-if="doShowDataOne"
+                class="inseide"
+              >
+                <div
+                  class="insideHover"
+                  @click="finalStatus('0')"
+                >取消状态【入手术室】</div>
               </div>
             </div>
             <div style="position: relative;">
               <!-- <input type="" name="" @click="testclick"> -->
-              <dateTime width="110" v-model="inDateTime" @change="changeStatus('5','inDateTime',$event)"></dateTime>
+              <dateTime
+                width="110"
+                v-model="inDateTime"
+                @change="changeStatus('5','inDateTime',$event)"
+              ></dateTime>
               <!-- <input ref="intest" id="intest" class="timePicker" type="datetime-local" v-model="inDateTime" @blur="changeStatus('5','inDateTime',$event)"> -->
             </div>
           </div>
-          <div style="margin:0px 10px;" v-if="inDateTime">
-            <div class="lightBox" @contextmenu.prevent="showDoubleListTwo(lockedPatientInfo.operStatus)">
-              <img v-if="lockedPatientInfo.operStatus == 10" style="display:block" src="../../assets/redLight.png" alt="">
-              <img v-else-if="lockedPatientInfo.operStatus == 5" style="display:block" src="../../assets/grayLight.png" alt="">
-              <img v-else style="display:block" src="../../assets/light.png" alt="">
+          <div
+            style="margin:0px 10px;"
+            v-if="inDateTime"
+          >
+            <div
+              class="lightBox"
+              @contextmenu.prevent="showDoubleListTwo(lockedPatientInfo.operStatus)"
+            >
+              <img
+                v-if="lockedPatientInfo.operStatus == 10"
+                style="display:block"
+                src="../../assets/redLight.png"
+                alt=""
+              >
+              <img
+                v-else-if="lockedPatientInfo.operStatus == 5"
+                style="display:block"
+                src="../../assets/grayLight.png"
+                alt=""
+              >
+              <img
+                v-else
+                style="display:block"
+                src="../../assets/light.png"
+                alt=""
+              >
               <span style="font-size:18px;">麻醉开始</span>
-              <div v-if="doShowDataTwo" class="inseide">
-                <div class="insideHover" @click="finalStatus('5')">转入状态【入手术室】</div>
+              <div
+                v-if="doShowDataTwo"
+                class="inseide"
+              >
+                <div
+                  class="insideHover"
+                  @click="finalStatus('5')"
+                >转入状态【入手术室】</div>
               </div>
             </div>
             <div>
-              <dateTime width="110" v-model="anesStartTime" @change="changeStatus('10','anesStartTime',$event)"></dateTime>
+              <dateTime
+                width="110"
+                v-model="anesStartTime"
+                @change="changeStatus('10','anesStartTime',$event)"
+              ></dateTime>
               <!-- <input class="timePicker" type="datetime-local" name="" v-model="anesStartTime" @blur="changeStatus('10','anesStartTime',$event)"> -->
               <!-- <vue-date-calendar id="demo1" :option.sync="option"></vue-date-calendar> -->
             </div>
           </div>
-          <div style="margin:0px 10px;" v-if="anesStartTime">
-            <div class="lightBox" @contextmenu.prevent="showDoubleListThree(lockedPatientInfo.operStatus)">
-              <img v-if="lockedPatientInfo.operStatus == 10" style="display:block" src="../../assets/grayLight.png" alt="">
-              <img v-else-if="lockedPatientInfo.operStatus == 15" style="display:block" src="../../assets/redLight.png" alt="">
-              <img v-else style="display:block" src="../../assets/light.png" alt="">
+          <div
+            style="margin:0px 10px;"
+            v-if="anesStartTime"
+          >
+            <div
+              class="lightBox"
+              @contextmenu.prevent="showDoubleListThree(lockedPatientInfo.operStatus)"
+            >
+              <img
+                v-if="lockedPatientInfo.operStatus == 10"
+                style="display:block"
+                src="../../assets/grayLight.png"
+                alt=""
+              >
+              <img
+                v-else-if="lockedPatientInfo.operStatus == 15"
+                style="display:block"
+                src="../../assets/redLight.png"
+                alt=""
+              >
+              <img
+                v-else
+                style="display:block"
+                src="../../assets/light.png"
+                alt=""
+              >
               <span style="font-size:18px;">手术开始</span>
-              <div v-if="doShowDataThree" class="inseide">
-                <div class="insideHover" @click="finalStatus('10')">转入状态【麻醉开始】</div>
+              <div
+                v-if="doShowDataThree"
+                class="inseide"
+              >
+                <div
+                  class="insideHover"
+                  @click="finalStatus('10')"
+                >转入状态【麻醉开始】</div>
               </div>
             </div>
             <div>
-              <dateTime width="110" v-model="startDateTime" @change="changeStatus('15','startDateTime',$event)"></dateTime>
+              <dateTime
+                width="110"
+                v-model="startDateTime"
+                @change="changeStatus('15','startDateTime',$event)"
+              ></dateTime>
               <!-- <input class="timePicker" type="datetime-local" name="" v-model="startDateTime" @blur="changeStatus('15','startDateTime',$event)"> -->
             </div>
           </div>
-          <div style="margin:0px 10px;" v-if="startDateTime">
-            <div class="lightBox" @contextmenu.prevent="showDoubleListFour(lockedPatientInfo.operStatus)">
-              <img v-if="lockedPatientInfo.operStatus == 15" style="display:block" src="../../assets/grayLight.png" alt="">
-              <img v-else-if="lockedPatientInfo.operStatus == 25" style="display:block" src="../../assets/redLight.png" alt="">
-              <img v-else style="display:block" src="../../assets/light.png" alt="">
+          <div
+            style="margin:0px 10px;"
+            v-if="startDateTime"
+          >
+            <div
+              class="lightBox"
+              @contextmenu.prevent="showDoubleListFour(lockedPatientInfo.operStatus)"
+            >
+              <img
+                v-if="lockedPatientInfo.operStatus == 15"
+                style="display:block"
+                src="../../assets/grayLight.png"
+                alt=""
+              >
+              <img
+                v-else-if="lockedPatientInfo.operStatus == 25"
+                style="display:block"
+                src="../../assets/redLight.png"
+                alt=""
+              >
+              <img
+                v-else
+                style="display:block"
+                src="../../assets/light.png"
+                alt=""
+              >
               <span style="font-size:18px;">手术结束</span>
-              <div v-if="doShowDataFour" class="inseide">
-                <div class="insideHover" @click="finalStatus('15')">转入状态【手术开始】</div>
+              <div
+                v-if="doShowDataFour"
+                class="inseide"
+              >
+                <div
+                  class="insideHover"
+                  @click="finalStatus('15')"
+                >转入状态【手术开始】</div>
               </div>
             </div>
             <div>
-              <dateTime width="110" v-model="endDateTime" @change="changeStatus('25','endDateTime',$event)"></dateTime>
+              <dateTime
+                width="110"
+                v-model="endDateTime"
+                @change="changeStatus('25','endDateTime',$event)"
+              ></dateTime>
               <!-- <input class="timePicker" type="datetime-local" name="" v-model="endDateTime" @blur="changeStatus('25','endDateTime',$event)"> -->
             </div>
           </div>
-          <div style="margin:0px 10px;" v-if="endDateTime">
-            <div class="lightBox" @contextmenu.prevent="showDoubleListFive(lockedPatientInfo.operStatus)">
-              <img v-if="lockedPatientInfo.operStatus == 25" style="display:block" src="../../assets/grayLight.png" alt="">
-              <img v-else-if="lockedPatientInfo.operStatus == 30" style="display:block" src="../../assets/redLight.png" alt="">
-              <img v-else style="display:block" src="../../assets/light.png" alt="">
+          <div
+            style="margin:0px 10px;"
+            v-if="endDateTime"
+          >
+            <div
+              class="lightBox"
+              @contextmenu.prevent="showDoubleListFive(lockedPatientInfo.operStatus)"
+            >
+              <img
+                v-if="lockedPatientInfo.operStatus == 25"
+                style="display:block"
+                src="../../assets/grayLight.png"
+                alt=""
+              >
+              <img
+                v-else-if="lockedPatientInfo.operStatus == 30"
+                style="display:block"
+                src="../../assets/redLight.png"
+                alt=""
+              >
+              <img
+                v-else
+                style="display:block"
+                src="../../assets/light.png"
+                alt=""
+              >
               <span style="font-size:18px;">麻醉结束</span>
-              <div v-if="doShowDataFive" class="inseide">
-                <div class="insideHover" @click="finalStatus('25')">转入状态【手术结束】</div>
+              <div
+                v-if="doShowDataFive"
+                class="inseide"
+              >
+                <div
+                  class="insideHover"
+                  @click="finalStatus('25')"
+                >转入状态【手术结束】</div>
               </div>
             </div>
             <div>
-              <dateTime width="110" v-model="anesEndTime" @change="changeStatus('30','anesEndTime',$event)"></dateTime>
+              <dateTime
+                width="110"
+                v-model="anesEndTime"
+                @change="changeStatus('30','anesEndTime',$event)"
+              ></dateTime>
               <!-- <input class="timePicker" type="datetime-local" name="" v-model="anesEndTime" @blur="changeStatus('30','anesEndTime',$event)"> -->
             </div>
           </div>
-          <div style="margin:0px 10px;" v-if="anesEndTime">
-            <div ref="area" @contextmenu.prevent="showDoubleListSix(lockedPatientInfo.operStatus)" class="lightBox">
-              <img v-if="lockedPatientInfo.operStatus == 30" style="display:block" src="../../assets/grayLight.png" alt="">
-              <img v-else-if="lockedPatientInfo.operStatus == 35" style="display:block" src="../../assets/redLight.png" alt="">
-              <img v-else style="display:block" src="../../assets/light.png" alt="">
+          <div
+            style="margin:0px 10px;"
+            v-if="anesEndTime"
+          >
+            <div
+              ref="area"
+              @contextmenu.prevent="showDoubleListSix(lockedPatientInfo.operStatus)"
+              class="lightBox"
+            >
+              <img
+                v-if="lockedPatientInfo.operStatus == 30"
+                style="display:block"
+                src="../../assets/grayLight.png"
+                alt=""
+              >
+              <img
+                v-else-if="lockedPatientInfo.operStatus == 35"
+                style="display:block"
+                src="../../assets/redLight.png"
+                alt=""
+              >
+              <img
+                v-else
+                style="display:block"
+                src="../../assets/light.png"
+                alt=""
+              >
               <span style="font-size:18px;">出手术室</span>
-              <div v-if="doShowDataSix" class="inseide">
-                <div class="insideHover" @click="finalStatus('30')">转入状态【麻醉结束】</div>
-                <div class="insideHover" @click="finalStatus('60')">转入病房</div>
-                <div class="insideHover" @click="finalStatus('45')">进复苏室</div>
-                <div class="insideHover" @click="finalStatus('65')">转入ICU</div>
+              <div
+                v-if="doShowDataSix"
+                class="inseide"
+              >
+                <div
+                  class="insideHover"
+                  @click="finalStatus('30')"
+                >转入状态【麻醉结束】</div>
+                <div
+                  class="insideHover"
+                  @click="finalStatus('60')"
+                >转入病房</div>
+                <div
+                  class="insideHover"
+                  @click="finalStatus('45')"
+                >进复苏室</div>
+                <div
+                  class="insideHover"
+                  @click="finalStatus('65')"
+                >转入ICU</div>
               </div>
             </div>
             <div>
-              <dateTime width="110" v-model="outDateTime" @change="changeStatus('35','outDateTime',$event)"></dateTime>
+              <dateTime
+                width="110"
+                v-model="outDateTime"
+                @change="changeStatus('35','outDateTime',$event)"
+              ></dateTime>
               <!-- <input class="timePicker" type="datetime-local" name="" v-model="outDateTime" @blur="changeStatus('35','outDateTime',$event)"> -->
             </div>
           </div>
         </div>
         <div style="overflow:hidden;position:relative;height:30px;">
-          <div v-if="lockedPatientInfo.patientId" ref="scollDiv" @mousewheel="scollFun($event)" style="position:absolute;top:0px;height: 45px;position: absolute;bottom: 0px;width: 940px;display:flex;border-top: 1px solid black;overflow-x:auto;overflow-y:hidden;margin-left:5px;">
-            <div v-for="item in medBillList" @click="selectMedFormTemp(item)" :class="{bindClass:item.bindClassData}" class="listButton">
+          <div
+            v-if="lockedPatientInfo.patientId"
+            ref="scollDiv"
+            @mousewheel="scollFun($event)"
+            style="position:absolute;top:0px;height: 45px;position: absolute;bottom: 0px;width: 940px;display:flex;border-top: 1px solid black;overflow-x:auto;overflow-y:hidden;margin-left:5px;"
+          >
+            <div
+              v-for="item in medBillList"
+              @click="selectMedFormTemp(item)"
+              :class="{bindClass:item.bindClassData}"
+              class="listButton"
+            >
               {{item.formName}}
             </div>
           </div>
@@ -137,129 +363,354 @@
       </div>
     </div>
     <div class="down">
-      <div class="left" style="overflow-y: auto;">
-        <div v-if="lockedPatientInfo.patientId" style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
+      <div
+        class="left"
+        style="overflow-y: auto;"
+      >
+        <div
+          v-if="lockedPatientInfo.patientId"
+          style="height: auto;background-color: #b3f2b1;margin-bottom:5px;"
+        >
           <div class="stretch">
             <div style="display:flex;">
-              <img style="height:21px;padding-right:3px;" src="../../assets/icon_1.png" alt=""> 电子病历
+              <img
+                style="height:21px;padding-right:3px;"
+                src="../../assets/icon_1.png"
+                alt=""
+              > 电子病历
             </div>
-            <div class="active_back" @click="concealmentOne"><img :class="{transform:isTransformOne}" src="../../assets/bottom.png"></div>
+            <div
+              class="active_back"
+              @click="concealmentOne"
+            ><img
+                :class="{transform:isTransformOne}"
+                src="../../assets/bottom.png"
+              ></div>
           </div>
-          <div v-if="concealmentOneData" style="padding:5px;display:flex;flex-wrap:wrap;">
+          <div
+            v-if="concealmentOneData"
+            style="padding:5px;display:flex;flex-wrap:wrap;"
+          >
             <!-- <button v-if="lockedPatientInfo.patientId" @click="openCheckInfoView" class="list_button">检验信息</button> -->
-            <button v-if="lockedPatientInfo.patientId" @click="openLisCheck" class="list_button">检验信息</button>
-            <button v-if="lockedPatientInfo.patientId" @click="openMedical" class="list_button">检查结果</button>
+            <button
+              v-if="lockedPatientInfo.patientId"
+              @click="openLisCheck"
+              class="list_button"
+            >检验信息</button>
+            <button
+              v-if="lockedPatientInfo.patientId"
+              @click="openMedical"
+              class="list_button"
+            >检查结果</button>
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button">医嘱信息</button> -->
-            <button v-if="lockedPatientInfo.patientId" @click="openRecodEmr" class="list_button">病例病程</button>
+            <button
+              v-if="lockedPatientInfo.patientId"
+              @click="openRecodEmr"
+              class="list_button"
+            >病例病程</button>
           </div>
         </div>
-        <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;" v-if="lockedPatientInfo.patientId">
+        <div
+          style="height: auto;background-color: #b3f2b1;margin-bottom:5px;"
+          v-if="lockedPatientInfo.patientId"
+        >
           <div class="stretch">
             <div style="display:flex;">
-              <img style="height:21px;padding-right:3px;" src="../../assets/icon_2.jpg" alt=""> 患者操作
+              <img
+                style="height:21px;padding-right:3px;"
+                src="../../assets/icon_2.jpg"
+                alt=""
+              > 患者操作
             </div>
-            <div class="active_back" @click="concealmentTwe"><img :class="{transform:isTransformTwe}" src="../../assets/bottom.png"></div>
+            <div
+              class="active_back"
+              @click="concealmentTwe"
+            ><img
+                :class="{transform:isTransformTwe}"
+                src="../../assets/bottom.png"
+              ></div>
           </div>
-          <div v-if="concealmentTweData" style="padding:5px;display:flex;flex-wrap:wrap;">
-            <button class="list_button" @click="openChangeRoom">更换房间</button>
-            <button v-if="regButtonView" class="list_button" @click="getOperationRegister">术中登记</button>
-            <button v-if="recoverButtonView" class="list_button" @click="getRecoverRegister">复苏登记</button>
-            <button @click="cancel" class="list_button">取消手术</button>
-            <button v-if="formDetail" class="list_button" @click="monitor">监护仪</button>
+          <div
+            v-if="concealmentTweData"
+            style="padding:5px;display:flex;flex-wrap:wrap;"
+          >
+            <button
+              class="list_button"
+              @click="openChangeRoom"
+            >更换房间</button>
+            <button
+              v-if="regButtonView"
+              class="list_button"
+              @click="getOperationRegister"
+            >术中登记</button>
+            <button
+              v-if="recoverButtonView"
+              class="list_button"
+              @click="getRecoverRegister"
+            >复苏登记</button>
+            <button
+              @click="cancel"
+              class="list_button"
+            >取消手术</button>
+            <button
+              v-if="formDetail"
+              class="list_button"
+              @click="monitor"
+            >监护仪</button>
             <!-- <button v-if="lockedPatientInfo.patientId" class="list_button" @click="getPatientOperationInfo">手术信息</button> -->
           </div>
         </div>
         <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
-              <img style="height:21px;padding-right:3px;" src="../../assets/icon_3.png" alt=""> 常用功能
+              <img
+                style="height:21px;padding-right:3px;"
+                src="../../assets/icon_3.png"
+                alt=""
+              > 常用功能
             </div>
-            <div class="active_back" @click="concealmentThree"><img :class="{transform:isTransformThree}" src="../../assets/bottom.png"></div>
+            <div
+              class="active_back"
+              @click="concealmentThree"
+            ><img
+                :class="{transform:isTransformThree}"
+                src="../../assets/bottom.png"
+              ></div>
           </div>
-          <div v-if="concealmentThreeData" style="padding:5px;display:flex;flex-wrap:wrap;">
-            <button @click="dictShow" class="list_button">字典</button>
-            <button @click="tempManage" class="list_button">模板管理</button>
+          <div
+            v-if="concealmentThreeData"
+            style="padding:5px;display:flex;flex-wrap:wrap;"
+          >
+            <button
+              @click="dictShow"
+              class="list_button"
+            >字典</button>
+            <button
+              @click="tempManage"
+              class="list_button"
+            >模板管理</button>
           </div>
         </div>
         <div style="height: auto;background-color: #b3f2b1;margin-bottom:5px;">
           <div class="stretch">
             <div style="display:flex;">
-              <img style="height:21px;padding-right:3px;" src="../../assets/icon_4.png" alt=""> 其他
+              <img
+                style="height:21px;padding-right:3px;"
+                src="../../assets/icon_4.png"
+                alt=""
+              > 其他
             </div>
-            <div class="active_back" @click="concealmentFour"><img :class="{transform:isTransformFour}" src="../../assets/bottom.png"></div>
+            <div
+              class="active_back"
+              @click="concealmentFour"
+            ><img
+                :class="{transform:isTransformFour}"
+                src="../../assets/bottom.png"
+              ></div>
           </div>
-          <div v-if="concealmentFourData" style="padding:5px;display:flex;flex-wrap:wrap;">
+          <div
+            v-if="concealmentFourData"
+            style="padding:5px;display:flex;flex-wrap:wrap;"
+          >
             <!-- <button class="list_button">系统配置</button> -->
             <!-- <button @click="getAboutUs" class="list_button">关于</button> -->
-            <button @click="exitSystem" class="list_button">返回列表</button>
-            <button @click="openChangePassWordView" class="list_button">修改密码</button>
+            <button
+              @click="exitSystem"
+              class="list_button"
+            >返回列表</button>
+            <button
+              @click="openChangePassWordView"
+              class="list_button"
+            >修改密码</button>
           </div>
         </div>
         <div style="position: absolute;bottom:3px;width:100%;text-align:center;color:rgb(35, 78, 147);font-size:12px;">当前用户:{{nowUser}}</div>
       </div>
-      <div class="content" style="overflow-y:hidden;overflow-x: hidden; ">
+      <div
+        class="content"
+        style="overflow-y:hidden;overflow-x: hidden; "
+      >
         <!-- <div class="patientList" :class="{animationClassNone:showData,animationClassShow:showDataTwo}"> -->
-        <div class="patientList" v-show="showData">
+        <div
+          class="patientList"
+          v-show="showData"
+        >
           <div style="height:105px;border-bottom:1px solid #96e894;box-sizing:border-box;">
             <div>
-              <div class="container" style="padding-left: 5px;margin-bottom:10px;margin-top:5px;align-items:center;">
-                <img style="margin-right:10px;height:20px;" src="../../assets/people.png" alt="">
+              <div
+                class="container"
+                style="padding-left: 5px;margin-bottom:10px;margin-top:5px;align-items:center;"
+              >
+                <img
+                  style="margin-right:10px;height:20px;"
+                  src="../../assets/people.png"
+                  alt=""
+                >
                 <div style="line-height:24px;display:flex;align-items:center;">
-                  <input type="radio" id="all" @click="searchPatientList" v-model="operStatus" value="">
+                  <input
+                    type="radio"
+                    id="all"
+                    @click="searchPatientList"
+                    v-model="operStatus"
+                    value=""
+                  >
                   <label for="all">全部</label>
-                  <input type="radio" id="one" @click="searchPatientList" value="0" v-model="operStatus">
+                  <input
+                    type="radio"
+                    id="one"
+                    @click="searchPatientList"
+                    value="0"
+                    v-model="operStatus"
+                  >
                   <label for="one">术前</label>
-                  <input type="radio" id="two" @click="searchPatientList" value="15" v-model="operStatus">
+                  <input
+                    type="radio"
+                    id="two"
+                    @click="searchPatientList"
+                    value="15"
+                    v-model="operStatus"
+                  >
                   <label for="two">术中</label>
-                  <input type="radio" id="three" @click="searchPatientList" value="25" v-model="operStatus">
+                  <input
+                    type="radio"
+                    id="three"
+                    @click="searchPatientList"
+                    value="25"
+                    v-model="operStatus"
+                  >
                   <label for="three">术后</label>
                   <br>
                 </div>
                 <div style="margin-left:15px;">
                   <span>手术间</span>
-                  <select style="width: 60px;" v-model="operatingRoomNo" @change="searchPatientList">
+                  <select
+                    style="width: 60px;"
+                    v-model="operatingRoomNo"
+                    @change="searchPatientList"
+                  >
                     <option value=""></option>
-                    <option v-for="(item,index) in roomList" :value="item.roomNo">{{ item.roomNo}}</option>
+                    <option
+                      v-for="(item,index) in roomList"
+                      :value="item.roomNo"
+                    >{{ item.roomNo}}</option>
                   </select>
                 </div>
               </div>
-              <div class="container" style="padding-left: 5px;margin-bottom:10px;">
-                <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
+              <div
+                class="container"
+                style="padding-left: 5px;margin-bottom:10px;"
+              >
+                <div
+                  class="left15"
+                  style="margin-left:5px;display:flex;height:22px;line-height:22px;"
+                >
                   <span>ID</span>
-                  <input @keyup.enter='searchPatientList' style="width: 84px;font-size:12px;" type="text" v-model="patientId">
+                  <input
+                    @keyup.enter='searchPatientList'
+                    style="width: 84px;font-size:12px;"
+                    type="text"
+                    v-model="patientId"
+                  >
                 </div>
-                <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
+                <div
+                  class="left15"
+                  style="margin-left:5px;display:flex;height:22px;line-height:22px;"
+                >
                   <span>姓名</span>
-                  <input @keyup.enter='searchPatientList' type="text" style="width: 60px;font-size:12px;" v-model="patientName">
+                  <input
+                    @keyup.enter='searchPatientList'
+                    type="text"
+                    style="width: 60px;font-size:12px;"
+                    v-model="patientName"
+                  >
                 </div>
-                <div class="left15" style="margin-left:5px;display:flex;height:22px;line-height:22px;">
+                <div
+                  class="left15"
+                  style="margin-left:5px;display:flex;height:22px;line-height:22px;"
+                >
                   <span>日期</span>
-                  <input v-model="getTime" type="date" style="width: 125px;font-size:12px;" @keyup.enter='searchPatientList'>
+                  <input
+                    v-model="getTime"
+                    type="date"
+                    style="width: 125px;font-size:12px;"
+                    @keyup.enter='searchPatientList'
+                  >
                   <!-- <myDatepicker :date="startTime" :option="option" :limit="limit"></myDatepicker> -->
                 </div>
               </div>
             </div>
             <div style="padding-left: 5px;">
-              <button style="font-size:12px;" @click='openJzView'>急诊登记</button>
-              <button style="font-size:12px;" @click='searchPatientList'>搜索</button>
+              <button
+                style="font-size:12px;"
+                @click='openJzView'
+              >急诊登记</button>
+              <button
+                style="font-size:12px;"
+                @click='searchPatientList'
+              >搜索</button>
             </div>
           </div>
           <div style="overflow-y: auto;height:calc(100% - 105px - 80px);font-size:12px;">
-            <div v-for="item in patientList" class="listBorder" :class="{thisClickBackClass:item.thisClickBack}" v-on:click="patientDeatilInfo(item)" v-on:dblclick="lockedPatient(item)">
-              <div class="patientContent title_back" style="display:flex;justify-content:space-between;">
+            <div
+              v-for="item in patientList"
+              class="listBorder"
+              :class="{thisClickBackClass:item.thisClickBack}"
+              v-on:click="patientDeatilInfo(item)"
+              v-on:dblclick="lockedPatient(item)"
+            >
+              <div
+                class="patientContent title_back"
+                style="display:flex;justify-content:space-between;"
+              >
                 <span style="font-weight:bold;">手术间 {{item.operatingRoomNo}}</span>
-                <span v-if="item.emergencyIndicator == 1" style="color:red;font-weight:bold;">急诊</span>
-                <span v-if="item.operStatus == 0" style="color:#15428B;font-weight:bold;">准备手术</span>
-                <span v-if="item.operStatus == 5" style="color:red;font-weight:bold;">入手术室</span>
-                <span v-else-if="item.operStatus == 10" style="color:red;font-weight:bold;">麻醉开始</span>
-                <span v-else-if="item.operStatus == 15" style="color:red;font-weight:bold;">手术开始</span>
-                <span v-else-if="item.operStatus == 25" style="color:red;font-weight:bold;">手术结束</span>
-                <span v-else-if="item.operStatus == 30" style="color:red;font-weight:bold;">麻醉结束</span>
-                <span v-else-if="item.operStatus == 35" style="color:green;font-weight:bold;">出手术室</span>
-                <span v-else-if="item.operStatus == 60" style="color:green;font-weight:bold;">转入病房</span>
-                <span v-else-if="item.operStatus == 45" style="color:green;font-weight:bold;">进复苏室</span>
-                <span v-else-if="item.operStatus == 40" style="color:green;font-weight:bold;">待复苏</span>
-                <span v-else-if="item.operStatus == 65" style="color:green;font-weight:bold;">转入ICU</span>
+                <span
+                  v-if="item.emergencyIndicator == 1"
+                  style="color:red;font-weight:bold;"
+                >急诊</span>
+                <span
+                  v-if="item.operStatus == 0"
+                  style="color:#15428B;font-weight:bold;"
+                >准备手术</span>
+                <span
+                  v-if="item.operStatus == 5"
+                  style="color:red;font-weight:bold;"
+                >入手术室</span>
+                <span
+                  v-else-if="item.operStatus == 10"
+                  style="color:red;font-weight:bold;"
+                >麻醉开始</span>
+                <span
+                  v-else-if="item.operStatus == 15"
+                  style="color:red;font-weight:bold;"
+                >手术开始</span>
+                <span
+                  v-else-if="item.operStatus == 25"
+                  style="color:red;font-weight:bold;"
+                >手术结束</span>
+                <span
+                  v-else-if="item.operStatus == 30"
+                  style="color:red;font-weight:bold;"
+                >麻醉结束</span>
+                <span
+                  v-else-if="item.operStatus == 35"
+                  style="color:green;font-weight:bold;"
+                >出手术室</span>
+                <span
+                  v-else-if="item.operStatus == 60"
+                  style="color:green;font-weight:bold;"
+                >转入病房</span>
+                <span
+                  v-else-if="item.operStatus == 45"
+                  style="color:green;font-weight:bold;"
+                >进复苏室</span>
+                <span
+                  v-else-if="item.operStatus == 40"
+                  style="color:green;font-weight:bold;"
+                >待复苏</span>
+                <span
+                  v-else-if="item.operStatus == 65"
+                  style="color:green;font-weight:bold;"
+                >转入ICU</span>
               </div>
               <ul style="padding-left:5px;">
                 <li>患者 {{item.patientName}} {{item.patientId}} 住院号 {{item.inpNo}}</li>
@@ -270,83 +721,168 @@
               </ul>
             </div>
           </div>
-          <div v-if="pageShowData" class="pageClass">
+          <div
+            v-if="pageShowData"
+            class="pageClass"
+          >
             <div>
               <div style="display:flex;items-align:center;padding-top:3px;">
                 <span>患者数量:</span>
                 <span style="color:rgb(0, 26, 250);padding:0 5px;">{{pageLength}}</span>
                 <span style="padding-right:5px;">共{{pages}}页</span>
                 <span>每页显示</span>
-                <input style="width:50px;" type="number" min="5" max="100" @change="dataInSize($event)" v-model="size">
+                <input
+                  style="width:50px;"
+                  type="number"
+                  min="5"
+                  max="100"
+                  @change="dataInSize($event)"
+                  v-model="size"
+                >
               </div>
               <div style="display:flex;items-align:center;padding-top:10px;">
-                <button @click="firstPage" style="width:60px;font-size:12px;">首页</button>
-                <button @click="pageRe" style="width:60px;font-size:12px;">上一页</button>
-                <div @click="showSelect" class="pageInDiv">
+                <button
+                  @click="firstPage"
+                  style="width:60px;font-size:12px;"
+                >首页</button>
+                <button
+                  @click="pageRe"
+                  style="width:60px;font-size:12px;"
+                >上一页</button>
+                <div
+                  @click="showSelect"
+                  class="pageInDiv"
+                >
                   <span>{{pageNum}}</span>
-                  <div @click.stop="noClick" v-if="dataInSelect" class="pageInSelect">
-                    <div @click="pageChoose(item.number)" v-for="item in dataTypeInAllSelect">{{item.number}}</div>
+                  <div
+                    @click.stop="noClick"
+                    v-if="dataInSelect"
+                    class="pageInSelect"
+                  >
+                    <div
+                      @click="pageChoose(item.number)"
+                      v-for="item in dataTypeInAllSelect"
+                    >{{item.number}}</div>
                   </div>
                 </div>
-                <button @click="pageAd" style="width:60px;font-size:12px;">下一页</button>
-                <button @click="lastPage" style="width:60px;font-size:12px;">末页</button>
+                <button
+                  @click="pageAd"
+                  style="width:60px;font-size:12px;"
+                >下一页</button>
+                <button
+                  @click="lastPage"
+                  style="width:60px;font-size:12px;"
+                >末页</button>
               </div>
             </div>
             <div>
               <span>排序方式</span>
               <div @click="sort1">
-                <input type="radio" id="house" name="sort">
+                <input
+                  type="radio"
+                  id="house"
+                  name="sort"
+                >
                 <label for="house">术间</label>
               </div>
               <div @click="sort0">
-                <input type="radio" id="timeHo" name="sort">
+                <input
+                  type="radio"
+                  id="timeHo"
+                  name="sort"
+                >
                 <label for="timeHo">时间</label>
               </div>
             </div>
           </div>
         </div>
-        <div class="leftNoneBox" @click="leftNone">
-          <div :class="{trans:transData}" class="leftNoneImg">
-            <img src="../../assets/left.png" alt="">
-            <img src="../../assets/left.png" alt="">
-            <img src="../../assets/left.png" alt="">
-            <img src="../../assets/left.png" alt="">
+        <div
+          class="leftNoneBox"
+          @click="leftNone"
+        >
+          <div
+            :class="{trans:transData}"
+            class="leftNoneImg"
+          >
+            <img
+              src="../../assets/left.png"
+              alt=""
+            >
+            <img
+              src="../../assets/left.png"
+              alt=""
+            >
+            <img
+              src="../../assets/left.png"
+              alt=""
+            >
+            <img
+              src="../../assets/left.png"
+              alt=""
+            >
           </div>
         </div>
-        <div class="patientInfo" v-if="viewInfo">
+        <div
+          class="patientInfo"
+          v-if="viewInfo"
+        >
           <div class="pat_title title_back">患者详情</div>
           <div style="margin-top: 5px;">
-            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">基本信息</div>
+            <div
+              class="title_back"
+              style="border:1px solid #b1f3c5;padding-left: 20px;"
+            >基本信息</div>
             <div class="patientContentBox">
               <div class="container">
                 <div>患者ID</div>
-                <div class="in_con" style="width:100px;">
+                <div
+                  class="in_con"
+                  style="width:100px;"
+                >
                   {{patientInfo.PATIENT_ID}}
                 </div>
                 <div class="left15">住院号</div>
-                <div class="in_con" style="width:80px;">
+                <div
+                  class="in_con"
+                  style="width:80px;"
+                >
                   {{patientInfo.INP_NO}}
                 </div>
                 <div class="left15">姓名</div>
-                <div class="in_con" style="width:60px;">
+                <div
+                  class="in_con"
+                  style="width:60px;"
+                >
                   {{patientInfo.NAME}}
                 </div>
                 <div class="left15">年龄</div>
-                <div class="in_con" style="width:60px;">
+                <div
+                  class="in_con"
+                  style="width:60px;"
+                >
                   {{patientInfo.PAT_AGE}}
                 </div>
                 <div class="left15">性别</div>
-                <div class="in_con" style="width:50px;">
+                <div
+                  class="in_con"
+                  style="width:50px;"
+                >
                   {{patientInfo.SEX}}
                 </div>
               </div>
               <div class="container">
                 <div>所在科室</div>
-                <div class="in_con" style="width:130px;">
+                <div
+                  class="in_con"
+                  style="width:130px;"
+                >
                   {{patientInfo.DEPT_NAME}}
                 </div>
                 <div>床号</div>
-                <div class="in_con" style="width:50px;">
+                <div
+                  class="in_con"
+                  style="width:50px;"
+                >
                   {{patientInfo.BED_NO}}
                 </div>
                 <div class="left15">付费方式</div>
@@ -356,13 +892,22 @@
               </div>
               <div class="container">
                 <div>住址</div>
-                <div class="in_con" style="width: 400px;">{{patientInfo.MAILING_ADDRESS}}</div>
+                <div
+                  class="in_con"
+                  style="width: 400px;"
+                >{{patientInfo.MAILING_ADDRESS}}</div>
                 <div class="left15">职业</div>
-                <div class="in_con" style="width: 200px;"> </div>
+                <div
+                  class="in_con"
+                  style="width: 200px;"
+                > </div>
               </div>
               <div class="container">
                 <div>身份证号</div>
-                <div class="in_con" style="width: 200px;">
+                <div
+                  class="in_con"
+                  style="width: 200px;"
+                >
                   {{patientInfo.ID_NO}}
                 </div>
                 <div class="left15">联系电话</div>
@@ -377,59 +922,101 @@
             </div>
           </div>
           <div>
-            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术信息</div>
+            <div
+              class="title_back"
+              style="border:1px solid #b1f3c5;padding-left: 20px;"
+            >手术信息</div>
             <div class="patientContentBox">
               <div class="container">
                 <div>主要诊断</div>
-                <div class="in_con" style="width: 600px;">{{patientInfo.DIAG_BEFORE_OPERATION}}</div>
+                <div
+                  class="in_con"
+                  style="width: 600px;"
+                >{{patientInfo.DIAG_BEFORE_OPERATION}}</div>
               </div>
               <div class="container">
                 <div>病情</div>
-                <div class="in_con" style="width: 600px;">{{patientInfo.PATIENT_CONDITION}}</div>
+                <div
+                  class="in_con"
+                  style="width: 600px;"
+                >{{patientInfo.PATIENT_CONDITION}}</div>
               </div>
               <div class="container">
                 <div>手术名称</div>
-                <div class="in_con" style="width: 450px;max-height:42px;">{{patientInfo.OPERATION_NAME}}</div>
+                <div
+                  class="in_con"
+                  style="width: 450px;max-height:42px;"
+                >{{patientInfo.OPERATION_NAME}}</div>
                 <div class="left15">急诊择期</div>
-                <div class="in_con" style="width:100px;">
+                <div
+                  class="in_con"
+                  style="width:100px;"
+                >
                   <span v-if="patientInfo.EMERGENCY_INDICATOR=='1'">急诊</span>
                   <span v-if="patientInfo.EMERGENCY_INDICATOR=='0'">择期</span>
                 </div>
               </div>
               <div class="container">
                 <div>手术时间</div>
-                <div class="in_con" style="width: 160px;">{{patientInfo.SCHEDULED_DATE_TIME}}</div>
+                <div
+                  class="in_con"
+                  style="width: 160px;"
+                >{{patientInfo.SCHEDULED_DATE_TIME}}</div>
                 <div class="left15">台次</div>
-                <div class="in_con" style="width: 60px;">
+                <div
+                  class="in_con"
+                  style="width: 60px;"
+                >
                   {{patientInfo.SEQUENCE}}
                 </div>
                 <div class="left15">手术间</div>
-                <div class="in_con" style="width: 45px;">
+                <div
+                  class="in_con"
+                  style="width: 45px;"
+                >
                   {{patientInfo.OPERATING_ROOM_NO}}
                 </div>
                 <div class="left15">隔离</div>
-                <div class="in_con" style="width:60px;">{{patientInfo.ISOLATION_INDICATOR}}</div>
+                <div
+                  class="in_con"
+                  style="width:60px;"
+                >{{patientInfo.ISOLATION_INDICATOR}}</div>
                 <div class="left15">手术等级</div>
-                <div class="in_con" style="width:60px;">
+                <div
+                  class="in_con"
+                  style="width:60px;"
+                >
                   {{patientInfo.OPERATION_SCALE}}
                 </div>
               </div>
               <div class="container">
                 <div>麻醉方法</div>
-                <div class="in_con" style="width: 300px;">
+                <div
+                  class="in_con"
+                  style="width: 300px;"
+                >
                   {{patientInfo.ANESTHESIA_METHOD}}
                 </div>
                 <div class="left15">切口等级</div>
-                <div class="in_con" style="width: 90px;">{{patientInfo.QIEKOU_CLASS}}</div>
+                <div
+                  class="in_con"
+                  style="width: 90px;"
+                >{{patientInfo.QIEKOU_CLASS}}</div>
                 <div class="left15">切口个数</div>
-                <div class="in_con" style="width: 90px;">
+                <div
+                  class="in_con"
+                  style="width: 90px;"
+                >
                   {{patientInfo.QIEKOU_NUMBER}}
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">手术人员</div>
+            <div
+              class="title_back"
+              style="border:1px solid #b1f3c5;padding-left: 20px;"
+            >手术人员</div>
             <div class="patientContentBox">
               <div class="container">
                 <div>麻醉医师</div>
@@ -458,12 +1045,20 @@
             </div>
           </div>
           <div>
-            <div class="title_back" style="border:1px solid #b1f3c5;padding-left: 20px;">病人信息修改</div>
+            <div
+              class="title_back"
+              style="border:1px solid #b1f3c5;padding-left: 20px;"
+            >病人信息修改</div>
             <div class="patientContentBox">
               <div class="container">
                 <div style="line-height:22px;padding-right:10px;">出生日期</div>
                 <!-- <dateTime width="110" v-model="inDateTime"></dateTime> -->
-                <input type="date" v-model="burnDate" @change="getDateIn(burnDate,$event)" style="background-color:rgba(0,0,0,0);outline:none;border:1px solid rgb(197, 197, 197);">
+                <input
+                  type="date"
+                  v-model="burnDate"
+                  @change="getDateIn(burnDate,$event)"
+                  style="background-color:rgba(0,0,0,0);outline:none;border:1px solid rgb(197, 197, 197);"
+                >
               </div>
               <div>
                 <button @click="saveBirth">保存</button>
@@ -473,107 +1068,292 @@
           </div>
         </div>
         <!-- 单子信息 -->
-        <div class="information" v-if="formDetail" :class="{allWidth:widthData}">
+        <div
+          class="information"
+          v-if="formDetail"
+          :class="{allWidth:widthData}"
+        >
           <div ref="mybox1">
-            <div class="designArea" ref="normal" :style="{height: areaheight+'px'}">
-              <div v-if="item.type == 'div'&&(item.width/2) <= 450" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:('450' - (item.width/2))+'px'}">
-                <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
+            <div
+              class="designArea"
+              ref="normal"
+              :style="{height: areaheight+'px'}"
+            >
+              <div
+                v-if="item.type == 'div'&&(item.width/2) <= 450"
+                class="item"
+                style="position:absolute;min-height: 3px;min-width:3px;"
+                :class="{choosed:item.chosen}"
+                v-for="item in formItems"
+                :style="{left:('450' - (item.width/2))+'px'}"
+              >
+                <form-element
+                  ref="formElement"
+                  :value="item"
+                  :isPage="atherInput"
+                  v-on:toTopEvent="getValue"
+                  :objectItem="lockedPatientInfo"
+                ></form-element>
               </div>
-              <div v-if="item.type == 'div'&&(item.width/2) >= 451" class="item" style="position:absolute;min-height: 3px;min-width:3px;left:0;" :class="{choosed:item.chosen}" v-for="item in formItems">
-                <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
+              <div
+                v-if="item.type == 'div'&&(item.width/2) >= 451"
+                class="item"
+                style="position:absolute;min-height: 3px;min-width:3px;left:0;"
+                :class="{choosed:item.chosen}"
+                v-for="item in formItems"
+              >
+                <form-element
+                  ref="formElement"
+                  :value="item"
+                  :isPage="atherInput"
+                  v-on:toTopEvent="getValue"
+                  :objectItem="lockedPatientInfo"
+                ></form-element>
               </div>
-              <div v-if="item.type !== 'div'" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:item.x+'px',top:item.y+'px'}">
-                <form-element ref="formElement" :value="item" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element>
+              <div
+                v-if="item.type !== 'div'"
+                class="item"
+                style="position:absolute;min-height: 3px;min-width:3px;"
+                :class="{choosed:item.chosen}"
+                v-for="item in formItems"
+                :style="{left:item.x+'px',top:item.y+'px'}"
+              >
+                <form-element
+                  ref="formElement"
+                  :value="item"
+                  :isPage="atherInput"
+                  v-on:toTopEvent="getValue"
+                  :objectItem="lockedPatientInfo"
+                ></form-element>
               </div>
             </div>
           </div>
-          <div ref="mybox" id="mybox" :style="{'display':showPrint?'inline':'none'}">
-            <div class="designArea" style="font-size: 14pt;font-family: SimSun;height: 1900px;">
-              <div v-if="item.type == 'div'&&(item.width/2) <= 450" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:('450*0.75' - (item.width/2))+'px'}">
-                <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
+          <div
+            ref="mybox"
+            id="mybox"
+            :style="{'display':showPrint?'inline':'none'}"
+          >
+            <div
+              class="designArea"
+              style="font-size: 14pt;font-family: SimSun;height: 1900px;"
+            >
+              <div
+                v-if="item.type == 'div'&&(item.width/2) <= 450"
+                class="item"
+                style="position:absolute;min-height: 3px;min-width:3px;"
+                :class="{choosed:item.chosen}"
+                v-for="item in formItems"
+                :style="{left:('450*0.75' - (item.width/2))+'px'}"
+              >
+                <form-element-print
+                  :value="item"
+                  :isPrint="isPrint"
+                  :isPage="atherInput"
+                  v-on:toTopEvent="getValue"
+                  :objectItem="lockedPatientInfo"
+                ></form-element-print>
               </div>
-              <div v-if="item.type == 'div'&&(item.width/2) >= 451" class="item" style="position:absolute;min-height: 3px;min-width:3px;left:0;" :class="{choosed:item.chosen}" v-for="item in formItems">
-                <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
+              <div
+                v-if="item.type == 'div'&&(item.width/2) >= 451"
+                class="item"
+                style="position:absolute;min-height: 3px;min-width:3px;left:0;"
+                :class="{choosed:item.chosen}"
+                v-for="item in formItems"
+              >
+                <form-element-print
+                  :value="item"
+                  :isPrint="isPrint"
+                  :isPage="atherInput"
+                  v-on:toTopEvent="getValue"
+                  :objectItem="lockedPatientInfo"
+                ></form-element-print>
               </div>
-              <div v-if="item.type !== 'div'" class="item" style="position:absolute;min-height: 3px;min-width:3px;" :class="{choosed:item.chosen}" v-for="item in formItems" :style="{left:item.x+'px',top:item.y+'px'}">
-                <form-element-print :value="item" :isPrint="isPrint" :isPage="atherInput" v-on:toTopEvent="getValue" :objectItem="lockedPatientInfo"></form-element-print>
+              <div
+                v-if="item.type !== 'div'"
+                class="item"
+                style="position:absolute;min-height: 3px;min-width:3px;"
+                :class="{choosed:item.chosen}"
+                v-for="item in formItems"
+                :style="{left:item.x+'px',top:item.y+'px'}"
+              >
+                <form-element-print
+                  :value="item"
+                  :isPrint="isPrint"
+                  :isPage="atherInput"
+                  v-on:toTopEvent="getValue"
+                  :objectItem="lockedPatientInfo"
+                ></form-element-print>
               </div>
             </div>
           </div>
-          <div v-if="formDetail" style="position: absolute;bottom:30px;right: 20px;">
-            <button ref="buttonTest" v-if="pageButtonView" @click="toChangePage(0)">首页</button>
-            <button v-if="pageButtonView" @click="toChangePage(-1)">上一页</button>
-            <button v-if="pageButtonView" @click="toChangePage(1)">下一页</button>
-            <button v-if="pageButtonView" @click="toChangePage(2)">末页</button>
-            <button v-if="tempButtonView" @click="applyTemplateFun">应用模板</button>
-            <button v-if="tempButtonView" @click="openSaveTemView">保存模板</button>
+          <div
+            v-if="formDetail"
+            style="position: absolute;bottom:30px;right: 20px;"
+          >
+            <button
+              ref="buttonTest"
+              v-if="pageButtonView"
+              @click="toChangePage(0)"
+            >首页</button>
+            <button
+              v-if="pageButtonView"
+              @click="toChangePage(-1)"
+            >上一页</button>
+            <button
+              v-if="pageButtonView"
+              @click="toChangePage(1)"
+            >下一页</button>
+            <button
+              v-if="pageButtonView"
+              @click="toChangePage(2)"
+            >末页</button>
+            <button
+              v-if="tempButtonView"
+              @click="applyTemplateFun"
+            >应用模板</button>
+            <button
+              v-if="tempButtonView"
+              @click="openSaveTemView"
+            >保存模板</button>
             <button @click="submitSaveForm">保存</button>
-            <button v-if="personView" @click="openPatSetting">体征设置</button>
+            <button
+              v-if="personView"
+              @click="openPatSetting"
+            >体征设置</button>
             <button @click="CreateOneFormPage">打印</button>
             <button @click="formSetting">配置</button>
             <button @click="refreshForm">刷新</button>
           </div>
         </div>
         <!-- 显示个性化体征设置 -->
-        <div class="dictionaries" v-if="personStyleView">
+        <div
+          class="dictionaries"
+          v-if="personStyleView"
+        >
           <personStyle v-on:closePatSetting="closePatSetting"></personStyle>
         </div>
       </div>
     </div>
-    <monitor v-if="monitorDataShow.noneData" :dataOfNoneClick="firstRoom" :parentToChild="monitorDataShow"></monitor>
-    <patientOperationInfo v-if="patientOperationInfoView.dataInParent" :info="patientInfo" :parentToChild="patientOperationInfoView" v-on:submitSave="submitPatientInfo" v-on:turnToSetting="toSetting"></patientOperationInfo>
-    <operationRegister @refreshTime="timeChangeBus()" v-if="operationRegisterView.dataInParent" :objectItem="lockedPatientInfo" :parentToChild="operationRegisterView"></operationRegister>
+    <monitor
+      v-if="monitorDataShow.noneData"
+      :dataOfNoneClick="firstRoom"
+      :parentToChild="monitorDataShow"
+    ></monitor>
+    <patientOperationInfo
+      v-if="patientOperationInfoView.dataInParent"
+      :info="patientInfo"
+      :parentToChild="patientOperationInfoView"
+      v-on:submitSave="submitPatientInfo"
+      v-on:turnToSetting="toSetting"
+    ></patientOperationInfo>
+    <operationRegister
+      @refreshTime="timeChangeBus()"
+      v-if="operationRegisterView.dataInParent"
+      :objectItem="lockedPatientInfo"
+      :parentToChild="operationRegisterView"
+    ></operationRegister>
     <!-- 模板管理 -->
-    <div v-if="tempView" class="dictionaries">
-      <updateTemplet style="position: absolute;top: 10%;" :style="{left:inleft+'px'}" v-on:closeWin="closeTempManage"></updateTemplet>
+    <div
+      v-if="tempView"
+      class="dictionaries"
+    >
+      <updateTemplet
+        style="position: absolute;top: 10%;"
+        :style="{left:inleft+'px'}"
+        v-on:closeWin="closeTempManage"
+      ></updateTemplet>
     </div>
     <!-- <div  style="position: absolute;top: 10%;width: 1214px;" :style="{left:inleft+'px'}">
                 <updateTemplet v-on:closeWin="closeTempManage"></updateTemplet>
               </div> -->
-    <aboutUs v-if="aboutUsData.dataInParent" :parentToChild="aboutUsData"></aboutUs>
+    <aboutUs
+      v-if="aboutUsData.dataInParent"
+      :parentToChild="aboutUsData"
+    ></aboutUs>
     <!-- 检验信息 -->
-    <checkInfo v-if="checkInfoView" v-on:closeView="closeCheckInfoView"></checkInfo>
+    <checkInfo
+      v-if="checkInfoView"
+      v-on:closeView="closeCheckInfoView"
+    ></checkInfo>
     <!-- 检验结果 -->
-    <checkResult v-if="checkResultShow" v-on:closeView="closeCheckInfoShow"></checkResult>
+    <checkResult
+      v-if="checkResultShow"
+      v-on:closeView="closeCheckInfoShow"
+    ></checkResult>
     <!-- 密码修改 -->
-    <div class="dictionaries" v-if="changePassWord">
+    <div
+      class="dictionaries"
+      v-if="changePassWord"
+    >
       <changePassWord @closeChangePassWordView="closeChangePassWordView"></changePassWord>
     </div>
     <!-- 更换手术间 -->
-    <div class="dictionaries" v-if="changeRoomView">
+    <div
+      class="dictionaries"
+      v-if="changeRoomView"
+    >
       <changeRoom @closeChangeRoom="closeChangeRoom"></changeRoom>
     </div>
     <!-- 字典显示界面 -->
-    <div v-if="dictView" class="dictionaries">
+    <div
+      v-if="dictView"
+      class="dictionaries"
+    >
       <div class="window_load">
         <div class="load_top">
           <div>字典</div>
-          <div @click="dictNone" class="top_active">X</div>
+          <div
+            @click="dictNone"
+            class="top_active"
+          >X</div>
         </div>
         <div style="height: 50px;line-height: 50px;font-weight: bold;border-bottom: 2px solid #b1f3c5;">
           <span style="margin-left: 30px;">字典维护</span>
         </div>
         <div style="display: flex;padding-left:10px;padding-top: 5px;">
-          <div class="tab_div" :class="{backWight:isBackOne}" @click="getComType">
+          <div
+            class="tab_div"
+            :class="{backWight:isBackOne}"
+            @click="getComType"
+          >
             <span>常用术语</span>
           </div>
-          <div class="tab_div" :class="{backWight:isBackTwo}" @click="getEvent">
+          <div
+            class="tab_div"
+            :class="{backWight:isBackTwo}"
+            @click="getEvent"
+          >
             <span>麻醉事件</span>
           </div>
-          <div class="tab_div" :class="{backWight:isBackThree}" @click="getMethods">
+          <div
+            class="tab_div"
+            :class="{backWight:isBackThree}"
+            @click="getMethods"
+          >
             <span>麻醉方法</span>
           </div>
-          <div class="tab_div" :class="{backWight:isBackFour}" @click="getConstant">
+          <div
+            class="tab_div"
+            :class="{backWight:isBackFour}"
+            @click="getConstant"
+          >
             <span>麻醉常用量</span>
           </div>
         </div>
         <!-- 字典按钮内容 -->
-        <div v-if="commoTerms" style="height:310px;">
+        <div
+          v-if="commoTerms"
+          style="height:310px;"
+        >
           <div style="display: flex;height: 100%;background:white;margin:10px;">
             <!-- 显示类别 -->
             <div class="dictionaryBox">
               <ul v-for="item in comTypeList">
-                <li class="hoverStyle" style="cursor:pointer;" @click="getTypeDetail(item)">
+                <li
+                  class="hoverStyle"
+                  style="cursor:pointer;"
+                  @click="getTypeDetail(item)"
+                >
                   <div style="margin-left: 20px;">{{item.typeName}}</div>
                 </li>
               </ul>
@@ -581,14 +1361,44 @@
             <!-- 显示详细内容 -->
             <div style="width: 70%;margin-top:5px;">
               <div style="display: flex;margin-left: 10px;box-sizing:border-box;padding-right:18px;">
-                <div class="topList" v-for="cell in contentConfig">{{cell.text}}</div>
+                <div
+                  class="topList"
+                  v-for="cell in contentConfig"
+                >{{cell.text}}</div>
               </div>
-              <div style="overflow-y: auto;height:280px;box-sizing:border-box;" :class="{paddingRight18:this.paddingRight18}">
-                <div v-for="list in commonTypeList" style="display: flex;margin-left: 10px;" @click="getItem(list)">
-                  <div v-for="cl in contentConfig" style="width: 160px;border:1px solid #b1f3c5;">
-                    <div style="height:calc(100% - 2px);" v-if="cl.status=='inable'">
-                      <input v-if="list.writeAble" type="text" v-model="list[cl.value]" @blur="inputBlur(list)" @change="change" style="display:block;width:100%;border:0;height:100%;outline:none;">
-                      <input v-if="!list.writeAble" type="text" v-model="list[cl.value]" readonly="readonly" @click="valueWriteAble(list)" style="display:block;width:100%;border:0;height:100%;outline:none;">
+              <div
+                style="overflow-y: auto;height:280px;box-sizing:border-box;"
+                :class="{paddingRight18:this.paddingRight18}"
+              >
+                <div
+                  v-for="list in commonTypeList"
+                  style="display: flex;margin-left: 10px;"
+                  @click="getItem(list)"
+                >
+                  <div
+                    v-for="cl in contentConfig"
+                    style="width: 160px;border:1px solid #b1f3c5;"
+                  >
+                    <div
+                      style="height:calc(100% - 2px);"
+                      v-if="cl.status=='inable'"
+                    >
+                      <input
+                        v-if="list.writeAble"
+                        type="text"
+                        v-model="list[cl.value]"
+                        @blur="inputBlur(list)"
+                        @change="change"
+                        style="display:block;width:100%;border:0;height:100%;outline:none;"
+                      >
+                      <input
+                        v-if="!list.writeAble"
+                        type="text"
+                        v-model="list[cl.value]"
+                        readonly="readonly"
+                        @click="valueWriteAble(list)"
+                        style="display:block;width:100%;border:0;height:100%;outline:none;"
+                      >
                     </div>
                     <div v-if="cl.status!='inable'">
                       {{list[cl.value]}}
@@ -599,63 +1409,94 @@
             </div>
           </div>
           <div style="text-align: right;margin-right: 30px;">
-            <button style="width: 80px;height: 25px;font-size:12px;" @click="addMedAnesthesiaInputDict" :disabled="isAdd">新增</button>
-            <button style="width: 80px;height: 25px;font-size:12px;" :disabled="isSave" @click="saveValue">保存</button>
-            <button style="width: 80px;height: 25px;font-size:12px;" @click="cancleEdit" :disabled="isCancle">取消</button>
-            <button style="width: 80px;height: 25px;font-size:12px;" :disabled="isDelete" @click="deleteByMedAnesthesiaInputDict">删除</button>
+            <button
+              style="width: 80px;height: 25px;font-size:12px;"
+              @click="addMedAnesthesiaInputDict"
+              :disabled="isAdd"
+            >新增</button>
+            <button
+              style="width: 80px;height: 25px;font-size:12px;"
+              :disabled="isSave"
+              @click="saveValue"
+            >保存</button>
+            <button
+              style="width: 80px;height: 25px;font-size:12px;"
+              @click="cancleEdit"
+              :disabled="isCancle"
+            >取消</button>
+            <button
+              style="width: 80px;height: 25px;font-size:12px;"
+              :disabled="isDelete"
+              @click="deleteByMedAnesthesiaInputDict"
+            >删除</button>
           </div>
         </div>
-        <anaesthesiaEvent v-if="anaesthesiaEvent" :eventChildData="eventDataType"></anaesthesiaEvent>
+        <anaesthesiaEvent
+          v-if="anaesthesiaEvent"
+          :eventChildData="eventDataType"
+        ></anaesthesiaEvent>
         <anestheticMethod v-if="anestheticMethod"></anestheticMethod>
         <anestheticConstant v-if="anestheticConstant"></anestheticConstant>
       </div>
     </div>
     <div>
       <!-- 急诊登记 -->
-      <jzRegisterContent v-if="jzPatientView" v-on:closeJzViewChild="closeJzView"></jzRegisterContent>
+      <jzRegisterContent
+        v-if="jzPatientView"
+        v-on:closeJzViewChild="closeJzView"
+      ></jzRegisterContent>
     </div>
-    <cancel v-if="cancelData.dataInParent" :dataInParent="cancelData"></cancel>
+    <cancel
+      v-if="cancelData.dataInParent"
+      :dataInParent="cancelData"
+    ></cancel>
   </div>
-  <div v-else style="height: 100%;width: 100%;z-index: 99;position:relative;">
+  <div
+    v-else
+    style="height: 100%;width: 100%;z-index: 99;position:relative;"
+  >
     <div class="load_top">
       <div>表单设计器</div>
-      <div @click="formSetting" class="top_active">X</div>
+      <div
+        @click="formSetting"
+        class="top_active"
+      >X</div>
     </div>
     <formDesigner :dataInfo="selectFormItemTemp"></formDesigner>
   </div>
 </template>
 <script>
-import formDesigner from '@/components/formDesigner/formDesigner.vue';
-import personStyle from '@/components/drawTable/personStyle.vue';
-import formElement from '@/components/formElement/formElement.vue';
-import formElementPrint from '@/components/formElement/formElementPrint.vue';
-import patientOperationInfo from '@/components/patientOperationInfo/patientOperationInfo.vue';
-import operationRegister from '@/components/operationRegister/operationRegister.vue';
-import aboutUs from '@/components/aboutUs/aboutUs.vue';
-import anaesthesiaEvent from '@/components/dictionaryComponents/anaesthesiaEvent.vue';
-import anestheticMethod from '@/components/dictionaryComponents/anestheticMethod.vue';
-import anestheticConstant from '@/components/dictionaryComponents/anestheticConstant.vue';
-import jzRegisterContent from '@/components/jzRegisterContent/jzRegisterContent.vue';
-import monitor from '@/components/monitor/monitor.vue';
-import cancel from '@/components/cancel/cancel.vue';
-import { getLodop } from '@/assets/js/LodopFuncs';
-import Bus from '@/bus.js';
-import myDatepicker from '@/components/plugins/vue-datepicker.vue';
-import dateTime from '@/components/plugins/dateTime.vue';
-import html2canvas from 'html2canvas'
-import { Canvas2Image } from '@/assets/js/canvas2image';
-import changePassWord from '@/components/operationMaster/changePassWord.vue';
-import checkInfo from '@/components/checkInfo/checkInfo.vue';
-import changeRoom from '@/components/operationMaster/changeRoom.vue';
-import checkResult from '@/components/checkInfo/checkResult.vue';
-import updateTemplet from '@/components/eventTemplet/updateTemplet.vue';
-let LODOP
+import formDesigner from "@/components/formDesigner/formDesigner.vue";
+import personStyle from "@/components/drawTable/personStyle.vue";
+import formElement from "@/components/formElement/formElement.vue";
+import formElementPrint from "@/components/formElement/formElementPrint.vue";
+import patientOperationInfo from "@/components/patientOperationInfo/patientOperationInfo.vue";
+import operationRegister from "@/components/operationRegister/operationRegister.vue";
+import aboutUs from "@/components/aboutUs/aboutUs.vue";
+import anaesthesiaEvent from "@/components/dictionaryComponents/anaesthesiaEvent.vue";
+import anestheticMethod from "@/components/dictionaryComponents/anestheticMethod.vue";
+import anestheticConstant from "@/components/dictionaryComponents/anestheticConstant.vue";
+import jzRegisterContent from "@/components/jzRegisterContent/jzRegisterContent.vue";
+import monitor from "@/components/monitor/monitor.vue";
+import cancel from "@/components/cancel/cancel.vue";
+import { getLodop } from "@/assets/js/LodopFuncs";
+import Bus from "@/bus.js";
+import myDatepicker from "@/components/plugins/vue-datepicker.vue";
+import dateTime from "@/components/plugins/dateTime.vue";
+import html2canvas from "html2canvas";
+import { Canvas2Image } from "@/assets/js/canvas2image";
+import changePassWord from "@/components/operationMaster/changePassWord.vue";
+import checkInfo from "@/components/checkInfo/checkInfo.vue";
+import changeRoom from "@/components/operationMaster/changeRoom.vue";
+import checkResult from "@/components/checkInfo/checkResult.vue";
+import updateTemplet from "@/components/eventTemplet/updateTemplet.vue";
+let LODOP;
 export default {
   data() {
     return {
       checkInfoView: false, //显示检验信息窗口
       checkResultShow: false,
-      nowUser: '',
+      nowUser: "",
       showFormView: false, //显示几张单子按钮
       printed: false,
       isPrint: false,
@@ -668,16 +1509,16 @@ export default {
       patientList: [],
       widthData: false,
       pageShowData: false,
-      pages: '',
-      sortData: '',
+      pages: "",
+      sortData: "",
       size: 6,
       pageNum: 1,
       dataInSelect: false,
-      pageLength: '',
+      pageLength: "",
       dataTypeInAllSelect: [],
       formItems: [],
-      bindClassData: '',
-      newDataIndex: '',
+      bindClassData: "",
+      newDataIndex: "",
       viewInfo: false,
       patientInfo: {},
       nowTime: "",
@@ -703,16 +1544,16 @@ export default {
       formDetail: false,
       inRoomDateTime: "",
       cancelData: { dataInParent: false },
-      inDateTime: '',
-      anesStartTime: '',
-      startDateTime: '',
-      endDateTime: '',
-      anesEndTime: '',
-      outDateTime: '',
+      inDateTime: "",
+      anesStartTime: "",
+      startDateTime: "",
+      endDateTime: "",
+      anesEndTime: "",
+      outDateTime: "",
       transData: false,
       showData: true,
       showDataTwo: true,
-      nextDATA: '',
+      nextDATA: "",
       patientOperationInfoView: { dataInParent: false },
       operationRegisterView: { dataInParent: false },
       // aboutUsData: { dataInParent: false },
@@ -722,28 +1563,29 @@ export default {
       anestheticMethod: false,
       anestheticConstant: false,
       paddingRight18: false,
-      contentConfig: [{
-        text: "序号",
-        value: "serialNo"
-      },
-      {
-        text: "分类",
-        value: "itemClass"
-      },
-      {
-        text: "名称",
-        value: "newItemName",
-        status: "inable"
-      },
-      {
-        text: "编码",
-        value: "newItemCode",
-        status: "inable"
-      },
+      contentConfig: [
+        {
+          text: "序号",
+          value: "serialNo"
+        },
+        {
+          text: "分类",
+          value: "itemClass"
+        },
+        {
+          text: "名称",
+          value: "newItemName",
+          status: "inable"
+        },
+        {
+          text: "编码",
+          value: "newItemCode",
+          status: "inable"
+        }
       ],
       commonTypeList: [],
       dictView: false,
-      res: '',
+      res: "",
       logo: {
         // backgroundImage: "url(" + require("../../assets/LogoTop.png") + ")",
         // backgroundRepeat: "no-repeat",
@@ -755,7 +1597,7 @@ export default {
         backgroundImage: "url(" + require("../../assets/clock.png") + ")",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "5px 3px",
-        height: "30px",
+        height: "30px"
       },
       concealmentOneData: true,
       concealmentTweData: true,
@@ -771,43 +1613,56 @@ export default {
       isBackFour: false,
       updateFormsData: [],
       settingView: false,
-      selectFormItemTemp: '', //获取选中的单子
+      selectFormItemTemp: "", //获取选中的单子
       atherInput: { isPage: false },
       monitorDataShow: { noneData: false },
       pageButtonView: false, //翻页按钮
       firstRoom: { noneData: false },
       personStyleView: false, //是否显示个性化体征
       currentPageNum: 1,
-      timeTestVal: '',
+      timeTestVal: "",
       tempButtonView: false,
       jzPatientView: false, //急诊登记视图
       areaheight: 300,
-      setTimeId: '',
+      setTimeId: "",
       // for Vue 2.0
       startTime: {
         time: this.getTime
       },
       startTime1: {
-        time: ''
+        time: ""
       },
       endtime: {
-        time: ''
+        time: ""
       },
       option: {
-        type: 'day',
-        week: ['一', '二', '三', '四', '五', '六', '日'],
-        month: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
-        format: 'YYYY/MM/DD',
-        placeholder: '',
+        type: "day",
+        week: ["一", "二", "三", "四", "五", "六", "日"],
+        month: [
+          "一月",
+          "二月",
+          "三月",
+          "四月",
+          "五月",
+          "六月",
+          "七月",
+          "八月",
+          "九月",
+          "十月",
+          "十一月",
+          "十二月"
+        ],
+        format: "YYYY/MM/DD",
+        placeholder: "",
         inputStyle: {
-          'display': 'inline-block',
-          'line-height': '20px',
-          'font-size': '12px',
-          'border': '2px solid #fff',
-          'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
-          'border-radius': '2px',
-          'color': '#5F5F5F',
-          'width': '100px'
+          display: "inline-block",
+          "line-height": "20px",
+          "font-size": "12px",
+          border: "2px solid #fff",
+          "box-shadow": "0 1px 3px 0 rgba(0, 0, 0, 0.2)",
+          "border-radius": "2px",
+          color: "#5F5F5F",
+          width: "100px"
         },
         color: {
           // header: '#ccc',
@@ -815,21 +1670,47 @@ export default {
         },
         buttons: {
           // ok: '确定',
-          cancel: '取消'
+          cancel: "取消"
         },
         overlayOpacity: 0.5, // 0.5 as default
         dismissible: true // as true as default
       },
       timeoption: {
-        type: 'min',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        format: 'YYYY-MM-DD HH:mm'
+        type: "min",
+        week: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+        month: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
+        format: "YYYY-MM-DD HH:mm"
       },
       multiOption: {
-        type: 'multi-day',
-        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
-        month: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        type: "multi-day",
+        week: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+        month: [
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "June",
+          "July",
+          "August",
+          "September",
+          "October",
+          "November",
+          "December"
+        ],
         format: "YYYY-MM-DD HH:mm"
       },
       limit: [
@@ -838,79 +1719,75 @@ export default {
         //     available: [1, 2, 3, 4, 5, 6, 7, ]
         //   },
         {
-          type: 'fromto',
-          from: '2016-02-01',
-          to: '2020-02-20'
+          type: "fromto",
+          from: "2016-02-01",
+          to: "2020-02-20"
         }
       ],
       timeCount: 0, //计时器次数
-      canvasBox: '',
-      contentImageBox: '',
-      imageBox: '',
+      canvasBox: "",
+      contentImageBox: "",
+      imageBox: "",
       showPrint: false,
       printPageNameArr: [], //打印图片名称数组
       printLoading: false, //打印加载
       roomList: [], //手术间数据
-      operatingRoomNo: '', //手术间
+      operatingRoomNo: "", //手术间
       changePassWord: false, //修改密码界面
       changeRoomView: false, //更换手术间
       personView: false,
       tempView: false, //模板管理
-      inleft: '',
-      regButtonView: false,//控制术中登记按钮
-      recoverButtonView: false,//控制复苏登记按钮
-      burnDate: '',
-      nowDate:'',
-    }
+      inleft: "",
+      regButtonView: false, //控制术中登记按钮
+      recoverButtonView: false, //控制复苏登记按钮
+      burnDate: "",
+      nowDate: ""
+    };
   },
   methods: {
     electronListener() {
       //监听mian process里发出的message
-      window.ipc.on('savesuccess', (event, arg) => {
-        console.log(new Date(), "electron返回监听")
+      window.ipc.on("savesuccess", (event, arg) => {
+        // console.log(new Date(), "electron返回监听")
         // alert("web2" + arg); // prints "pong"  在electron中web page里的console方法不起作用，因此使用alert作为测试方法
         var imagesArr = JSON.parse(arg);
         imagesArr.forEach(item => {
           LODOP.ADD_PRINT_IMAGE(1, 0, "100%", "BottomMargin:0.5mm", item);
           LODOP.SET_PRINT_STYLEA(0, "Stretch", 2);
           LODOP.NEWPAGE();
-        })
+        });
 
         LODOP.PREVIEW();
-        console.log(new Date(), "打印预览执行")
+        // console.log(new Date(), "打印预览执行")
         // this.printLoading = false;
-
-      })
-
+      });
     },
     //打印插件初始化
     lodopInit() {
       LODOP = getLodop();
       if (LODOP) {
-        LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "")
+        LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "");
         var _this = this;
-        if (LODOP.CVERSION) CLODOP.On_Return = function(TaskID, Value) {
-          //不在打印预览界面
-          if (Value) {
-            _this.printLoading = false;
-            _this.toChangePage(0);
-            if (window.ipc) {
-              window.ipc.send('deleteImages', "delete");
+        if (LODOP.CVERSION)
+          CLODOP.On_Return = function(TaskID, Value) {
+            //不在打印预览界面
+            if (Value) {
+              _this.printLoading = false;
+              _this.toChangePage(0);
+              if (window.ipc) {
+                window.ipc.send("deleteImages", "delete");
+              }
             }
-
-          }
-
-        };
+          };
       }
-
     },
     removeTempDom() {
       this.contentImageBox.removeChild(this.imageBox);
-      this.imageBox = ''
+      this.imageBox = "";
       document.body.removeChild(this.contentImageBox);
-      this.contentImageBox = ''
+      this.contentImageBox = "";
       document.body.removeChild(this.canvasBox);
-      this.canvasBox = ''
+      this.canvasBox = "";
       // this.showPrint = false
       this.$refs.mybox.style.display = "none";
     },
@@ -933,44 +1810,55 @@ export default {
       imageBox.style.textAlign = "center";
       contentImageBox.appendChild(imageBox);
 
-
-      this.canvasBox = canvasBox
-      this.contentImageBox = contentImageBox
-      this.imageBox = imageBox
+      this.canvasBox = canvasBox;
+      this.contentImageBox = contentImageBox;
+      this.imageBox = imageBox;
     },
     printPdf(index) {
-      console.log(new Date(), "生成图片开始时间")
+      // console.log(new Date(), "生成图片开始时间")
       this.$refs.mybox.style.display = "inline";
       // this.$set(this.$data, 'showPrint', true)
       // this.showPrint = true
-      let width = 1118
-      let height = 1580
-      let imageWidth = 900
-      let scale1 = 1
-      let scale2 = 2
-      if (this.selectFormItemTemp.formName != '麻醉记录单' && this.selectFormItemTemp.formName != '复苏记录单') {
+      let width = 1118;
+      let height = 1580;
+      let imageWidth = 900;
+      let scale1 = 1;
+      let scale2 = 2;
+      if (
+        this.selectFormItemTemp.formName != "麻醉记录单" &&
+        this.selectFormItemTemp.formName != "复苏记录单"
+      ) {
         height = 1100;
       }
       if (window.scale1) {
-        scale1 = window.scale1
+        scale1 = window.scale1;
       }
       if (window.scale2) {
-        scale2 = window.scale1
+        scale2 = window.scale1;
       }
       this.createTempDom(width, height, imageWidth, scale1);
 
-      let boxHtml = ''
-      boxHtml = this.$refs.mybox
-      html2canvas(boxHtml, { width: imageWidth, height: height, scale: scale2 }).then(canvas => {
-        this.canvasBox.appendChild(canvas)
+      let boxHtml = "";
+      boxHtml = this.$refs.mybox;
+      html2canvas(boxHtml, {
+        width: imageWidth,
+        height: height,
+        scale: scale2
+      }).then(canvas => {
+        this.canvasBox.appendChild(canvas);
         // canvas.style.zoom = 1;
         canvas.style.transform = "scale(" + scale1 + "," + scale1 + ")";
         canvas.style.transformOrigin = "0 0";
-        canvas.style.paddingLeft = 5 + "px"
+        canvas.style.paddingLeft = 5 + "px";
         var dataURL = canvas.toDataURL("image/png", 1.0);
-        var objString = JSON.stringify({ data: dataURL, imageName: this.printPageNameArr[index], imgArr: this.printPageNameArr, index: index });
+        var objString = JSON.stringify({
+          data: dataURL,
+          imageName: this.printPageNameArr[index],
+          imgArr: this.printPageNameArr,
+          index: index
+        });
         if (window.ipc) {
-          window.ipc.send('getImageData', objString);
+          window.ipc.send("getImageData", objString);
         }
         this.removeTempDom();
         this.toChangePage(1).then(() => {
@@ -978,23 +1866,19 @@ export default {
             index++;
             this.printPage(index);
           }
-        })
-
+        });
       });
-      return
+      return;
     },
-    sendSaveImageMsg() {
-
-
-    },
+    sendSaveImageMsg() {},
     CreateOneFormPage() {
       if (!LODOP) {
-        alert("请启动桌面上打印程序后重新打开麻醉程序")
-        return
+        alert("请启动桌面上打印程序后重新打开麻醉程序");
+        return;
       }
       this.lodopInit();
-      this.printLoading = true
-      if (this.selectFormItemTemp.formName != '麻醉记录单') {
+      this.printLoading = true;
+      if (this.selectFormItemTemp.formName != "麻醉记录单") {
         this.config.pageTotal = 1;
       }
       var pageTotal = this.config.pageTotal;
@@ -1006,17 +1890,15 @@ export default {
       //生成带时间的guid作为图片名称
       function getGuid() {
         var d = new Date().getTime();
-        var guid = 'xxxx-xxxx-xxxx-xxxx'.replace(
-          /[xy]/g,
-          function(c) {
-            var r = (d + Math.random() * 16) % 16 | 0;
-            d = Math.floor(d / 16);
-            return (c == 'x' ? r : (r & 0x7 | 0x8)).toString(16);
-          });
-        return guid
+        var guid = "xxxx-xxxx-xxxx-xxxx".replace(/[xy]/g, function(c) {
+          var r = (d + Math.random() * 16) % 16 | 0;
+          d = Math.floor(d / 16);
+          return (c == "x" ? r : (r & 0x7) | 0x8).toString(16);
+        });
+        return guid;
       }
       this.currentPageNum = 1;
-      this.printPage(this.currentPageNum - 1)
+      this.printPage(this.currentPageNum - 1);
     },
     printPage(index) {
       this.printPdf(index);
@@ -1034,8 +1916,6 @@ export default {
 
       //   // }, 500)
       // }
-
-
     },
     inputBlur(list) {
       list.writeAble = false;
@@ -1044,7 +1924,13 @@ export default {
       list.writeAble = true;
     },
     searchPatientList() {
-      if (this.getTime == "" && this.operStatus == "" && this.patientName == "" && this.patientId == "" && this.operatingRoomNo == "") {
+      if (
+        this.getTime == "" &&
+        this.operStatus == "" &&
+        this.patientName == "" &&
+        this.patientId == "" &&
+        this.operatingRoomNo == ""
+      ) {
         // var now = new Date();
         // var year = now.getFullYear();
         // var month = (now.getMonth() + 1).toString();
@@ -1064,62 +1950,57 @@ export default {
         operStatus: this.operStatus,
         patientName: this.patientName,
         patientId: this.patientId,
-        operatingRoom: this.operatingRoomNo,
-      }
-      this.api.getMedOperationMasterList(params)
-        .then(
-        res => {
-          for (var p = 0; p < res.list.length; p++) {
-            this.$set(res.list[p], 'thisClickBack', false);
+        operatingRoom: this.operatingRoomNo
+      };
+      this.api.getMedOperationMasterList(params).then(res => {
+        for (var p = 0; p < res.list.length; p++) {
+          this.$set(res.list[p], "thisClickBack", false);
+        }
+        if (res.total > 5) {
+          this.pageShowData = true;
+          this.pages = res.pages;
+          this.patientList = res.list;
+          this.pageLength = res.total;
+          this.sortData = "";
+          this.dataTypeInAllSelect = [];
+          for (var i = 1; i <= this.pages; i++) {
+            this.dataTypeInAllSelect.push({
+              number: i
+            });
           }
-          if (res.total > 5) {
+          let paramsTwo = {
+            count: this.size,
+            page: this.pageNum,
+            dateTime: this.getTime,
+            operStatus: this.operStatus,
+            patientName: this.patientName,
+            patientId: this.patientId,
+            operatingRoom: this.operatingRoomNo
+          };
+          this.api.getMedOperationMasterList(paramsTwo).then(res => {
+            for (var p = 0; p < res.list.length; p++) {
+              this.$set(res.list[p], "thisClickBack", false);
+            }
             this.pageShowData = true;
             this.pages = res.pages;
             this.patientList = res.list;
             this.pageLength = res.total;
-            this.sortData = '';
+            this.sortData = "";
             this.dataTypeInAllSelect = [];
             for (var i = 1; i <= this.pages; i++) {
               this.dataTypeInAllSelect.push({
                 number: i
-              })
-            }
-            let paramsTwo = {
-              count: this.size,
-              page: this.pageNum,
-              dateTime: this.getTime,
-              operStatus: this.operStatus,
-              patientName: this.patientName,
-              patientId: this.patientId,
-              operatingRoom: this.operatingRoomNo,
-            }
-            this.api.getMedOperationMasterList(paramsTwo)
-              .then(
-              res => {
-                for (var p = 0; p < res.list.length; p++) {
-                  this.$set(res.list[p], 'thisClickBack', false);
-                }
-                this.pageShowData = true;
-                this.pages = res.pages;
-                console.log(res.list)
-                this.patientList = res.list;
-                this.pageLength = res.total;
-                this.sortData = '';
-                this.dataTypeInAllSelect = [];
-                for (var i = 1; i <= this.pages; i++) {
-                  this.dataTypeInAllSelect.push({
-                    number: i
-                  })
-                }
               });
-          } else {
-            this.patientList = res.list;
-            this.pageShowData = false;
-            this.size = 6;
-            this.pageNum = 1;
-            this.sortData = '';
-          }
-        });
+            }
+          });
+        } else {
+          this.patientList = res.list;
+          this.pageShowData = false;
+          this.size = 6;
+          this.pageNum = 1;
+          this.sortData = "";
+        }
+      });
     },
     sort0() {
       this.sortData = 0;
@@ -1131,16 +2012,14 @@ export default {
         operStatus: this.operStatus,
         patientName: this.patientName,
         patientId: this.patientId,
-        operatingRoom: this.operatingRoomNo,
-      }
-      this.api.getMedOperationMasterList(params)
-        .then(
-        res => {
-          for (var p = 0; p < res.list.length; p++) {
-            this.$set(res.list[p], 'thisClickBack', false);
-          }
-          this.patientList = res.list;
-        });
+        operatingRoom: this.operatingRoomNo
+      };
+      this.api.getMedOperationMasterList(params).then(res => {
+        for (var p = 0; p < res.list.length; p++) {
+          this.$set(res.list[p], "thisClickBack", false);
+        }
+        this.patientList = res.list;
+      });
     },
     sort1() {
       this.sortData = 1;
@@ -1152,19 +2031,23 @@ export default {
         operStatus: this.operStatus,
         patientName: this.patientName,
         patientId: this.patientId,
-        operatingRoom: this.operatingRoomNo,
-      }
-      this.api.getMedOperationMasterList(params)
-        .then(
-        res => {
-          for (var p = 0; p < res.list.length; p++) {
-            this.$set(res.list[p], 'thisClickBack', false);
-          }
-          this.patientList = res.list;
-        });
+        operatingRoom: this.operatingRoomNo
+      };
+      this.api.getMedOperationMasterList(params).then(res => {
+        for (var p = 0; p < res.list.length; p++) {
+          this.$set(res.list[p], "thisClickBack", false);
+        }
+        this.patientList = res.list;
+      });
     },
     searchPatientListScreen() {
-      if (this.getTime == "" && this.operStatus == "" && this.patientName == "" && this.patientId == "" && this.operatingRoomNo == "") {
+      if (
+        this.getTime == "" &&
+        this.operStatus == "" &&
+        this.patientName == "" &&
+        this.patientId == "" &&
+        this.operatingRoomNo == ""
+      ) {
         // var now = new Date();
         // var year = now.getFullYear();
         // var month = (now.getMonth() + 1).toString();
@@ -1185,31 +2068,29 @@ export default {
         operStatus: this.operStatus,
         patientName: this.patientName,
         patientId: this.patientId,
-        operatingRoom: this.operatingRoomNo,
-      }
-      this.api.getMedOperationMasterList(params)
-        .then(
-        res => {
-          for (var p = 0; p < res.list.length; p++) {
-            this.$set(res.list[p], 'thisClickBack', false);
-          }
-          this.patientList = res.list;
-        });
+        operatingRoom: this.operatingRoomNo
+      };
+      this.api.getMedOperationMasterList(params).then(res => {
+        for (var p = 0; p < res.list.length; p++) {
+          this.$set(res.list[p], "thisClickBack", false);
+        }
+        this.patientList = res.list;
+      });
     },
     showSelect() {
       this.dataInSelect = !this.dataInSelect;
     },
-    noClick() { },
+    noClick() {},
     // 选择麻醉列表显示数量
     dataInSize(value) {
       this.pageNum = 1;
       this.size = value.srcElement._value;
-      this.pages = Math.ceil(this.pageLength / this.size)
+      this.pages = Math.ceil(this.pageLength / this.size);
       this.dataTypeInAllSelect = [];
       for (var i = 1; i <= this.pages; i++) {
         this.dataTypeInAllSelect.push({
           number: i
-        })
+        });
       }
       this.searchPatientListScreen();
     },
@@ -1220,14 +2101,16 @@ export default {
     },
     // 当前页减一
     pageRe() {
-      if (this.pageNum == 1) { } else {
+      if (this.pageNum == 1) {
+      } else {
         this.pageNum = this.pageNum - 1;
         this.searchPatientListScreen();
       }
     },
     // 当前页加一
     pageAd() {
-      if (this.pages == this.pageNum) { } else {
+      if (this.pages == this.pageNum) {
+      } else {
         this.pageNum = this.pageNum + 1;
         this.searchPatientListScreen();
       }
@@ -1246,21 +2129,17 @@ export default {
     getDateIn(burnDate, event) {
       // var date = new Date(burnDate);
       // console.log(date);
-      console.log(this.lockedPatientInfo)
       this.nowDate = burnDate;
-
     },
     saveBirth() {
       let params = {
         patientId: this.lockedPatientInfo.patientId,
-        dateOfBirth: this.nowDate,
-      }
-      this.api.updatePatientBirth(params)
-        .then(
-        res => {
-          alert('保存成功！')
-          // console.log(res)
-        });
+        dateOfBirth: this.nowDate
+      };
+      this.api.updatePatientBirth(params).then(res => {
+        alert("保存成功！");
+        // console.log(res)
+      });
     },
     escBirth() {
       this.burnDate = this.patientInfo.BIRTH_DATE;
@@ -1271,30 +2150,28 @@ export default {
       }
       item.thisClickBack = true;
       for (var i = 0; i <= this.medBillList.length - 1; i++) {
-        this.$set(this.medBillList[i], 'bindClassData', this.bindClassData);
+        this.$set(this.medBillList[i], "bindClassData", this.bindClassData);
       }
       this.formDetail = false;
       let params = {
         patientId: item.patientId,
         operId: item.operId,
         visitId: item.visitId
-      }
-      this.api.getPatienDetailInfo(params)
-        .then(
-        res => {
-          this.patientInfo = res;
-        });
+      };
+      this.api.getPatienDetailInfo(params).then(res => {
+        this.patientInfo = res;
+      });
       this.viewInfo = true;
     },
     setIntervaled() {
       var _this = this;
-      var t = '';
+      var t = "";
       setInterval(function() {
         var dateObj = new Date(); //表示当前系统时间的Date对象
         var year = dateObj.getFullYear(); //当前系统时间的完整年份值
         var month = dateObj.getMonth() + 1; //当前系统时间的月份值
         var date = dateObj.getDate(); //当前系统时间的月份中的日
-        var day = dateObj.getDay(); //当前系统时间中的星期值 
+        var day = dateObj.getDay(); //当前系统时间中的星期值
         var hour = dateObj.getHours(); //当前系统时间的小时值
         var minute = dateObj.getMinutes(); //当前系统时间的分钟值
         var second = dateObj.getSeconds(); //当前系统时间的秒钟值
@@ -1317,43 +2194,52 @@ export default {
         var time = new Date();
         // 程序计时的月从0开始取值后+1
         var m = time.getMonth() + 1;
-        t = year + "-" + month + "-" +
-          date + " " + time.getHours() + ":" +
-          minute + ":" + second;
+        t =
+          year +
+          "-" +
+          month +
+          "-" +
+          date +
+          " " +
+          time.getHours() +
+          ":" +
+          minute +
+          ":" +
+          second;
         _this.nowTime = t;
       }, 1000);
     },
     lockedPatient(item) {
-      this.showFormView = true
+      this.showFormView = true;
       this.burnDate = this.patientInfo.BIRTH_DATE;
       this.lockedPatientInfo = item;
       //当前病人信息存储起来
       this.config.userInfo = item;
       // this.$set(this.$data, 'inDateTime', this.changeDateFormat(item.inDateTime))
       if (!item.inDateTime) {
-        this.$set(item, 'inDateTime', '');
+        this.$set(item, "inDateTime", "");
       }
       if (!item.anesStartTime) {
-        this.$set(item, 'anesStartTime', '');
+        this.$set(item, "anesStartTime", "");
       }
       if (!item.startDateTime) {
-        this.$set(item, 'startDateTime', '');
+        this.$set(item, "startDateTime", "");
       }
       if (!item.endDateTime) {
-        this.$set(item, 'endDateTime', '');
+        this.$set(item, "endDateTime", "");
       }
       if (!item.anesEndTime) {
-        this.$set(item, 'anesEndTime', '');
+        this.$set(item, "anesEndTime", "");
       }
       if (!item.outDateTime) {
-        this.$set(item, 'outDateTime', '');
+        this.$set(item, "outDateTime", "");
       }
-      this.inDateTime = item.inDateTime
-      this.anesStartTime = item.anesStartTime
-      this.startDateTime = item.startDateTime
-      this.endDateTime = item.endDateTime
-      this.anesEndTime = item.anesEndTime
-      this.outDateTime = item.outDateTime
+      this.inDateTime = item.inDateTime;
+      this.anesStartTime = item.anesStartTime;
+      this.startDateTime = item.startDateTime;
+      this.endDateTime = item.endDateTime;
+      this.anesEndTime = item.anesEndTime;
+      this.outDateTime = item.outDateTime;
       // this.inDateTime = this.changeDateFormat(item.inDateTime);
       // this.anesStartTime = this.changeDateFormat(item.anesStartTime);
       // this.startDateTime = this.changeDateFormat(item.startDateTime);
@@ -1361,7 +2247,6 @@ export default {
       // this.anesEndTime = this.changeDateFormat(item.anesEndTime);
       // this.outDateTime = this.changeDateFormat(item.outDateTime);
       this.initComponementConfig();
-
     },
     // 撤销手术室操作并修改病人状态
     finalStatus(sta) {
@@ -1372,116 +2257,110 @@ export default {
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          inDateTime: '',
+          inDateTime: "",
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        }
+        };
       } else if (sta == 5) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          anesStartTime: '',
+          anesStartTime: "",
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        }
+        };
       } else if (sta == 10) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          startDateTime: '',
+          startDateTime: "",
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        }
+        };
       } else if (sta == 15) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          endDateTime: '',
+          endDateTime: "",
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        }
+        };
       } else if (sta == 25) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          anesEndTime: '',
-
-        }
+          anesEndTime: ""
+        };
       } else if (sta == 30) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          outDateTime: '',
-        }
+          outDateTime: ""
+        };
       } else if (sta == 45) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
-          operStatus: sta,
-        }
+          operStatus: sta
+        };
       } else if (sta == 60) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
-          operStatus: sta,
-        }
+          operStatus: sta
+        };
       } else if (sta == 65) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
-          operStatus: sta,
-        }
+          operStatus: sta
+        };
       }
 
       this.nextDATA = params;
       // console.log(params)
-      this.api.changeBeforeStatus(params)
-        .then(
-        res => {
-          if (res.success == true) {
-            this.api.selectMedOperationMaster({
+      this.api.changeBeforeStatus(params).then(res => {
+        if (res.success == true) {
+          this.api
+            .selectMedOperationMaster({
               patientId: this.lockedPatientInfo.patientId,
               visitId: this.lockedPatientInfo.visitId,
-              operId: this.lockedPatientInfo.operId,
-            }).then(
-              afs => {
-                // console.log(afs)
-                this.lockedPatientInfo = afs;
-                //当前病人信息存储起来
-                this.config.userInfo = afs;
-                this.inDateTime = this.changeDateFormat(afs.inDateTime);
-                this.anesStartTime = this.changeDateFormat(afs.anesStartTime);
-                this.startDateTime = this.changeDateFormat(afs.startDateTime);
-                this.endDateTime = this.changeDateFormat(afs.endDateTime);
-                this.anesEndTime = this.changeDateFormat(afs.anesEndTime);
-                this.outDateTime = this.changeDateFormat(afs.outDateTime);
-                this.searchPatientListScreen();
-              }
-              )
-            this.doShowData = false;
-            if (this.setTimeId) {
-              this.refreshForm();
-            }
-
-          } else {
-            alert(res.msg)
+              operId: this.lockedPatientInfo.operId
+            })
+            .then(afs => {
+              // console.log(afs)
+              this.lockedPatientInfo = afs;
+              //当前病人信息存储起来
+              this.config.userInfo = afs;
+              this.inDateTime = this.changeDateFormat(afs.inDateTime);
+              this.anesStartTime = this.changeDateFormat(afs.anesStartTime);
+              this.startDateTime = this.changeDateFormat(afs.startDateTime);
+              this.endDateTime = this.changeDateFormat(afs.endDateTime);
+              this.anesEndTime = this.changeDateFormat(afs.anesEndTime);
+              this.outDateTime = this.changeDateFormat(afs.outDateTime);
+              this.searchPatientListScreen();
+            });
+          this.doShowData = false;
+          if (this.setTimeId) {
+            this.refreshForm();
           }
-
-        });
-
+        } else {
+          alert(res.msg);
+        }
+      });
     },
     allNone() {
       this.doShowDataOne = false;
@@ -1531,12 +2410,10 @@ export default {
       this.anaesthesiaEvent = false;
       this.anestheticMethod = false;
       this.anestheticConstant = false;
-      let params = {}
-      this.api.getMedAnesthesiaCommType(params)
-        .then(
-        res => {
-          this.comTypeList = res.list;
-        });
+      let params = {};
+      this.api.getMedAnesthesiaCommType(params).then(res => {
+        this.comTypeList = res.list;
+      });
     },
     getEvent() {
       this.isBackOne = false;
@@ -1547,12 +2424,10 @@ export default {
       this.anaesthesiaEvent = true;
       this.anestheticMethod = false;
       this.anestheticConstant = false;
-      let params = {}
-      this.api.allMedAnesthesiaEventType(params)
-        .then(
-        res => {
-          this.eventDataType = res.list;
-        });
+      let params = {};
+      this.api.allMedAnesthesiaEventType(params).then(res => {
+        this.eventDataType = res.list;
+      });
     },
     getMethods() {
       this.isBackOne = false;
@@ -1587,23 +2462,20 @@ export default {
       this.isAdd = false;
       let params = {
         itemClass: item.typeName
-      }
-      this.api.getMedAnesthesiaCommDictByItemClass(params)
-        .then(
-        res => {
-          var m = res.list.length;
-          if (m > 12) {
-            this.paddingRight18 = false;
-          } else {
-            this.paddingRight18 = true;
-          }
-          for (var i = 0; i < m; i++) {
-            res.list[i].newItemName = res.list[i].itemName;
-            res.list[i].newItemCode = res.list[i].itemCode;
-
-          }
-          this.commonTypeList = res.list;
-        });
+      };
+      this.api.getMedAnesthesiaCommDictByItemClass(params).then(res => {
+        var m = res.list.length;
+        if (m > 12) {
+          this.paddingRight18 = false;
+        } else {
+          this.paddingRight18 = true;
+        }
+        for (var i = 0; i < m; i++) {
+          res.list[i].newItemName = res.list[i].itemName;
+          res.list[i].newItemCode = res.list[i].itemCode;
+        }
+        this.commonTypeList = res.list;
+      });
     },
     dictShow() {
       this.dictView = true;
@@ -1619,15 +2491,20 @@ export default {
       let params = {
         itemClass: this.obj.itemClass,
         itemName: this.obj.itemName
-      }
-      this.api.deleteByMedAnesthesiaInputDict(params)
-        .then(
-        res => {
-          this.getTypeDetail(this.tempTypeItem);
-        });
+      };
+      this.api.deleteByMedAnesthesiaInputDict(params).then(res => {
+        this.getTypeDetail(this.tempTypeItem);
+      });
     },
     addMedAnesthesiaInputDict() {
-      this.commonTypeList.push({ serialNo: this.commonTypeList.length, itemClass: this.tempTypeItem.typeName, newItemName: "", newItemCode: "", itemName: "", itemCode: "" });
+      this.commonTypeList.push({
+        serialNo: this.commonTypeList.length,
+        itemClass: this.tempTypeItem.typeName,
+        newItemName: "",
+        newItemCode: "",
+        itemName: "",
+        itemCode: ""
+      });
       this.isAdd = this.isCancle;
       this.isCancle = !this.isAdd;
     },
@@ -1645,12 +2522,16 @@ export default {
       var k = li.length;
       let params = [];
       for (var i = 0; i < k; i++) {
-        if ((li[i].newItemName != li[i].itemName || li[i].newItemCode != li[i].itemCode) && li[i].itemName != "") {
+        if (
+          (li[i].newItemName != li[i].itemName ||
+            li[i].newItemCode != li[i].itemCode) &&
+          li[i].itemName != ""
+        ) {
           params.push({
             itemClass: li[i].itemClass,
             oldItemName: li[i].itemName,
             itemName: li[i].newItemName,
-            itemCode: li[i].newItemCode,
+            itemCode: li[i].newItemCode
           });
         }
         if (li[i].itemName == "" && li[i].itemCode == "") {
@@ -1660,347 +2541,350 @@ export default {
             itemName: li[i].newItemName,
             itemCode: li[i].newItemCode,
             serialNo: this.commonTypeList.length - 1
-          }
-          this.api.insertMedAnesthesiaInputDict(params1)
-            .then(
-            res => {
-              this.getTypeDetail(this.tempTypeItem);
-            });
+          };
+          this.api.insertMedAnesthesiaInputDict(params1).then(res => {
+            this.getTypeDetail(this.tempTypeItem);
+          });
         }
       }
       if (params.length > 0) {
-        this.api.updateMedAnesthesiaInputDict(params)
-          .then(
-          res => {
-            this.getTypeDetail(this.tempTypeItem);
-          });
+        this.api.updateMedAnesthesiaInputDict(params).then(res => {
+          this.getTypeDetail(this.tempTypeItem);
+        });
       }
       this.isCancle = true;
       this.isAdd = false;
       this.isSave = true;
     },
     selectMedFormList() {
-      let params = {}
-      this.api.selectMedFormList(params)
-        .then(
-        res => {
-          this.medBillList = res.list;
-          this.bindClassData = false;
-          for (var i = 0; i <= res.list.length - 1; i++) {
-            this.$set(this.medBillList[i], 'bindClassData', this.bindClassData);
-          }
-
-        });
+      let params = {};
+      this.api.selectMedFormList(params).then(res => {
+        this.medBillList = res.list;
+        this.bindClassData = false;
+        for (var i = 0; i <= res.list.length - 1; i++) {
+          this.$set(this.medBillList[i], "bindClassData", this.bindClassData);
+        }
+      });
     },
     scollFun(event) {
       if (event.deltaY > 0) {
         // 滚轮向下
-        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft + 100
+        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft + 100;
       } else {
         // 滚轮向上
-        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft - 100
+        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft - 100;
       }
     },
     selectMedFormTemp(item) {
       this.lodopInit();
       this.formItems = [];
-      if (item.formName == '麻醉记录单') {
-        this.config.eventNo = 0
-        this.regButtonView = true
-        this.recoverButtonView = false
-      }
-      else if (item.formName == '复苏记录单') {
-        this.config.eventNo = 1
-        this.regButtonView = false
-        this.recoverButtonView = true
-      }
-      else {
-        this.regButtonView = false
-        this.recoverButtonView = false
+      if (item.formName == "麻醉记录单") {
+        this.config.eventNo = 0;
+        this.regButtonView = true;
+        this.recoverButtonView = false;
+      } else if (item.formName == "复苏记录单") {
+        this.config.eventNo = 1;
+        this.regButtonView = false;
+        this.recoverButtonView = true;
+      } else {
+        this.regButtonView = false;
+        this.recoverButtonView = false;
       }
 
       let timeParam = {
-        "patientId": this.lockedPatientInfo.patientId,
-        "visitId": this.lockedPatientInfo.visitId,
-        "operId": this.lockedPatientInfo.operId,
-        "eventNo": this.config.eventNo
-      }
+        patientId: this.lockedPatientInfo.patientId,
+        visitId: this.lockedPatientInfo.visitId,
+        operId: this.lockedPatientInfo.operId,
+        eventNo: this.config.eventNo
+      };
       for (var i = 0; i <= this.medBillList.length - 1; i++) {
-        this.$set(this.medBillList[i], 'bindClassData', this.bindClassData);
+        this.$set(this.medBillList[i], "bindClassData", this.bindClassData);
       }
       this.newDataIndex = !item.bindClassData;
-      this.$set(item, 'bindClassData', this.newDataIndex);
+      this.$set(item, "bindClassData", this.newDataIndex);
       this.formDetail = true;
       this.viewInfo = false;
       item.isPage = false;
       this.selectFormItemTemp = item;
 
-      if (item.formName == '麻醉记录单' || item.formName == '复苏记录单') {
+      if (item.formName == "麻醉记录单" || item.formName == "复苏记录单") {
         // this.getMaxTime();
-        this.personView = true
-        let inDateTime = this.config.userInfo.inDateTime
+        this.personView = true;
+        let inDateTime = this.config.userInfo.inDateTime;
         this.tempButtonView = false;
         //查找病人的最晚时间
-        this.api.selectMaxTime(timeParam)
-          .then(res => {
-
-            let t1 = 0
-            let i = 0
-            //获取病人在手术室里面最早时间
-            this.api.getBeginTime(timeParam)
-              .then(rest => {
-                if (rest.TIME) {
-                  //如果存在病人的入手术时间
-                  if (inDateTime) {
-                    if (new Date(rest.TIME) > new Date(inDateTime)) {
-                      this.config.startMinTime = inDateTime
-                    } else {
-                      this.config.startMinTime = rest.TIME
-                    }
-                  } else {
-                    this.config.startMinTime = rest.TIME
-                  }
+        this.api.selectMaxTime(timeParam).then(res => {
+          let t1 = 0;
+          let i = 0;
+          //获取病人在手术室里面最早时间
+          this.api.getBeginTime(timeParam).then(rest => {
+            if (rest.TIME) {
+              //如果存在病人的入手术时间
+              if (inDateTime) {
+                if (new Date(rest.TIME) > new Date(inDateTime)) {
+                  this.config.startMinTime = inDateTime;
                 } else {
-                  if (inDateTime) {
-                    this.config.startMinTime = inDateTime
-                  } else {
-                    this.config.startMinTime = new Date().Format("yyyy-MM-dd") + " 08:00:00";
-                  }
+                  this.config.startMinTime = rest.TIME;
                 }
-                if (res.TIME) {
-                  if (this.config.userInfo.outDateTime) {
-                    if (new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)) {
-
-                      this.config.patientMaxTime = this.config.userInfo.outDateTime;
-                    } else {
-                      this.config.patientMaxTime = res.TIME
-                    }
-                  } else {
-                    this.config.patientMaxTime = res.TIME
-                  }
-                  t1 = this.coutTimes(this.config.startMinTime, this.config.patientMaxTime, 'minute');
-                  i = Math.ceil(t1 / 250);
-                  this.config.pageTotal = i;
-                  if (t1 > 250) {
-                    this.pageButtonView = true
-                  } else {
-                    this.pageButtonView = false
-                  }
-                }
-
-                var timeDate = new Date(this.config.startMinTime);
-                let init_Time = new Date(this.config.startMinTime);
-                this.config.initTime = new Date(this.timeSetOper(init_Time));
-                this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50);
-                this.getMaxTime()
-              })
-            let params = {
-              formName: item.formName,
-              id: item.id
+              } else {
+                this.config.startMinTime = rest.TIME;
+              }
+            } else {
+              if (inDateTime) {
+                this.config.startMinTime = inDateTime;
+              } else {
+                this.config.startMinTime =
+                  new Date().Format("yyyy-MM-dd") + " 08:00:00";
+              }
             }
-            let arry = [];
-            this.api.selectMedFormTemp(params)
-              .then(
-              res => {
-                if (res.formContent == "null" || res.formContent == null) {
-                  return;
+            if (res.TIME) {
+              if (this.config.userInfo.outDateTime) {
+                if (
+                  new Date(this.config.userInfo.outDateTime) >
+                  new Date(res.TIME)
+                ) {
+                  this.config.patientMaxTime = this.config.userInfo.outDateTime;
+                } else {
+                  this.config.patientMaxTime = res.TIME;
                 }
-                let tempItems = JSON.parse(res.formContent);
-                this.formItems = JSON.parse(res.formContent);
-                var list = this.formItems;
-                for (var i = 0; i < list.length; i++) {
-                  if (list[i].fieldName) {
-                    arry.push({
-                      "patientId": this.lockedPatientInfo.patientId,
-                      "visitId": this.lockedPatientInfo.visitId,
-                      "operId": this.lockedPatientInfo.operId,
-                      "tableName": list[i].tableName,
-                      "coluName": list[i].fieldName,
-                      "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                      "dictTableName": list[i].dictTableName, //字典表名称
-                      "dictField": list[i].dictField, //字典字段名称
-                      "dictSelect": list[i].dictSelect,
-                    })
-                  }
-                }
-                this.api.getFormSqlResult(arry)
-                  .then(
-                  result => {
-                    for (var i = 0; i < list.length; i++) {
-                      if (list[i].fieldName) {
-                        if (list[i].fieldName == "page") {
-                          let obj = this.formItems[i];
-                          obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        } else {
-                          let obj = this.formItems[i];
-                          obj.value = result[list[i].tableName + list[i].fieldName];
-                          let tempObj = JSON.parse(JSON.stringify(obj));
-                          this.$set(this.formItems, i, tempObj);
-                        }
-
-                      }
-                    }
-
-                  });
-              });
-            if (this.setTimeId) {
-              this.$nextTick(function() {
-                Bus.$emit('timeSetChange');
-              })
+              } else {
+                this.config.patientMaxTime = res.TIME;
+              }
+              t1 = this.coutTimes(
+                this.config.startMinTime,
+                this.config.patientMaxTime,
+                "minute"
+              );
+              i = Math.ceil(t1 / 250);
+              this.config.pageTotal = i;
+              if (t1 > 250) {
+                this.pageButtonView = true;
+              } else {
+                this.pageButtonView = false;
+              }
             }
-          })
-      } else if (item.formName == '手术清点单') {
-        this.config.eventType = 0
-        let params = {
-          formName: item.formName,
-          id: item.id
-        }
-        let arry = [];
-        // this.formItems = [];
-        this.api.selectMedFormTemp(params)
-          .then(
-          res => {
+
+            var timeDate = new Date(this.config.startMinTime);
+            let init_Time = new Date(this.config.startMinTime);
+            this.config.initTime = new Date(this.timeSetOper(init_Time));
+            this.config.maxTime = new Date(
+              timeDate.getTime() + 1000 * 60 * 5 * 50
+            );
+            this.getMaxTime();
+          });
+          let params = {
+            formName: item.formName,
+            id: item.id
+          };
+          let arry = [];
+          this.api.selectMedFormTemp(params).then(res => {
             if (res.formContent == "null" || res.formContent == null) {
               return;
             }
             let tempItems = JSON.parse(res.formContent);
             this.formItems = JSON.parse(res.formContent);
-
             var list = this.formItems;
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
                 arry.push({
-                  "patientId": this.lockedPatientInfo.patientId,
-                  "visitId": this.lockedPatientInfo.visitId,
-                  "operId": this.lockedPatientInfo.operId,
-                  "tableName": list[i].tableName,
-                  "coluName": list[i].fieldName,
-                  "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                  "dictTableName": list[i].dictTableName, //字典表名称
-                  "dictField": list[i].dictField, //字典字段名称
-                  "dictSelect": list[i].dictSelect,
-                })
+                  patientId: this.lockedPatientInfo.patientId,
+                  visitId: this.lockedPatientInfo.visitId,
+                  operId: this.lockedPatientInfo.operId,
+                  tableName: list[i].tableName,
+                  coluName: list[i].fieldName,
+                  dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
+                  dictTableName: list[i].dictTableName, //字典表名称
+                  dictField: list[i].dictField, //字典字段名称
+                  dictSelect: list[i].dictSelect
+                });
               }
             }
-            this.api.getFormSqlResult(arry)
-              .then(
-              result => {
-                for (var i = 0; i < list.length; i++) {
-                  if (list[i].fieldName) {
-                    if (list[i].fieldName == "page") {
-                      let obj = this.formItems[i];
-                      obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                      let tempObj = JSON.parse(JSON.stringify(obj));
-                      this.$set(this.formItems, i, tempObj);
-                    } else {
-                      let obj = this.formItems[i];
-                      obj.value = result[list[i].tableName + list[i].fieldName];
-                      let tempObj = JSON.parse(JSON.stringify(obj));
-                      this.$set(this.formItems, i, tempObj);
-                    }
-
+            this.api.getFormSqlResult(arry).then(result => {
+              for (var i = 0; i < list.length; i++) {
+                if (list[i].fieldName) {
+                  if (list[i].fieldName == "page") {
+                    let obj = this.formItems[i];
+                    obj.value =
+                      this.config.pagePercentNum +
+                      "/" +
+                      this.config.pageTotal +
+                      "页";
+                    let tempObj = JSON.parse(JSON.stringify(obj));
+                    this.$set(this.formItems, i, tempObj);
+                  } else {
+                    let obj = this.formItems[i];
+                    obj.value = result[list[i].tableName + list[i].fieldName];
+                    let tempObj = JSON.parse(JSON.stringify(obj));
+                    this.$set(this.formItems, i, tempObj);
                   }
                 }
+              }
+            });
+          });
+          if (this.setTimeId) {
+            this.$nextTick(function() {
+              Bus.$emit("timeSetChange");
+            });
+          }
+        });
+      } else if (item.formName == "手术清点单") {
+        this.config.eventType = 0;
+        let params = {
+          formName: item.formName,
+          id: item.id
+        };
+        let arry = [];
+        // this.formItems = [];
+        this.api.selectMedFormTemp(params).then(res => {
+          if (res.formContent == "null" || res.formContent == null) {
+            return;
+          }
+          let tempItems = JSON.parse(res.formContent);
+          this.formItems = JSON.parse(res.formContent);
 
+          var list = this.formItems;
+          for (var i = 0; i < list.length; i++) {
+            if (list[i].fieldName) {
+              arry.push({
+                patientId: this.lockedPatientInfo.patientId,
+                visitId: this.lockedPatientInfo.visitId,
+                operId: this.lockedPatientInfo.operId,
+                tableName: list[i].tableName,
+                coluName: list[i].fieldName,
+                dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
+                dictTableName: list[i].dictTableName, //字典表名称
+                dictField: list[i].dictField, //字典字段名称
+                dictSelect: list[i].dictSelect
               });
-          })
+            }
+          }
+          this.api.getFormSqlResult(arry).then(result => {
+            for (var i = 0; i < list.length; i++) {
+              if (list[i].fieldName) {
+                if (list[i].fieldName == "page") {
+                  let obj = this.formItems[i];
+                  obj.value =
+                    this.config.pagePercentNum +
+                    "/" +
+                    this.config.pageTotal +
+                    "页";
+                  let tempObj = JSON.parse(JSON.stringify(obj));
+                  this.$set(this.formItems, i, tempObj);
+                } else {
+                  let obj = this.formItems[i];
+                  obj.value = result[list[i].tableName + list[i].fieldName];
+                  let tempObj = JSON.parse(JSON.stringify(obj));
+                  this.$set(this.formItems, i, tempObj);
+                }
+              }
+            }
+          });
+        });
         this.tempButtonView = true;
         this.initComponementConfig();
       } else {
-        if (item.formName == '手术护理单') {
-          this.config.eventType = 1
+        if (item.formName == "手术护理单") {
+          this.config.eventType = 1;
         }
         this.tempButtonView = false;
         this.initComponementConfig();
         let params = {
           formName: item.formName,
           id: item.id
-        }
+        };
         let arry = [];
         // this.formItems = [];
-        this.api.selectMedFormTemp(params)
-          .then(
-          res => {
-            if (res.formContent == "null" || res.formContent == null) {
-              return;
+        this.api.selectMedFormTemp(params).then(res => {
+          if (res.formContent == "null" || res.formContent == null) {
+            return;
+          }
+          let tempItems = JSON.parse(res.formContent);
+          this.formItems = JSON.parse(res.formContent);
+          var list = this.formItems;
+          for (var i = 0; i < list.length; i++) {
+            if (list[i].fieldName) {
+              arry.push({
+                patientId: this.lockedPatientInfo.patientId,
+                visitId: this.lockedPatientInfo.visitId,
+                operId: this.lockedPatientInfo.operId,
+                tableName: list[i].tableName,
+                coluName: list[i].fieldName,
+                dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
+                dictTableName: list[i].dictTableName, //字典表名称
+                dictField: list[i].dictField, //字典字段名称
+                dictSelect: list[i].dictSelect
+              });
             }
-            let tempItems = JSON.parse(res.formContent);
-            this.formItems = JSON.parse(res.formContent);
-            var list = this.formItems;
+          }
+          this.api.getFormSqlResult(arry).then(result => {
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
-                arry.push({
-                  "patientId": this.lockedPatientInfo.patientId,
-                  "visitId": this.lockedPatientInfo.visitId,
-                  "operId": this.lockedPatientInfo.operId,
-                  "tableName": list[i].tableName,
-                  "coluName": list[i].fieldName,
-                  "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                  "dictTableName": list[i].dictTableName, //字典表名称
-                  "dictField": list[i].dictField, //字典字段名称
-                  "dictSelect": list[i].dictSelect,
-                })
+                if (list[i].fieldName == "page") {
+                  let obj = this.formItems[i];
+                  obj.value =
+                    this.config.pagePercentNum +
+                    "/" +
+                    this.config.pageTotal +
+                    "页";
+                  let tempObj = JSON.parse(JSON.stringify(obj));
+                  this.$set(this.formItems, i, tempObj);
+                } else {
+                  let obj = this.formItems[i];
+                  obj.value = result[list[i].tableName + list[i].fieldName];
+                  let tempObj = JSON.parse(JSON.stringify(obj));
+                  this.$set(this.formItems, i, tempObj);
+                }
               }
             }
-            this.api.getFormSqlResult(arry)
-              .then(
-              result => {
-                for (var i = 0; i < list.length; i++) {
-                  if (list[i].fieldName) {
-                    if (list[i].fieldName == "page") {
-                      let obj = this.formItems[i];
-                      obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                      let tempObj = JSON.parse(JSON.stringify(obj));
-                      this.$set(this.formItems, i, tempObj);
-                    } else {
-                      let obj = this.formItems[i];
-                      obj.value = result[list[i].tableName + list[i].fieldName];
-                      let tempObj = JSON.parse(JSON.stringify(obj));
-                      this.$set(this.formItems, i, tempObj);
-                    }
-
-                  }
-                }
-
-              });
-          })
+          });
+        });
       }
     },
-    priClick() {
-
-
-    },
+    priClick() {},
     //修改病人手术状态
     changeStatus(status, timeType, event) {
-      this.nextDATA = '';
+      this.nextDATA = "";
       let TrueData = false;
-      if (timeType == 'inDateTime') {
+      if (timeType == "inDateTime") {
         TrueData = true;
-      } else if (timeType == 'anesStartTime') {
-        if (new Date(this.anesStartTime).getTime() >= new Date(this.inDateTime).getTime()) {
+      } else if (timeType == "anesStartTime") {
+        if (
+          new Date(this.anesStartTime).getTime() >=
+          new Date(this.inDateTime).getTime()
+        ) {
           TrueData = true;
         }
-      } else if (timeType == 'startDateTime') {
-        if (new Date(this.startDateTime).getTime() >= new Date(this.anesStartTime).getTime()) {
+      } else if (timeType == "startDateTime") {
+        if (
+          new Date(this.startDateTime).getTime() >=
+          new Date(this.anesStartTime).getTime()
+        ) {
           TrueData = true;
         }
-      } else if (timeType == 'endDateTime') {
-        if (new Date(this.endDateTime).getTime() >= new Date(this.startDateTime).getTime()) {
+      } else if (timeType == "endDateTime") {
+        if (
+          new Date(this.endDateTime).getTime() >=
+          new Date(this.startDateTime).getTime()
+        ) {
           TrueData = true;
         }
-      } else if (timeType == 'anesEndTime') {
-        if (new Date(this.anesEndTime).getTime() >= new Date(this.endDateTime).getTime()) {
+      } else if (timeType == "anesEndTime") {
+        if (
+          new Date(this.anesEndTime).getTime() >=
+          new Date(this.endDateTime).getTime()
+        ) {
           TrueData = true;
         }
-      } else if (timeType == 'outDateTime') {
-        if (new Date(this.outDateTime).getTime() >= new Date(this.anesEndTime).getTime()) {
+      } else if (timeType == "outDateTime") {
+        if (
+          new Date(this.outDateTime).getTime() >=
+          new Date(this.anesEndTime).getTime()
+        ) {
           TrueData = true;
         }
       }
       if (TrueData) {
-        let params = {}
+        let params = {};
         if (this.inDateTime) {
           params = {
             patientId: this.lockedPatientInfo.patientId,
@@ -2011,7 +2895,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          }
+          };
         }
         if (this.anesStartTime) {
           params = {
@@ -2024,7 +2908,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          }
+          };
         }
 
         if (this.startDateTime) {
@@ -2038,7 +2922,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          }
+          };
         }
 
         if (this.endDateTime) {
@@ -2054,7 +2938,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          }
+          };
         }
 
         if (this.anesEndTime) {
@@ -2071,7 +2955,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          }
+          };
         }
         if (this.outDateTime) {
           params = {
@@ -2088,127 +2972,116 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          }
+          };
         }
         this.nextDATA = params;
-        this.api.changeOperationStatus(params)
-          .then(
-          res => {
-            if (res.success == true) {
-              if (this.lockedPatientInfo.operStatus === 0 && status == 5) {
-                this.firstRoom.noneData = false;
-                // 获取监护仪数据
-                let monitor = {
+        this.api.changeOperationStatus(params).then(res => {
+          if (res.success == true) {
+            if (this.lockedPatientInfo.operStatus === 0 && status == 5) {
+              this.firstRoom.noneData = false;
+              // 获取监护仪数据
+              let monitor = {
+                itemType: 0,
+                wardCode: this.config.wardCode,
+                wardType: 0
+              };
+              this.api.selectMonitorList(params).then(raa => {
+                // 默认绑定监护仪
+                let binding = {
+                  bedNo: this.config.userInfo.operatingRoomNo,
                   itemType: 0,
                   wardCode: this.config.wardCode,
-                  wardType: 0
-                }
-                this.api.selectMonitorList(params)
-                  .then(raa => {
-                    console.log(raa.list)
-                    // 默认绑定监护仪
-                    let binding = {
-                      bedNo: this.config.userInfo.operatingRoomNo,
-                      itemType: 0,
-                      wardCode: this.config.wardCode,
-                      wardType: 0,
-                      operId: this.config.userInfo.operId,
-                      patientId: this.config.userInfo.patientId,
-                      visitId: this.config.userInfo.visitId,
-                      currentRecvFrequency: raa.list[0].currentRecvFrequency,
-                      currentRecvtimesUplimit: raa.list[0].currentRecvtimesUplimit,
-                      datalogStartTime: new Date().Format('yyyy-MM-dd hh:mm'),
-                      defaultRecvFrequency: raa.list[0].defaultRecvFrequency,
-                      monitorLabel: raa.list[0].monitorLabel,
-                    }
-                    this.api.bindPatientMonitor(binding).then(
-                      ref => {
-                        console.log(binding)
-                        if (ref.success == true) {
-                          console.log(ref)
-                          // 查询监护仪名称并调用程序
-                          let afgT = {
-                            monitorLabel: binding.monitorLabel
-                          }
-                          this.api.selectMonitor(afgT)
-                            .then(kkk => {
-                              // 打开监护仪界面
-                              this.monitorDataShow.noneData = true;
-                              window.ipc.send('runexe', kkk.driverProg);
-                            })
-
-                        }
-                      }
-                    )
-                  })
-
-              }
-              this.searchPatientList();
-              this.api.selectMedOperationMaster({
+                  wardType: 0,
+                  operId: this.config.userInfo.operId,
+                  patientId: this.config.userInfo.patientId,
+                  visitId: this.config.userInfo.visitId,
+                  currentRecvFrequency: raa.list[0].currentRecvFrequency,
+                  currentRecvtimesUplimit: raa.list[0].currentRecvtimesUplimit,
+                  datalogStartTime: new Date().Format("yyyy-MM-dd hh:mm"),
+                  defaultRecvFrequency: raa.list[0].defaultRecvFrequency,
+                  monitorLabel: raa.list[0].monitorLabel
+                };
+                this.api.bindPatientMonitor(binding).then(ref => {
+                  if (ref.success == true) {
+                    // 查询监护仪名称并调用程序
+                    let afgT = {
+                      monitorLabel: binding.monitorLabel
+                    };
+                    this.api.selectMonitor(afgT).then(kkk => {
+                      // 打开监护仪界面
+                      this.monitorDataShow.noneData = true;
+                      window.ipc.send("runexe", kkk.driverProg);
+                    });
+                  }
+                });
+              });
+            }
+            this.searchPatientList();
+            this.api
+              .selectMedOperationMaster({
                 patientId: this.lockedPatientInfo.patientId,
                 visitId: this.lockedPatientInfo.visitId,
-                operId: this.lockedPatientInfo.operId,
-              }).then(
-                ref => {
-                  this.lockedPatientInfo = ref;
-                  this.config.userInfo = ref;
-                  this.timeChangeBus();
-                }
-                )
-            } else {
-              if (status == 5 && this.anesStartTime == '') {
-                this.inDateTime = '';
-              } else if (status == 10 && this.startDateTime == '') {
-                this.anesStartTime = '';
-              } else if (status == 15 && this.endDateTime == '') {
-                this.startDateTime = '';
-              } else if (status == 25 && this.anesEndTime == '') {
-                this.endDateTime = '';
-              } else if (status == 30 && this.outDateTime == '') {
-                this.anesEndTime = '';
-              } else if (status == 35) {
-                this.outDateTime = '';
-              }
-              alert(res.msg)
+                operId: this.lockedPatientInfo.operId
+              })
+              .then(ref => {
+                this.lockedPatientInfo = ref;
+                this.config.userInfo = ref;
+                this.timeChangeBus();
+              });
+          } else {
+            if (status == 5 && this.anesStartTime == "") {
+              this.inDateTime = "";
+            } else if (status == 10 && this.startDateTime == "") {
+              this.anesStartTime = "";
+            } else if (status == 15 && this.endDateTime == "") {
+              this.startDateTime = "";
+            } else if (status == 25 && this.anesEndTime == "") {
+              this.endDateTime = "";
+            } else if (status == 30 && this.outDateTime == "") {
+              this.anesEndTime = "";
+            } else if (status == 35) {
+              this.outDateTime = "";
             }
-            // if (this.setTimeId) {
-            //   this.refreshForm();
-            // }
-
-          });
+            alert(res.msg);
+          }
+          // if (this.setTimeId) {
+          //   this.refreshForm();
+          // }
+        });
       } else {
-        if (status == 5 && this.anesStartTime == '') {
-          this.inDateTime = '';
-        } else if (status == 10 && this.startDateTime == '') {
-          this.anesStartTime = '';
-        } else if (status == 15 && this.endDateTime == '') {
-          this.startDateTime = '';
-        } else if (status == 25 && this.anesEndTime == '') {
-          this.endDateTime = '';
-          console.log(this.endDateTime)
-        } else if (status == 30 && this.outDateTime == '') {
-          this.anesEndTime = '';
+        if (status == 5 && this.anesStartTime == "") {
+          this.inDateTime = "";
+        } else if (status == 10 && this.startDateTime == "") {
+          this.anesStartTime = "";
+        } else if (status == 15 && this.endDateTime == "") {
+          this.startDateTime = "";
+        } else if (status == 25 && this.anesEndTime == "") {
+          this.endDateTime = "";
+        } else if (status == 30 && this.outDateTime == "") {
+          this.anesEndTime = "";
         } else if (status == 35) {
-          this.outDateTime = '';
+          this.outDateTime = "";
         }
 
-        alert('当前时间不能小于之前时间！')
+        alert("当前时间不能小于之前时间！");
       }
-
     },
     //手术信息
     getPatientOperationInfo() {
-      this.patientOperationInfoView.dataInParent = !this.patientOperationInfoView.dataInParent;
+      this.patientOperationInfoView.dataInParent = !this
+        .patientOperationInfoView.dataInParent;
     },
     //术中登记
     getOperationRegister() {
       this.config.eventNo = 0;
-      this.operationRegisterView.dataInParent = !this.operationRegisterView.dataInParent;
+      this.operationRegisterView.dataInParent = !this.operationRegisterView
+        .dataInParent;
     },
     //复苏登记
     getRecoverRegister() {
       this.config.eventNo = 1;
-      this.operationRegisterView.dataInParent = !this.operationRegisterView.dataInParent;
+      this.operationRegisterView.dataInParent = !this.operationRegisterView
+        .dataInParent;
     },
     // 监护仪
     monitor() {
@@ -2229,7 +3102,6 @@ export default {
       // } else {
       //   // 取消了操作
       // }
-
     },
     // 关于
     getAboutUs() {
@@ -2239,9 +3111,10 @@ export default {
     exitSystem() {
       if (confirm("是否要返回页面选择？")) {
         this.$router.push({
-          path: 'menu'
-        })
-      } else { }
+          path: "menu"
+        });
+      } else {
+      }
     },
     // 左部选项按下拉显示隐藏及图片切换
     concealmentOne() {
@@ -2269,23 +3142,26 @@ export default {
     },
     //获取单子修改的数据
     getValue(dataValue) {
-      debugger
-      var modifyValue = '';
-      if (dataValue.dictShowFiled != '' && dataValue.dictShowFiled != null) {
-        modifyValue = dataValue.modifyFiledValue
+      debugger;
+      var modifyValue = "";
+      if (dataValue.dictShowFiled != "" && dataValue.dictShowFiled != null) {
+        modifyValue = dataValue.modifyFiledValue;
       } else {
         modifyValue = dataValue.value;
       }
       modifyValue = dataValue.value;
       var tempData = this.updateFormsData;
-      if (modifyValue == null || modifyValue == 'null') {
-        return
+      if (modifyValue == null || modifyValue == "null") {
+        return;
       }
       if (tempData.length > 0) {
         var count = 0;
         for (var i = 0; i < this.updateFormsData.length; i++) {
           //如果之前传入有相同的表名与字段名则更新值
-          if (this.updateFormsData[i].tableName === dataValue.tableName && this.updateFormsData[i].coluName === dataValue.fieldName) {
+          if (
+            this.updateFormsData[i].tableName === dataValue.tableName &&
+            this.updateFormsData[i].coluName === dataValue.fieldName
+          ) {
             this.updateFormsData[i].updateStr = modifyValue;
           } else {
             count++;
@@ -2293,58 +3169,58 @@ export default {
         }
         if (count == this.updateFormsData.length) {
           this.updateFormsData.push({
-            "tableName": dataValue.tableName,
-            "coluName": dataValue.fieldName,
-            "updateStr": modifyValue,
-            "patientId": this.lockedPatientInfo.patientId,
-            "visitId": this.lockedPatientInfo.visitId,
-            "operId": this.lockedPatientInfo.operId,
+            tableName: dataValue.tableName,
+            coluName: dataValue.fieldName,
+            updateStr: modifyValue,
+            patientId: this.lockedPatientInfo.patientId,
+            visitId: this.lockedPatientInfo.visitId,
+            operId: this.lockedPatientInfo.operId
           });
         }
       } else {
         this.updateFormsData.push({
-          "tableName": dataValue.tableName,
-          "coluName": dataValue.fieldName,
-          "updateStr": modifyValue,
-          "patientId": this.lockedPatientInfo.patientId,
-          "visitId": this.lockedPatientInfo.visitId,
-          "operId": this.lockedPatientInfo.operId,
+          tableName: dataValue.tableName,
+          coluName: dataValue.fieldName,
+          updateStr: modifyValue,
+          patientId: this.lockedPatientInfo.patientId,
+          visitId: this.lockedPatientInfo.visitId,
+          operId: this.lockedPatientInfo.operId
         });
       }
     },
     //提交单子修改
     submitSaveForm() {
-      if (this.selectFormItemTemp.formName == '手术清点单' || this.selectFormItemTemp.formName == '手术护理单') {
-        Bus.$emit('saveFun', '保存');
-        alert("保存成功")
+      if (
+        this.selectFormItemTemp.formName == "手术清点单" ||
+        this.selectFormItemTemp.formName == "手术护理单"
+      ) {
+        Bus.$emit("saveFun", "保存");
+        alert("保存成功");
       } else {
-        let params = []
+        let params = [];
         params = this.updateFormsData;
         // return
         if (this.updateFormsData.length > 0) {
-          this.api.updateSqlBatch(params)
-            .then(res => {
-              this.updateFormsData = [];
-              if (res.success) {
-                alert("保存成功")
-              } else {
-                alert("保存失败")
-              }
-              // this.selectMedFormTemp(this.selectFormItemTemp);
-            })
+          this.api.updateSqlBatch(params).then(res => {
+            this.updateFormsData = [];
+            if (res.success) {
+              alert("保存成功");
+            } else {
+              alert("保存失败");
+            }
+            // this.selectMedFormTemp(this.selectFormItemTemp);
+          });
         } else {
-          alert('您未进行任何操作。')
+          alert("您未进行任何操作。");
         }
       }
-
     },
     //提交手术信息修改
     submitPatientInfo(arry) {
       if (arry.length > 0) {
-        let params = []
+        let params = [];
         params = arry;
-        this.api.updateSqlBatch(params)
-          .then(res => { })
+        this.api.updateSqlBatch(params).then(res => {});
       }
     },
     toSetting(item) {
@@ -2361,7 +3237,6 @@ export default {
     //单子刷新按钮
     refreshForm() {
       this.selectMedFormTemp(this.selectFormItemTemp);
-
     },
     //单子首页
     toChangePage(num) {
@@ -2371,8 +3246,8 @@ export default {
           this.config.pageOper = num;
           this.setBusInitTime();
           this.getFormData().then(() => {
-            resolve()
-          })
+            resolve();
+          });
         }
         if (num == -1) {
           if (this.config.pagePercentNum > 2) {
@@ -2386,12 +3261,10 @@ export default {
             var m = new Date(this.config.initTime).getTime() - 250 * 60 * 1000;
             this.setFormTime(m);
           } else {
-
           }
           this.getFormData().then(() => {
-            resolve()
+            resolve();
           });
-
         }
         if (num == 1) {
           if (this.config.pagePercentNum < this.config.pageTotal) {
@@ -2400,11 +3273,9 @@ export default {
             var m = new Date(this.config.maxTime).getTime();
             this.setFormTime(m);
             this.getFormData().then(() => {
-              resolve()
+              resolve();
             });
           } else {
-
-
           }
 
           // this.$nextTick(function() {
@@ -2413,61 +3284,53 @@ export default {
         }
         //末页
         if (num == 2) {
-          let m1 = this.config.pageTotal
-          let m2 = this.config.pagePercentNum
-          let m3 = m1 - m2
-          console.log(new Date(this.config.initTime).getTime());
+          let m1 = this.config.pageTotal;
+          let m2 = this.config.pagePercentNum;
+          let m3 = m1 - m2;
 
-          let timeStart = m3 * 250 * 60 * 1000 + new Date(this.config.initTime).getTime();
+          let timeStart =
+            m3 * 250 * 60 * 1000 + new Date(this.config.initTime).getTime();
 
           this.setFormTime(timeStart);
           this.config.pagePercentNum = this.config.pageTotal;
           this.config.pageOper = num;
           this.getFormData().then(() => {
-            resolve()
+            resolve();
           });
         }
-
-
-      })
+      });
 
       return pec;
-
-
-
     },
     //初始化表格配置信息
     initComponementConfig() {
       this.updateFormsData = [];
       this.config.pageOper = 0;
-      this.config.maxTime = '';
-      this.config.initTime = '';
-      this.config.startMinTime = '';
+      this.config.maxTime = "";
+      this.config.initTime = "";
+      this.config.startMinTime = "";
       this.config.pagePercentNum = 1;
       this.pageButtonView = false;
       this.formItems = [];
-      this.personView = false
+      this.personView = false;
       this.updateFormsData = [];
       if (this.setTimeId) {
         clearTimeout(this.setTimeId);
       }
-
     },
     //保存模板
     openSaveTemView() {
-      Bus.$emit('saveTemp', 'save');
+      Bus.$emit("saveTemp", "save");
     },
     applyTemplateFun() {
-      Bus.$emit('openApplyTemp', 'open');
+      Bus.$emit("openApplyTemp", "open");
     },
     openJzView() {
       this.jzPatientView = true;
-
     },
     closeJzView() {
       this.jzPatientView = false;
       this.searchPatientList();
-
     },
     //获取高度
     getHeight() {
@@ -2482,173 +3345,177 @@ export default {
     },
     //首页的时候重新设置时间，当DOM更新完之后再通知事件
     setBusInitTime() {
-      let inDateTime = this.config.userInfo.inDateTime
-      let startMinTime = this.config.startMinTime
+      let inDateTime = this.config.userInfo.inDateTime;
+      let startMinTime = this.config.startMinTime;
       let timeParam = {
-        "patientId": this.lockedPatientInfo.patientId,
-        "visitId": this.lockedPatientInfo.visitId,
-        "operId": this.lockedPatientInfo.operId,
-        "eventNo": this.config.eventNo
-      }
-      this.api.getBeginTime(timeParam)
-        .then(rest => {
-          if (rest.TIME) {
-            //如果存在病人的入手术时间
-            if (inDateTime) {
-              if (new Date(rest.TIME) > new Date(inDateTime)) {
-                this.config.startMinTime = inDateTime
-              } else {
-                this.config.startMinTime = rest.TIME
-              }
+        patientId: this.lockedPatientInfo.patientId,
+        visitId: this.lockedPatientInfo.visitId,
+        operId: this.lockedPatientInfo.operId,
+        eventNo: this.config.eventNo
+      };
+      this.api.getBeginTime(timeParam).then(rest => {
+        if (rest.TIME) {
+          //如果存在病人的入手术时间
+          if (inDateTime) {
+            if (new Date(rest.TIME) > new Date(inDateTime)) {
+              this.config.startMinTime = inDateTime;
             } else {
-              this.config.startMinTime = rest.TIME
+              this.config.startMinTime = rest.TIME;
             }
           } else {
-            if (inDateTime) {
-              this.config.startMinTime = inDateTime
-            } else {
-              this.config.startMinTime = new Date().Format("yyyy-MM-dd") + " 08:00:00";
-            }
+            this.config.startMinTime = rest.TIME;
           }
-          var timeDate = new Date(this.config.startMinTime);
-          this.config.initTime = new Date(this.config.startMinTime);
-          this.config.initTime = new Date(this.timeSetOper(this.config.initTime));
-          this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50);
-          this.$nextTick(function() {
-            Bus.$emit('test');
-          })
-        })
+        } else {
+          if (inDateTime) {
+            this.config.startMinTime = inDateTime;
+          } else {
+            this.config.startMinTime =
+              new Date().Format("yyyy-MM-dd") + " 08:00:00";
+          }
+        }
+        var timeDate = new Date(this.config.startMinTime);
+        this.config.initTime = new Date(this.config.startMinTime);
+        this.config.initTime = new Date(this.timeSetOper(this.config.initTime));
+        this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50);
+        this.$nextTick(function() {
+          Bus.$emit("test");
+        });
+      });
     },
     //术中登记或者其他时间发生改变时触发
     timeChangeBus() {
-      var time = '';
-      let inDateTime = this.config.userInfo.inDateTime
-      let startMinTime = this.config.startMinTime
+      var time = "";
+      let inDateTime = this.config.userInfo.inDateTime;
+      let startMinTime = this.config.startMinTime;
       let timeParam = {
-        "patientId": this.lockedPatientInfo.patientId,
-        "visitId": this.lockedPatientInfo.visitId,
-        "operId": this.lockedPatientInfo.operId,
-        "eventNo": this.config.eventNo
-      }
-      this.api.getBeginTime(timeParam)
-        .then(rest => {
-          if (rest.TIME) {
-            //如果存在病人的入手术时间
-            if (inDateTime) {
-              if (new Date(rest.TIME) > new Date(inDateTime)) {
-                time = inDateTime
-              } else {
-                time = rest.TIME
-              }
+        patientId: this.lockedPatientInfo.patientId,
+        visitId: this.lockedPatientInfo.visitId,
+        operId: this.lockedPatientInfo.operId,
+        eventNo: this.config.eventNo
+      };
+      this.api.getBeginTime(timeParam).then(rest => {
+        if (rest.TIME) {
+          //如果存在病人的入手术时间
+          if (inDateTime) {
+            if (new Date(rest.TIME) > new Date(inDateTime)) {
+              time = inDateTime;
             } else {
-              time = rest.TIME
+              time = rest.TIME;
             }
           } else {
-            if (inDateTime) {
-              time = inDateTime
-            } else {
-              time = new Date().Format("yyyy-MM-dd") + " 08:00:00";
-              this.config.initTime = new Date(time);
-              this.config.startMinTime = new Date(time);
-              this.config.maxTime = '';
-              Bus.$emit('timeSetChange');
-
-            }
+            time = rest.TIME;
           }
-          if (startMinTime) {
-            //判断时间差值
-            let time1 = new Date(time).getTime();
-            let time2 = new Date(startMinTime).getTime();
-            if (time1 < time2) {
-              this.config.initTime = new Date(new Date(this.config.initTime).getTime() - (time2 - time1));
-              this.config.initTime = new Date(this.timeSetOper(this.config.initTime));
-              this.config.startMinTime = new Date(time);
-              this.config.maxTime = new Date(new Date(this.config.maxTime).getTime() - (time2 - time1));
-            } else {
-              this.config.initTime = new Date(new Date(this.config.initTime).getTime() + (time1 - time2));
-              this.config.initTime = new Date(this.timeSetOper(this.config.initTime));
-              this.config.startMinTime = new Date(time);
-              this.config.maxTime = new Date(new Date(this.config.maxTime).getTime() + (time1 - time2));
-            }
+        } else {
+          if (inDateTime) {
+            time = inDateTime;
+          } else {
+            time = new Date().Format("yyyy-MM-dd") + " 08:00:00";
+            this.config.initTime = new Date(time);
+            this.config.startMinTime = new Date(time);
+            this.config.maxTime = "";
+            Bus.$emit("timeSetChange");
           }
-          this.getMaxTimeNoset();
-          this.getFormData();
-
-        })
-
+        }
+        if (startMinTime) {
+          //判断时间差值
+          let time1 = new Date(time).getTime();
+          let time2 = new Date(startMinTime).getTime();
+          if (time1 < time2) {
+            this.config.initTime = new Date(
+              new Date(this.config.initTime).getTime() - (time2 - time1)
+            );
+            this.config.initTime = new Date(
+              this.timeSetOper(this.config.initTime)
+            );
+            this.config.startMinTime = new Date(time);
+            this.config.maxTime = new Date(
+              new Date(this.config.maxTime).getTime() - (time2 - time1)
+            );
+          } else {
+            this.config.initTime = new Date(
+              new Date(this.config.initTime).getTime() + (time1 - time2)
+            );
+            this.config.initTime = new Date(
+              this.timeSetOper(this.config.initTime)
+            );
+            this.config.startMinTime = new Date(time);
+            this.config.maxTime = new Date(
+              new Date(this.config.maxTime).getTime() + (time1 - time2)
+            );
+          }
+        }
+        this.getMaxTimeNoset();
+        this.getFormData();
+      });
     },
     //获取单子数据
     getFormData() {
-      let item = this.selectFormItemTemp
+      let item = this.selectFormItemTemp;
       let params = {
         formName: item.formName,
         id: item.id
-      }
+      };
       let arry = [];
       var pro = new Promise((resolve, reject) => {
-        this.api.selectMedFormTemp(params)
-          .then(
-          res => {
-            if (res.formContent == "null" || res.formContent == null) {
-              return;
+        this.api.selectMedFormTemp(params).then(res => {
+          if (res.formContent == "null" || res.formContent == null) {
+            return;
+          }
+          let tempItems = JSON.parse(res.formContent);
+          this.formItems = JSON.parse(res.formContent);
+          var list = this.formItems;
+          for (var i = 0; i < list.length; i++) {
+            if (list[i].fieldName) {
+              arry.push({
+                patientId: this.lockedPatientInfo.patientId,
+                visitId: this.lockedPatientInfo.visitId,
+                operId: this.lockedPatientInfo.operId,
+                tableName: list[i].tableName,
+                coluName: list[i].fieldName,
+                dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
+                dictTableName: list[i].dictTableName, //字典表名称
+                dictField: list[i].dictField, //字典字段名称
+                dictSelect: list[i].dictSelect
+              });
             }
-            let tempItems = JSON.parse(res.formContent);
-            this.formItems = JSON.parse(res.formContent);
-            var list = this.formItems;
+          }
+          this.api.getFormSqlResult(arry).then(result => {
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
-                arry.push({
-                  "patientId": this.lockedPatientInfo.patientId,
-                  "visitId": this.lockedPatientInfo.visitId,
-                  "operId": this.lockedPatientInfo.operId,
-                  "tableName": list[i].tableName,
-                  "coluName": list[i].fieldName,
-                  "dictShowFiled": list[i].dictShowFiled, //字典显示字段名称
-                  "dictTableName": list[i].dictTableName, //字典表名称
-                  "dictField": list[i].dictField, //字典字段名称
-                  "dictSelect": list[i].dictSelect,
-                })
+                if (list[i].fieldName == "page") {
+                  let obj = this.formItems[i];
+                  obj.value =
+                    this.config.pagePercentNum +
+                    "/" +
+                    this.config.pageTotal +
+                    "页";
+                  let tempObj = JSON.parse(JSON.stringify(obj));
+                  this.$set(this.formItems, i, tempObj);
+                } else {
+                  let obj = this.formItems[i];
+                  obj.value = result[list[i].tableName + list[i].fieldName];
+                  let tempObj = JSON.parse(JSON.stringify(obj));
+                  this.$set(this.formItems, i, tempObj);
+                }
               }
             }
-            this.api.getFormSqlResult(arry)
-              .then(
-              result => {
-                for (var i = 0; i < list.length; i++) {
-                  if (list[i].fieldName) {
-                    if (list[i].fieldName == "page") {
-                      let obj = this.formItems[i];
-                      obj.value = this.config.pagePercentNum + '/' + this.config.pageTotal + '页';
-                      let tempObj = JSON.parse(JSON.stringify(obj));
-                      this.$set(this.formItems, i, tempObj);
-                    } else {
-                      let obj = this.formItems[i];
-                      obj.value = result[list[i].tableName + list[i].fieldName];
-                      let tempObj = JSON.parse(JSON.stringify(obj));
-                      this.$set(this.formItems, i, tempObj);
-                    }
-                  }
-                }
-                Bus.$emit('test', '--');
-                let loadTime = 1000;
-                if (window.loadTime) {
-                  loadTime = window.loadTime
-                }
-                setTimeout(() => {
-
-                  resolve(result);
-                }, loadTime)
-
-              })
-
+            Bus.$emit("test", "--");
+            let loadTime = 1000;
+            if (window.loadTime) {
+              loadTime = window.loadTime;
+            }
+            setTimeout(() => {
+              resolve(result);
+            }, loadTime);
           });
+        });
       });
       return pro;
-
     },
     getMaxTime() {
-      let intitime = this.config.initTime
+      let intitime = this.config.initTime;
       if (!intitime) {
-        return
+        return;
       }
       if (this.setTimeId) {
         clearTimeout(this.setTimeId);
@@ -2659,123 +3526,132 @@ export default {
       if (nowMin % 5 == 0) {
         // this.timeCount++;
         let timeParam = {
-          "patientId": this.lockedPatientInfo.patientId,
-          "visitId": this.lockedPatientInfo.visitId,
-          "operId": this.lockedPatientInfo.operId,
-          "eventNo": this.config.eventNo
-        }
+          patientId: this.lockedPatientInfo.patientId,
+          visitId: this.lockedPatientInfo.visitId,
+          operId: this.lockedPatientInfo.operId,
+          eventNo: this.config.eventNo
+        };
         //查找病人的最晚时间
-        this.api.selectMaxTime(timeParam)
-          .then(res => {
-            if (res.TIME) {
-
-              if (this.config.userInfo.outDateTime) {
-                if (new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)) {
-
-                  this.config.patientMaxTime = this.config.userInfo.outDateTime;
-                } else {
-                  this.config.patientMaxTime = res.TIME
-                }
+        this.api.selectMaxTime(timeParam).then(res => {
+          if (res.TIME) {
+            if (this.config.userInfo.outDateTime) {
+              if (
+                new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)
+              ) {
+                this.config.patientMaxTime = this.config.userInfo.outDateTime;
               } else {
-                this.config.patientMaxTime = res.TIME
+                this.config.patientMaxTime = res.TIME;
               }
-              var t1 = this.coutTimes(this.config.startMinTime, this.config.patientMaxTime, 'minute');
-              var i = Math.ceil(t1 / 250);
-              this.config.pageTotal = i;
-              if (t1 > 250) {
-                this.pageButtonView = true
-              } else {
-                this.pageButtonView = false
-              }
-              this.$nextTick(function() {
-                Bus.$emit('timeSetChange');
-              })
             } else {
-              Bus.$emit('timeSetChange');
+              this.config.patientMaxTime = res.TIME;
             }
-
-          })
+            var t1 = this.coutTimes(
+              this.config.startMinTime,
+              this.config.patientMaxTime,
+              "minute"
+            );
+            var i = Math.ceil(t1 / 250);
+            this.config.pageTotal = i;
+            if (t1 > 250) {
+              this.pageButtonView = true;
+            } else {
+              this.pageButtonView = false;
+            }
+            this.$nextTick(function() {
+              Bus.$emit("timeSetChange");
+            });
+          } else {
+            Bus.$emit("timeSetChange");
+          }
+        });
       }
-      if (this.lockedPatientInfo.operStatus == 5 || this.lockedPatientInfo.operStatus == 10 || this.lockedPatientInfo.operStatus == 15 || this.lockedPatientInfo.operStatus == 25 || this.lockedPatientInfo.operStatus == 30) {
-        this.setTimeId = setTimeout(_ => this.getMaxTime(), 30000)
+      if (
+        this.lockedPatientInfo.operStatus == 5 ||
+        this.lockedPatientInfo.operStatus == 10 ||
+        this.lockedPatientInfo.operStatus == 15 ||
+        this.lockedPatientInfo.operStatus == 25 ||
+        this.lockedPatientInfo.operStatus == 30
+      ) {
+        this.setTimeId = setTimeout(_ => this.getMaxTime(), 30000);
       }
-      console.log(this.lockedPatientInfo)
       // this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)
       // console.log(new Date())
-
     },
     getMaxTimeNoset() {
       let timeParam = {
-        "patientId": this.lockedPatientInfo.patientId,
-        "visitId": this.lockedPatientInfo.visitId,
-        "operId": this.lockedPatientInfo.operId,
-        "eventNo": this.config.eventNo
-      }
+        patientId: this.lockedPatientInfo.patientId,
+        visitId: this.lockedPatientInfo.visitId,
+        operId: this.lockedPatientInfo.operId,
+        eventNo: this.config.eventNo
+      };
       //查找病人的最晚时间
-      this.api.selectMaxTime(timeParam)
-        .then(res => {
-          if (res.TIME) {
-
-            if (this.config.userInfo.outDateTime) {
-              if (new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)) {
-                this.config.patientMaxTime = this.config.userInfo.outDateTime;
-              } else {
-                this.config.patientMaxTime = res.TIME
-              }
+      this.api.selectMaxTime(timeParam).then(res => {
+        if (res.TIME) {
+          if (this.config.userInfo.outDateTime) {
+            if (
+              new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)
+            ) {
+              this.config.patientMaxTime = this.config.userInfo.outDateTime;
             } else {
-              this.config.patientMaxTime = res.TIME
+              this.config.patientMaxTime = res.TIME;
             }
-            let t1 = 0
-            let i = 0
-            t1 = this.coutTimes(this.config.startMinTime, this.config.patientMaxTime, 'minute');
-            i = Math.ceil(t1 / 250);
-            this.config.pageTotal = i;
-            if (t1 > 250) {
-              this.pageButtonView = true
-            } else {
-              this.pageButtonView = false
-            }
-            this.$nextTick(function() {
-              Bus.$emit('timeSetChange');
-            })
           } else {
-            Bus.$emit('timeSetChange');
+            this.config.patientMaxTime = res.TIME;
           }
-        })
+          let t1 = 0;
+          let i = 0;
+          t1 = this.coutTimes(
+            this.config.startMinTime,
+            this.config.patientMaxTime,
+            "minute"
+          );
+          i = Math.ceil(t1 / 250);
+          this.config.pageTotal = i;
+          if (t1 > 250) {
+            this.pageButtonView = true;
+          } else {
+            this.pageButtonView = false;
+          }
+          this.$nextTick(function() {
+            Bus.$emit("timeSetChange");
+          });
+        } else {
+          Bus.$emit("timeSetChange");
+        }
+      });
     },
     testclick() {
       this.$refs.intest.click();
     },
     //处理格子时间5的倍数
     timeSetOper(time) {
-      let returnTime
-      let getMinute = time.getMinutes()
+      let returnTime;
+      let getMinute = time.getMinutes();
       if (getMinute < 5) {
-        time = time.setMinutes(0)
+        time = time.setMinutes(0);
       } else if (getMinute > 4 && getMinute < 10) {
-        time = time.setMinutes(5)
+        time = time.setMinutes(5);
       } else {
-        let i1 = getMinute.toString().substring(0, 1)
-        let i2 = getMinute.toString().substring(1, 2)
+        let i1 = getMinute.toString().substring(0, 1);
+        let i2 = getMinute.toString().substring(1, 2);
         if (i2 < 5) {
-          time = time.setMinutes(Number(i1 + '0'))
+          time = time.setMinutes(Number(i1 + "0"));
         } else {
-          time = time.setMinutes(Number(i1 + '5'))
+          time = time.setMinutes(Number(i1 + "5"));
         }
       }
       returnTime = time;
-      return returnTime
+      return returnTime;
     },
     //获取手术间
     getOperaRooms() {
       let params = {
         deptCode: this.config.wardCode,
-        bedType: '0'
-      }
-      this.api.selectAllRoomNo(params)
-        .then(res => {
-          this.roomList = res;
-        })
+        bedType: "0"
+      };
+      this.api.selectAllRoomNo(params).then(res => {
+        this.roomList = res;
+      });
     },
     //关闭修改密码界面
     closeChangePassWordView() {
@@ -2786,42 +3662,49 @@ export default {
     },
     //打开检验信息窗口
     openCheckInfoView() {
-      this.checkInfoView = true
+      this.checkInfoView = true;
     },
     closeCheckInfoView() {
-      this.checkInfoView = false
+      this.checkInfoView = false;
     },
     //检查结果
     openMedical() {
       if (window.ipc) {
-        window.ipc.send('openMedical', this.config.userInfo.patientId);
+        window.ipc.send("openMedical", this.config.userInfo.patientId);
       }
     },
     //检验信息
     openLisCheck() {
-      console.log(this.config.userInfo)
       if (window.ipc) {
-        let str = '&HIS_PARAM_PATNO=' + this.config.userInfo.inpNo + '&HIS_PARAM_DEPT=' + this.config.userInfo.deptStayed + '&HIS_PARAM_WARD=' +
-          this.config.userInfo.deptStayed
+        let str =
+          "&HIS_PARAM_PATNO=" +
+          this.config.userInfo.inpNo +
+          "&HIS_PARAM_DEPT=" +
+          this.config.userInfo.deptStayed +
+          "&HIS_PARAM_WARD=" +
+          this.config.userInfo.deptStayed;
 
-        window.ipc.send('openLisCheck', str);
+        window.ipc.send("openLisCheck", str);
       }
     },
     //调取病历病程
     openRecodEmr() {
-
       if (window.ipc) {
-        let str = 'id=' + this.config.userInfo.inpNo + '&date=' + this.config.userInfo.admissionDateTime
+        let str =
+          "id=" +
+          this.config.userInfo.inpNo +
+          "&date=" +
+          this.config.userInfo.admissionDateTime;
 
-        window.ipc.send('openRecodEmr', str);
+        window.ipc.send("openRecodEmr", str);
       }
     },
     //更换手术间
     openChangeRoom() {
-      this.changeRoomView = true
+      this.changeRoomView = true;
     },
     closeChangeRoom() {
-      this.changeRoomView = false
+      this.changeRoomView = false;
     },
     closeCheckInfoShow() {
       this.checkResultShow = false;
@@ -2830,40 +3713,37 @@ export default {
     loadAllOper() {
       let params = {
         tableName: "med_operation_dict",
-        dictShowFiled: "OPERATION_NAME", //字典显示字段名称
-      }
-      this.api.allColumContext(params)
-        .then(res => {
-          this.config.allOperList = res;
-        })
+        dictShowFiled: "OPERATION_NAME" //字典显示字段名称
+      };
+      this.api.allColumContext(params).then(res => {
+        this.config.allOperList = res;
+      });
       let params1 = {
         tableName: "MED_DIAGNOSIS_DICT",
-        dictShowFiled: "DIAGNOSIS_NAME", //字典显示字段名称
-      }
-      this.api.allColumContext(params1)
-        .then(rest => {
-          this.config.allDiagnosis = rest;
-        })
+        dictShowFiled: "DIAGNOSIS_NAME" //字典显示字段名称
+      };
+      this.api.allColumContext(params1).then(rest => {
+        this.config.allDiagnosis = rest;
+      });
     },
     //打开体征显示设置
     openPatSetting() {
-      this.personStyleView = true
+      this.personStyleView = true;
     },
     closePatSetting() {
-      this.personStyleView = false
+      this.personStyleView = false;
       this.refreshForm();
     },
     //模板管理
     tempManage() {
-      this.tempView = true
+      this.tempView = true;
     },
     closeTempManage() {
-      this.tempView = false
+      this.tempView = false;
     }
-
   },
   mounted() {
-    this.inleft = (window.innerWidth - 1214) / 2
+    this.inleft = (window.innerWidth - 1214) / 2;
     this.nowUser = this.config.loginName;
     if (window.ipc) {
       this.electronListener();
@@ -2874,16 +3754,14 @@ export default {
     }
 
     if (window.fs) {
-      window.fs.readFile('./resources/app/room.json', 'utf8', (err, data) => {
-
+      window.fs.readFile("./resources/app/room.json", "utf8", (err, data) => {
         if (data) {
-          this.config.roomId = JSON.parse(data).roomId
-          this.operatingRoomNo = JSON.parse(data).roomId
+          this.config.roomId = JSON.parse(data).roomId;
+          this.operatingRoomNo = JSON.parse(data).roomId;
         }
         this.$nextTick(() => {
           this.searchPatientList();
-        })
-
+        });
       });
     }
 
@@ -2895,7 +3773,7 @@ export default {
     var now = new Date();
     var year = now.getFullYear();
     var month = (now.getMonth() + 1).toString();
-    var day = (now.getDate()).toString();
+    var day = now.getDate().toString();
     if (month.length == 1) {
       month = "0" + month;
     }
@@ -2906,13 +3784,13 @@ export default {
     // this.$toast("保存成功");
   },
   created() {
-    Bus.$on('showPersonStyle', (val) => {
-      this.personStyleView = false
-    })
+    Bus.$on("showPersonStyle", val => {
+      this.personStyleView = false;
+    });
   },
   beforeDestroy() {
-    Bus.$off('showPersonStyle', (val) => {
-      this.personStyleView = false
+    Bus.$off("showPersonStyle", val => {
+      this.personStyleView = false;
     });
     clearTimeout(this.setTimeId);
   },
@@ -2937,10 +3815,9 @@ export default {
     checkInfo,
     changeRoom,
     checkResult,
-    updateTemplet,
-  },
-}
-
+    updateTemplet
+  }
+};
 </script>
 <style scoped>
 .lightBox {
@@ -2964,8 +3841,8 @@ export default {
   top: 37px;
   left: 5px;
   padding-left: 20px;
-  background-color: #D6E5F3;
-  border: 1px solid #77A3DC;
+  background-color: #d6e5f3;
+  border: 1px solid #77a3dc;
   /* box-sizing: border-box; */
   z-index: 999;
 }
@@ -2975,8 +3852,8 @@ export default {
   height: 20px;
   color: #222;
   font-size: 12px;
-  background-color: #F5F7F9;
-  border-left: 1px solid #D9E3ED;
+  background-color: #f5f7f9;
+  border-left: 1px solid #d9e3ed;
   box-sizing: border-box;
   line-height: 20px;
   padding-left: 5px;
@@ -2984,7 +3861,7 @@ export default {
 }
 
 .insideHover:hover {
-  background: url('../../assets/hoverBac.jpg');
+  background: url("../../assets/hoverBac.jpg");
 }
 
 .timePicker {
@@ -3021,7 +3898,7 @@ export default {
 
 .procedure {
   flex: 1;
-  background: url('../../assets/timeBack.jpg') no-repeat;
+  background: url("../../assets/timeBack.jpg") no-repeat;
   background-size: cover;
 }
 
@@ -3034,7 +3911,7 @@ export default {
   box-sizing: border-box;
   padding-left: 5px;
   width: 220px;
-  background: url('../../assets/msgBack.jpg') no-repeat;
+  background: url("../../assets/msgBack.jpg") no-repeat;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -3052,7 +3929,7 @@ export default {
 .down {
   width: 100%;
   height: calc(100% - 100px);
-  background: #B3B3B3;
+  background: #b3b3b3;
   display: flex;
 }
 
@@ -3068,7 +3945,7 @@ export default {
   display: flex;
   width: calc(100% - 175px);
   height: 100%;
-  background: #CBF9C1;
+  background: #cbf9c1;
   min-width: 1178px;
 }
 
@@ -3088,8 +3965,8 @@ export default {
   background-color: #96e894;
   position: relative;
   cursor: pointer;
-  border-right: 1px solid #7F7F7F;
-  border-left: 1px solid #7F7F7F;
+  border-right: 1px solid #7f7f7f;
+  border-left: 1px solid #7f7f7f;
 }
 
 .leftNoneImg {
@@ -3133,8 +4010,8 @@ export default {
 }
 
 .title_back {
-  color: #15428B;
-  background: url('../../assets/contentTitleBack.jpg')no-repeat;
+  color: #15428b;
+  background: url("../../assets/contentTitleBack.jpg") no-repeat;
   background-size: cover;
 }
 
@@ -3190,8 +4067,7 @@ export default {
 }
 
 .tab_div:hover span {
-  text-shadow: 18px 15px 20px #E3EFFF,
-  -15px 15px 20px #E3EFFF;
+  text-shadow: 18px 15px 20px #e3efff, -15px 15px 20px #e3efff;
 }
 
 .dictionaryBox {
@@ -3243,14 +4119,14 @@ export default {
   width: 160px;
   border: 1px solid #b1f3c5;
   color: #4cbb5c;
-  background: url('../../assets/contentTitleBack.jpg')no-repeat;
+  background: url("../../assets/contentTitleBack.jpg") no-repeat;
   background-size: cover;
 }
 
 .stretch {
   height: 30px;
   /* background-color: rgb(0, 22, 116); */
-  background: url('../../assets/linkButton.jpg') no-repeat;
+  background: url("../../assets/linkButton.jpg") no-repeat;
   background-size: cover;
   color: white;
   display: flex;
@@ -3353,7 +4229,7 @@ export default {
   position: relative;
   background-color: #fff;
   box-sizing: border-box;
-  border: 1px solid #B4C7FF;
+  border: 1px solid #b4c7ff;
 }
 
 .pageInSelec {
@@ -3362,14 +4238,14 @@ export default {
   height: 120px;
   width: 60px;
   overflow-y: auto;
-  border: 1px solid #446EA3;
+  border: 1px solid #446ea3;
   background-color: #fff;
   box-sizing: border-box;
 }
 
 .pageInSelect div:hover {
   cursor: pointer;
-  background-color: #316AC5;
+  background-color: #316ac5;
   color: #fff;
 }
 

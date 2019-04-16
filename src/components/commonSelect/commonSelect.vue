@@ -59,7 +59,7 @@
     <div v-else>
       <div v-if="infoData.strFormatMode == 'yyyy-MM-dd'||infoData.strFormatMode == 'hh:mm'||infoData.strFormatMode == 'yyyy-MM-dd hh:mm'">
         <input
-          :readonly="conInfo.isEditMode=='true'"
+          :readonly="conInfo.isEditMode!='true'"
           v-if="!infoData.value"
           @dblclick="getNewDate()"
           @change="busToTop"
@@ -68,7 +68,7 @@
           style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
         >
         <input
-          :readonly="conInfo.isEditMode=='true'"
+          :readonly="conInfo.isEditMode!='true'"
           ref="gettime"
           @change="busToTop"
           v-else

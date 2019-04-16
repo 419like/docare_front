@@ -110,11 +110,13 @@ export default {
     },
     getNewDate() {
         this.newDate = new Date().Format(this.conInfo.strFormatMode);
-      console.log(this.newDate)
-      // var new = this.newDate.;
-      // console.log(this.conInfo.modifyFiledValue)
-      // this.$set(this.conInfo, 'modifyFiledValue', this.newDate);
-      // this.$emit('toparentevent', this.conInfo);
+        this.conInfo.value = this.newDate
+      if (this.conInfo.value) {
+        this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
+      } else {
+        this.$set(this.conInfo, 'modifyFiledValue', "");
+      }
+      this.$emit('toparentevent', this.conInfo);
     },
     disapear(dataInput) {
       if (this.conInfo.nullStringMode == 'false') {
@@ -155,9 +157,8 @@ export default {
       } else {
         this.$set(this.conInfo, 'modifyFiledValue', "");
       }
-      console.log(this.conInfo)
-      // this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
-      // this.$emit('toparentevent', this.conInfo);
+      this.$set(this.conInfo, 'modifyFiledValue', this.conInfo.value);
+      this.$emit('toparentevent', this.conInfo);
     },
 
   },

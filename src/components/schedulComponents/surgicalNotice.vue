@@ -6,10 +6,13 @@
       <button @click="print">打印</button>
     </div>
     <div ref="tableView" style="">
-      <div style="display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;width:800px;margin:auto;width:950px;">
-        <div></div>
+      <div style="display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;margin:auto;width:100%;min-width:1000px;">
+        <div style="width:100px;"></div>
         <div style="text-align:center;font-size:20px;font-weight:blod;">毕节市中医医院麻醉科手术通知单</div>
-        <div style="font-size:20px;font-weight:blod;">{{'共计'+allNo+'台'}}</div>
+        <div style="display:flex;">
+          <div style="font-size:20px;font-weight:blod;">{{'共计'+allNo+'台'}}</div>
+          <div style="font-size:20px;font-weight:blod;padding-left:15px;">{{dateTimeValue}}</div>
+        </div>
       </div>
       <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0" cellpadding="0">
         <thead>

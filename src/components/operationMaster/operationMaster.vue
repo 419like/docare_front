@@ -2132,6 +2132,9 @@ export default {
       this.nowDate = burnDate;
     },
     saveBirth() {
+      if (!this.getpermission()) {
+        return;
+      }
       let params = {
         patientId: this.lockedPatientInfo.patientId,
         dateOfBirth: this.nowDate
@@ -3073,12 +3076,22 @@ export default {
     },
     //术中登记
     getOperationRegister() {
+      // if (this.config.userInfo.anesthesiaDoctorName != this.config.loginName) {
+      //   alert("没有权限执行操作");
+      //   return;
+      // }
+      if (!this.getpermission()) {
+        return;
+      }
       this.config.eventNo = 0;
       this.operationRegisterView.dataInParent = !this.operationRegisterView
         .dataInParent;
     },
     //复苏登记
     getRecoverRegister() {
+      if (!this.getpermission()) {
+        return;
+      }
       this.config.eventNo = 1;
       this.operationRegisterView.dataInParent = !this.operationRegisterView
         .dataInParent;
@@ -3190,6 +3203,9 @@ export default {
     },
     //提交单子修改
     submitSaveForm() {
+      if (!this.getpermission()) {
+        return;
+      }
       if (
         this.selectFormItemTemp.formName == "手术清点单" ||
         this.selectFormItemTemp.formName == "手术护理单"
@@ -3728,6 +3744,9 @@ export default {
     },
     //打开体征显示设置
     openPatSetting() {
+      if (!this.getpermission()) {
+        return;
+      }
       this.personStyleView = true;
     },
     closePatSetting() {
@@ -3740,11 +3759,46 @@ export default {
     },
     closeTempManage() {
       this.tempView = false;
+    },
+    //判断是否有权限
+    getpermission() {
+      //判断memo权限  如果值为0表示管理权限
+      if (sessionStorage.getItem("userInfoSession")) {
+        let obj = JSON.parse(sessionStorage.getItem("userInfoSession"));
+        if (obj.memo == 0) {
+          return true;
+        } else {
+          if (this.config.userInfo.anesthesiaDoctorName != obj.userName) {
+            alert("没有权限执行操作");
+            return false;
+          }
+          if (this.config.userInfo.anesthesiaDoctorName == obj.userName) {
+            return true;
+          }
+        }
+      } else {
+        alert("请重新登录");
+      }
+      // console.log(JSON.parse(sessionStorage.getItem("userInfoSession")));
+      // if (this.config.userInfo.anesthesiaDoctorName != this.config.loginName) {
+      //   alert("没有权限执行操作");
+      //   return false;
+      // }
+      // if (this.config.userInfo.anesthesiaDoctorName == this.config.loginName) {
+      //   return true;
+      // }
     }
   },
   mounted() {
     this.inleft = (window.innerWidth - 1214) / 2;
-    this.nowUser = this.config.loginName;
+
+    if (sessionStorage.getItem("userInfoSession")) {
+      let obj = JSON.parse(sessionStorage.getItem("userInfoSession"));
+      this.nowUser = obj.userName;
+    } else {
+      this.nowUser = this.config.loginName;
+    }
+
     if (window.ipc) {
       this.electronListener();
     }

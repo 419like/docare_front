@@ -1,43 +1,28 @@
 <template>
   <div style="margin: 10px 30px;width: 1300px;padding-top:100px;">
     <div>
-      <input
-        type="date"
-        v-model="dateTimeValue"
-      >
+      <input type="date" v-model="dateTimeValue">
       <button @click="getView">查询</button>
       <button @click="print">打印</button>
     </div>
-    <div
-      ref="tableView"
-      style=""
-    >
-      <div style="display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;width:800px;margin:auto;width:950px;">
-        <div></div>
+    <div ref="tableView" style="">
+      <div style="display:flex;top:-25px;left:50%;margin-left:-400px;justify-content:space-between;margin:auto;width:100%;min-width:1000px;">
+        <div style="width:100px;"></div>
         <div style="text-align:center;font-size:20px;font-weight:blod;">毕节市中医医院麻醉科手术通知单</div>
-        <div style="font-size:20px;font-weight:blod;">{{'共计'+allNo+'台'}}</div>
+        <div style="display:flex;">
+          <div style="font-size:20px;font-weight:blod;">{{'共计'+allNo+'台'}}</div>
+          <div style="font-size:20px;font-weight:blod;padding-left:15px;">{{dateTimeValue}}</div>
+        </div>
       </div>
-      <table
-        style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;"
-        border="1"
-        cellspacing="0"
-        cellpadding="0"
-      >
+      <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0" cellpadding="0">
         <thead>
-          <th
-            v-for="item in tableTitleList"
-            style="font-weight: normal;padding: 5px"
-            :style="{width:item.width+'px'}"
-          >
+          <th v-for="item in tableTitleList" style="font-weight: normal;padding: 5px" :style="{width:item.width+'px'}">
             {{item.title}}
           </th>
         </thead>
         <tbody>
           <tr v-for="tr in viewList">
-            <td
-              v-for="td in tableTitleList"
-              style="word-wrap:break-word;word-break:break-all;"
-            >
+            <td v-for="td in tableTitleList" style="word-wrap:break-word;word-break:break-all;">
               {{tr[td.field]}}
             </td>
           </tr>

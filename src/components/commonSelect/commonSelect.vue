@@ -1,29 +1,97 @@
 <template>
   <div style="position: relative;">
     <div v-if="conInfo.dictTableName">
-      <div v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'" @dblclick="showView" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}" style="display:inline-block;border:none;border-bottom: 1px dashed #000;min-height:19px;font-size:13.3333px;font-family:Arial;">{{infoData[attrName]}}</div>
-      <input @change="busToTop" v-if="conInfo.isEditMode=='true'&&conInfo.readOnlyMode=='false'" @dblclick="showView" v-focus="focusState" @blur="focusState =  false,disapear(infoData[attrName])" v-model="infoData[attrName]" :style="{width:conInfo.width+'px',color:conInfo.ForeColor,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',textAlign:conInfo.TextAlignMode,}" style="border:none;border-bottom: 1px dashed #000;">
-      <input v-else-if="conInfo.readOnlyMode=='true'" v-model="infoData[attrName]" :style="{width:conInfo.width+'px',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}" :readonly="true" style="border:none;border-bottom: 1px dashed #000;">
-      <div v-if="nameView" style="position: absolute;top: 0px;height: 300px;overflow: auto;border:1px solid;z-index: 20;background-color:white;" :style="{width:conInfo.width+'px'}">
+      <div
+        v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'"
+        @dblclick="showView"
+        :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}"
+        style="display:inline-block;border:none;border-bottom: 1px dashed #000;min-height:19px;font-size:13.3333px;font-family:Arial;"
+      >{{infoData[attrName]}}</div>
+      <input
+        @change="busToTop"
+        v-if="conInfo.isEditMode=='true'&&conInfo.readOnlyMode=='false'"
+        @dblclick="showView"
+        v-focus="focusState"
+        @blur="focusState =  false,disapear(infoData[attrName])"
+        v-model="infoData[attrName]"
+        :style="{width:conInfo.width+'px',color:conInfo.ForeColor,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',textAlign:conInfo.TextAlignMode,}"
+        style="border:none;border-bottom: 1px dashed #000;"
+      >
+      <input
+        v-else-if="conInfo.readOnlyMode=='true'"
+        v-model="infoData[attrName]"
+        :style="{width:conInfo.width+'px',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt'}"
+        :readonly="true"
+        style="border:none;border-bottom: 1px dashed #000;"
+      >
+      <div
+        v-if="nameView"
+        style="position: absolute;top: 0px;height: 300px;overflow: auto;border:1px solid;z-index: 20;background-color:white;"
+        :style="{width:conInfo.width+'px'}"
+      >
         <div>
-          <input id="inSelect" ref="inSelect" v-model="serchZm" @keyup="serchJm" :style="{width:conInfo.width+'px'}">
+          <input
+            id="inSelect"
+            ref="inSelect"
+            v-model="serchZm"
+            @keyup="serchJm"
+            :style="{width:conInfo.width+'px'}"
+          >
         </div>
-        <div class="listIngt" v-for="item in medAnaesthesiaDictList" :style="{width:conInfo.width+'px'}">
-          <div @click="getSelected(item)" v-if="conInfo.dictShowFiled!=''&&conInfo.dictShowFiled!=null">
+        <div
+          class="listIngt"
+          v-for="item in medAnaesthesiaDictList"
+          :style="{width:conInfo.width+'px'}"
+        >
+          <div
+            @click="getSelected(item)"
+            v-if="conInfo.dictShowFiled!=''&&conInfo.dictShowFiled!=null"
+          >
             {{item.DICTSHOWFILED}}
           </div>
-          <div @click="getSelected(item)" v-else>{{item.DICTFILED}}</div>
+          <div
+            @click="getSelected(item)"
+            v-else
+          >{{item.DICTFILED}}</div>
         </div>
       </div>
     </div>
     <div v-else>
       <div v-if="infoData.strFormatMode == 'yyyy-MM-dd'||infoData.strFormatMode == 'hh:mm'||infoData.strFormatMode == 'yyyy-MM-dd hh:mm'">
-        <input :readonly="conInfo.isEditMode!='true'" v-if="!infoData.value" @dblclick="getNewDate()" @change="busToTop" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="newDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;">
-        <input :readonly="conInfo.isEditMode!='true'" ref="gettime" @change="busToTop" v-else :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="strToDate" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;">
+        <input
+          :readonly="conInfo.isEditMode!='true'"
+          v-if="!infoData.value"
+          @dblclick="getNewDate()"
+          @change="busToTop"
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          v-model="newDate"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+        >
+        <input
+          :readonly="conInfo.isEditMode!='true'"
+          ref="gettime"
+          @change="busToTop"
+          v-else
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          v-model="strToDate"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+        >
       </div>
       <div v-else>
-        <input v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" v-model="infoData.value" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;" :readonly="true">
-        <input v-else :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}" @change="busToTop" v-model="infoData.value" style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;">
+        <input
+          v-if="conInfo.isEditMode=='false'&&conInfo.readOnlyMode=='false'"
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          v-model="infoData.value"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+          :readonly="true"
+        >
+        <input
+          v-else
+          :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,textAlign:conInfo.TextAlignMode,}"
+          @change="busToTop"
+          v-model="infoData.value"
+          style="min-width: 20px;min-height: 20px;border:none;border-bottom: 1px dashed #000;"
+        >
       </div>
     </div>
   </div>
@@ -124,10 +192,6 @@ export default {
         this.$set(this.conInfo, "modifyFiledValue", "");
       }
       this.$emit("toparentevent", this.conInfo);
-    },
-    getChangeDate(event, newDate) {
-      console.log(event)
-      console.log(newDate)
     },
     disapear(dataInput) {
       if (this.conInfo.nullStringMode == "false") {

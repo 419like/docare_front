@@ -274,10 +274,12 @@
           <span
             v-else
             style="padding: 0 2px 0 0px;"
-          >{{item.obj.DOSAGE}}
-            <span v-if="item.obj.PERFORM_SPEED">
+          >
+            {{item.obj.PERFORM_SPEED}}
+            <!-- {{item.obj.DOSAGE}} -->
+            <!-- <span v-if="item.obj.PERFORM_SPEED">
               ({{item.obj.CONCENTRATION}}{{item.obj.CONCENTRATION_UNIT}} {{item.obj.PERFORM_SPEED}}{{item.obj.SPEED_UNIT}})
-            </span>
+            </span> -->
           </span>
         </div>
         <div v-if="tipView">

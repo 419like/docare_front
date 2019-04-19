@@ -3,156 +3,49 @@
     <div style="height:50px;width:100%;background-color:#9ae79a">
       <div style="height:20px;width:100%;"></div>
       <div class="outBox">
-        <div
-          @click="save"
-          title="保存"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/save.png"
-            alt=""
-          >
+        <div @click="save" title="保存" class="buttonOfTop">
+          <img src="../../assets/save.png" alt="">
         </div>
-        <div
-          @click="leftMove(dataIncurrentIten)"
-          title="左移"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/leftMove.png"
-            alt=""
-          >
+        <div @click="leftMove(dataIncurrentIten)" title="左移" class="buttonOfTop">
+          <img src="../../assets/leftMove.png" alt="">
         </div>
-        <div
-          @click="rightMove(dataIncurrentIten)"
-          title="右移"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/rightMove.png"
-            alt=""
-          >
+        <div @click="rightMove(dataIncurrentIten)" title="右移" class="buttonOfTop">
+          <img src="../../assets/rightMove.png" alt="">
         </div>
-        <div
-          @click="topMove(dataIncurrentIten)"
-          title="上移"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/topMove.png"
-            alt=""
-          >
+        <div @click="topMove(dataIncurrentIten)" title="上移" class="buttonOfTop">
+          <img src="../../assets/topMove.png" alt="">
         </div>
-        <div
-          @click="bottomMove(dataIncurrentIten)"
-          title="下移"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/bottomMove.png"
-            alt=""
-          >
+        <div @click="bottomMove(dataIncurrentIten)" title="下移" class="buttonOfTop">
+          <img src="../../assets/bottomMove.png" alt="">
         </div>
-        <div
-          v-if="dataInCanDelete"
-          @click="deleteFun(deleteDataDom)"
-          title="删除"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/canDelete.png"
-            alt=""
-          >
+        <div v-if="dataInCanDelete" @click="deleteFun(deleteDataDom)" title="删除" class="buttonOfTop">
+          <img src="../../assets/canDelete.png" alt="">
         </div>
-        <div
-          v-else
-          title="删除"
-          class="buttonOfTop"
-        >
-          <img
-            src="../../assets/cantDelete.png"
-            alt=""
-          >
+        <div v-else title="删除" class="buttonOfTop">
+          <img src="../../assets/cantDelete.png" alt="">
         </div>
       </div>
     </div>
     <div class="flex">
       <div class="leftButtons">
-        <div
-          v-for="btn in btns"
-          class="btn"
-          draggable="true"
-          @dragstart="drag($event,btn)"
-        >
-          <img
-            src="../../assets/gear.png"
-            alt=""
-          >
+        <div v-for="btn in btns" class="btn" draggable="true" @dragstart="drag($event,btn)">
+          <img src="../../assets/gear.png" alt="">
           <span>{{btn.text}}</span>
         </div>
       </div>
       <div class="autoBox">
-        <div
-          class="designArea"
-          ref="area"
-          @dragover.prevent
-          @drop="drop"
-          @mousedown="areaMouseDown($event)"
-        >
-          <div
-            v-if="item.type == 'div'&&(item.width/2) <= 450"
-            @keyup="show(index,$event)"
-            style="position:absolute;min-height: 19px;min-width:10px;"
-            :class="{choosed:item.chosen}"
-            :style="{left:('450' - (item.width/2))+'px'}"
-            v-for="(item,index) in formItems"
-            @click.stop=""
-            @mousedown.stop="itemMouseDown($event,item,index)"
-            tabindex="0"
-          >
-            <form-element
-              :value="item"
-              :isPage="dataInfo"
-            ></form-element>
+        <div class="designArea" ref="area" @dragover.prevent @drop="drop" @mousedown="areaMouseDown($event)">
+          <div v-if="item.type == 'div'&&(item.width/2) <= 450" @keyup="show(index,$event)" style="position:absolute;min-height: 19px;min-width:10px;" :class="{choosed:item.chosen}" :style="{left:('450' - (item.width/2))+'px'}" v-for="(item,index) in formItems" @click.stop="" @mousedown.stop="itemMouseDown($event,item,index)" tabindex="0">
+            <form-element :value="item" :isPage="dataInfo"></form-element>
           </div>
-          <div
-            v-if="item.type == 'div'&&(item.width/2) >= 451"
-            @keyup="show(index,$event)"
-            style="position:absolute;min-height: 19px;min-width:10px;left:0;"
-            :class="{choosed:item.chosen}"
-            v-for="(item,index) in formItems"
-            @click.stop=""
-            @mousedown.stop="itemMouseDown($event,item,index)"
-            tabindex="0"
-          >
-            <form-element
-              :value="item"
-              :isPage="dataInfo"
-            ></form-element>
+          <div v-if="item.type == 'div'&&(item.width/2) >= 451" @keyup="show(index,$event)" style="position:absolute;min-height: 19px;min-width:10px;left:0;" :class="{choosed:item.chosen}" v-for="(item,index) in formItems" @click.stop="" @mousedown.stop="itemMouseDown($event,item,index)" tabindex="0">
+            <form-element :value="item" :isPage="dataInfo"></form-element>
           </div>
-          <div
-            v-if="item.type !== 'div'"
-            @keyup="show(index,$event)"
-            class="item"
-            style="position:absolute;min-height: 19px;min-width:10px;"
-            :class="{choosed:item.chosen}"
-            v-for="(item,index) in formItems"
-            :style="{left:item.x+'px',top:item.y+'px'}"
-            @click.stop=""
-            @mousedown.stop="itemMouseDown($event,item,index)"
-            tabindex="0"
-          >
-            <form-element
-              :value="item"
-              :isPage="dataInfo"
-            ></form-element>
+          <div v-if="item.type !== 'div'" @keyup="show(index,$event)" class="item" style="position:absolute;min-height: 19px;min-width:10px;" :class="{choosed:item.chosen}" v-for="(item,index) in formItems" :style="{left:item.x+'px',top:item.y+'px'}" @click.stop="" @mousedown.stop="itemMouseDown($event,item,index)" tabindex="0">
+            <form-element :value="item" :isPage="dataInfo"></form-element>
           </div>
           <div class="mask">
-            <div
-              v-if="drawing"
-              style="background:rgba(0,0,0,0.3);position:absolute;"
-              :style="{left:chooseRect.startX+'px',top:chooseRect.startY+'px',width:(chooseRect.endX-chooseRect.startX)+'px',height:(chooseRect.endY-chooseRect.startY)+'px'}"
-            ></div>
+            <div v-if="drawing" style="background:rgba(0,0,0,0.3);position:absolute;" :style="{left:chooseRect.startX+'px',top:chooseRect.startY+'px',width:(chooseRect.endX-chooseRect.startX)+'px',height:(chooseRect.endY-chooseRect.startY)+'px'}"></div>
           </div>
         </div>
         <!-- </div> -->
@@ -165,491 +58,228 @@
           <div style="box-sizing:border-box;padding-left:5px;">
             属性
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <div class="ediChild">
               TEXT：
             </div>
-            <input
-              type=""
-              name=""
-              v-model="chooseItems[0].value"
-            >
+            <input type="" name="" v-model="chooseItems[0].value">
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <div class="ediChild">
               宽度：
             </div>
-            <input
-              type=""
-              name=""
-              v-model="chooseItems[0].width"
-            >
+            <input type="" name="" v-model="chooseItems[0].width">
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <div class="ediChild">
               高度：
             </div>
-            <input
-              type=""
-              name=""
-              v-model="chooseItems[0].height"
-            >
+            <input type="" name="" v-model="chooseItems[0].height">
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <div class="ediChild">
               BorderStyle:
             </div>
-            <input
-              type=""
-              name=""
-              v-model="chooseItems[0].borderStyle"
-            >
+            <input type="" name="" v-model="chooseItems[0].borderStyle">
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <div class="ediChild">
               Opacity：
             </div>
-            <input
-              type=""
-              name=""
-              v-model="chooseItems[0].opacity"
-            >
+            <input type="" name="" v-model="chooseItems[0].opacity">
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <!-- isReadOnly:<input type="" name="" v-model="chooseItems[0].isReadOnly"> -->
             <div class="ediChild">
               Cursor:
             </div>
-            <select
-              style="min-width:173px;"
-              name=""
-              id=""
-              v-on:change="selectData(chooseItems[0].cursor,'isData',chooseItems[0].cursorMode)"
-              v-model="chooseItems[0].cursorMode"
-            >
-              <option
-                v-for="btn in chooseItems[0].cursor"
-                :value="btn.isData"
-              >{{btn.isData}}</option>
+            <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].cursor,'isData',chooseItems[0].cursorMode)" v-model="chooseItems[0].cursorMode">
+              <option v-for="btn in chooseItems[0].cursor" :value="btn.isData">{{btn.isData}}</option>
             </select>
           </div>
-          <div
-            v-if="chooseItems[0]"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]" class="ediclass">
             <!-- 字体颜色:<input type="" name="" v-model="chooseItems[0].ForeColor"> -->
             <div class="ediChild">
               字体大小:
             </div>
-            <input
-              type=""
-              name=""
-              style="width:150px;"
-              v-model="chooseItems[0].fontSize"
-            >
+            <input type="" name="" style="width:150px;" v-model="chooseItems[0].fontSize">
             <span>PT</span>
           </div>
           <div v-if="chooseItems[0]&&chooseItems[0].type=='textarea'">
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字体颜色:
               </div>
               <colorPicker v-model="chooseItems[0].ForeColor"></colorPicker>{{chooseItems[0].ForeColor}}
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- MultiSelect:<input type="" name="" v-model="chooseItems[0].MultiSelect"> -->
               <div class="ediChild">
                 MultiSelect:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].MultiSelect,'isData',chooseItems[0].MultiSelectMode)"
-                v-model="chooseItems[0].MultiSelectMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].MultiSelect"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].MultiSelect,'isData',chooseItems[0].MultiSelectMode)" v-model="chooseItems[0].MultiSelectMode">
+                <option v-for="btn in chooseItems[0].MultiSelect" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 数据源表名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].tableName"
-              >
+              <input type="" name="" v-model="chooseItems[0].tableName">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字段名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].fieldName"
-              >
+              <input type="" name="" v-model="chooseItems[0].fieldName">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典表名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictTableName"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictTableName">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典录入筛选条件：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictSelect"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictSelect">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典显示字段名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictShowFiled"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictShowFiled">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典字段名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictField"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictField">
             </div>
           </div>
           <div v-if="chooseItems[0]&&chooseItems[0].type=='input'">
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- 字体颜色:<input type="" name="" v-model="chooseItems[0].ForeColor"> -->
               <div class="ediChild">
                 字体颜色:
               </div>
               <colorPicker v-model="chooseItems[0].ForeColor"></colorPicker>{{chooseItems[0].ForeColor}}
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- isReadOnly:<input type="" name="" v-model="chooseItems[0].isReadOnly"> -->
               <div class="ediChild">
                 isReadOnly:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].isReadOnly,'isData',chooseItems[0].readOnlyMode)"
-                v-model="chooseItems[0].readOnlyMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].isReadOnly"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].isReadOnly,'isData',chooseItems[0].readOnlyMode)" v-model="chooseItems[0].readOnlyMode">
+                <option v-for="btn in chooseItems[0].isReadOnly" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 默认值：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].defaultValue"
-              >
+              <input type="" name="" v-model="chooseItems[0].defaultValue">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 TextAlign:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].TextAlign,'isData',chooseItems[0].TextAlignMode)"
-                v-model="chooseItems[0].TextAlignMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].TextAlign"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].TextAlign,'isData',chooseItems[0].TextAlignMode)" v-model="chooseItems[0].TextAlignMode">
+                <option v-for="btn in chooseItems[0].TextAlign" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- 是否可编辑:<input type="" name="" v-model="chooseItems[0].isEdit"> -->
               <div class="ediChild">
                 是否可编辑:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].isEdit,'isData',chooseItems[0].isEditMode)"
-                v-model="chooseItems[0].isEditMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].isEdit"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].isEdit,'isData',chooseItems[0].isEditMode)" v-model="chooseItems[0].isEditMode">
+                <option v-for="btn in chooseItems[0].isEdit" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- MultiSelect:<input type="" name="" v-model="chooseItems[0].MultiSelect"> -->
               <div class="ediChild">
                 MultiSelect:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].MultiSelect,'isData',chooseItems[0].MultiSelectMode)"
-                v-model="chooseItems[0].MultiSelectMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].MultiSelect"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].MultiSelect,'isData',chooseItems[0].MultiSelectMode)" v-model="chooseItems[0].MultiSelectMode">
+                <option v-for="btn in chooseItems[0].MultiSelect" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- 是否可编辑:<input type="" name="" v-model="chooseItems[0].isEdit"> -->
               <div class="ediChild">
                 是否可为空:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].nullString,'isData',chooseItems[0].nullStringMode)"
-                v-model="chooseItems[0].nullStringMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].nullString"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].nullString,'isData',chooseItems[0].nullStringMode)" v-model="chooseItems[0].nullStringMode">
+                <option v-for="btn in chooseItems[0].nullString" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 数据源表名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].tableName"
-              >
+              <input type="" name="" v-model="chooseItems[0].tableName">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字段名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].fieldName"
-              >
+              <input type="" name="" v-model="chooseItems[0].fieldName">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典表名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictTableName"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictTableName">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典录入筛选条件：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictSelect"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictSelect">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典显示字段名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictShowFiled"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictShowFiled">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 字典字段名称：
               </div>
-              <input
-                type=""
-                name=""
-                v-model="chooseItems[0].dictField"
-              >
+              <input type="" name="" v-model="chooseItems[0].dictField">
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- 格式化字符串:<input type="" name="" v-model="chooseItems[0].strFormat"> -->
               <div class="ediChild">
                 格式化字符串:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].strFormat,'isData',chooseItems[0].strFormatMode)"
-                v-model="chooseItems[0].strFormatMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].strFormat"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].strFormat,'isData',chooseItems[0].strFormatMode)" v-model="chooseItems[0].strFormatMode">
+                <option v-for="btn in chooseItems[0].strFormat" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- 格式化字符串:<input type="" name="" v-model="chooseItems[0].strFormat"> -->
               <div class="ediChild">
                 打印底线:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].bottomLine,'isData',chooseItems[0].bottomLineMode)"
-                v-model="chooseItems[0].bottomLineMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].bottomLine"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].bottomLine,'isData',chooseItems[0].bottomLineMode)" v-model="chooseItems[0].bottomLineMode">
+                <option v-for="btn in chooseItems[0].bottomLine" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <!-- 格式化字符串:<input type="" name="" v-model="chooseItems[0].strFormat"> -->
               <div class="ediChild">
                 底线风格:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].lineType,'isData',chooseItems[0].lineTypeMode)"
-                v-model="chooseItems[0].lineTypeMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].lineType"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].lineType,'isData',chooseItems[0].lineTypeMode)" v-model="chooseItems[0].lineTypeMode">
+                <option v-for="btn in chooseItems[0].lineType" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
-            <div
-              v-if="chooseItems[0]"
-              class="ediclass"
-            >
+            <div v-if="chooseItems[0]" class="ediclass">
               <div class="ediChild">
                 底线颜色:
               </div>
@@ -662,17 +292,8 @@
               <div class="ediChild">
                 排列方向:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].direction,'isData',chooseItems[0].directionMode)"
-                v-model="chooseItems[0].directionMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].direction"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].direction,'isData',chooseItems[0].directionMode)" v-model="chooseItems[0].directionMode">
+                <option v-for="btn in chooseItems[0].direction" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
             <div class="ediclass">
@@ -691,75 +312,37 @@
               <div class="ediChild">
                 DefaultItems：
               </div>
-              <input
-                onpaste="return false"
-                ondragenter="return false"
-                onkeypress="javascript:return false"
-                v-model="chooseItems[0].defaultItems"
-                v-on:input="changeDefaultValue"
-                @dblclick="addDefaultItem"
-              >
+              <input onpaste="return false" ondragenter="return false" onkeypress="javascript:return false" v-model="chooseItems[0].defaultItems" v-on:input="changeDefaultValue" @dblclick="addDefaultItem">
             </div>
             <div class="ediclass">
               <div class="ediChild">
                 默认值：
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-model="chooseItems[0].defaultValue"
-              >
+              <select style="min-width:173px;" name="" id="" v-model="chooseItems[0].defaultValue">
                 <option value=""></option>
-                <option
-                  v-for="btn in chooseItemsTemp.listData"
-                  :value="btn.ItemValue"
-                >{{btn.ItemValue}}</option>
+                <option v-for="btn in chooseItemsTemp.listData" :value="btn.ItemValue">{{btn.ItemValue}}</option>
               </select>
             </div>
             <div class="ediclass">
               <div class="ediChild">
                 MultiSelect:
               </div>
-              <select
-                style="min-width:173px;"
-                name=""
-                id=""
-                v-on:change="selectData(chooseItems[0].MultiSelect,'isData',chooseItems[0].MultiSelectMode)"
-                v-model="chooseItems[0].MultiSelectMode"
-              >
-                <option
-                  v-for="btn in chooseItems[0].MultiSelect"
-                  :value="btn.isData"
-                >{{btn.isData}}</option>
+              <select style="min-width:173px;" name="" id="" v-on:change="selectData(chooseItems[0].MultiSelect,'isData',chooseItems[0].MultiSelectMode)" v-model="chooseItems[0].MultiSelectMode">
+                <option v-for="btn in chooseItems[0].MultiSelect" :value="btn.isData">{{btn.isData}}</option>
               </select>
             </div>
           </div>
-          <div
-            v-if="chooseItems[0]&&chooseItems[0].type=='qixieList'"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]&&chooseItems[0].type=='qixieList'" class="ediclass">
             <div class="ediChild">
               customEdit:
             </div>
-            <input
-              type="text"
-              value="点击编辑默认数据"
-              @dblclick="showqixieTableTitleView()"
-            >
+            <input type="text" value="点击编辑默认数据" @dblclick="showqixieTableTitleView()">
           </div>
-          <div
-            v-if="chooseItems[0]&&chooseItems[0].type=='qixieList'"
-            class="ediclass"
-          >
+          <div v-if="chooseItems[0]&&chooseItems[0].type=='qixieList'" class="ediclass">
             <div class="ediChild">
               默认数据:
             </div>
-            <input
-              type="text"
-              value="点击编辑默认数据"
-              @dblclick="showqixieTableView()"
-            >
+            <input type="text" value="点击编辑默认数据" @dblclick="showqixieTableView()">
           </div>
         </div>
       </div>
@@ -767,44 +350,20 @@
     <div style="width:100%;height:100px;background-color:#9ae79a;">
     </div>
     <!-- 显示默认表格数据 -->
-    <qiXieTableDefault
-      v-if="qixieTableView"
-      v-on:closeView="closeQixieTableView"
-    ></qiXieTableDefault>
+    <qiXieTableDefault v-if="qixieTableView" v-on:closeView="closeQixieTableView"></qiXieTableDefault>
     <!-- 显示默认表格标题数据 -->
-    <qiXieTableTitle
-      v-if="qixieTableTitleView"
-      v-on:closeTitleView="closeQixieTitleView"
-    ></qiXieTableTitle>
-    <fontPlug
-      :fatherToChild="fontNoneData"
-      v-if="fontNoneData.noneData"
-    ></fontPlug>
-    <div
-      v-if="defaultItemView"
-      @click="atherPlacFuntion"
-      class="imposi"
-    >
-      <div
-        class="fontBox"
-        @click.stop="noFunction"
-        :class="{animation:clickAtherPlace}"
-      >
+    <qiXieTableTitle v-if="qixieTableTitleView" v-on:closeTitleView="closeQixieTitleView"></qiXieTableTitle>
+    <fontPlug :fatherToChild="fontNoneData" v-if="fontNoneData.noneData"></fontPlug>
+    <div v-if="defaultItemView" @click="atherPlacFuntion" class="imposi">
+      <div class="fontBox" @click.stop="noFunction" :class="{animation:clickAtherPlace}">
         <div class="fontTop">
           <span>集合编辑器</span>
-          <div
-            @click="functionNone"
-            class="font_active"
-          >X</div>
+          <div @click="functionNone" class="font_active">X</div>
         </div>
         <div style="display: flex;margin-top: 40px;">
           <div style="margin-right: 30px;margin-left: 10px;">
             <div style="height: 150px;width: 200px;background:white;overflow:auto;">
-              <div
-                class="itemChooseInClick"
-                v-for="(item,index) in chooseItemsTemp.listData"
-                @click="getClickItem(item,index)"
-              >
+              <div class="itemChooseInClick" v-for="(item,index) in chooseItemsTemp.listData" @click="getClickItem(item,index)">
                 {{item.ItemName}}({{item.ItemValue}})
               </div>
             </div>
@@ -821,19 +380,11 @@
             <div v-if="selectItemCon">
               <div>
                 ItemName:
-                <input
-                  v-model="selectItemCon.ItemName"
-                  style="width: 100px;"
-                  @change="setChangeItem"
-                >
+                <input v-model="selectItemCon.ItemName" style="width: 100px;" @change="setChangeItem">
               </div>
               <div>
                 ItemValue:
-                <input
-                  v-model="selectItemCon.ItemValue"
-                  style="width: 100px;"
-                  @change="setChangeItem"
-                >
+                <input v-model="selectItemCon.ItemValue" style="width: 100px;" @change="setChangeItem">
               </div>
             </div>
           </div>
@@ -1047,7 +598,13 @@ export default {
           type: "bodyPosition",
           width: "200",
           height: "130"
-        }
+        },
+        {
+          text: "麻药用量",
+          type: "anestheticDosage",
+          width: "300",
+          height: "130"
+        },
       ],
       handleItem: {},
       offsetX: "",
@@ -1076,8 +633,8 @@ export default {
     };
   },
   methods: {
-    selectData(obj, paramName, value) {},
-    itemClick() {},
+    selectData(obj, paramName, value) { },
+    itemClick() { },
     itemMouseDown(e, currentItem, index) {
       this.dragX = e.clientX;
       this.dragY = e.clientY;
@@ -1289,7 +846,7 @@ export default {
         this.clickAtherPlace = !this.clickAtherPlace;
       }, 1000);
     },
-    noFunction() {},
+    noFunction() { },
     //增加集合里面配置内容
     addDefaultItemCon() {
       this.chooseItemsTemp.listData.push({

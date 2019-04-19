@@ -321,6 +321,7 @@ export default {
   },
   props: ['dataOfPeo', 'page'],
   mounted() {
+    console.log(this.dataOfPeo)
     if (this.setTimeId) {
       clearTimeout(this.setTimeId);
     }

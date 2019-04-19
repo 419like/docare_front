@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>手术查询系统</title>
+    <!-- <script type="text/javascript" src="jquery-1.7.2.min.js"></script> -->
+	<script type="text/javascript" src="jquery.min.js"></script> 
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            background: linear-gradient(#e3f5e7, #b9eec3, #9feeb2);
+            line-height: 24px;
+            border: none;
+            color: rgb(35, 78, 147);
+            height: 24px;
+            border-radius: 3px;
+            font-size: 15px;
+            box-sizing: border-box;
+            width: 70px;
+            border: 1px solid #81e479;
+        }
+
+        .topBox {
+            width: 100%;
+            height: 100%;
+            padding-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .inputClass {}
+    </style>
+	<link rel="stylesheet" href="dcalendar.picker.css"/>
+	                 
+	
+</head>
+
+<body>
+    <div style="width:1360px;height:100%;margin:auto;">
+        <div class="topBox">
+            <div style="display:flex;">
+                <!--<input type="date" id="inputDate" style="margin-right:10px;">-->
+				<input type="text" id="inputDate" style="margin-right:10px;"/>
+                <button onclick="buildTable()">查询</button>
+            </div>
+            <div style="text-align:center;font-size:20px;font-weight:blod;">毕节市中医医院麻醉科手术通知单</div>
+            <div id="number" style="font-size:20px;font-weight:blod;"></div>
+        </div>
+        <div style="padding-top:10px;">
+            <table style="border-collapse:collapse;width: 100%;font-size: 10.5pt;background: white;text-align: center;" border="1" cellspacing="0"
+                cellpadding="0">
+                <thead>
+                    <th style="font-weight: normal;padding: 5px">手术间</th>
+                    <th style="font-weight: normal;padding: 5px">台次</th>
+                    <th style="font-weight: normal;padding: 5px">科室</th>
+                    <th style="font-weight: normal;padding: 5px">床号</th>
+                    <th style="font-weight: normal;padding: 5px">姓名</th>
+                    <th style="font-weight: normal;padding: 5px">性别</th>
+                    <th style="font-weight: normal;padding: 5px;">年龄</th>
+                    <th style="font-weight: normal;padding: 5px">住院号</th>
+                    <th style="font-weight: normal;padding: 5px">术前诊断</th>
+                    <th style="font-weight: normal;padding: 5px;">手术名称</th>
+                    <th style="font-weight: normal;padding: 5px;">主刀医生</th>
+                    <th style="font-weight: normal;padding: 5px;">手术助手</th>
+                    <th style="font-weight: normal;padding: 5px;">麻醉方式</th>
+                    <th style="font-weight: normal;padding: 5px;">主麻</th>
+                    <th style="font-weight: normal;padding: 5px;">助手</th>
+                    <th style="font-weight: normal;padding: 5px;">洗手</th>
+                    <th style="font-weight: normal;padding: 5px;">巡回</th>
+                    <th style="font-weight: normal;padding: 5px;">备注</th>
+                </thead>
+                <tbody class="inThere" id="inThere">
+                    <!-- <tr>
+                        <td style="word-wrap:break-word;word-break:break-all;">
+                            123
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<script type="text/javascript" src="dcalendar.picker.js"></script>
+    <script>
+		$(document).ready(function(){
+			//$('#inputDate').dcalendarpicker(); //Initializes the date picker
+			$('#inputDate').dcalendarpicker({format: 'yyyy-mm-dd'});
+		});
+		
+	
+        function ajax(method, url, data) {
+            /*兼容IE*/
+            var request;
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest();
+            } else {
+                request = new ActiveXObject("Microsoft.XMLHTTP")
+            }
+            return new Promise(function (resolve, reject) {
+                request.onreadystatechange = function () {
+                    if (request.readyState === 4) {
+                        if (request.status === 200) {
+                            resolve(request.response);
+                        } else {
+                            reject(request.status);
+                        }
+                    }
+                };
+                if (method.toUpperCase() === "GET") {
+                    var arr = [];
+                    for (var key in data) {
+                        arr.push(key + '=' + data[key]);
+                    }
+                    var getData = arr.join("&");
+
+                    request.open("GET", url + "?" + getData, true);
+                    request.send(null);
+                } else if (method.toUpperCase() === "POST") {
+                    request.open("POST", url, true);
+                    request.responseType = "json";
+                    request.setRequestHeader('Content-Type', 'application/json');
+                    request.send(data);
+                }
+
+            });
+
+        };
+        function buildTable() {
+            // var date = document.getElementById("inputDate").value;
+            var url = 'http://localhost:8088/medicalsystem/rest/medOperationSchedule/getScheduleReportView'
+            var params = {
+                dateTime: document.getElementById("inputDate").value,
+            }
+            var sion = JSON.stringify(params)
+            //开始调用接口
+            ajax('POST', url, sion).then(function (data) {
+                console.log(data)
+                for (var a = 0; a < data.list.length; a++) {
+                    if (!data.list[a].OPERATING_ROOM_NO) { data.list[a].OPERATING_ROOM_NO = ''; }
+                    if (!data.list[a].SEQUENCE) { data.list[a].SEQUENCE = ''; }
+                    if (!data.list[a].OPERATING_DEPT_NAME) { data.list[a].OPERATING_DEPT_NAME = ''; }
+                    if (!data.list[a].BED_NO) { data.list[a].BED_NO = ''; }
+                    if (!data.list[a].PAT_NAME) { data.list[a].PAT_NAME = ''; }
+                    if (!data.list[a].SEX) { data.list[a].SEX = ''; }
+                    if (!data.list[a].PAT_AGE) { data.list[a].PAT_AGE = ''; }
+                    if (!data.list[a].INP_NO) { data.list[a].INP_NO = ''; }
+                    if (!data.list[a].DIAG_BEFORE_OPERATION) { data.list[a].DIAG_BEFORE_OPERATION = ''; }
+                    if (!data.list[a].OPERATION_NAME) { data.list[a].OPERATION_NAME = ''; }
+                    if (!data.list[a].SURGEON_NAME) { data.list[a].SURGEON_NAME = ''; }
+                    if (!data.list[a].FIRST_ASSISTANT_NAME) { data.list[a].FIRST_ASSISTANT_NAME = ''; }
+                    if (!data.list[a].ANESTHESIA_METHOD) { data.list[a].ANESTHESIA_METHOD = ''; }
+                    if (!data.list[a].ANESTHESIA_DOCTOR_NAME) { data.list[a].ANESTHESIA_DOCTOR_NAME = ''; }
+                    if (!data.list[a].ANESTHESIA_ASSISTANT_NAME) { data.list[a].ANESTHESIA_ASSISTANT_NAME = ''; }
+                    if (!data.list[a].FIRST_OPERATION_NURSE_NAME) { data.list[a].FIRST_OPERATION_NURSE_NAME = ''; }
+                    if (!data.list[a].FIRST_SUPPLY_NURSE_NAME) { data.list[a].FIRST_SUPPLY_NURSE_NAME = ''; }
+                    if (!data.list[a].SPECIAL_EQUIPMENT) { data.list[a].SPECIAL_EQUIPMENT = ''; }
+                }
+                table(data.list);
+            }).catch(function (err) {
+                console.log(err)
+            });
+        }
+        function table(tong) {
+            var totlhtml = '';
+            var totlhtml2 = ''
+            for (var i = 0; i < tong.length; i++) {
+                totlhtml += '<tr>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].OPERATING_ROOM_NO + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].SEQUENCE + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].OPERATING_DEPT_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].BED_NO + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].PAT_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].SEX + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].PAT_AGE + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].INP_NO + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].DIAG_BEFORE_OPERATION + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].OPERATION_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].SURGEON_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].FIRST_ASSISTANT_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].ANESTHESIA_METHOD + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].ANESTHESIA_DOCTOR_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].ANESTHESIA_ASSISTANT_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].FIRST_OPERATION_NURSE_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].FIRST_SUPPLY_NURSE_NAME + '</td>'
+                    + '<td style="word-wrap:break-word;word-break:break-all;">' + tong[i].SPECIAL_EQUIPMENT + '</td>'
+                    + '</tr>';
+            }
+            document.getElementById("number").innerText = '共'+tong.length+'台';
+            document.getElementById("inThere").innerHTML=totlhtml;
+        }
+    </script>
+</body>
+
+</html>

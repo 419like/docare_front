@@ -840,6 +840,22 @@ export default {
       }
     },
     itemMouseDown(e, currentItem, index1, index2) {
+      if (sessionStorage.getItem("userInfoSession")) {
+        let obj = JSON.parse(sessionStorage.getItem("userInfoSession"));
+        if (obj.memo == 0) {
+          return true;
+        } else {
+          if (this.config.userInfo.anesthesiaDoctorName != obj.userName) {
+            alert("没有权限执行操作");
+            return false;
+          }
+          if (this.config.userInfo.anesthesiaDoctorName == obj.userName) {
+            return true;
+          }
+        }
+      } else {
+        alert("请重新登录");
+      }
       this.area.addEventListener("mousemove", this.areaMouseMove);
       this.area.addEventListener("mouseup", this.areaMouseUp);
       this.clickItem = currentItem;

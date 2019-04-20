@@ -11,10 +11,10 @@
       </common-select>
       <input v-else type="text" :style="{width:value.width+'px'}" readonly="true">
       <!-- <div v-if="value.dictTableName">
-                    </div> -->
+                          </div> -->
       <!-- <div v-else>
-                        <input :style="{width:value.width+'px',border:value.borderStyle,color:value.ForeColor,}" v-model="value.value" style="min-width: 20px;min-height: 20px;">
-                    </div> -->
+                              <input :style="{width:value.width+'px',border:value.borderStyle,color:value.ForeColor,}" v-model="value.value" style="min-width: 20px;min-height: 20px;">
+                          </div> -->
     </div>
     <div v-if="value.type=='radio'">
       <input type="radio" name="" v-model="value.text">
@@ -73,6 +73,9 @@
     <div v-if="value.type=='bodyPosition'">
       <bodyPosition :page="isPage.isPage" :object="value" :style="{width:value.width*0.75+'pt',height:value.height*0.75+'pt',fontSize:value.fontSize+'pt'}"></bodyPosition>
     </div>
+    <div v-if="value.type=='anestheticDosage'">
+      <anestheticDosage :page="isPage.isPage" :object="value" :style="{width:value.width*0.75+'pt',height:value.height*0.75+'pt',fontSize:value.fontSize+'pt'}"></anestheticDosage>
+    </div>
   </div>
 </template>
 <script>
@@ -87,6 +90,7 @@ import dataOfGrid from '@/components/drawTable/dataOfGrid.vue';
 import appliances from '@/components/appliances/appliances.vue';
 import specialSymbol from '@/components/drawTable/specialSymbol.vue';
 import bodyPosition from '@/components/drawTable/bodyPosition.vue';
+import anestheticDosage from '@/components/drawTable/anestheticDosage.vue';
 import textareaTable from '@/components/commonSelect/textareaTable.vue';
 import Bus from '@/bus.js';
 export default {
@@ -118,6 +122,7 @@ export default {
     specialSymbol,
     textareaTable,
     bodyPosition,
+    anestheticDosage,
   },
   mounted() {
     // console.log(this.objectItem)

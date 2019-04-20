@@ -66,6 +66,9 @@
     <div v-if="value.type=='bodyPosition'">
       <bodyPosition :page="isPage.isPage" :object="value" :style="{width:value.width*0.75+'pt',height:value.height*0.75+'pt',fontSize:value.fontSize+'pt'}"></bodyPosition>
     </div>
+    <div v-if="value.type=='anestheticDosagePrint'">
+      <anestheticDosagePrint :page="isPage.isPage" :object="value" :style="{width:value.width*0.75+'pt',height:value.height*0.75+'pt',fontSize:value.fontSize+'pt'}"></anestheticDosagePrint>
+    </div>
   </div>
 </template>
 <script>
@@ -80,6 +83,7 @@ import dataOfGridPrint from '@/components/drawTable/dataOfGridPrint.vue';
 import appliances from '@/components/appliances/appliances.vue';
 import specialSymbol from '@/components/drawTable/specialSymbol.vue';
 import bodyPosition from '@/components/drawTable/bodyPosition.vue';
+import anestheticDosagePrint from '@/components/drawTable/anestheticDosagePrint.vue';
 import textareaTable from '@/components/commonSelect/textareaTable.vue';
 export default {
   data() {
@@ -108,6 +112,7 @@ export default {
     specialSymbol,
     textareaTable,
     bodyPosition,
+    anestheticDosagePrint,
   },
   mounted() { }
 }

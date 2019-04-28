@@ -843,7 +843,7 @@ export default {
       if (sessionStorage.getItem("userInfoSession")) {
         let obj = JSON.parse(sessionStorage.getItem("userInfoSession"));
         if (obj.memo == 0) {
-          return true;
+          // return true;
         } else {
           if (this.config.userInfo.anesthesiaDoctorName != obj.userName) {
             alert("没有权限执行操作");

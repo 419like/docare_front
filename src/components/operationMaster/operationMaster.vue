@@ -1821,6 +1821,8 @@ export default {
       // this.showPrint = true
       let width = 1118;
       let height = 1580;
+      width = 1221;
+      height = 1710;
       let imageWidth = 900;
       let scale1 = 1;
       let scale2 = 2;

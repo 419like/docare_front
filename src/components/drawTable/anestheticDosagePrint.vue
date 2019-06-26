@@ -1,17 +1,16 @@
 <template>
   <div style="position: relative;">
-    <div style="width: 100%;height: 100%;display: flex;flex-wrap: wrap;width: 100%;height: 100%;display: flex;flex-flow: column wrap;">
-      <div
-        v-for="data in anesDate"
-        style="width:auto;max-width:300px;min-width:220px;font-size:14px;"
-      >
+    <div v-if="page == false" style="width: 100%;height: 100%;display: flex;flex-wrap: wrap;width: 100%;height: 100%;display: flex;flex-flow: column wrap;">
+      <div v-for="data in anesDate" style="width:auto;max-width:300px;min-width:220px;font-size:14px;">
         <span>{{data.ITEM_NAME}}</span>
         <span>{{data.ADMINISTRATOR}}</span>
         <span>{{data.DOSAGE}}</span>
         <span>{{data.DOSAGE_UNITS}}</span>
       </div>
     </div>
+    <div v-else>
 
+    </div>
   </div>
 </template>
 <script>
@@ -38,10 +37,9 @@ export default {
         var enTime;
         // console.log(aff)
         for (var a = 0; a < aff.list.length; a++) {
-          debugger;
           // console.log(num)
           if (aff.list[a].ADMINISTRATOR == "泵注") {
-            // console.log(a)
+            console.log(aff.list)
             var num = aff.list[a].SPEED_UNIT.toUpperCase();
             // console.log(num.indexOf("KG"))
             if (num.indexOf("KG") == -1) {
@@ -59,7 +57,7 @@ export default {
                   // return Math.round(min)
                   // console.log(min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED * aff.list[a].PERFORM_SPEED * min;
+                    aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min;
                   this.$set(
                     aff.list[a],
                     "DOSAGE",
@@ -73,7 +71,7 @@ export default {
                   // return Math.round(min)
                   // console.log(min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED * aff.list[a].PERFORM_SPEED * min;
+                    aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min;
                   this.$set(
                     aff.list[a],
                     "DOSAGE",
@@ -93,7 +91,7 @@ export default {
                   // return Math.round(min)
                   // console.log(min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED * aff.list[a].PERFORM_SPEED * min;
+                    aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min;
                   this.$set(
                     aff.list[a],
                     "DOSAGE",
@@ -109,7 +107,7 @@ export default {
                   // console.log(min)
                   // console.log(aff.list[a].PERFORM_SPEED,aff.list[a].PERFORM_SPEED,min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED * aff.list[a].PERFORM_SPEED * min;
+                    aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min;
                   this.$set(
                     aff.list[a],
                     "DOSAGE",
@@ -131,7 +129,7 @@ export default {
                   // return Math.round(min)
                   // console.log(min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED * aff.list[a].PERFORM_SPEED * min;
+                    aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min;
                   this.$set(
                     aff.list[a],
                     "DOSAGE",
@@ -145,7 +143,7 @@ export default {
                   // return Math.round(min)
                   // console.log(min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED * aff.list[a].PERFORM_SPEED * min;
+                    aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min;
                   this.$set(
                     aff.list[a],
                     "DOSAGE",
@@ -162,7 +160,7 @@ export default {
                   // return Math.round(min)
                   // console.log(min)
                   var timeOF =
-                    aff.list[a].PERFORM_SPEED *
+                    aff.list[a].CONCENTRATION *
                     aff.list[a].PERFORM_SPEED *
                     min *
                     this.weight;
@@ -178,10 +176,7 @@ export default {
                   min = (enTime - sTime) / 1000 / 60;
                   // return Math.round(min)
                   // console.log(min)
-                  var timeOF =
-                    aff.list[a].PERFORM_SPEED *
-                    aff.list[a].PERFORM_SPEED *
-                    min *
+                  var timeOF = aff.list[a].CONCENTRATION * aff.list[a].PERFORM_SPEED * min *
                     this.weight;
                   this.$set(
                     aff.list[a],
@@ -216,4 +211,5 @@ export default {
 };
 </script>
 <style scoped>
+
 </style>

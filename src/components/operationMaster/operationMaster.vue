@@ -2825,6 +2825,7 @@ export default {
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
                 if (list[i].fieldName == "page") {
+                  debugger;
                   let obj = this.formItems[i];
                   obj.value =
                     this.config.pagePercentNum +

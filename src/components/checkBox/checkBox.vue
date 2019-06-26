@@ -104,7 +104,7 @@ export default {
         this.resultValue = res[field];
         if (this.boxValue.MultiSelectMode == "false") {
           for (var i = 0; i < this.boxValue.listData.length; i++) {
-            if (res[field] == "" || res[field] == null) {
+            if (res[field] === "" || res[field] == null) {
               if (
                 this.boxValue.listData[i].ItemValue ==
                   this.boxValue.defaultValue &&

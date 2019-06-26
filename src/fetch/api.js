@@ -3,7 +3,24 @@ import axios from 'axios'
 // axios.defaults.baseURL = 'http://111.111.111.156:8080';
 axios.defaults.baseURL = 'http://192.168.1.12:8080';
 axios.defaults.baseURL = 'http://192.168.1.12:8088';
-axios.defaults.baseURL = 'http://localhost:8088';
+axios.defaults.baseURL = 'http://localhost:8080';
+
+
+
+if (window.fs) {
+    window.fs.readFile("./resources/app/config.json", "utf8", (err, data) => {
+        if (data) {
+            console.log("api---" + JSON.parse(data))
+            let obj = JSON.parse(data)
+            if (obj.connUrl) {
+                axios.defaults.baseURL = "http://" + obj.connUrl
+            }
+
+        }
+    });
+}
+
+
 //返回状态判断
 axios.interceptors.response.use((res) => {
     return res;

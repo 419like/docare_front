@@ -1449,6 +1449,7 @@
     <cancel
       v-if="cancelData.dataInParent"
       :dataInParent="cancelData"
+      @cancelFun="cancelFun"
     ></cancel>
   </div>
   <div
@@ -1904,20 +1905,6 @@ export default {
     },
     printPage(index) {
       this.printPdf(index);
-      // console.log(new Date(), "printPage打印页", index)
-      // if (this.selectFormItemTemp.formName != '麻醉记录单') {
-
-      //   setTimeout(() => {
-      //     LODOP.ADD_PRINT_IMAGE(1, 1, "100%", "BottomMargin:1mm", this.$refs.normal.innerHTML);
-      //     LODOP.SET_PRINT_STYLEA(0, "Stretch", 1);
-      //     LODOP.PREVIEW();
-      //   }, 500)
-      // } else {
-      //   // setTimeout(() => {
-      //   this.printPdf(index);
-
-      //   // }, 500)
-      // }
     },
     inputBlur(list) {
       list.writeAble = false;
@@ -3790,6 +3777,12 @@ export default {
       // if (this.config.userInfo.anesthesiaDoctorName == this.config.loginName) {
       //   return true;
       // }
+    },
+    //取消手术子组件通知父组件
+    cancelFun() {
+      this.patientInfo = "";
+      this.viewInfo = false; //病人基本信息视图
+      this.searchPatientList();
     }
   },
   mounted() {

@@ -1,21 +1,24 @@
 <template>
   <div style="position: relative;font-family: SimSun;font-weight:bold;">
-    <div v-if="conInfo.bottomLineMode&&conInfo.lineTypeMode=='solid'&&conInfo.strFormatMode==''" :style="{width:conInfo.width+'px',color:conInfo.ForeColor,cursor:conInfo.cursorMode,opacity:conInfo.opacity,border:'0',textAlign:conInfo.TextAlignMode,}" style="min-width: 20px;min-height: 20px;position:relative;">
-      <span>{{conInfo[attrName]}}</span>
+    <div v-if="conInfo.bottomLineMode&&conInfo.lineTypeMode=='solid'&&conInfo.strFormatMode==''" :style="{width:conInfo.width+'px',fontSize:conInfo.fontSize+'pt',color:conInfo.ForeColor,cursor:conInfo.cursorMode,opacity:conInfo.opacity,border:'0',textAlign:conInfo.TextAlignMode,}" style="min-width: 20px;min-height: 20px;position:relative;">
+      <span v-if="conInfo.tempValue">{{conInfo[attrName]}}</span>
+      <span v-else>{{conInfo[defaultPrint]}}</span>
       <div style="position:absolute;bottom:-22px;">
         <svg height="20" :style="{width:conInfo.width+'px'}">
           <g fill="none" stroke="black" stroke-width="1">
-            <path stroke-dasharray="5,5" d="M0 0 l900 0" />
+            <path stroke-dasharray="5 5" d="M0 0 l900 0" />
           </g>
         </svg>
       </div>
     </div>
-    <div v-else-if="conInfo.bottomLineMode&&conInfo.lineTypeMode=='dashed'&&conInfo.strFormatMode==''" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,opacity:conInfo.opacity,textAlign:conInfo.TextAlignMode,fontSize:conInfo.fontSize+'pt'}" style="min-width: 20px;min-height: 20px;position:relative;">
-      {{conInfo[attrName]}}
+    <div v-else-if="conInfo.bottomLineMode&&conInfo.lineTypeMode=='dashed'&&conInfo.strFormatMode==''" :style="{width:conInfo.width+'px',cursor:conInfo.cursorMode,color:conInfo.ForeColor,opacity:conInfo.opacity,textAlign:conInfo.TextAlignMode,fontSize:conInfo.fontSize+'pt'}" style="min-width: 20px;min-height: 20px;position:relative;">
+      <!-- {{conInfo[attrName]}} -->
+      <span v-if="conInfo.tempValue">{{conInfo[attrName]}}</span>
+      <span v-else>{{conInfo[defaultPrint]}}</span>
       <div style="position:absolute;bottom:-22px;">
         <svg height="20" :style="{width:conInfo.width+'px'}">
           <g fill="none" stroke="black" stroke-width="1">
-            <path stroke-dasharray="5,5" d="M0 0 l900 0" />
+            <path stroke-dasharray="5 5" d="M0 0 l900 0" />
           </g>
         </svg>
       </div>

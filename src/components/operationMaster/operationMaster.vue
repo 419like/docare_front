@@ -10,7 +10,7 @@
         <span></span>
         <span></span>
       </div>
-    </div>
+    </div> -->
     <div class="head">
       <div class="logo">
         <div :style="logo">
@@ -626,38 +626,38 @@
   </div>
 </template>
 <script>
-import formDesigner from "@/components/formDesigner/formDesigner.vue";
-import personStyle from "@/components/drawTable/personStyle.vue";
-import formElement from "@/components/formElement/formElement.vue";
-import formElementPrint from "@/components/formElement/formElementPrint.vue";
-import patientOperationInfo from "@/components/patientOperationInfo/patientOperationInfo.vue";
-import operationRegister from "@/components/operationRegister/operationRegister.vue";
-import aboutUs from "@/components/aboutUs/aboutUs.vue";
-import anaesthesiaEvent from "@/components/dictionaryComponents/anaesthesiaEvent.vue";
-import anestheticMethod from "@/components/dictionaryComponents/anestheticMethod.vue";
-import anestheticConstant from "@/components/dictionaryComponents/anestheticConstant.vue";
-import jzRegisterContent from "@/components/jzRegisterContent/jzRegisterContent.vue";
-import monitor from "@/components/monitor/monitor.vue";
-import cancel from "@/components/cancel/cancel.vue";
-import { getLodop } from "@/assets/js/LodopFuncs";
-import Bus from "@/bus.js";
-import myDatepicker from "@/components/plugins/vue-datepicker.vue";
-import dateTime from "@/components/plugins/dateTime.vue";
-import html2canvas from "html2canvas";
-import { Canvas2Image } from "@/assets/js/canvas2image";
-import changePassWord from "@/components/operationMaster/changePassWord.vue";
-import checkInfo from "@/components/checkInfo/checkInfo.vue";
-import changeRoom from "@/components/operationMaster/changeRoom.vue";
-import checkResult from "@/components/checkInfo/checkResult.vue";
-import updateTemplet from "@/components/eventTemplet/updateTemplet.vue";
-let LODOP;
+import formDesigner from '@/components/formDesigner/formDesigner.vue'
+import personStyle from '@/components/drawTable/personStyle.vue'
+import formElement from '@/components/formElement/formElement.vue'
+import formElementPrint from '@/components/formElement/formElementPrint.vue'
+import patientOperationInfo from '@/components/patientOperationInfo/patientOperationInfo.vue'
+import operationRegister from '@/components/operationRegister/operationRegister.vue'
+import aboutUs from '@/components/aboutUs/aboutUs.vue'
+import anaesthesiaEvent from '@/components/dictionaryComponents/anaesthesiaEvent.vue'
+import anestheticMethod from '@/components/dictionaryComponents/anestheticMethod.vue'
+import anestheticConstant from '@/components/dictionaryComponents/anestheticConstant.vue'
+import jzRegisterContent from '@/components/jzRegisterContent/jzRegisterContent.vue'
+import monitor from '@/components/monitor/monitor.vue'
+import cancel from '@/components/cancel/cancel.vue'
+import { getLodop } from '@/assets/js/LodopFuncs'
+import Bus from '@/bus.js'
+import myDatepicker from '@/components/plugins/vue-datepicker.vue'
+import dateTime from '@/components/plugins/dateTime.vue'
+import html2canvas from 'html2canvas'
+import { Canvas2Image } from '@/assets/js/canvas2image'
+import changePassWord from '@/components/operationMaster/changePassWord.vue'
+import checkInfo from '@/components/checkInfo/checkInfo.vue'
+import changeRoom from '@/components/operationMaster/changeRoom.vue'
+import checkResult from '@/components/checkInfo/checkResult.vue'
+import updateTemplet from '@/components/eventTemplet/updateTemplet.vue'
+let LODOP
 export default {
-  data() {
+  data () {
     return {
-      checkInfoView: false, //显示检验信息窗口
+      checkInfoView: false, // 显示检验信息窗口
       checkResultShow: false,
-      nowUser: "",
-      showFormView: false, //显示几张单子按钮
+      nowUser: '',
+      showFormView: false, // 显示几张单子按钮
       printed: false,
       isPrint: false,
       doShowDataOne: false,
@@ -669,51 +669,51 @@ export default {
       patientList: [],
       widthData: false,
       pageShowData: false,
-      pages: "",
-      sortData: "",
+      pages: '',
+      sortData: '',
       size: 6,
       pageNum: 1,
       dataInSelect: false,
-      pageLength: "",
+      pageLength: '',
       dataTypeInAllSelect: [],
       formItems: [],
-      bindClassData: "",
-      newDataIndex: "",
+      bindClassData: '',
+      newDataIndex: '',
       viewInfo: false,
       patientInfo: {},
-      nowTime: "",
-      dateTime: "",
-      count: "",
-      getTime: "",
-      operStatus: "",
-      patientId: "",
-      patientName: "",
+      nowTime: '',
+      dateTime: '',
+      count: '',
+      getTime: '',
+      operStatus: '',
+      patientId: '',
+      patientName: '',
       comTypeList: [],
       eventDataType: [],
-      itemClass: "",
-      obj: "",
-      tempTypeItem: "",
-      itemName: "",
+      itemClass: '',
+      obj: '',
+      tempTypeItem: '',
+      itemName: '',
       isAdd: true,
       isCancle: true,
-      tempSerNo: "",
+      tempSerNo: '',
       isSave: true,
       isDelete: true,
       medBillList: [],
-      lockedPatientInfo: "",
+      lockedPatientInfo: '',
       formDetail: false,
-      inRoomDateTime: "",
+      inRoomDateTime: '',
       cancelData: { dataInParent: false },
-      inDateTime: "",
-      anesStartTime: "",
-      startDateTime: "",
-      endDateTime: "",
-      anesEndTime: "",
-      outDateTime: "",
+      inDateTime: '',
+      anesStartTime: '',
+      startDateTime: '',
+      endDateTime: '',
+      anesEndTime: '',
+      outDateTime: '',
       transData: false,
       showData: true,
       showDataTwo: true,
-      nextDATA: "",
+      nextDATA: '',
       patientOperationInfoView: { dataInParent: false },
       operationRegisterView: { dataInParent: false },
       // aboutUsData: { dataInParent: false },
@@ -725,39 +725,39 @@ export default {
       paddingRight18: false,
       contentConfig: [
         {
-          text: "序号",
-          value: "serialNo"
+          text: '序号',
+          value: 'serialNo'
         },
         {
-          text: "分类",
-          value: "itemClass"
+          text: '分类',
+          value: 'itemClass'
         },
         {
-          text: "名称",
-          value: "newItemName",
-          status: "inable"
+          text: '名称',
+          value: 'newItemName',
+          status: 'inable'
         },
         {
-          text: "编码",
-          value: "newItemCode",
-          status: "inable"
+          text: '编码',
+          value: 'newItemCode',
+          status: 'inable'
         }
       ],
       commonTypeList: [],
       dictView: false,
-      res: "",
+      res: '',
       logo: {
         // backgroundImage: "url(" + require("../../assets/LogoTop.png") + ")",
         // backgroundRepeat: "no-repeat",
-        height: "70px",
-        paddingLeft: "24px"
+        height: '70px',
+        paddingLeft: '24px'
         // backgroundSize: "cover",
       },
       logo1: {
-        backgroundImage: "url(" + require("../../assets/clock.png") + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "5px 3px",
-        height: "30px"
+        backgroundImage: 'url(' + require('../../assets/clock.png') + ')',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: '5px 3px',
+        height: '30px'
       },
       concealmentOneData: true,
       concealmentTweData: true,
@@ -773,56 +773,56 @@ export default {
       isBackFour: false,
       updateFormsData: [],
       settingView: false,
-      selectFormItemTemp: "", //获取选中的单子
+      selectFormItemTemp: '', // 获取选中的单子
       atherInput: { isPage: false },
       monitorDataShow: { noneData: false },
-      pageButtonView: false, //翻页按钮
+      pageButtonView: false, // 翻页按钮
       firstRoom: { noneData: false },
-      personStyleView: false, //是否显示个性化体征
+      personStyleView: false, // 是否显示个性化体征
       currentPageNum: 1,
-      timeTestVal: "",
+      timeTestVal: '',
       tempButtonView: false,
-      jzPatientView: false, //急诊登记视图
+      jzPatientView: false, // 急诊登记视图
       areaheight: 300,
-      setTimeId: "",
+      setTimeId: '',
       // for Vue 2.0
       startTime: {
         time: this.getTime
       },
       startTime1: {
-        time: ""
+        time: ''
       },
       endtime: {
-        time: ""
+        time: ''
       },
       option: {
-        type: "day",
-        week: ["一", "二", "三", "四", "五", "六", "日"],
+        type: 'day',
+        week: ['一', '二', '三', '四', '五', '六', '日'],
         month: [
-          "一月",
-          "二月",
-          "三月",
-          "四月",
-          "五月",
-          "六月",
-          "七月",
-          "八月",
-          "九月",
-          "十月",
-          "十一月",
-          "十二月"
+          '一月',
+          '二月',
+          '三月',
+          '四月',
+          '五月',
+          '六月',
+          '七月',
+          '八月',
+          '九月',
+          '十月',
+          '十一月',
+          '十二月'
         ],
-        format: "YYYY/MM/DD",
-        placeholder: "",
+        format: 'YYYY/MM/DD',
+        placeholder: '',
         inputStyle: {
-          display: "inline-block",
-          "line-height": "20px",
-          "font-size": "12px",
-          border: "2px solid #fff",
-          "box-shadow": "0 1px 3px 0 rgba(0, 0, 0, 0.2)",
-          "border-radius": "2px",
-          color: "#5F5F5F",
-          width: "100px"
+          display: 'inline-block',
+          'line-height': '20px',
+          'font-size': '12px',
+          border: '2px solid #fff',
+          'box-shadow': '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
+          'border-radius': '2px',
+          color: '#5F5F5F',
+          width: '100px'
         },
         color: {
           // header: '#ccc',
@@ -830,48 +830,48 @@ export default {
         },
         buttons: {
           // ok: '确定',
-          cancel: "取消"
+          cancel: '取消'
         },
         overlayOpacity: 0.5, // 0.5 as default
         dismissible: true // as true as default
       },
       timeoption: {
-        type: "min",
-        week: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+        type: 'min',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
         month: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
         ],
-        format: "YYYY-MM-DD HH:mm"
+        format: 'YYYY-MM-DD HH:mm'
       },
       multiOption: {
-        type: "multi-day",
-        week: ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"],
+        type: 'multi-day',
+        week: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
         month: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "August",
-          "September",
-          "October",
-          "November",
-          "December"
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December'
         ],
-        format: "YYYY-MM-DD HH:mm"
+        format: 'YYYY-MM-DD HH:mm'
       },
       limit: [
         // {
@@ -879,219 +879,205 @@ export default {
         //     available: [1, 2, 3, 4, 5, 6, 7, ]
         //   },
         {
-          type: "fromto",
-          from: "2016-02-01",
-          to: "2020-02-20"
+          type: 'fromto',
+          from: '2016-02-01',
+          to: '2020-02-20'
         }
       ],
-      timeCount: 0, //计时器次数
-      canvasBox: "",
-      contentImageBox: "",
-      imageBox: "",
+      timeCount: 0, // 计时器次数
+      canvasBox: '',
+      contentImageBox: '',
+      imageBox: '',
       showPrint: false,
-      printPageNameArr: [], //打印图片名称数组
-      printLoading: false, //打印加载
-      roomList: [], //手术间数据
-      operatingRoomNo: "", //手术间
-      changePassWord: false, //修改密码界面
-      changeRoomView: false, //更换手术间
+      printPageNameArr: [], // 打印图片名称数组
+      printLoading: false, // 打印加载
+      roomList: [], // 手术间数据
+      operatingRoomNo: '', // 手术间
+      changePassWord: false, // 修改密码界面
+      changeRoomView: false, // 更换手术间
       personView: false,
-      tempView: false, //模板管理
-      inleft: "",
-      regButtonView: false, //控制术中登记按钮
-      recoverButtonView: false, //控制复苏登记按钮
-      burnDate: "",
-      nowDate: ""
-    };
+      tempView: false, // 模板管理
+      inleft: '',
+      regButtonView: false, // 控制术中登记按钮
+      recoverButtonView: false, // 控制复苏登记按钮
+      burnDate: '',
+      nowDate: ''
+    }
   },
   methods: {
-    electronListener() {
-      //监听mian process里发出的message
-      window.ipc.on("savesuccess", (event, arg) => {
+    electronListener () {
+      // 监听mian process里发出的message
+      window.ipc.on('savesuccess', (event, arg) => {
         // console.log(new Date(), "electron返回监听")
         // alert("web2" + arg); // prints "pong"  在electron中web page里的console方法不起作用，因此使用alert作为测试方法
-        var imagesArr = JSON.parse(arg);
+        var imagesArr = JSON.parse(arg)
         imagesArr.forEach(item => {
-          LODOP.ADD_PRINT_IMAGE(1, 0, "100%", "BottomMargin:0.5mm", item);
-          LODOP.SET_PRINT_STYLEA(0, "Stretch", 2);
-          LODOP.NEWPAGE();
-        });
+          LODOP.ADD_PRINT_IMAGE(1, 0, '100%', 'BottomMargin:0.5mm', item)
+          LODOP.SET_PRINT_STYLEA(0, 'Stretch', 2)
+          LODOP.NEWPAGE()
+        })
 
-        LODOP.PREVIEW();
+        LODOP.PREVIEW()
         // console.log(new Date(), "打印预览执行")
         // this.printLoading = false;
-      });
+      })
     },
-    //打印插件初始化
-    lodopInit() {
-      LODOP = getLodop();
+    // 打印插件初始化
+    lodopInit () {
+      LODOP = getLodop()
       if (LODOP) {
-        LODOP.SET_PRINT_PAGESIZE(0, "210mm", "297mm", "");
-        var _this = this;
-        if (LODOP.CVERSION)
-          CLODOP.On_Return = function(TaskID, Value) {
-            //不在打印预览界面
-            if (Value) {
-              _this.printLoading = false;
-              _this.toChangePage(0);
-              if (window.ipc) {
-                window.ipc.send("deleteImages", "delete");
-              }
+        LODOP.SET_PRINT_PAGESIZE(0, '210mm', '297mm', '')
+        var _this = this
+        if (LODOP.CVERSION) {
+ CLODOP.On_Return = function (TaskID, Value) {
+          // 不在打印预览界面
+          if (Value) {
+            _this.printLoading = false
+            _this.toChangePage(0)
+            if (window.ipc) {
+              window.ipc.send('deleteImages', 'delete')
             }
-          };
+          }
+        }        }
       }
     },
-    removeTempDom() {
-      this.contentImageBox.removeChild(this.imageBox);
-      this.imageBox = "";
-      document.body.removeChild(this.contentImageBox);
-      this.contentImageBox = "";
-      document.body.removeChild(this.canvasBox);
-      this.canvasBox = "";
+    removeTempDom () {
+      this.contentImageBox.removeChild(this.imageBox)
+      this.imageBox = ''
+      document.body.removeChild(this.contentImageBox)
+      this.contentImageBox = ''
+      document.body.removeChild(this.canvasBox)
+      this.canvasBox = ''
       // this.showPrint = false
-      this.$refs.mybox.style.display = "none";
+      this.$refs.mybox.style.display = 'none'
     },
-    createTempDom(width, height, imageWidth, scale) {
-      let canvasBox;
-      let contentImageBox;
-      let imageBox;
-      canvasBox = document.createElement("div");
-      canvasBox.style.width = imageWidth * scale + "px";
-      canvasBox.style.height = height * scale + "px";
-      document.body.appendChild(canvasBox);
-      contentImageBox = document.createElement("div");
-      contentImageBox.style.width = width * scale + "px";
-      contentImageBox.style.height = height * scale + "px";
+    createTempDom (width, height, imageWidth, scale) {
+      let canvasBox
+      let contentImageBox
+      let imageBox
+      canvasBox = document.createElement('div')
+      canvasBox.style.width = imageWidth * scale + 'px'
+      canvasBox.style.height = height * scale + 'px'
+      document.body.appendChild(canvasBox)
+      contentImageBox = document.createElement('div')
+      contentImageBox.style.width = width * scale + 'px'
+      contentImageBox.style.height = height * scale + 'px'
 
-      document.body.appendChild(contentImageBox);
-      imageBox = document.createElement("div");
-      imageBox.style.width = width + "px";
-      imageBox.style.height = height + "px";
-      imageBox.style.textAlign = "center";
-      contentImageBox.appendChild(imageBox);
+      document.body.appendChild(contentImageBox)
+      imageBox = document.createElement('div')
+      imageBox.style.width = width + 'px'
+      imageBox.style.height = height + 'px'
+      imageBox.style.textAlign = 'center'
+      contentImageBox.appendChild(imageBox)
 
-      this.canvasBox = canvasBox;
-      this.contentImageBox = contentImageBox;
-      this.imageBox = imageBox;
+      this.canvasBox = canvasBox
+      this.contentImageBox = contentImageBox
+      this.imageBox = imageBox
     },
-    printPdf(index) {
+    printPdf (index) {
       // console.log(new Date(), "生成图片开始时间")
-      this.$refs.mybox.style.display = "inline";
+      this.$refs.mybox.style.display = 'inline'
       // this.$set(this.$data, 'showPrint', true)
       // this.showPrint = true
-      let width = 1118;
-      let height = 1580;
-      width = 1221;
-      height = 1710;
-      let imageWidth = 900;
-      let scale1 = 1;
-      let scale2 = 2;
+      let width = 1118
+      let height = 1580
+      width = 1221
+      height = 1710
+      let imageWidth = 900
+      let scale1 = 1
+      let scale2 = 2
       if (
-        this.selectFormItemTemp.formName != "麻醉记录单" &&
-        this.selectFormItemTemp.formName != "复苏记录单"
+        this.selectFormItemTemp.formName != '麻醉记录单' &&
+        this.selectFormItemTemp.formName != '复苏记录单'
       ) {
-        height = 1100;
+        height = 1100
       }
       if (window.scale1) {
-        scale1 = window.scale1;
+        scale1 = window.scale1
       }
       if (window.scale2) {
-        scale2 = window.scale1;
+        scale2 = window.scale1
       }
-      this.createTempDom(width, height, imageWidth, scale1);
+      this.createTempDom(width, height, imageWidth, scale1)
 
-      let boxHtml = "";
-      boxHtml = this.$refs.mybox;
+      let boxHtml = ''
+      boxHtml = this.$refs.mybox
       html2canvas(boxHtml, {
         width: imageWidth,
         height: height,
         scale: scale2
       }).then(canvas => {
-        this.canvasBox.appendChild(canvas);
+        this.canvasBox.appendChild(canvas)
         // canvas.style.zoom = 1;
-        canvas.style.transform = "scale(" + scale1 + "," + scale1 + ")";
-        canvas.style.transformOrigin = "0 0";
-        canvas.style.paddingLeft = 5 + "px";
-        var dataURL = canvas.toDataURL("image/png", 1.0);
+        canvas.style.transform = 'scale(' + scale1 + ',' + scale1 + ')'
+        canvas.style.transformOrigin = '0 0'
+        canvas.style.paddingLeft = 5 + 'px'
+        var dataURL = canvas.toDataURL('image/png', 1.0)
         var objString = JSON.stringify({
           data: dataURL,
           imageName: this.printPageNameArr[index],
           imgArr: this.printPageNameArr,
           index: index
-        });
+        })
         if (window.ipc) {
-          window.ipc.send("getImageData", objString);
+          window.ipc.send('getImageData', objString)
         }
-        this.removeTempDom();
+        // this.removeTempDom()
         this.toChangePage(1).then(() => {
           if (index < this.config.pageTotal - 1) {
-            index++;
-            this.printPage(index);
+            index++
+            this.printPage(index)
           }
-        });
-      });
-      return;
+        })
+      })
+      return
     },
     sendSaveImageMsg() { },
     CreateOneFormPage() {
       if (!LODOP) {
-        alert("请启动桌面上打印程序后重新打开麻醉程序");
-        return;
+        alert('请启动桌面上打印程序后重新打开麻醉程序')
+        return
       }
-      this.lodopInit();
-      this.printLoading = true;
-      if (this.selectFormItemTemp.formName != "麻醉记录单") {
-        this.config.pageTotal = 1;
+      this.lodopInit()
+      this.printLoading = true
+      if (this.selectFormItemTemp.formName != '麻醉记录单') {
+        this.config.pageTotal = 1
       }
-      var pageTotal = this.config.pageTotal;
-      this.printPageNameArr = [];
+      var pageTotal = this.config.pageTotal
+      this.printPageNameArr = []
 
       for (var i = 0; i < pageTotal; i++) {
-        this.printPageNameArr.push(getGuid());
+        this.printPageNameArr.push(getGuid())
       }
-      //生成带时间的guid作为图片名称
-      function getGuid() {
-        var d = new Date().getTime();
-        var guid = "xxxx-xxxx-xxxx-xxxx".replace(/[xy]/g, function(c) {
-          var r = (d + Math.random() * 16) % 16 | 0;
-          d = Math.floor(d / 16);
-          return (c == "x" ? r : (r & 0x7) | 0x8).toString(16);
-        });
-        return guid;
+      // 生成带时间的guid作为图片名称
+      function getGuid () {
+        var d = new Date().getTime()
+        var guid = 'xxxx-xxxx-xxxx-xxxx'.replace(/[xy]/g, function (c) {
+          var r = (d + Math.random() * 16) % 16 | 0
+          d = Math.floor(d / 16)
+          return (c == 'x' ? r : (r & 0x7) | 0x8).toString(16)
+        })
+        return guid
       }
-      this.currentPageNum = 1;
-      this.printPage(this.currentPageNum - 1);
+      this.currentPageNum = 1
+      this.printPage(this.currentPageNum - 1)
     },
-    printPage(index) {
-      this.printPdf(index);
-      // console.log(new Date(), "printPage打印页", index)
-      // if (this.selectFormItemTemp.formName != '麻醉记录单') {
-
-      //   setTimeout(() => {
-      //     LODOP.ADD_PRINT_IMAGE(1, 1, "100%", "BottomMargin:1mm", this.$refs.normal.innerHTML);
-      //     LODOP.SET_PRINT_STYLEA(0, "Stretch", 1);
-      //     LODOP.PREVIEW();
-      //   }, 500)
-      // } else {
-      //   // setTimeout(() => {
-      //   this.printPdf(index);
-
-      //   // }, 500)
-      // }
+    printPage (index) {
+      this.printPdf(index)
     },
-    inputBlur(list) {
-      list.writeAble = false;
+    inputBlur (list) {
+      list.writeAble = false
     },
-    valueWriteAble(list) {
-      list.writeAble = true;
+    valueWriteAble (list) {
+      list.writeAble = true
     },
-    searchPatientList() {
+    searchPatientList () {
       if (
-        this.getTime == "" &&
-        this.operStatus == "" &&
-        this.patientName == "" &&
-        this.patientId == "" &&
-        this.operatingRoomNo == ""
+        this.getTime == '' &&
+        this.operStatus == '' &&
+        this.patientName == '' &&
+        this.patientId == '' &&
+        this.operatingRoomNo == ''
       ) {
         // var now = new Date();
         // var year = now.getFullYear();
@@ -1113,22 +1099,22 @@ export default {
         patientName: this.patientName,
         patientId: this.patientId,
         operatingRoom: this.operatingRoomNo
-      };
+      }
       this.api.getMedOperationMasterList(params).then(res => {
         for (var p = 0; p < res.list.length; p++) {
-          this.$set(res.list[p], "thisClickBack", false);
+          this.$set(res.list[p], 'thisClickBack', false)
         }
         if (res.total > 5) {
-          this.pageShowData = true;
-          this.pages = res.pages;
-          this.patientList = res.list;
-          this.pageLength = res.total;
-          this.sortData = "";
-          this.dataTypeInAllSelect = [];
+          this.pageShowData = true
+          this.pages = res.pages
+          this.patientList = res.list
+          this.pageLength = res.total
+          this.sortData = ''
+          this.dataTypeInAllSelect = []
           for (var i = 1; i <= this.pages; i++) {
             this.dataTypeInAllSelect.push({
               number: i
-            });
+            })
           }
           let paramsTwo = {
             count: this.size,
@@ -1138,34 +1124,34 @@ export default {
             patientName: this.patientName,
             patientId: this.patientId,
             operatingRoom: this.operatingRoomNo
-          };
+          }
           this.api.getMedOperationMasterList(paramsTwo).then(res => {
             for (var p = 0; p < res.list.length; p++) {
-              this.$set(res.list[p], "thisClickBack", false);
+              this.$set(res.list[p], 'thisClickBack', false)
             }
-            this.pageShowData = true;
-            this.pages = res.pages;
-            this.patientList = res.list;
-            this.pageLength = res.total;
-            this.sortData = "";
-            this.dataTypeInAllSelect = [];
+            this.pageShowData = true
+            this.pages = res.pages
+            this.patientList = res.list
+            this.pageLength = res.total
+            this.sortData = ''
+            this.dataTypeInAllSelect = []
             for (var i = 1; i <= this.pages; i++) {
               this.dataTypeInAllSelect.push({
                 number: i
-              });
+              })
             }
-          });
+          })
         } else {
-          this.patientList = res.list;
-          this.pageShowData = false;
-          this.size = 6;
-          this.pageNum = 1;
-          this.sortData = "";
+          this.patientList = res.list
+          this.pageShowData = false
+          this.size = 6
+          this.pageNum = 1
+          this.sortData = ''
         }
-      });
+      })
     },
-    sort0() {
-      this.sortData = 0;
+    sort0 () {
+      this.sortData = 0
       let params = {
         count: this.size,
         page: this.pageNum,
@@ -1175,16 +1161,16 @@ export default {
         patientName: this.patientName,
         patientId: this.patientId,
         operatingRoom: this.operatingRoomNo
-      };
+      }
       this.api.getMedOperationMasterList(params).then(res => {
         for (var p = 0; p < res.list.length; p++) {
-          this.$set(res.list[p], "thisClickBack", false);
+          this.$set(res.list[p], 'thisClickBack', false)
         }
-        this.patientList = res.list;
-      });
+        this.patientList = res.list
+      })
     },
-    sort1() {
-      this.sortData = 1;
+    sort1 () {
+      this.sortData = 1
       let params = {
         count: this.size,
         page: this.pageNum,
@@ -1194,21 +1180,21 @@ export default {
         patientName: this.patientName,
         patientId: this.patientId,
         operatingRoom: this.operatingRoomNo
-      };
+      }
       this.api.getMedOperationMasterList(params).then(res => {
         for (var p = 0; p < res.list.length; p++) {
-          this.$set(res.list[p], "thisClickBack", false);
+          this.$set(res.list[p], 'thisClickBack', false)
         }
-        this.patientList = res.list;
-      });
+        this.patientList = res.list
+      })
     },
-    searchPatientListScreen() {
+    searchPatientListScreen () {
       if (
-        this.getTime == "" &&
-        this.operStatus == "" &&
-        this.patientName == "" &&
-        this.patientId == "" &&
-        this.operatingRoomNo == ""
+        this.getTime == '' &&
+        this.operStatus == '' &&
+        this.patientName == '' &&
+        this.patientId == '' &&
+        this.operatingRoomNo == ''
       ) {
         // var now = new Date();
         // var year = now.getFullYear();
@@ -1231,271 +1217,271 @@ export default {
         patientName: this.patientName,
         patientId: this.patientId,
         operatingRoom: this.operatingRoomNo
-      };
+      }
       this.api.getMedOperationMasterList(params).then(res => {
         for (var p = 0; p < res.list.length; p++) {
-          this.$set(res.list[p], "thisClickBack", false);
+          this.$set(res.list[p], 'thisClickBack', false)
         }
-        this.patientList = res.list;
-      });
+        this.patientList = res.list
+      })
     },
-    showSelect() {
-      this.dataInSelect = !this.dataInSelect;
+    showSelect () {
+      this.dataInSelect = !this.dataInSelect
     },
     noClick() { },
     // 选择麻醉列表显示数量
-    dataInSize(value) {
-      this.pageNum = 1;
-      this.size = value.srcElement._value;
-      this.pages = Math.ceil(this.pageLength / this.size);
-      this.dataTypeInAllSelect = [];
+    dataInSize (value) {
+      this.pageNum = 1
+      this.size = value.srcElement._value
+      this.pages = Math.ceil(this.pageLength / this.size)
+      this.dataTypeInAllSelect = []
       for (var i = 1; i <= this.pages; i++) {
         this.dataTypeInAllSelect.push({
           number: i
-        });
+        })
       }
-      this.searchPatientListScreen();
+      this.searchPatientListScreen()
     },
     // 第一页
-    firstPage() {
-      this.pageNum = 1;
-      this.searchPatientListScreen();
+    firstPage () {
+      this.pageNum = 1
+      this.searchPatientListScreen()
     },
     // 当前页减一
-    pageRe() {
+    pageRe () {
       if (this.pageNum == 1) {
       } else {
-        this.pageNum = this.pageNum - 1;
-        this.searchPatientListScreen();
+        this.pageNum = this.pageNum - 1
+        this.searchPatientListScreen()
       }
     },
     // 当前页加一
-    pageAd() {
+    pageAd () {
       if (this.pages == this.pageNum) {
       } else {
-        this.pageNum = this.pageNum + 1;
-        this.searchPatientListScreen();
+        this.pageNum = this.pageNum + 1
+        this.searchPatientListScreen()
       }
     },
     // 最后一页
-    lastPage() {
-      this.pageNum = this.pages;
-      this.searchPatientListScreen();
+    lastPage () {
+      this.pageNum = this.pages
+      this.searchPatientListScreen()
     },
     // 选择下拉框其中一页
-    pageChoose(pageC) {
-      this.pageNum = pageC;
-      this.searchPatientListScreen();
-      this.dataInSelect = false;
+    pageChoose (pageC) {
+      this.pageNum = pageC
+      this.searchPatientListScreen()
+      this.dataInSelect = false
     },
-    getDateIn(burnDate, event) {
+    getDateIn (burnDate, event) {
       // var date = new Date(burnDate);
       // console.log(date);
-      this.nowDate = burnDate;
+      this.nowDate = burnDate
     },
-    saveBirth() {
+    saveBirth () {
       if (!this.getpermission()) {
-        return;
+        return
       }
       let params = {
         patientId: this.lockedPatientInfo.patientId,
         dateOfBirth: this.nowDate
-      };
+      }
       this.api.updatePatientBirth(params).then(res => {
-        alert("保存成功！");
+        alert('保存成功！')
         // console.log(res)
-      });
+      })
     },
-    escBirth() {
-      this.burnDate = this.patientInfo.BIRTH_DATE;
+    escBirth () {
+      this.burnDate = this.patientInfo.BIRTH_DATE
     },
-    patientDeatilInfo(item) {
+    patientDeatilInfo (item) {
       for (var p = 0; p < this.patientList.length; p++) {
-        this.patientList[p].thisClickBack = false;
+        this.patientList[p].thisClickBack = false
       }
-      item.thisClickBack = true;
+      item.thisClickBack = true
       for (var i = 0; i <= this.medBillList.length - 1; i++) {
-        this.$set(this.medBillList[i], "bindClassData", this.bindClassData);
+        this.$set(this.medBillList[i], 'bindClassData', this.bindClassData)
       }
-      this.formDetail = false;
+      this.formDetail = false
       let params = {
         patientId: item.patientId,
         operId: item.operId,
         visitId: item.visitId
-      };
+      }
       this.api.getPatienDetailInfo(params).then(res => {
-        this.patientInfo = res;
-      });
-      this.viewInfo = true;
+        this.patientInfo = res
+      })
+      this.viewInfo = true
     },
-    setIntervaled() {
-      var _this = this;
-      var t = "";
-      setInterval(function() {
-        var dateObj = new Date(); //表示当前系统时间的Date对象
-        var year = dateObj.getFullYear(); //当前系统时间的完整年份值
-        var month = dateObj.getMonth() + 1; //当前系统时间的月份值
-        var date = dateObj.getDate(); //当前系统时间的月份中的日
-        var day = dateObj.getDay(); //当前系统时间中的星期值
-        var hour = dateObj.getHours(); //当前系统时间的小时值
-        var minute = dateObj.getMinutes(); //当前系统时间的分钟值
-        var second = dateObj.getSeconds(); //当前系统时间的秒钟值
-        //如果月、日、小时、分、秒的值小于10，在前面补0
+    setIntervaled () {
+      var _this = this
+      var t = ''
+      setInterval(function () {
+        var dateObj = new Date() // 表示当前系统时间的Date对象
+        var year = dateObj.getFullYear() // 当前系统时间的完整年份值
+        var month = dateObj.getMonth() + 1 // 当前系统时间的月份值
+        var date = dateObj.getDate() // 当前系统时间的月份中的日
+        var day = dateObj.getDay() // 当前系统时间中的星期值
+        var hour = dateObj.getHours() // 当前系统时间的小时值
+        var minute = dateObj.getMinutes() // 当前系统时间的分钟值
+        var second = dateObj.getSeconds() // 当前系统时间的秒钟值
+        // 如果月、日、小时、分、秒的值小于10，在前面补0
         if (month < 10) {
-          month = "0" + month;
+          month = '0' + month
         }
         if (date < 10) {
-          date = "0" + date;
+          date = '0' + date
         }
         if (hour < 10) {
-          hour = "0" + hour;
+          hour = '0' + hour
         }
         if (minute < 10) {
-          minute = "0" + minute;
+          minute = '0' + minute
         }
         if (second < 10) {
-          second = "0" + second;
+          second = '0' + second
         }
-        var time = new Date();
+        var time = new Date()
         // 程序计时的月从0开始取值后+1
-        var m = time.getMonth() + 1;
+        var m = time.getMonth() + 1
         t =
           year +
-          "-" +
+          '-' +
           month +
-          "-" +
+          '-' +
           date +
-          " " +
+          ' ' +
           time.getHours() +
-          ":" +
+          ':' +
           minute +
-          ":" +
-          second;
-        _this.nowTime = t;
-      }, 1000);
+          ':' +
+          second
+        _this.nowTime = t
+      }, 1000)
     },
-    lockedPatient(item) {
-      this.showFormView = true;
-      this.burnDate = this.patientInfo.BIRTH_DATE;
-      this.lockedPatientInfo = item;
-      //当前病人信息存储起来
-      this.config.userInfo = item;
+    lockedPatient (item) {
+      this.showFormView = true
+      this.burnDate = this.patientInfo.BIRTH_DATE
+      this.lockedPatientInfo = item
+      // 当前病人信息存储起来
+      this.config.userInfo = item
       // this.$set(this.$data, 'inDateTime', this.changeDateFormat(item.inDateTime))
       if (!item.inDateTime) {
-        this.$set(item, "inDateTime", "");
+        this.$set(item, 'inDateTime', '')
       }
       if (!item.anesStartTime) {
-        this.$set(item, "anesStartTime", "");
+        this.$set(item, 'anesStartTime', '')
       }
       if (!item.startDateTime) {
-        this.$set(item, "startDateTime", "");
+        this.$set(item, 'startDateTime', '')
       }
       if (!item.endDateTime) {
-        this.$set(item, "endDateTime", "");
+        this.$set(item, 'endDateTime', '')
       }
       if (!item.anesEndTime) {
-        this.$set(item, "anesEndTime", "");
+        this.$set(item, 'anesEndTime', '')
       }
       if (!item.outDateTime) {
-        this.$set(item, "outDateTime", "");
+        this.$set(item, 'outDateTime', '')
       }
-      this.inDateTime = item.inDateTime;
-      this.anesStartTime = item.anesStartTime;
-      this.startDateTime = item.startDateTime;
-      this.endDateTime = item.endDateTime;
-      this.anesEndTime = item.anesEndTime;
-      this.outDateTime = item.outDateTime;
+      this.inDateTime = item.inDateTime
+      this.anesStartTime = item.anesStartTime
+      this.startDateTime = item.startDateTime
+      this.endDateTime = item.endDateTime
+      this.anesEndTime = item.anesEndTime
+      this.outDateTime = item.outDateTime
       // this.inDateTime = this.changeDateFormat(item.inDateTime);
       // this.anesStartTime = this.changeDateFormat(item.anesStartTime);
       // this.startDateTime = this.changeDateFormat(item.startDateTime);
       // this.endDateTime = this.changeDateFormat(item.endDateTime);
       // this.anesEndTime = this.changeDateFormat(item.anesEndTime);
       // this.outDateTime = this.changeDateFormat(item.outDateTime);
-      this.initComponementConfig();
+      this.initComponementConfig()
     },
     // 撤销手术室操作并修改病人状态
-    finalStatus(sta) {
-      let params;
+    finalStatus (sta) {
+      let params
       if (sta == 0) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          inDateTime: "",
+          inDateTime: '',
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        };
+        }
       } else if (sta == 5) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          anesStartTime: "",
+          anesStartTime: '',
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        };
+        }
       } else if (sta == 10) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          startDateTime: "",
+          startDateTime: '',
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        };
+        }
       } else if (sta == 15) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          endDateTime: "",
+          endDateTime: '',
           operatingRoom: this.lockedPatientInfo.operatingRoom,
           operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-        };
+        }
       } else if (sta == 25) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          anesEndTime: ""
-        };
+          anesEndTime: ''
+        }
       } else if (sta == 30) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta,
-          outDateTime: ""
-        };
+          outDateTime: ''
+        }
       } else if (sta == 45) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta
-        };
+        }
       } else if (sta == 60) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta
-        };
+        }
       } else if (sta == 65) {
         params = {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           operStatus: sta
-        };
+        }
       }
 
-      this.nextDATA = params;
+      this.nextDATA = params
       // console.log(params)
       this.api.changeBeforeStatus(params).then(res => {
         if (res.success == true) {
@@ -1507,112 +1493,112 @@ export default {
             })
             .then(afs => {
               // console.log(afs)
-              this.lockedPatientInfo = afs;
-              //当前病人信息存储起来
-              this.config.userInfo = afs;
-              this.inDateTime = this.changeDateFormat(afs.inDateTime);
-              this.anesStartTime = this.changeDateFormat(afs.anesStartTime);
-              this.startDateTime = this.changeDateFormat(afs.startDateTime);
-              this.endDateTime = this.changeDateFormat(afs.endDateTime);
-              this.anesEndTime = this.changeDateFormat(afs.anesEndTime);
-              this.outDateTime = this.changeDateFormat(afs.outDateTime);
-              this.searchPatientListScreen();
-            });
-          this.doShowData = false;
+              this.lockedPatientInfo = afs
+              // 当前病人信息存储起来
+              this.config.userInfo = afs
+              this.inDateTime = this.changeDateFormat(afs.inDateTime)
+              this.anesStartTime = this.changeDateFormat(afs.anesStartTime)
+              this.startDateTime = this.changeDateFormat(afs.startDateTime)
+              this.endDateTime = this.changeDateFormat(afs.endDateTime)
+              this.anesEndTime = this.changeDateFormat(afs.anesEndTime)
+              this.outDateTime = this.changeDateFormat(afs.outDateTime)
+              this.searchPatientListScreen()
+            })
+          this.doShowData = false
           if (this.setTimeId) {
-            this.refreshForm();
+            this.refreshForm()
           }
         } else {
-          alert(res.msg);
+          alert(res.msg)
         }
-      });
+      })
     },
-    allNone() {
-      this.doShowDataOne = false;
-      this.doShowDataTwo = false;
-      this.doShowDataThree = false;
-      this.doShowDataFour = false;
-      this.doShowDataFive = false;
-      this.doShowDataSix = false;
+    allNone () {
+      this.doShowDataOne = false
+      this.doShowDataTwo = false
+      this.doShowDataThree = false
+      this.doShowDataFour = false
+      this.doShowDataFive = false
+      this.doShowDataSix = false
     },
-    showDoubleListOne(status) {
+    showDoubleListOne (status) {
       if (status == 5) {
-        this.doShowDataOne = true;
+        this.doShowDataOne = true
       }
     },
-    showDoubleListTwo(status) {
+    showDoubleListTwo (status) {
       if (status == 10) {
-        this.doShowDataTwo = true;
+        this.doShowDataTwo = true
       }
     },
-    showDoubleListThree(status) {
+    showDoubleListThree (status) {
       if (status == 15) {
-        this.doShowDataThree = true;
+        this.doShowDataThree = true
       }
     },
-    showDoubleListFour(status) {
+    showDoubleListFour (status) {
       if (status == 25) {
-        this.doShowDataFour = true;
+        this.doShowDataFour = true
       }
     },
-    showDoubleListFive(status) {
+    showDoubleListFive (status) {
       if (status == 30) {
-        this.doShowDataFive = true;
+        this.doShowDataFive = true
       }
     },
-    showDoubleListSix(status) {
+    showDoubleListSix (status) {
       if (status == 35) {
-        this.doShowDataSix = true;
+        this.doShowDataSix = true
       }
     },
-    getComType() {
-      this.isBackOne = true;
-      this.isBackTwo = false;
-      this.isBackThree = false;
+    getComType () {
+      this.isBackOne = true
+      this.isBackTwo = false
+      this.isBackThree = false
 
-      this.isBackFour = false;
-      this.commoTerms = true;
-      this.anaesthesiaEvent = false;
-      this.anestheticMethod = false;
-      this.anestheticConstant = false;
-      let params = {};
+      this.isBackFour = false
+      this.commoTerms = true
+      this.anaesthesiaEvent = false
+      this.anestheticMethod = false
+      this.anestheticConstant = false
+      let params = {}
       this.api.getMedAnesthesiaCommType(params).then(res => {
-        this.comTypeList = res.list;
-      });
+        this.comTypeList = res.list
+      })
     },
-    getEvent() {
-      this.isBackOne = false;
-      this.isBackTwo = true;
-      this.isBackThree = false;
-      this.isBackFour = false;
-      this.commoTerms = false;
-      this.anaesthesiaEvent = true;
-      this.anestheticMethod = false;
-      this.anestheticConstant = false;
-      let params = {};
+    getEvent () {
+      this.isBackOne = false
+      this.isBackTwo = true
+      this.isBackThree = false
+      this.isBackFour = false
+      this.commoTerms = false
+      this.anaesthesiaEvent = true
+      this.anestheticMethod = false
+      this.anestheticConstant = false
+      let params = {}
       this.api.allMedAnesthesiaEventType(params).then(res => {
-        this.eventDataType = res.list;
-      });
+        this.eventDataType = res.list
+      })
     },
-    getMethods() {
-      this.isBackOne = false;
-      this.isBackTwo = false;
-      this.isBackThree = true;
-      this.isBackFour = false;
-      this.commoTerms = false;
-      this.anaesthesiaEvent = false;
-      this.anestheticMethod = true;
-      this.anestheticConstant = false;
+    getMethods () {
+      this.isBackOne = false
+      this.isBackTwo = false
+      this.isBackThree = true
+      this.isBackFour = false
+      this.commoTerms = false
+      this.anaesthesiaEvent = false
+      this.anestheticMethod = true
+      this.anestheticConstant = false
     },
-    getConstant() {
-      this.isBackOne = false;
-      this.isBackTwo = false;
-      this.isBackThree = false;
-      this.isBackFour = true;
-      this.commoTerms = false;
-      this.anaesthesiaEvent = false;
-      this.anestheticMethod = false;
-      this.anestheticConstant = true;
+    getConstant () {
+      this.isBackOne = false
+      this.isBackTwo = false
+      this.isBackThree = false
+      this.isBackFour = true
+      this.commoTerms = false
+      this.anaesthesiaEvent = false
+      this.anestheticMethod = false
+      this.anestheticConstant = true
       // let params = {
       // }
       // this.api.allMedAnesthesiaEventType(params)
@@ -1622,138 +1608,138 @@ export default {
       //         this.eventDataType = res.list;
       //     });
     },
-    getTypeDetail(item) {
-      this.tempTypeItem = item;
-      this.isAdd = false;
+    getTypeDetail (item) {
+      this.tempTypeItem = item
+      this.isAdd = false
       let params = {
         itemClass: item.typeName
-      };
+      }
       this.api.getMedAnesthesiaCommDictByItemClass(params).then(res => {
-        var m = res.list.length;
+        var m = res.list.length
         if (m > 12) {
-          this.paddingRight18 = false;
+          this.paddingRight18 = false
         } else {
-          this.paddingRight18 = true;
+          this.paddingRight18 = true
         }
         for (var i = 0; i < m; i++) {
-          res.list[i].newItemName = res.list[i].itemName;
-          res.list[i].newItemCode = res.list[i].itemCode;
+          res.list[i].newItemName = res.list[i].itemName
+          res.list[i].newItemCode = res.list[i].itemCode
         }
-        this.commonTypeList = res.list;
-      });
+        this.commonTypeList = res.list
+      })
     },
-    dictShow() {
-      this.dictView = true;
+    dictShow () {
+      this.dictView = true
     },
-    dictNone() {
-      this.dictView = false;
+    dictNone () {
+      this.dictView = false
     },
-    getItem(item) {
-      this.obj = item;
-      this.isDelete = false;
+    getItem (item) {
+      this.obj = item
+      this.isDelete = false
     },
-    deleteByMedAnesthesiaInputDict() {
+    deleteByMedAnesthesiaInputDict () {
       let params = {
         itemClass: this.obj.itemClass,
         itemName: this.obj.itemName
-      };
+      }
       this.api.deleteByMedAnesthesiaInputDict(params).then(res => {
-        this.getTypeDetail(this.tempTypeItem);
-      });
+        this.getTypeDetail(this.tempTypeItem)
+      })
     },
-    addMedAnesthesiaInputDict() {
+    addMedAnesthesiaInputDict () {
       this.commonTypeList.push({
         serialNo: this.commonTypeList.length,
         itemClass: this.tempTypeItem.typeName,
-        newItemName: "",
-        newItemCode: "",
-        itemName: "",
-        itemCode: ""
-      });
-      this.isAdd = this.isCancle;
-      this.isCancle = !this.isAdd;
+        newItemName: '',
+        newItemCode: '',
+        itemName: '',
+        itemCode: ''
+      })
+      this.isAdd = this.isCancle
+      this.isCancle = !this.isAdd
     },
-    cancleEdit() {
-      this.getTypeDetail(this.tempTypeItem);
-      this.isCancle = this.isAdd;
-      this.isAdd = !this.isCancle;
-      this.isSave = true;
+    cancleEdit () {
+      this.getTypeDetail(this.tempTypeItem)
+      this.isCancle = this.isAdd
+      this.isAdd = !this.isCancle
+      this.isSave = true
     },
-    change() {
-      this.isSave = false;
+    change () {
+      this.isSave = false
     },
-    saveValue() {
-      var li = this.commonTypeList;
-      var k = li.length;
-      let params = [];
+    saveValue () {
+      var li = this.commonTypeList
+      var k = li.length
+      let params = []
       for (var i = 0; i < k; i++) {
         if (
           (li[i].newItemName != li[i].itemName ||
             li[i].newItemCode != li[i].itemCode) &&
-          li[i].itemName != ""
+          li[i].itemName != ''
         ) {
           params.push({
             itemClass: li[i].itemClass,
             oldItemName: li[i].itemName,
             itemName: li[i].newItemName,
             itemCode: li[i].newItemCode
-          });
+          })
         }
-        if (li[i].itemName == "" && li[i].itemCode == "") {
+        if (li[i].itemName == '' && li[i].itemCode == '') {
           let params1 = {
             itemClass: li[i].itemClass,
             oldItemName: li[i].itemName,
             itemName: li[i].newItemName,
             itemCode: li[i].newItemCode,
             serialNo: this.commonTypeList.length - 1
-          };
+          }
           this.api.insertMedAnesthesiaInputDict(params1).then(res => {
-            this.getTypeDetail(this.tempTypeItem);
-          });
+            this.getTypeDetail(this.tempTypeItem)
+          })
         }
       }
       if (params.length > 0) {
         this.api.updateMedAnesthesiaInputDict(params).then(res => {
-          this.getTypeDetail(this.tempTypeItem);
-        });
+          this.getTypeDetail(this.tempTypeItem)
+        })
       }
-      this.isCancle = true;
-      this.isAdd = false;
-      this.isSave = true;
+      this.isCancle = true
+      this.isAdd = false
+      this.isSave = true
     },
-    selectMedFormList() {
-      let params = {};
+    selectMedFormList () {
+      let params = {}
       this.api.selectMedFormList(params).then(res => {
-        this.medBillList = res.list;
-        this.bindClassData = false;
+        this.medBillList = res.list
+        this.bindClassData = false
         for (var i = 0; i <= res.list.length - 1; i++) {
-          this.$set(this.medBillList[i], "bindClassData", this.bindClassData);
+          this.$set(this.medBillList[i], 'bindClassData', this.bindClassData)
         }
-      });
+      })
     },
-    scollFun(event) {
+    scollFun (event) {
       if (event.deltaY > 0) {
         // 滚轮向下
-        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft + 100;
+        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft + 100
       } else {
         // 滚轮向上
-        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft - 100;
+        this.$refs.scollDiv.scrollLeft = this.$refs.scollDiv.scrollLeft - 100
       }
     },
-    selectMedFormTemp(item) {
-      this.lodopInit();
-      this.formItems = [];
-      if (item.formName == "麻醉记录单") {
-        this.config.eventNo = 0;
-        this.regButtonView = true;
-        this.recoverButtonView = false;
-      } else if (item.formName == "复苏记录单") {
-        this.config.eventNo = 1;
-        this.regButtonView = false;
-        this.recoverButtonView = true;
+    selectMedFormTemp (item) {
+      this.lodopInit()
+      this.formItems = []
+      if (item.formName == '麻醉记录单') {
+        this.config.eventNo = 0
+        this.regButtonView = true
+        this.recoverButtonView = false
+      } else if (item.formName == '复苏记录单') {
+        this.config.eventNo = 1
+        this.regButtonView = false
+        this.recoverButtonView = true
       } else {
-        this.regButtonView = false;
-        this.recoverButtonView = false;
+        this.regButtonView = false
+        this.recoverButtonView = false
       }
 
       let timeParam = {
@@ -1761,45 +1747,45 @@ export default {
         visitId: this.lockedPatientInfo.visitId,
         operId: this.lockedPatientInfo.operId,
         eventNo: this.config.eventNo
-      };
-      for (var i = 0; i <= this.medBillList.length - 1; i++) {
-        this.$set(this.medBillList[i], "bindClassData", this.bindClassData);
       }
-      this.newDataIndex = !item.bindClassData;
-      this.$set(item, "bindClassData", this.newDataIndex);
-      this.formDetail = true;
-      this.viewInfo = false;
-      item.isPage = false;
-      this.selectFormItemTemp = item;
+      for (var i = 0; i <= this.medBillList.length - 1; i++) {
+        this.$set(this.medBillList[i], 'bindClassData', this.bindClassData)
+      }
+      this.newDataIndex = !item.bindClassData
+      this.$set(item, 'bindClassData', this.newDataIndex)
+      this.formDetail = true
+      this.viewInfo = false
+      item.isPage = false
+      this.selectFormItemTemp = item
 
-      if (item.formName == "麻醉记录单" || item.formName == "复苏记录单") {
+      if (item.formName == '麻醉记录单' || item.formName == '复苏记录单') {
         // this.getMaxTime();
-        this.personView = true;
-        let inDateTime = this.config.userInfo.inDateTime;
-        this.tempButtonView = false;
-        //查找病人的最晚时间
+        this.personView = true
+        let inDateTime = this.config.userInfo.inDateTime
+        this.tempButtonView = false
+        // 查找病人的最晚时间
         this.api.selectMaxTime(timeParam).then(res => {
-          let t1 = 0;
-          let i = 0;
-          //获取病人在手术室里面最早时间
+          let t1 = 0
+          let i = 0
+          // 获取病人在手术室里面最早时间
           this.api.getBeginTime(timeParam).then(rest => {
             if (rest.TIME) {
-              //如果存在病人的入手术时间
+              // 如果存在病人的入手术时间
               if (inDateTime) {
                 if (new Date(rest.TIME) > new Date(inDateTime)) {
-                  this.config.startMinTime = inDateTime;
+                  this.config.startMinTime = inDateTime
                 } else {
-                  this.config.startMinTime = rest.TIME;
+                  this.config.startMinTime = rest.TIME
                 }
               } else {
-                this.config.startMinTime = rest.TIME;
+                this.config.startMinTime = rest.TIME
               }
             } else {
               if (inDateTime) {
-                this.config.startMinTime = inDateTime;
+                this.config.startMinTime = inDateTime
               } else {
                 this.config.startMinTime =
-                  new Date().Format("yyyy-MM-dd") + " 08:00:00";
+                  new Date().Format('yyyy-MM-dd') + ' 08:00:00'
               }
             }
             if (res.TIME) {
@@ -1808,47 +1794,47 @@ export default {
                   new Date(this.config.userInfo.outDateTime) >
                   new Date(res.TIME)
                 ) {
-                  this.config.patientMaxTime = this.config.userInfo.outDateTime;
+                  this.config.patientMaxTime = this.config.userInfo.outDateTime
                 } else {
-                  this.config.patientMaxTime = res.TIME;
+                  this.config.patientMaxTime = res.TIME
                 }
               } else {
-                this.config.patientMaxTime = res.TIME;
+                this.config.patientMaxTime = res.TIME
               }
               t1 = this.coutTimes(
                 this.config.startMinTime,
                 this.config.patientMaxTime,
-                "minute"
-              );
-              i = Math.ceil(t1 / 250);
-              this.config.pageTotal = i;
+                'minute'
+              )
+              i = Math.ceil(t1 / 250)
+              this.config.pageTotal = i
               if (t1 > 250) {
-                this.pageButtonView = true;
+                this.pageButtonView = true
               } else {
-                this.pageButtonView = false;
+                this.pageButtonView = false
               }
             }
 
-            var timeDate = new Date(this.config.startMinTime);
-            let init_Time = new Date(this.config.startMinTime);
-            this.config.initTime = new Date(this.timeSetOper(init_Time));
+            var timeDate = new Date(this.config.startMinTime)
+            let init_Time = new Date(this.config.startMinTime)
+            this.config.initTime = new Date(this.timeSetOper(init_Time))
             this.config.maxTime = new Date(
               timeDate.getTime() + 1000 * 60 * 5 * 50
-            );
-            this.getMaxTime();
-          });
+            )
+            this.getMaxTime()
+          })
           let params = {
             formName: item.formName,
             id: item.id
-          };
-          let arry = [];
+          }
+          let arry = []
           this.api.selectMedFormTemp(params).then(res => {
-            if (res.formContent == "null" || res.formContent == null) {
-              return;
+            if (res.formContent == 'null' || res.formContent == null) {
+              return
             }
-            let tempItems = JSON.parse(res.formContent);
-            this.formItems = JSON.parse(res.formContent);
-            var list = this.formItems;
+            let tempItems = JSON.parse(res.formContent)
+            this.formItems = JSON.parse(res.formContent)
+            var list = this.formItems
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
                 arry.push({
@@ -1857,115 +1843,57 @@ export default {
                   operId: this.lockedPatientInfo.operId,
                   tableName: list[i].tableName,
                   coluName: list[i].fieldName,
-                  dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
-                  dictTableName: list[i].dictTableName, //字典表名称
-                  dictField: list[i].dictField, //字典字段名称
+                  dictShowFiled: list[i].dictShowFiled, // 字典显示字段名称
+                  dictTableName: list[i].dictTableName, // 字典表名称
+                  dictField: list[i].dictField, // 字典字段名称
                   dictSelect: list[i].dictSelect
-                });
+                })
               }
             }
             this.api.getFormSqlResult(arry).then(result => {
               for (var i = 0; i < list.length; i++) {
                 if (list[i].fieldName) {
-                  if (list[i].fieldName == "page") {
-                    let obj = this.formItems[i];
+                  if (list[i].fieldName == 'page') {
+                    let obj = this.formItems[i]
                     obj.value =
                       this.config.pagePercentNum +
-                      "/" +
+                      '/' +
                       this.config.pageTotal +
-                      "页";
-                    let tempObj = JSON.parse(JSON.stringify(obj));
-                    this.$set(this.formItems, i, tempObj);
+                      '页'
+                    let tempObj = JSON.parse(JSON.stringify(obj))
+                    this.$set(this.formItems, i, tempObj)
                   } else {
-                    let obj = this.formItems[i];
-                    obj.value = result[list[i].tableName + list[i].fieldName];
-                    let tempObj = JSON.parse(JSON.stringify(obj));
-                    this.$set(this.formItems, i, tempObj);
+                    let obj = this.formItems[i]
+                    obj.value = result[list[i].tableName + list[i].fieldName]
+                    let tempObj = JSON.parse(JSON.stringify(obj))
+                    this.$set(this.formItems, i, tempObj)
                   }
                 }
               }
-            });
-          });
+            })
+          })
           if (this.setTimeId) {
-            this.$nextTick(function() {
-              Bus.$emit("timeSetChange");
-            });
+            this.$nextTick(function () {
+              Bus.$emit('timeSetChange')
+            })
           }
-        });
-      } else if (item.formName == "手术清点单") {
-        this.config.eventType = 0;
+        })
+      } else if (item.formName == '手术清点单') {
+        this.config.eventType = 0
         let params = {
           formName: item.formName,
           id: item.id
-        };
-        let arry = [];
-        // this.formItems = [];
-        this.api.selectMedFormTemp(params).then(res => {
-          if (res.formContent == "null" || res.formContent == null) {
-            return;
-          }
-          let tempItems = JSON.parse(res.formContent);
-          this.formItems = JSON.parse(res.formContent);
-
-          var list = this.formItems;
-          for (var i = 0; i < list.length; i++) {
-            if (list[i].fieldName) {
-              arry.push({
-                patientId: this.lockedPatientInfo.patientId,
-                visitId: this.lockedPatientInfo.visitId,
-                operId: this.lockedPatientInfo.operId,
-                tableName: list[i].tableName,
-                coluName: list[i].fieldName,
-                dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
-                dictTableName: list[i].dictTableName, //字典表名称
-                dictField: list[i].dictField, //字典字段名称
-                dictSelect: list[i].dictSelect
-              });
-            }
-          }
-          this.api.getFormSqlResult(arry).then(result => {
-            for (var i = 0; i < list.length; i++) {
-              if (list[i].fieldName) {
-                if (list[i].fieldName == "page") {
-                  let obj = this.formItems[i];
-                  obj.value =
-                    this.config.pagePercentNum +
-                    "/" +
-                    this.config.pageTotal +
-                    "页";
-                  let tempObj = JSON.parse(JSON.stringify(obj));
-                  this.$set(this.formItems, i, tempObj);
-                } else {
-                  let obj = this.formItems[i];
-                  obj.value = result[list[i].tableName + list[i].fieldName];
-                  let tempObj = JSON.parse(JSON.stringify(obj));
-                  this.$set(this.formItems, i, tempObj);
-                }
-              }
-            }
-          });
-        });
-        this.tempButtonView = true;
-        this.initComponementConfig();
-      } else {
-        if (item.formName == "手术护理单") {
-          this.config.eventType = 1;
         }
-        this.tempButtonView = false;
-        this.initComponementConfig();
-        let params = {
-          formName: item.formName,
-          id: item.id
-        };
-        let arry = [];
+        let arry = []
         // this.formItems = [];
         this.api.selectMedFormTemp(params).then(res => {
-          if (res.formContent == "null" || res.formContent == null) {
-            return;
+          if (res.formContent == 'null' || res.formContent == null) {
+            return
           }
-          let tempItems = JSON.parse(res.formContent);
-          this.formItems = JSON.parse(res.formContent);
-          var list = this.formItems;
+          let tempItems = JSON.parse(res.formContent)
+          this.formItems = JSON.parse(res.formContent)
+
+          var list = this.formItems
           for (var i = 0; i < list.length; i++) {
             if (list[i].fieldName) {
               arry.push({
@@ -1974,35 +1902,94 @@ export default {
                 operId: this.lockedPatientInfo.operId,
                 tableName: list[i].tableName,
                 coluName: list[i].fieldName,
-                dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
-                dictTableName: list[i].dictTableName, //字典表名称
-                dictField: list[i].dictField, //字典字段名称
+                dictShowFiled: list[i].dictShowFiled, // 字典显示字段名称
+                dictTableName: list[i].dictTableName, // 字典表名称
+                dictField: list[i].dictField, // 字典字段名称
                 dictSelect: list[i].dictSelect
-              });
+              })
             }
           }
           this.api.getFormSqlResult(arry).then(result => {
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
-                if (list[i].fieldName == "page") {
-                  let obj = this.formItems[i];
+                if (list[i].fieldName == 'page') {
+                  let obj = this.formItems[i]
                   obj.value =
                     this.config.pagePercentNum +
-                    "/" +
+                    '/' +
                     this.config.pageTotal +
-                    "页";
-                  let tempObj = JSON.parse(JSON.stringify(obj));
-                  this.$set(this.formItems, i, tempObj);
+                    '页'
+                  let tempObj = JSON.parse(JSON.stringify(obj))
+                  this.$set(this.formItems, i, tempObj)
                 } else {
-                  let obj = this.formItems[i];
-                  obj.value = result[list[i].tableName + list[i].fieldName];
-                  let tempObj = JSON.parse(JSON.stringify(obj));
-                  this.$set(this.formItems, i, tempObj);
+                  let obj = this.formItems[i]
+                  obj.value = result[list[i].tableName + list[i].fieldName]
+                  let tempObj = JSON.parse(JSON.stringify(obj))
+                  this.$set(this.formItems, i, tempObj)
                 }
               }
             }
-          });
-        });
+          })
+        })
+        this.tempButtonView = true
+        this.initComponementConfig()
+      } else {
+        if (item.formName == '手术护理单') {
+          this.config.eventType = 1
+        }
+        this.tempButtonView = false
+        this.initComponementConfig()
+        let params = {
+          formName: item.formName,
+          id: item.id
+        }
+        let arry = []
+        // this.formItems = [];
+        this.api.selectMedFormTemp(params).then(res => {
+          if (res.formContent == 'null' || res.formContent == null) {
+            return
+          }
+          let tempItems = JSON.parse(res.formContent)
+          this.formItems = JSON.parse(res.formContent)
+          var list = this.formItems
+          for (var i = 0; i < list.length; i++) {
+            if (list[i].fieldName) {
+              arry.push({
+                patientId: this.lockedPatientInfo.patientId,
+                visitId: this.lockedPatientInfo.visitId,
+                operId: this.lockedPatientInfo.operId,
+                tableName: list[i].tableName,
+                coluName: list[i].fieldName,
+                dictShowFiled: list[i].dictShowFiled, // 字典显示字段名称
+                dictTableName: list[i].dictTableName, // 字典表名称
+                dictField: list[i].dictField, // 字典字段名称
+                dictSelect: list[i].dictSelect
+              })
+            }
+          }
+          this.api.getFormSqlResult(arry).then(result => {
+            for (var i = 0; i < list.length; i++) {
+              if (list[i].fieldName) {
+                if (list[i].fieldName == 'page') {
+                  debugger
+                  let obj = this.formItems[i]
+                  obj.value =
+                    this.config.pagePercentNum +
+                    '/' +
+                    this.config.pageTotal +
+                    '页'
+                  let tempObj = JSON.parse(JSON.stringify(obj))
+                  this.$set(this.formItems, i, tempObj)
+                } else {
+                  let obj = this.formItems[i]
+                  obj.value = result[list[i].tableName + list[i].fieldName]
+                  let tempObj = JSON.parse(JSON.stringify(obj))
+                  this.$set(this.formItems, i, tempObj)
+                }
+              }
+            }
+          })
+        })
       }
     },
     priClick() { },
@@ -2017,39 +2004,39 @@ export default {
           new Date(this.anesStartTime).getTime() >=
           new Date(this.inDateTime).getTime()
         ) {
-          TrueData = true;
+          TrueData = true
         }
-      } else if (timeType == "startDateTime") {
+      } else if (timeType == 'startDateTime') {
         if (
           new Date(this.startDateTime).getTime() >=
           new Date(this.anesStartTime).getTime()
         ) {
-          TrueData = true;
+          TrueData = true
         }
-      } else if (timeType == "endDateTime") {
+      } else if (timeType == 'endDateTime') {
         if (
           new Date(this.endDateTime).getTime() >=
           new Date(this.startDateTime).getTime()
         ) {
-          TrueData = true;
+          TrueData = true
         }
-      } else if (timeType == "anesEndTime") {
+      } else if (timeType == 'anesEndTime') {
         if (
           new Date(this.anesEndTime).getTime() >=
           new Date(this.endDateTime).getTime()
         ) {
-          TrueData = true;
+          TrueData = true
         }
-      } else if (timeType == "outDateTime") {
+      } else if (timeType == 'outDateTime') {
         if (
           new Date(this.outDateTime).getTime() >=
           new Date(this.anesEndTime).getTime()
         ) {
-          TrueData = true;
+          TrueData = true
         }
       }
       if (TrueData) {
-        let params = {};
+        let params = {}
         if (this.inDateTime) {
           params = {
             patientId: this.lockedPatientInfo.patientId,
@@ -2060,7 +2047,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          };
+          }
         }
         if (this.anesStartTime) {
           params = {
@@ -2073,7 +2060,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          };
+          }
         }
 
         if (this.startDateTime) {
@@ -2087,7 +2074,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          };
+          }
         }
 
         if (this.endDateTime) {
@@ -2103,7 +2090,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          };
+          }
         }
 
         if (this.anesEndTime) {
@@ -2120,7 +2107,7 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          };
+          }
         }
         if (this.outDateTime) {
           params = {
@@ -2137,19 +2124,19 @@ export default {
             operStatus: status,
             operatingRoom: this.lockedPatientInfo.operatingRoom,
             operatingRoomNo: this.lockedPatientInfo.operatingRoomNo
-          };
+          }
         }
-        this.nextDATA = params;
+        this.nextDATA = params
         this.api.changeOperationStatus(params).then(res => {
           if (res.success == true) {
             if (this.lockedPatientInfo.operStatus === 0 && status == 5) {
-              this.firstRoom.noneData = false;
+              this.firstRoom.noneData = false
               // 获取监护仪数据
               let monitor = {
                 itemType: 0,
                 wardCode: this.config.wardCode,
                 wardType: 0
-              };
+              }
               this.api.selectMonitorList(params).then(raa => {
                 // 默认绑定监护仪
                 let binding = {
@@ -2162,26 +2149,26 @@ export default {
                   visitId: this.config.userInfo.visitId,
                   currentRecvFrequency: raa.list[0].currentRecvFrequency,
                   currentRecvtimesUplimit: raa.list[0].currentRecvtimesUplimit,
-                  datalogStartTime: new Date().Format("yyyy-MM-dd hh:mm"),
+                  datalogStartTime: new Date().Format('yyyy-MM-dd hh:mm'),
                   defaultRecvFrequency: raa.list[0].defaultRecvFrequency,
                   monitorLabel: raa.list[0].monitorLabel
-                };
+                }
                 this.api.bindPatientMonitor(binding).then(ref => {
                   if (ref.success == true) {
                     // 查询监护仪名称并调用程序
                     let afgT = {
                       monitorLabel: binding.monitorLabel
-                    };
+                    }
                     this.api.selectMonitor(afgT).then(kkk => {
                       // 打开监护仪界面
-                      this.monitorDataShow.noneData = true;
-                      window.ipc.send("runexe", kkk.driverProg);
-                    });
+                      this.monitorDataShow.noneData = true
+                      window.ipc.send('runexe', kkk.driverProg)
+                    })
                   }
-                });
-              });
+                })
+              })
             }
-            this.searchPatientList();
+            this.searchPatientList()
             this.api
               .selectMedOperationMaster({
                 patientId: this.lockedPatientInfo.patientId,
@@ -2189,83 +2176,83 @@ export default {
                 operId: this.lockedPatientInfo.operId
               })
               .then(ref => {
-                this.lockedPatientInfo = ref;
-                this.config.userInfo = ref;
-                this.timeChangeBus();
-              });
+                this.lockedPatientInfo = ref
+                this.config.userInfo = ref
+                this.timeChangeBus()
+              })
           } else {
-            if (status == 5 && this.anesStartTime == "") {
-              this.inDateTime = "";
-            } else if (status == 10 && this.startDateTime == "") {
-              this.anesStartTime = "";
-            } else if (status == 15 && this.endDateTime == "") {
-              this.startDateTime = "";
-            } else if (status == 25 && this.anesEndTime == "") {
-              this.endDateTime = "";
-            } else if (status == 30 && this.outDateTime == "") {
-              this.anesEndTime = "";
+            if (status == 5 && this.anesStartTime == '') {
+              this.inDateTime = ''
+            } else if (status == 10 && this.startDateTime == '') {
+              this.anesStartTime = ''
+            } else if (status == 15 && this.endDateTime == '') {
+              this.startDateTime = ''
+            } else if (status == 25 && this.anesEndTime == '') {
+              this.endDateTime = ''
+            } else if (status == 30 && this.outDateTime == '') {
+              this.anesEndTime = ''
             } else if (status == 35) {
-              this.outDateTime = "";
+              this.outDateTime = ''
             }
-            alert(res.msg);
+            alert(res.msg)
           }
           // if (this.setTimeId) {
           //   this.refreshForm();
           // }
-        });
+        })
       } else {
-        if (status == 5 && this.anesStartTime == "") {
-          this.inDateTime = "";
-        } else if (status == 10 && this.startDateTime == "") {
-          this.anesStartTime = "";
-        } else if (status == 15 && this.endDateTime == "") {
-          this.startDateTime = "";
-        } else if (status == 25 && this.anesEndTime == "") {
-          this.endDateTime = "";
-        } else if (status == 30 && this.outDateTime == "") {
-          this.anesEndTime = "";
+        if (status == 5 && this.anesStartTime == '') {
+          this.inDateTime = ''
+        } else if (status == 10 && this.startDateTime == '') {
+          this.anesStartTime = ''
+        } else if (status == 15 && this.endDateTime == '') {
+          this.startDateTime = ''
+        } else if (status == 25 && this.anesEndTime == '') {
+          this.endDateTime = ''
+        } else if (status == 30 && this.outDateTime == '') {
+          this.anesEndTime = ''
         } else if (status == 35) {
-          this.outDateTime = "";
+          this.outDateTime = ''
         }
 
-        alert("当前时间不能小于之前时间！");
+        alert('当前时间不能小于之前时间！')
       }
     },
-    //手术信息
-    getPatientOperationInfo() {
+    // 手术信息
+    getPatientOperationInfo () {
       this.patientOperationInfoView.dataInParent = !this
-        .patientOperationInfoView.dataInParent;
+        .patientOperationInfoView.dataInParent
     },
-    //术中登记
-    getOperationRegister() {
+    // 术中登记
+    getOperationRegister () {
       // if (this.config.userInfo.anesthesiaDoctorName != this.config.loginName) {
       //   alert("没有权限执行操作");
       //   return;
       // }
       if (!this.getpermission()) {
-        return;
+        return
       }
-      this.config.eventNo = 0;
+      this.config.eventNo = 0
       this.operationRegisterView.dataInParent = !this.operationRegisterView
-        .dataInParent;
+        .dataInParent
     },
-    //复苏登记
-    getRecoverRegister() {
+    // 复苏登记
+    getRecoverRegister () {
       if (!this.getpermission()) {
-        return;
+        return
       }
-      this.config.eventNo = 1;
+      this.config.eventNo = 1
       this.operationRegisterView.dataInParent = !this.operationRegisterView
-        .dataInParent;
+        .dataInParent
     },
     // 监护仪
-    monitor() {
-      this.monitorDataShow.noneData = !this.monitorDataShow.noneData;
-      this.firstRoom.noneData = true;
+    monitor () {
+      this.monitorDataShow.noneData = !this.monitorDataShow.noneData
+      this.firstRoom.noneData = true
     },
     // 取消手术
-    cancel() {
-      this.cancelData.dataInParent = true;
+    cancel () {
+      this.cancelData.dataInParent = true
       // if (confirm("是否要取消该手术?")) {
       //   console.log('还未调用接口')
       //   alert("手术已取消");
@@ -2302,67 +2289,67 @@ export default {
 
     },
     // 关于
-    getAboutUs() {
-      this.aboutUsData.dataInParent = !this.aboutUsData.dataInParent;
+    getAboutUs () {
+      this.aboutUsData.dataInParent = !this.aboutUsData.dataInParent
     },
     // 退出系统
-    exitSystem() {
-      if (confirm("是否要返回页面选择？")) {
+    exitSystem () {
+      if (confirm('是否要返回页面选择？')) {
         this.$router.push({
-          path: "menu"
-        });
+          path: 'menu'
+        })
       } else {
       }
     },
     // 左部选项按下拉显示隐藏及图片切换
-    concealmentOne() {
-      this.concealmentOneData = !this.concealmentOneData;
-      this.isTransformOne = !this.isTransformOne;
+    concealmentOne () {
+      this.concealmentOneData = !this.concealmentOneData
+      this.isTransformOne = !this.isTransformOne
     },
-    concealmentTwe() {
-      this.concealmentTweData = !this.concealmentTweData;
-      this.isTransformTwe = !this.isTransformTwe;
+    concealmentTwe () {
+      this.concealmentTweData = !this.concealmentTweData
+      this.isTransformTwe = !this.isTransformTwe
     },
-    concealmentThree() {
-      this.concealmentThreeData = !this.concealmentThreeData;
-      this.isTransformThree = !this.isTransformThree;
+    concealmentThree () {
+      this.concealmentThreeData = !this.concealmentThreeData
+      this.isTransformThree = !this.isTransformThree
     },
-    concealmentFour() {
-      this.concealmentFourData = !this.concealmentFourData;
-      this.isTransformFour = !this.isTransformFour;
+    concealmentFour () {
+      this.concealmentFourData = !this.concealmentFourData
+      this.isTransformFour = !this.isTransformFour
     },
     // 病人列表显示隐藏
-    leftNone() {
-      this.transData = !this.transData;
-      this.showData = !this.showData;
-      this.widthData = !this.widthData;
-      this.showDataTwo = !this.showDataTwo;
+    leftNone () {
+      this.transData = !this.transData
+      this.showData = !this.showData
+      this.widthData = !this.widthData
+      this.showDataTwo = !this.showDataTwo
     },
-    //获取单子修改的数据
-    getValue(dataValue) {
-      debugger;
-      var modifyValue = "";
-      if (dataValue.dictShowFiled != "" && dataValue.dictShowFiled != null) {
-        modifyValue = dataValue.modifyFiledValue;
+    // 获取单子修改的数据
+    getValue (dataValue) {
+      debugger
+      var modifyValue = ''
+      if (dataValue.dictShowFiled != '' && dataValue.dictShowFiled != null) {
+        modifyValue = dataValue.modifyFiledValue
       } else {
-        modifyValue = dataValue.value;
+        modifyValue = dataValue.value
       }
-      modifyValue = dataValue.value;
-      var tempData = this.updateFormsData;
-      if (modifyValue == null || modifyValue == "null") {
-        return;
+      modifyValue = dataValue.value
+      var tempData = this.updateFormsData
+      if (modifyValue == null || modifyValue == 'null') {
+        return
       }
       if (tempData.length > 0) {
-        var count = 0;
+        var count = 0
         for (var i = 0; i < this.updateFormsData.length; i++) {
-          //如果之前传入有相同的表名与字段名则更新值
+          // 如果之前传入有相同的表名与字段名则更新值
           if (
             this.updateFormsData[i].tableName === dataValue.tableName &&
             this.updateFormsData[i].coluName === dataValue.fieldName
           ) {
-            this.updateFormsData[i].updateStr = modifyValue;
+            this.updateFormsData[i].updateStr = modifyValue
           } else {
-            count++;
+            count++
           }
         }
         if (count == this.updateFormsData.length) {
@@ -2373,7 +2360,7 @@ export default {
             patientId: this.lockedPatientInfo.patientId,
             visitId: this.lockedPatientInfo.visitId,
             operId: this.lockedPatientInfo.operId
-          });
+          })
         }
       } else {
         this.updateFormsData.push({
@@ -2383,99 +2370,100 @@ export default {
           patientId: this.lockedPatientInfo.patientId,
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId
-        });
+        })
       }
     },
-    //提交单子修改
-    submitSaveForm() {
+    // 提交单子修改
+    submitSaveForm () {
       if (!this.getpermission()) {
-        return;
+        return
       }
       if (
-        this.selectFormItemTemp.formName == "手术清点单" ||
-        this.selectFormItemTemp.formName == "手术护理单"
+        this.selectFormItemTemp.formName == '手术清点单' ||
+        this.selectFormItemTemp.formName == '手术护理单'
       ) {
-        Bus.$emit("saveFun", "保存");
-        alert("保存成功");
+        Bus.$emit('saveFun', '保存')
+        alert('保存成功')
       } else {
-        let params = [];
-        params = this.updateFormsData;
+        let params = []
+        params = this.updateFormsData
         // return
         if (this.updateFormsData.length > 0) {
           this.api.updateSqlBatch(params).then(res => {
-            this.updateFormsData = [];
+            this.updateFormsData = []
+            Bus.$emit('timeSetChange', '保存')
             if (res.success) {
-              alert("保存成功");
+              alert('保存成功')
             } else {
-              alert("保存失败");
+              alert('保存失败')
             }
             // this.selectMedFormTemp(this.selectFormItemTemp);
-          });
+          })
         } else {
-          alert("您未进行任何操作。");
+          alert('您未进行任何操作。')
         }
       }
     },
-    //提交手术信息修改
-    submitPatientInfo(arry) {
+    // 提交手术信息修改
+    submitPatientInfo (arry) {
       if (arry.length > 0) {
         let params = [];
         params = arry;
         this.api.updateSqlBatch(params).then(res => { });
       }
     },
-    toSetting(item) {
-      this.selectFormItemTemp = item;
-      this.selectFormItemTemp.isPage = !this.selectFormItemTemp.isPage;
-      this.settingView = !this.settingView;
+    toSetting (item) {
+      this.selectFormItemTemp = item
+      this.selectFormItemTemp.isPage = !this.selectFormItemTemp.isPage
+      this.settingView = !this.settingView
     },
-    //配置跳转
-    formSetting() {
-      this.settingView = !this.settingView;
-      this.selectFormItemTemp.isPage = !this.selectFormItemTemp.isPage;
+    // 配置跳转
+    formSetting () {
+      this.settingView = !this.settingView
+      this.selectFormItemTemp.isPage = !this.selectFormItemTemp.isPage
       // this.toChangePage(0);
     },
-    //单子刷新按钮
-    refreshForm() {
-      this.selectMedFormTemp(this.selectFormItemTemp);
+    // 单子刷新按钮
+    refreshForm () {
+      this.selectMedFormTemp(this.selectFormItemTemp)
     },
-    //单子首页
-    toChangePage(num) {
+    // 单子首页
+    toChangePage (num) {
       var pec = new Promise((resolve, reject) => {
         if (num == 0) {
-          this.config.pagePercentNum = 1;
-          this.config.pageOper = num;
-          this.setBusInitTime();
+          this.config.pagePercentNum = 1
+          this.config.pageOper = num
+          this.setBusInitTime()
           this.getFormData().then(() => {
-            resolve();
-          });
+            resolve()
+          })
         }
         if (num == -1) {
           if (this.config.pagePercentNum > 2) {
-            this.config.pagePercentNum = this.config.pagePercentNum - 1;
-            this.config.pageOper = num;
-            var m = new Date(this.config.initTime).getTime() - 250 * 60 * 1000;
-            this.setFormTime(m);
+            this.config.pagePercentNum = this.config.pagePercentNum - 1
+            this.config.pageOper = num
+            var m = new Date(this.config.initTime).getTime() - 250 * 60 * 1000
+            this.setFormTime(m)
           } else if (this.config.pagePercentNum == 2) {
-            this.config.pagePercentNum = 1;
-            this.config.pageOper = 0;
-            var m = new Date(this.config.initTime).getTime() - 250 * 60 * 1000;
-            this.setFormTime(m);
+            this.config.pagePercentNum = 1
+            this.config.pageOper = 0
+            var m = new Date(this.config.initTime).getTime() - 250 * 60 * 1000
+            this.setFormTime(m)
           } else {
           }
           this.getFormData().then(() => {
-            resolve();
-          });
+            resolve()
+          })
         }
         if (num == 1) {
           if (this.config.pagePercentNum < this.config.pageTotal) {
-            this.config.pagePercentNum = this.config.pagePercentNum + 1;
-            this.config.pageOper = num;
-            var m = new Date(this.config.maxTime).getTime();
-            this.setFormTime(m);
+            this.config.pagePercentNum = this.config.pagePercentNum + 1
+            this.config.pageOper = num
+            var m = new Date(this.config.maxTime).getTime()
+            this.setFormTime(m)
             this.getFormData().then(() => {
-              resolve();
-            });
+              resolve()
+            })
           } else {
           }
 
@@ -2483,188 +2471,188 @@ export default {
           // Bus.$emit('test', num);
           // })
         }
-        //末页
+        // 末页
         if (num == 2) {
-          let m1 = this.config.pageTotal;
-          let m2 = this.config.pagePercentNum;
-          let m3 = m1 - m2;
+          let m1 = this.config.pageTotal
+          let m2 = this.config.pagePercentNum
+          let m3 = m1 - m2
 
           let timeStart =
-            m3 * 250 * 60 * 1000 + new Date(this.config.initTime).getTime();
+            m3 * 250 * 60 * 1000 + new Date(this.config.initTime).getTime()
 
-          this.setFormTime(timeStart);
-          this.config.pagePercentNum = this.config.pageTotal;
-          this.config.pageOper = num;
+          this.setFormTime(timeStart)
+          this.config.pagePercentNum = this.config.pageTotal
+          this.config.pageOper = num
           this.getFormData().then(() => {
-            resolve();
-          });
+            resolve()
+          })
         }
-      });
+      })
 
-      return pec;
+      return pec
     },
-    //初始化表格配置信息
-    initComponementConfig() {
-      this.updateFormsData = [];
-      this.config.pageOper = 0;
-      this.config.maxTime = "";
-      this.config.initTime = "";
-      this.config.startMinTime = "";
-      this.config.pagePercentNum = 1;
-      this.pageButtonView = false;
-      this.formItems = [];
-      this.personView = false;
-      this.updateFormsData = [];
+    // 初始化表格配置信息
+    initComponementConfig () {
+      this.updateFormsData = []
+      this.config.pageOper = 0
+      this.config.maxTime = ''
+      this.config.initTime = ''
+      this.config.startMinTime = ''
+      this.config.pagePercentNum = 1
+      this.pageButtonView = false
+      this.formItems = []
+      this.personView = false
+      this.updateFormsData = []
       if (this.setTimeId) {
-        clearTimeout(this.setTimeId);
+        clearTimeout(this.setTimeId)
       }
     },
-    //保存模板
-    openSaveTemView() {
-      Bus.$emit("saveTemp", "save");
+    // 保存模板
+    openSaveTemView () {
+      Bus.$emit('saveTemp', 'save')
     },
-    applyTemplateFun() {
-      Bus.$emit("openApplyTemp", "open");
+    applyTemplateFun () {
+      Bus.$emit('openApplyTemp', 'open')
     },
-    openJzView() {
-      this.jzPatientView = true;
+    openJzView () {
+      this.jzPatientView = true
     },
-    closeJzView() {
-      this.jzPatientView = false;
-      this.searchPatientList();
+    closeJzView () {
+      this.jzPatientView = false
+      this.searchPatientList()
     },
-    //获取高度
-    getHeight() {
-      this.areaheight = window.innerHeight - 200;
+    // 获取高度
+    getHeight () {
+      this.areaheight = window.innerHeight - 200
     },
-    //设置单子显示最小最大时间
-    setFormTime(time) {
-      var timeDate = new Date(time);
-      this.config.initTime = new Date(time);
-      this.config.initTime = new Date(this.timeSetOper(this.config.initTime));
-      this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50);
+    // 设置单子显示最小最大时间
+    setFormTime (time) {
+      var timeDate = new Date(time)
+      this.config.initTime = new Date(time)
+      this.config.initTime = new Date(this.timeSetOper(this.config.initTime))
+      this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50)
     },
-    //首页的时候重新设置时间，当DOM更新完之后再通知事件
-    setBusInitTime() {
-      let inDateTime = this.config.userInfo.inDateTime;
-      let startMinTime = this.config.startMinTime;
+    // 首页的时候重新设置时间，当DOM更新完之后再通知事件
+    setBusInitTime () {
+      let inDateTime = this.config.userInfo.inDateTime
+      let startMinTime = this.config.startMinTime
       let timeParam = {
         patientId: this.lockedPatientInfo.patientId,
         visitId: this.lockedPatientInfo.visitId,
         operId: this.lockedPatientInfo.operId,
         eventNo: this.config.eventNo
-      };
+      }
       this.api.getBeginTime(timeParam).then(rest => {
         if (rest.TIME) {
-          //如果存在病人的入手术时间
+          // 如果存在病人的入手术时间
           if (inDateTime) {
             if (new Date(rest.TIME) > new Date(inDateTime)) {
-              this.config.startMinTime = inDateTime;
+              this.config.startMinTime = inDateTime
             } else {
-              this.config.startMinTime = rest.TIME;
+              this.config.startMinTime = rest.TIME
             }
           } else {
-            this.config.startMinTime = rest.TIME;
+            this.config.startMinTime = rest.TIME
           }
         } else {
           if (inDateTime) {
-            this.config.startMinTime = inDateTime;
+            this.config.startMinTime = inDateTime
           } else {
             this.config.startMinTime =
-              new Date().Format("yyyy-MM-dd") + " 08:00:00";
+              new Date().Format('yyyy-MM-dd') + ' 08:00:00'
           }
         }
-        var timeDate = new Date(this.config.startMinTime);
-        this.config.initTime = new Date(this.config.startMinTime);
-        this.config.initTime = new Date(this.timeSetOper(this.config.initTime));
-        this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50);
-        this.$nextTick(function() {
-          Bus.$emit("test");
-        });
-      });
+        var timeDate = new Date(this.config.startMinTime)
+        this.config.initTime = new Date(this.config.startMinTime)
+        this.config.initTime = new Date(this.timeSetOper(this.config.initTime))
+        this.config.maxTime = new Date(timeDate.getTime() + 1000 * 60 * 5 * 50)
+        this.$nextTick(function () {
+          Bus.$emit('test')
+        })
+      })
     },
-    //术中登记或者其他时间发生改变时触发
-    timeChangeBus() {
-      var time = "";
-      let inDateTime = this.config.userInfo.inDateTime;
-      let startMinTime = this.config.startMinTime;
+    // 术中登记或者其他时间发生改变时触发
+    timeChangeBus () {
+      var time = ''
+      let inDateTime = this.config.userInfo.inDateTime
+      let startMinTime = this.config.startMinTime
       let timeParam = {
         patientId: this.lockedPatientInfo.patientId,
         visitId: this.lockedPatientInfo.visitId,
         operId: this.lockedPatientInfo.operId,
         eventNo: this.config.eventNo
-      };
+      }
       this.api.getBeginTime(timeParam).then(rest => {
         if (rest.TIME) {
-          //如果存在病人的入手术时间
+          // 如果存在病人的入手术时间
           if (inDateTime) {
             if (new Date(rest.TIME) > new Date(inDateTime)) {
-              time = inDateTime;
+              time = inDateTime
             } else {
-              time = rest.TIME;
+              time = rest.TIME
             }
           } else {
-            time = rest.TIME;
+            time = rest.TIME
           }
         } else {
           if (inDateTime) {
-            time = inDateTime;
+            time = inDateTime
           } else {
-            time = new Date().Format("yyyy-MM-dd") + " 08:00:00";
-            this.config.initTime = new Date(time);
-            this.config.startMinTime = new Date(time);
-            this.config.maxTime = "";
-            Bus.$emit("timeSetChange");
+            time = new Date().Format('yyyy-MM-dd') + ' 08:00:00'
+            this.config.initTime = new Date(time)
+            this.config.startMinTime = new Date(time)
+            this.config.maxTime = ''
+            Bus.$emit('timeSetChange')
           }
         }
         if (startMinTime) {
-          //判断时间差值
-          let time1 = new Date(time).getTime();
-          let time2 = new Date(startMinTime).getTime();
+          // 判断时间差值
+          let time1 = new Date(time).getTime()
+          let time2 = new Date(startMinTime).getTime()
           if (time1 < time2) {
             this.config.initTime = new Date(
               new Date(this.config.initTime).getTime() - (time2 - time1)
-            );
+            )
             this.config.initTime = new Date(
               this.timeSetOper(this.config.initTime)
-            );
-            this.config.startMinTime = new Date(time);
+            )
+            this.config.startMinTime = new Date(time)
             this.config.maxTime = new Date(
               new Date(this.config.maxTime).getTime() - (time2 - time1)
-            );
+            )
           } else {
             this.config.initTime = new Date(
               new Date(this.config.initTime).getTime() + (time1 - time2)
-            );
+            )
             this.config.initTime = new Date(
               this.timeSetOper(this.config.initTime)
-            );
-            this.config.startMinTime = new Date(time);
+            )
+            this.config.startMinTime = new Date(time)
             this.config.maxTime = new Date(
               new Date(this.config.maxTime).getTime() + (time1 - time2)
-            );
+            )
           }
         }
-        this.getMaxTimeNoset();
-        this.getFormData();
-      });
+        this.getMaxTimeNoset()
+        this.getFormData()
+      })
     },
-    //获取单子数据
-    getFormData() {
-      let item = this.selectFormItemTemp;
+    // 获取单子数据
+    getFormData () {
+      let item = this.selectFormItemTemp
       let params = {
         formName: item.formName,
         id: item.id
-      };
-      let arry = [];
+      }
+      let arry = []
       var pro = new Promise((resolve, reject) => {
         this.api.selectMedFormTemp(params).then(res => {
-          if (res.formContent == "null" || res.formContent == null) {
-            return;
+          if (res.formContent == 'null' || res.formContent == null) {
+            return
           }
-          let tempItems = JSON.parse(res.formContent);
-          this.formItems = JSON.parse(res.formContent);
-          var list = this.formItems;
+          let tempItems = JSON.parse(res.formContent)
+          this.formItems = JSON.parse(res.formContent)
+          var list = this.formItems
           for (var i = 0; i < list.length; i++) {
             if (list[i].fieldName) {
               arry.push({
@@ -2673,57 +2661,57 @@ export default {
                 operId: this.lockedPatientInfo.operId,
                 tableName: list[i].tableName,
                 coluName: list[i].fieldName,
-                dictShowFiled: list[i].dictShowFiled, //字典显示字段名称
-                dictTableName: list[i].dictTableName, //字典表名称
-                dictField: list[i].dictField, //字典字段名称
+                dictShowFiled: list[i].dictShowFiled, // 字典显示字段名称
+                dictTableName: list[i].dictTableName, // 字典表名称
+                dictField: list[i].dictField, // 字典字段名称
                 dictSelect: list[i].dictSelect
-              });
+              })
             }
           }
           this.api.getFormSqlResult(arry).then(result => {
             for (var i = 0; i < list.length; i++) {
               if (list[i].fieldName) {
-                if (list[i].fieldName == "page") {
-                  let obj = this.formItems[i];
+                if (list[i].fieldName == 'page') {
+                  let obj = this.formItems[i]
                   obj.value =
                     this.config.pagePercentNum +
-                    "/" +
+                    '/' +
                     this.config.pageTotal +
-                    "页";
-                  let tempObj = JSON.parse(JSON.stringify(obj));
-                  this.$set(this.formItems, i, tempObj);
+                    '页'
+                  let tempObj = JSON.parse(JSON.stringify(obj))
+                  this.$set(this.formItems, i, tempObj)
                 } else {
-                  let obj = this.formItems[i];
-                  obj.value = result[list[i].tableName + list[i].fieldName];
-                  let tempObj = JSON.parse(JSON.stringify(obj));
-                  this.$set(this.formItems, i, tempObj);
+                  let obj = this.formItems[i]
+                  obj.value = result[list[i].tableName + list[i].fieldName]
+                  let tempObj = JSON.parse(JSON.stringify(obj))
+                  this.$set(this.formItems, i, tempObj)
                 }
               }
             }
-            Bus.$emit("test", "--");
-            let loadTime = 1000;
+            Bus.$emit('test', '--')
+            let loadTime = 1000
             if (window.loadTime) {
-              loadTime = window.loadTime;
+              loadTime = window.loadTime
             }
             setTimeout(() => {
-              resolve(result);
-            }, loadTime);
-          });
-        });
-      });
-      return pro;
+              resolve(result)
+            }, loadTime)
+          })
+        })
+      })
+      return pro
     },
-    getMaxTime() {
-      let intitime = this.config.initTime;
+    getMaxTime () {
+      let intitime = this.config.initTime
       if (!intitime) {
-        return;
+        return
       }
       if (this.setTimeId) {
-        clearTimeout(this.setTimeId);
+        clearTimeout(this.setTimeId)
       }
 
-      let min = new Date(intitime).getMinutes();
-      let nowMin = new Date().getMinutes();
+      let min = new Date(intitime).getMinutes()
+      let nowMin = new Date().getMinutes()
       if (nowMin % 5 == 0) {
         // this.timeCount++;
         let timeParam = {
@@ -2731,40 +2719,40 @@ export default {
           visitId: this.lockedPatientInfo.visitId,
           operId: this.lockedPatientInfo.operId,
           eventNo: this.config.eventNo
-        };
-        //查找病人的最晚时间
+        }
+        // 查找病人的最晚时间
         this.api.selectMaxTime(timeParam).then(res => {
           if (res.TIME) {
             if (this.config.userInfo.outDateTime) {
               if (
                 new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)
               ) {
-                this.config.patientMaxTime = this.config.userInfo.outDateTime;
+                this.config.patientMaxTime = this.config.userInfo.outDateTime
               } else {
-                this.config.patientMaxTime = res.TIME;
+                this.config.patientMaxTime = res.TIME
               }
             } else {
-              this.config.patientMaxTime = res.TIME;
+              this.config.patientMaxTime = res.TIME
             }
             var t1 = this.coutTimes(
               this.config.startMinTime,
               this.config.patientMaxTime,
-              "minute"
-            );
-            var i = Math.ceil(t1 / 250);
-            this.config.pageTotal = i;
+              'minute'
+            )
+            var i = Math.ceil(t1 / 250)
+            this.config.pageTotal = i
             if (t1 > 250) {
-              this.pageButtonView = true;
+              this.pageButtonView = true
             } else {
-              this.pageButtonView = false;
+              this.pageButtonView = false
             }
-            this.$nextTick(function() {
-              Bus.$emit("timeSetChange");
-            });
+            this.$nextTick(function () {
+              Bus.$emit('timeSetChange')
+            })
           } else {
-            Bus.$emit("timeSetChange");
+            Bus.$emit('timeSetChange')
           }
-        });
+        })
       }
       if (
         this.lockedPatientInfo.operStatus == 5 ||
@@ -2773,196 +2761,196 @@ export default {
         this.lockedPatientInfo.operStatus == 25 ||
         this.lockedPatientInfo.operStatus == 30
       ) {
-        this.setTimeId = setTimeout(_ => this.getMaxTime(), 30000);
+        this.setTimeId = setTimeout(_ => this.getMaxTime(), 30000)
       }
       // this.setTimeId = setTimeout(_ => this.getMaxTime(), 60000)
       // console.log(new Date())
     },
-    getMaxTimeNoset() {
+    getMaxTimeNoset () {
       let timeParam = {
         patientId: this.lockedPatientInfo.patientId,
         visitId: this.lockedPatientInfo.visitId,
         operId: this.lockedPatientInfo.operId,
         eventNo: this.config.eventNo
-      };
-      //查找病人的最晚时间
+      }
+      // 查找病人的最晚时间
       this.api.selectMaxTime(timeParam).then(res => {
         if (res.TIME) {
           if (this.config.userInfo.outDateTime) {
             if (
               new Date(this.config.userInfo.outDateTime) > new Date(res.TIME)
             ) {
-              this.config.patientMaxTime = this.config.userInfo.outDateTime;
+              this.config.patientMaxTime = this.config.userInfo.outDateTime
             } else {
-              this.config.patientMaxTime = res.TIME;
+              this.config.patientMaxTime = res.TIME
             }
           } else {
-            this.config.patientMaxTime = res.TIME;
+            this.config.patientMaxTime = res.TIME
           }
-          let t1 = 0;
-          let i = 0;
+          let t1 = 0
+          let i = 0
           t1 = this.coutTimes(
             this.config.startMinTime,
             this.config.patientMaxTime,
-            "minute"
-          );
-          i = Math.ceil(t1 / 250);
-          this.config.pageTotal = i;
+            'minute'
+          )
+          i = Math.ceil(t1 / 250)
+          this.config.pageTotal = i
           if (t1 > 250) {
-            this.pageButtonView = true;
+            this.pageButtonView = true
           } else {
-            this.pageButtonView = false;
+            this.pageButtonView = false
           }
-          this.$nextTick(function() {
-            Bus.$emit("timeSetChange");
-          });
+          this.$nextTick(function () {
+            Bus.$emit('timeSetChange')
+          })
         } else {
-          Bus.$emit("timeSetChange");
+          Bus.$emit('timeSetChange')
         }
-      });
+      })
     },
-    testclick() {
-      this.$refs.intest.click();
+    testclick () {
+      this.$refs.intest.click()
     },
-    //处理格子时间5的倍数
-    timeSetOper(time) {
-      let returnTime;
-      let getMinute = time.getMinutes();
+    // 处理格子时间5的倍数
+    timeSetOper (time) {
+      let returnTime
+      let getMinute = time.getMinutes()
       if (getMinute < 5) {
-        time = time.setMinutes(0);
+        time = time.setMinutes(0)
       } else if (getMinute > 4 && getMinute < 10) {
-        time = time.setMinutes(5);
+        time = time.setMinutes(5)
       } else {
-        let i1 = getMinute.toString().substring(0, 1);
-        let i2 = getMinute.toString().substring(1, 2);
+        let i1 = getMinute.toString().substring(0, 1)
+        let i2 = getMinute.toString().substring(1, 2)
         if (i2 < 5) {
-          time = time.setMinutes(Number(i1 + "0"));
+          time = time.setMinutes(Number(i1 + '0'))
         } else {
-          time = time.setMinutes(Number(i1 + "5"));
+          time = time.setMinutes(Number(i1 + '5'))
         }
       }
-      returnTime = time;
-      return returnTime;
+      returnTime = time
+      return returnTime
     },
-    //获取手术间
-    getOperaRooms() {
+    // 获取手术间
+    getOperaRooms () {
       let params = {
         deptCode: this.config.wardCode,
-        bedType: "0"
-      };
+        bedType: '0'
+      }
       this.api.selectAllRoomNo(params).then(res => {
-        this.roomList = res;
-      });
+        this.roomList = res
+      })
     },
-    //关闭修改密码界面
-    closeChangePassWordView() {
-      this.changePassWord = false;
+    // 关闭修改密码界面
+    closeChangePassWordView () {
+      this.changePassWord = false
     },
-    openChangePassWordView() {
-      this.changePassWord = true;
+    openChangePassWordView () {
+      this.changePassWord = true
     },
-    //打开检验信息窗口
-    openCheckInfoView() {
-      this.checkInfoView = true;
+    // 打开检验信息窗口
+    openCheckInfoView () {
+      this.checkInfoView = true
     },
-    closeCheckInfoView() {
-      this.checkInfoView = false;
+    closeCheckInfoView () {
+      this.checkInfoView = false
     },
-    //检查结果
-    openMedical() {
+    // 检查结果
+    openMedical () {
       if (window.ipc) {
-        window.ipc.send("openMedical", this.config.userInfo.patientId);
+        window.ipc.send('openMedical', this.config.userInfo.patientId)
       }
     },
-    //检验信息
-    openLisCheck() {
+    // 检验信息
+    openLisCheck () {
       if (window.ipc) {
         let str =
-          "&HIS_PARAM_PATNO=" +
+          '&HIS_PARAM_PATNO=' +
           this.config.userInfo.inpNo +
-          "&HIS_PARAM_DEPT=" +
+          '&HIS_PARAM_DEPT=' +
           this.config.userInfo.deptStayed +
-          "&HIS_PARAM_WARD=" +
-          this.config.userInfo.deptStayed;
+          '&HIS_PARAM_WARD=' +
+          this.config.userInfo.deptStayed
 
-        window.ipc.send("openLisCheck", str);
+        window.ipc.send('openLisCheck', str)
       }
     },
-    //调取病历病程
-    openRecodEmr() {
+    // 调取病历病程
+    openRecodEmr () {
       if (window.ipc) {
         let str =
-          "id=" +
+          'id=' +
           this.config.userInfo.inpNo +
-          "&date=" +
-          this.config.userInfo.admissionDateTime;
+          '&date=' +
+          this.config.userInfo.admissionDateTime
 
-        window.ipc.send("openRecodEmr", str);
+        window.ipc.send('openRecodEmr', str)
       }
     },
-    //更换手术间
-    openChangeRoom() {
-      this.changeRoomView = true;
+    // 更换手术间
+    openChangeRoom () {
+      this.changeRoomView = true
     },
-    closeChangeRoom() {
-      this.changeRoomView = false;
+    closeChangeRoom () {
+      this.changeRoomView = false
     },
-    closeCheckInfoShow() {
-      this.checkResultShow = false;
+    closeCheckInfoShow () {
+      this.checkResultShow = false
     },
-    //预先加载所有手术名称以及诊断
-    loadAllOper() {
+    // 预先加载所有手术名称以及诊断
+    loadAllOper () {
       let params = {
-        tableName: "med_operation_dict",
-        dictShowFiled: "OPERATION_NAME" //字典显示字段名称
-      };
-      this.api.allColumContext(params).then(res => {
-        this.config.allOperList = res;
-      });
-      let params1 = {
-        tableName: "MED_DIAGNOSIS_DICT",
-        dictShowFiled: "DIAGNOSIS_NAME" //字典显示字段名称
-      };
-      this.api.allColumContext(params1).then(rest => {
-        this.config.allDiagnosis = rest;
-      });
-    },
-    //打开体征显示设置
-    openPatSetting() {
-      if (!this.getpermission()) {
-        return;
+        tableName: 'med_operation_dict',
+        dictShowFiled: 'OPERATION_NAME' // 字典显示字段名称
       }
-      this.personStyleView = true;
+      this.api.allColumContext(params).then(res => {
+        this.config.allOperList = res
+      })
+      let params1 = {
+        tableName: 'MED_DIAGNOSIS_DICT',
+        dictShowFiled: 'DIAGNOSIS_NAME' // 字典显示字段名称
+      }
+      this.api.allColumContext(params1).then(rest => {
+        this.config.allDiagnosis = rest
+      })
     },
-    closePatSetting() {
-      this.personStyleView = false;
-      this.refreshForm();
+    // 打开体征显示设置
+    openPatSetting () {
+      if (!this.getpermission()) {
+        return
+      }
+      this.personStyleView = true
     },
-    //模板管理
-    tempManage() {
-      this.tempView = true;
+    closePatSetting () {
+      this.personStyleView = false
+      this.refreshForm()
     },
-    closeTempManage() {
-      this.tempView = false;
+    // 模板管理
+    tempManage () {
+      this.tempView = true
     },
-    //判断是否有权限
-    getpermission() {
-      //判断memo权限  如果值为0表示管理权限
-      if (sessionStorage.getItem("userInfoSession")) {
-        let obj = JSON.parse(sessionStorage.getItem("userInfoSession"));
+    closeTempManage () {
+      this.tempView = false
+    },
+    // 判断是否有权限
+    getpermission () {
+      // 判断memo权限  如果值为0表示管理权限
+      if (sessionStorage.getItem('userInfoSession')) {
+        let obj = JSON.parse(sessionStorage.getItem('userInfoSession'))
         if (obj.memo == 0) {
-          return true;
+          return true
         } else {
           if (this.config.userInfo.anesthesiaDoctorName != obj.userName) {
-            alert("没有权限执行操作");
-            return false;
+            alert('没有权限执行操作')
+            return false
           }
           if (this.config.userInfo.anesthesiaDoctorName == obj.userName) {
-            return true;
+            return true
           }
         }
       } else {
-        alert("请重新登录");
+        alert('请重新登录')
       }
       // console.log(JSON.parse(sessionStorage.getItem("userInfoSession")));
       // if (this.config.userInfo.anesthesiaDoctorName != this.config.loginName) {
@@ -2972,66 +2960,72 @@ export default {
       // if (this.config.userInfo.anesthesiaDoctorName == this.config.loginName) {
       //   return true;
       // }
+    },
+    // 取消手术子组件通知父组件
+    cancelFun () {
+      this.patientInfo = ''
+      this.viewInfo = false // 病人基本信息视图
+      this.searchPatientList()
     }
   },
-  mounted() {
-    this.inleft = (window.innerWidth - 1214) / 2;
+  mounted () {
+    this.inleft = (window.innerWidth - 1214) / 2
 
-    if (sessionStorage.getItem("userInfoSession")) {
-      let obj = JSON.parse(sessionStorage.getItem("userInfoSession"));
-      this.nowUser = obj.userName;
+    if (sessionStorage.getItem('userInfoSession')) {
+      let obj = JSON.parse(sessionStorage.getItem('userInfoSession'))
+      this.nowUser = obj.userName
     } else {
-      this.nowUser = this.config.loginName;
+      this.nowUser = this.config.loginName
     }
 
     if (window.ipc) {
-      this.electronListener();
+      this.electronListener()
     }
 
     if (this.setTimeId) {
-      clearTimeout(this.setTimeId);
+      clearTimeout(this.setTimeId)
     }
 
     if (window.fs) {
-      window.fs.readFile("./resources/app/room.json", "utf8", (err, data) => {
+      window.fs.readFile('./resources/app/room.json', 'utf8', (err, data) => {
         if (data) {
-          this.config.roomId = JSON.parse(data).roomId;
-          this.operatingRoomNo = JSON.parse(data).roomId;
+          this.config.roomId = JSON.parse(data).roomId
+          this.operatingRoomNo = JSON.parse(data).roomId
         }
         this.$nextTick(() => {
-          this.searchPatientList();
-        });
-      });
+          this.searchPatientList()
+        })
+      })
     }
 
-    this.getOperaRooms();
-    this.loadAllOper();
-    this.setIntervaled();
-    this.selectMedFormList();
-    this.getHeight();
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = (now.getMonth() + 1).toString();
-    var day = now.getDate().toString();
+    this.getOperaRooms()
+    this.loadAllOper()
+    this.setIntervaled()
+    this.selectMedFormList()
+    this.getHeight()
+    var now = new Date()
+    var year = now.getFullYear()
+    var month = (now.getMonth() + 1).toString()
+    var day = now.getDate().toString()
     if (month.length == 1) {
-      month = "0" + month;
+      month = '0' + month
     }
     if (day.length == 1) {
-      day = "0" + day;
+      day = '0' + day
     }
-    this.getTime = year + "-" + month + "-" + day;
+    this.getTime = year + '-' + month + '-' + day
     // this.$toast("保存成功");
   },
-  created() {
-    Bus.$on("showPersonStyle", val => {
-      this.personStyleView = false;
-    });
+  created () {
+    Bus.$on('showPersonStyle', val => {
+      this.personStyleView = false
+    })
   },
-  beforeDestroy() {
-    Bus.$off("showPersonStyle", val => {
-      this.personStyleView = false;
-    });
-    clearTimeout(this.setTimeId);
+  beforeDestroy () {
+    Bus.$off('showPersonStyle', val => {
+      this.personStyleView = false
+    })
+    clearTimeout(this.setTimeId)
   },
   components: {
     // vueDateCalendar,
@@ -3056,7 +3050,7 @@ export default {
     checkResult,
     updateTemplet
   }
-};
+}
 </script>
 <style scoped>
 .lightBox {

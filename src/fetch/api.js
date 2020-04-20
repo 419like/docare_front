@@ -780,7 +780,7 @@ export default {
  *
  */
     cancleRomm(params, config) {
-        return fetch('/rest/medOperatingRoom/cancleRomm', params)
+        return fetch('medicalsystem/rest/medOperatingRoom/cancleRomm', params)
     },
     /**
      * 获取部分手术诊断

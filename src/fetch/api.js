@@ -1,39 +1,35 @@
 import axios from 'axios'
-// axios.defaults.baseURL = 'http://182.61.36.247:8080';
-// axios.defaults.baseURL = 'http://111.111.111.156:8080';
-axios.defaults.baseURL = 'http://localhost:8088';
-
-
-
+// axios.defaults.baseURL = 'http://182.61.36.247:8080'
+// axios.defaults.baseURL = 'http://111.111.111.156:8080'
+axios.defaults.baseURL = 'http://192.168.1.12:8080'
+    // axios.defaults.baseURL = 'http://localhost:8088'
 if (window.fs) {
     window.fs.readFile("./resources/app/config.json", "utf8", (err, data) => {
         if (data) {
-            console.log("api---" + JSON.parse(data))
             let obj = JSON.parse(data)
             if (obj.connUrl) {
                 axios.defaults.baseURL = "http://" + obj.connUrl
             }
 
         }
-    });
+    })
 }
-
 
 //返回状态判断
 axios.interceptors.response.use((res) => {
-    return res;
+    return res
 }, (error) => {
-    return Promise.reject(error);
-});
+    return Promise.reject(error)
+})
 export function fetch(url, params, config) {
     if (!config) {
-        config = {};
+        config = {}
     }
     if (!config.timeout) {
-        config.timeout = 300000;
+        config.timeout = 300000
     }
     return new Promise((resolve, reject) => {
-        params = params ? params : {};
+        params = params ? params : {}
         axios({
             method: 'post',
             url: url,
@@ -44,23 +40,22 @@ export function fetch(url, params, config) {
                 "Accept": "*/*",
             },
             datatype: "json",
-        }).then(function (response) {
-            resolve(response.data);
-            // if (!config.noAlert) {
-            //   if (response.data.success) {
-            //     alert("操作成功")
-            //   } else if (response.data.success == false) {
-            //     alert("操作失败")
-            //   } else {
-            //   }
-            // }
-        }).catch(function (error) {
-            reject(error);
+        }).then(function(response) {
+            resolve(response.data)
+                // if (!config.noAlert) {
+                //   if (response.data.success) {
+                //     alert("操作成功")
+                //   } else if (response.data.success == false) {
+                //     alert("操作失败")
+                //   } else {
+                //   }
+                // }
+        }).catch(function(error) {
+            reject(error)
             alert("网络请求失败")
-        });
+        })
     })
 }
-
 
 export default {
     /**
@@ -776,9 +771,9 @@ export default {
         return fetch('medicalsystem/rest/medOperatingRoom/selectAllRoomNo', params)
     },
     /**
- * 解绑手术间
- *
- */
+     * 解绑手术间
+     *
+     */
     cancleRomm(params, config) {
         return fetch('medicalsystem/rest/medOperatingRoom/cancleRomm', params)
     },

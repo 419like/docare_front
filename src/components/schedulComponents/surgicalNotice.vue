@@ -55,7 +55,7 @@
 import { getLodop } from "@/assets/js/LodopFuncs";
 let LODOP;
 export default {
-  data() {
+  data () {
     return {
       viewList: [],
       allNo: "",
@@ -73,7 +73,7 @@ export default {
         },
         {
           title: "科室",
-          field: "OPERATING_DEPT_NAME"
+          field: "WARD_CODE_NAME"
           // width:50,
         },
         {
@@ -155,7 +155,7 @@ export default {
     };
   },
   methods: {
-    getView() {
+    getView () {
       let params = {
         dateTime: this.dateTimeValue
       };
@@ -168,7 +168,7 @@ export default {
         this.allNo = res.list.length;
       });
     },
-    print() {
+    print () {
       LODOP = getLodop();
       // LODOP.ADD_PRINT_TABLE(100, 1, "99.8%", 250, this.$refs.tableView.innerHTML);
       // console.log(this.$refs.tableView.innerHTML)
@@ -182,7 +182,7 @@ export default {
       LODOP.PREVIEW();
     }
   },
-  mounted() {
+  mounted () {
     this.dateTimeValue = new Date().Format("yyyy-MM-dd");
     this.getView();
   }

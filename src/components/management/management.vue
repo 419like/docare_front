@@ -325,7 +325,9 @@ export default {
     created() {
         // 点击其他不在的区域触发事件
         document.addEventListener('click', (e) => {
-            if (this.selectShowDate) {
+                        console.log(this.selectShowDate)
+            // debugger
+            if (this.selectShowDate == true) {
                 if (!this.$refs.main.contains(e.target)) {
                     this.selectShowDate = false;
                     this.deptName = this.copyDeptName;

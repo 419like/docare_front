@@ -2,7 +2,7 @@
   <div :style="note" style="background-color: rgb(0,0,0);position: relative;">
     <div class="loginBox">
       <div style="height:calc(100% - 100px);">
-        <div style="color:#545557;font-size:26px;text-align:center;height:80px;line-height:80px;">DoCare 围术期管理决策平台</div>
+        <div style="color:#545557;font-size:26px;text-align:center;height:80px;line-height:80px;">麻醉 围术期管理决策平台</div>
         <div style="width:300px;margin:auto;">
           <div style="border-bottom:1px solid #545557;width:100%;padding-top:20px;">
             <span style="display:inline-block;width:65px;height:100%;color:#545557;">用户名：</span>

@@ -2,7 +2,7 @@
   <div class="note">
     <div class="listBox">
       <div class="topName">
-        DoCare 围术期管理决策平台
+        围术期管理决策平台
       </div>
       <div class="urlButtonBox">
         <div class="urlBox" @click="goUrl('/workLoad')">

@@ -17,7 +17,7 @@
             </div>
             <div class="contentBox">
                 <div class="defaultBox">
-                    <div class="welcomeWord">欢迎来到 DoCare 围术期管理决策平台</div>
+                    <div class="welcomeWord">欢迎来到 麻醉 围术期管理决策平台</div>
                     <img src="../../../assets/tj/welcome.png" style="width:550px;position: absolute;left:50%;top:50%;margin:-138px 0 0 -275px;" alt="">
                 </div>
             </div>

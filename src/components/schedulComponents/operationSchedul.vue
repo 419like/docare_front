@@ -1,5 +1,8 @@
 <template>
-  <div @click="cleanOutShow()" style="padding-top:145px;">
+  <div
+    @click="cleanOutShow()"
+    style="padding-top:145px;"
+  >
     <div class="dataOfButton">
       <span style="color:blue;">注：绿色的手术为正在进行中，红色的手术为未提交</span>
       <span style="font-weight: bold;">手术人员安排表</span>
@@ -18,90 +21,232 @@
       <span>巡回护士2：{{hasChooseRoom.doctourTwo}}</span>
     </div>
     <div class="tableOut">
-      <div class="timechose" ref="timeChose">
+      <div
+        class="timechose"
+        ref="timeChose"
+      >
         <div style="height:75px;padding-left: 5px;">
           <!-- <datepicker :value="dateValue" language="zh" @change="dateChange"></datepicker> -->
-          <input type="date" name="" v-model="dateValue" @change="test($event)">
+          <input
+            type="date"
+            name=""
+            v-model="dateValue"
+            @change="test($event)"
+          >
           <button @click="dateChange">查询</button>
         </div>
         <div class="itemChoose">
           {{chooseData}}
         </div>
-        <div class="itemChooseContent" ref="normal">
+        <div
+          class="itemChooseContent"
+          ref="normal"
+        >
           <div v-if="chooseOneType=='list'">
-            <div class="flex head" :style="{width:totalWidth+'px'}">
-              <div v-for="(item,index) in tableConfig" class="cell resizeAble" :style="{width:item.width+'px'}" style="text-align: center;position: relative;border: 1px solid #E6E6E6;display: inline-block;box-sizing: border-box;">
+            <div
+              class="flex head"
+              :style="{width:totalWidth+'px'}"
+            >
+              <div
+                v-for="(item,index) in tableConfig"
+                class="cell resizeAble"
+                :style="{width:item.width+'px'}"
+                style="text-align: center;position: relative;border: 1px solid #E6E6E6;display: inline-block;box-sizing: border-box;"
+              >
                 <div style="width:100%;overflow-x: hidden;white-space: nowrap">{{item.text}}</div>
-                <div class="resizeIcon" :style="{left:item.width-2}" @mousedown="resizeStart($event,index,item)"></div>
+                <div
+                  class="resizeIcon"
+                  :style="{left:item.width-2}"
+                  @mousedown="resizeStart($event,index,item)"
+                ></div>
               </div>
             </div>
-            <div @contextmenu.prevent="getTopLeft($event)" style="position:relative;">
-              <div v-for="(item,index) in scheduleList" @contextmenu.prevent="listOfData(item)" :style="{width:totalWidth+'px'}" class="flex rows" @dblclick="arrange($event,item,index)" :class="{state2:item.state==2,state3:item.state==3,hoverClass:item.clickShadowData}">
-                <div v-for="cell in tableConfig" class="cell" :style="{width:cell.width+'px'}" style="box-sizing: border-box; ">
+            <div
+              @contextmenu.prevent="getTopLeft($event)"
+              style="position:relative;"
+            >
+              <div
+                v-for="(item,index) in scheduleList"
+                @contextmenu.prevent="listOfData(item)"
+                :style="{width:totalWidth+'px'}"
+                class="flex rows"
+                @dblclick="arrange($event,item,index)"
+                :class="{state2:item.state==2,state3:item.state==3,hoverClass:item.clickShadowData}"
+              >
+                <div
+                  v-for="cell in tableConfig"
+                  class="cell"
+                  :style="{width:cell.width+'px'}"
+                  style="box-sizing: border-box; "
+                >
                   {{item[cell.value]}}
                 </div>
               </div>
-              <div v-if="rightShowData" class="inseide" :style="{top:eventTop+'px',left:eventLeft+'px'}">
-                <div class="insideHover" @click="maskFun()">手术通知单</div>
+              <div
+                v-if="rightShowData"
+                class="inseide"
+                :style="{top:eventTop+'px',left:eventLeft+'px'}"
+              >
+                <div
+                  class="insideHover"
+                  @click="maskFun()"
+                >手术通知单</div>
               </div>
               <!-- <div @click="pushData()" v-if="showarrange" class="pushAuto" :style="{top:clickTop+'px',left:clickLeft+'px'}">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     分配手术
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 </div> -->
             </div>
           </div>
-          <div v-if="chooseOneType=='docoptions'" v-for="item in options" @click="joinData('docoptions',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='docoptions'"
+            v-for="item in options"
+            @click="joinData('docoptions',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='firstdocmzkUsers'" v-for="item in MzkUsers" @click="joinData('firstdocmzkUsers',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='firstdocmzkUsers'"
+            v-for="item in MzkUsers"
+            @click="joinData('firstdocmzkUsers',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='seconddocmzkUsers'" v-for="item in MzkUsers" @click="joinData('seconddocmzkUsers',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='seconddocmzkUsers'"
+            v-for="item in MzkUsers"
+            @click="joinData('seconddocmzkUsers',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='firstassistant'" v-for="item in assistant" @click="joinData('firstassistant',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='firstassistant'"
+            v-for="item in assistant"
+            @click="joinData('firstassistant',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='secondassistant'" v-for="item in assistant" @click="joinData('secondassistant',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='secondassistant'"
+            v-for="item in assistant"
+            @click="joinData('secondassistant',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='firstdocwash'" v-for="item in wash" @click="joinData('firstdocwash',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='firstdocwash'"
+            v-for="item in wash"
+            @click="joinData('firstdocwash',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='seconddocwash'" v-for="item in wash" @click="joinData('seconddocwash',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='seconddocwash'"
+            v-for="item in wash"
+            @click="joinData('seconddocwash',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='firstdoctour'" v-for="item in tour" @click="joinData('firstdoctour',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='firstdoctour'"
+            v-for="item in tour"
+            @click="joinData('firstdoctour',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
-          <div v-if="chooseOneType=='seconddoctour'" v-for="item in tour" @click="joinData('seconddoctour',item)" class="docList rows">
+          <div
+            v-if="chooseOneType=='seconddoctour'"
+            v-for="item in tour"
+            @click="joinData('seconddoctour',item)"
+            class="docList rows"
+          >
             {{item.userName}}
           </div>
         </div>
         <div class="itemChooseBox">
-          <div v-if="item.dataLength !== undefined" class="itemBox" v-for="item in listChooseBody" @click="chooseOne(item)">
+          <div
+            v-if="item.dataLength !== undefined"
+            class="itemBox"
+            v-for="item in listChooseBody"
+            @click="chooseOne(item)"
+          >
             {{item.data}}({{item.dataLength}})
           </div>
-          <div v-else class="itemBox" @click="chooseOne(item)">
+          <div
+            v-else
+            class="itemBox"
+            @click="chooseOne(item)"
+          >
             {{item.data}}
           </div>
         </div>
       </div>
       <div style="width: 80%;overflow:auto;background-color:#E7EBEC;position:relative">
-        <div style="position:absolute;left:0;top:55px;z-index:999;" @contextmenu.prevent="cleanFun($event)">
-          <div v-for="(item,index) in roomId" class="operationRoom" @click="chooseClassFun(item,index)" :class="{backgroundColor:item.chooseClass}">
+        <div
+          style="position:absolute;left:0;top:55px;z-index:999;"
+          @contextmenu.prevent="cleanFun($event)"
+        >
+          <div
+            v-for="(item,index) in roomId"
+            class="operationRoom"
+            @click="chooseClassFun(item,index)"
+            :class="{backgroundColor:item.chooseClass}"
+          >
             {{item.name}}
           </div>
-          <div v-if="cleanData" @contextmenu.stop="noFun()" class="cleanBox" :style="{top:cleanTop+'px',left:cleanLeft+'px'}">
-            <div class="cleanLast" @click="cleanFunOnList('all')">清空全部</div>
-            <div class="cleanLast" @click="cleanFunOnList('anesthesiaDoctorName')">清空主麻医师</div>
-            <div class="cleanLast" @click="cleanFunOnList('firstAnesthesiaAssistantName')">清空副麻医师1</div>
-            <div class="cleanLast" @click="cleanFunOnList('secondAnesthesiaAssistantName')">清空副麻医师2</div>
-            <div class="cleanLast" @click="cleanFunOnList('firstAssistantName')">清空副麻助手1</div>
-            <div class="cleanLast" @click="cleanFunOnList('secondAssistantName')">清空副麻助手2</div>
-            <div class="cleanLast" @click="cleanFunOnList('firstOperationNurseName')">清空洗手护士1</div>
-            <div class="cleanLast" @click="cleanFunOnList('secondOperationNurseName')">清空洗手护士2</div>
-            <div class="cleanLast" @click="cleanFunOnList('firstSupplyNurseName')">清空巡回护士1</div>
-            <div class="cleanLast" @click="cleanFunOnList('secondSupplyNurseName')">清空巡回护士2</div>
+          <div
+            v-if="cleanData"
+            @contextmenu.stop="noFun()"
+            class="cleanBox"
+            :style="{top:cleanTop+'px',left:cleanLeft+'px'}"
+          >
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('all')"
+            >清空全部</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('anesthesiaDoctorName')"
+            >清空主麻医师</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('firstAnesthesiaAssistantName')"
+            >清空副麻医师1</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('secondAnesthesiaAssistantName')"
+            >清空副麻医师2</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('firstAssistantName')"
+            >清空副麻助手1</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('secondAssistantName')"
+            >清空副麻助手2</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('firstOperationNurseName')"
+            >清空洗手护士1</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('secondOperationNurseName')"
+            >清空洗手护士2</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('firstSupplyNurseName')"
+            >清空巡回护士1</div>
+            <div
+              class="cleanLast"
+              @click="cleanFunOnList('secondSupplyNurseName')"
+            >清空巡回护士2</div>
             <!-- <div style="width:100%;height:100%;position:relative;" @mouseover="overShow()" @mouseout="outShow()"> -->
             <!-- 清空 -->
             <!-- <div v-if="showList" style="width:100%;height:auto;z-index:9999;">
@@ -113,10 +258,22 @@
         <!-- <div style="width:auto;height:auto;"> -->
         <div class="timeLine"></div>
         <div style="padding-left: 60px;">
-          <div class="BoxOf" v-for="(item,index) in roomId">
+          <div
+            class="BoxOf"
+            v-for="(item,index) in roomId"
+          >
             <div style="width:auto;height:100%;display:flex;">
-              <div v-if="cell.operatingRoomNo == item.name" v-for="(cell,index) in scheduleListRight">
-                <div @click="showShadow(cell)" @dblclick="edit(cell)" v-if="cell.state == 2||cell.state == 3||cell.state == 4" class="roomData" :class="{boxshadow:cell.clickShadowData}">
+              <div
+                v-if="cell.operatingRoomNo == item.name"
+                v-for="(cell,index) in scheduleListRight"
+              >
+                <div
+                  @click="showShadow(cell)"
+                  @dblclick="edit(cell)"
+                  v-if="cell.state == 2||cell.state == 3||cell.state == 4"
+                  class="roomData"
+                  :class="{boxshadow:cell.clickShadowData}"
+                >
                   <div style="color:#5298EE;border-bottom:1px solid #E9E9ED;padding:2px 0;">
                     <span style="padding-right:10px;">{{cell.scheduledDateTime}}</span>
                     <span style="padding-right:10px;">{{cell.patientName}}</span>
@@ -128,7 +285,10 @@
                     <span style="padding-right:10px;">{{cell.patientSex}}</span>
                     <span>{{cell.patienAge}}岁</span>
                   </div>
-                  <div :title="cell.operationSchName" style="color:#222;padding:2px 0;font-weight:bold;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+                  <div
+                    :title="cell.operationSchName"
+                    style="color:#222;padding:2px 0;font-weight:bold;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"
+                  >
                     {{cell.operationSchName}}
                   </div>
                   <div style="color:#222;padding:2px 0;width:100%;">
@@ -141,10 +301,28 @@
                     <span style="color:red;">{{cell.notesOnOperation}}</span>
                   </div>
                 </div>
-                <div v-else @click="showShadow(cell)" @dblclick="edit(cell)" style="border:2px solid #F5AF93;position:relative;" class="roomData" :class="{boxshadow:cell.clickShadowData}">
-                  <div @click="goBackFun(cell,index)" class="goBack">X</div>
-                  <div @click="goTaoLeft(cell,index)" class="leftLost" title="台次向前排列">←</div>
-                  <div @click="goTaoRight(cell,index)" class="rightAdd" title="台次向后排列">→</div>
+                <div
+                  v-else
+                  @click="showShadow(cell)"
+                  @dblclick="edit(cell)"
+                  style="border:2px solid #F5AF93;position:relative;"
+                  class="roomData"
+                  :class="{boxshadow:cell.clickShadowData}"
+                >
+                  <div
+                    @click="goBackFun(cell,index)"
+                    class="goBack"
+                  >X</div>
+                  <div
+                    @click="goTaoLeft(cell,index)"
+                    class="leftLost"
+                    title="台次向前排列"
+                  >←</div>
+                  <div
+                    @click="goTaoRight(cell,index)"
+                    class="rightAdd"
+                    title="台次向后排列"
+                  >→</div>
                   <div style="color:#5298EE;border-bottom:1px solid #E9E9ED;padding:2px 0;">
                     <span style="padding-right:10px;">{{cell.scheduledDateTime}}</span>
                     <span style="padding-right:10px;">{{cell.patientName}}</span>
@@ -156,7 +334,10 @@
                     <span style="padding-right:10px;">{{cell.patientSex}}</span>
                     <span>{{cell.patienAge}}岁</span>
                   </div>
-                  <div :title="cell.operationSchName" style="color:#222;padding:2px 0;font-weight:bold;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">
+                  <div
+                    :title="cell.operationSchName"
+                    style="color:#222;padding:2px 0;font-weight:bold;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"
+                  >
                     {{cell.operationSchName}}
                   </div>
                   <div style="color:#222;padding:2px 0;width:100%;">
@@ -176,13 +357,26 @@
         <!-- </div> -->
       </div>
     </div>
-    <div class="mask pCenter" @click="CancelSchedul" v-if="maskOfSchedul">
-      <div class="infoModal" style="width:440px;">
+    <div
+      class="mask pCenter"
+      @click="CancelSchedul"
+      v-if="maskOfSchedul"
+    >
+      <div
+        class="infoModal"
+        style="width:440px;"
+      >
         <div class="modalHead">
           <span>手术通知单</span>
-          <div @click="CancelSchedul" class="font_active">X</div>
+          <div
+            @click="CancelSchedul"
+            class="font_active"
+          >X</div>
         </div>
-        <div class="modalBody" @click.stop="noFun()">
+        <div
+          class="modalBody"
+          @click.stop="noFun()"
+        >
           <div class="newSchedulClass">
             <div class="newClassDiv">姓名</div>
             <div class="newClassDiv">{{handSchedulItem.patientName}}</div>
@@ -199,17 +393,35 @@
             <div class="newClassDiv">病区</div>
             <div class="newClassDiv">{{handSchedulItem.deptName}}</div>
           </div>
-          <div class="newSchedulClass" style="height:60px;">
+          <div
+            class="newSchedulClass"
+            style="height:60px;"
+          >
             <div class="newClassDiv">诊断</div>
-            <div class="newClassDiv" style="width:313px;line-height:22px;">{{handSchedulItem.diagBeforeOperation}}</div>
+            <div
+              class="newClassDiv"
+              style="width:313px;line-height:22px;"
+            >{{handSchedulItem.diagBeforeOperation}}</div>
           </div>
-          <div class="newSchedulClass" style="height:42px;">
+          <div
+            class="newSchedulClass"
+            style="height:42px;"
+          >
             <div class="newClassDiv">手术</div>
-            <div class="newClassDiv" style="width:313px;line-height:22px;">{{handSchedulItem.operationSchName}}</div>
+            <div
+              class="newClassDiv"
+              style="width:313px;line-height:22px;"
+            >{{handSchedulItem.operationSchName}}</div>
           </div>
-          <div class="newSchedulClass" style="height:90px;">
+          <div
+            class="newSchedulClass"
+            style="height:90px;"
+          >
             <div class="newClassDiv">实行手术医生</div>
-            <div class="newClassDiv" style="width:313px;line-height:22px;">
+            <div
+              class="newClassDiv"
+              style="width:313px;line-height:22px;"
+            >
               <div style="border-bottom:1px solid #B3B3B3">主刀医生:{{handSchedulItem.anesthesiaDoctorName}}</div>
               <div style="border-bottom:1px solid #B3B3B3">一助医生:{{handSchedulItem.firstAssistantName}}</div>
               <div style="border-bottom:1px solid #B3B3B3">二助医生:{{handSchedulItem.secondAssistantName}}</div>
@@ -218,11 +430,17 @@
           </div>
           <div class="newSchedulClass">
             <div class="newClassDiv">麻醉</div>
-            <div class="newClassDiv" style="width:313px;">{{handSchedulItem.anesthesiaMethod}}</div>
+            <div
+              class="newClassDiv"
+              style="width:313px;"
+            >{{handSchedulItem.anesthesiaMethod}}</div>
           </div>
           <div class="newSchedulClass">
             <div class="newClassDiv">手术日期及时间</div>
-            <div class="newClassDiv" style="width:313px;">{{dateValue}} {{handSchedulItem.scheduledDateTime}}</div>
+            <div
+              class="newClassDiv"
+              style="width:313px;"
+            >{{dateValue}} {{handSchedulItem.scheduledDateTime}}</div>
           </div>
           <div class="newSchedulClass">
             <div class="newClassDiv">感染隔离</div>
@@ -230,13 +448,25 @@
           </div>
           <div class="newSchedulClass">
             <div class="newClassDiv">检验数值</div>
-            <div class="newClassDiv" style="width:313px;"></div>
+            <div
+              class="newClassDiv"
+              style="width:313px;"
+            ></div>
           </div>
-          <div class="newSchedulClass" style="height:60px;">
+          <div
+            class="newSchedulClass"
+            style="height:60px;"
+          >
             <div class="newClassDiv">备注</div>
-            <div class="newClassDiv" style="width:313px;line-height:22px;">{{handSchedulItem.notesOnOperation}}</div>
+            <div
+              class="newClassDiv"
+              style="width:313px;line-height:22px;"
+            >{{handSchedulItem.notesOnOperation}}</div>
           </div>
-          <div class="newSchedulClass" style="border-bottom:1px solid #B3B3B3;">
+          <div
+            class="newSchedulClass"
+            style="border-bottom:1px solid #B3B3B3;"
+          >
             <div class="newClassDiv">日期</div>
             <div class="newClassDiv">{{dateValue}}</div>
             <div class="newClassDiv">申请医生</div>
@@ -249,37 +479,100 @@
         </div>
       </div>
     </div>
-    <div class="mask pCenter" v-if="mask">
+    <div
+      class="mask pCenter"
+      v-if="mask"
+    >
       <div class="infoModal">
         <div class="modalHead">
           <span>集合编辑器</span>
-          <div @click="modalCancel" class="font_active">X</div>
+          <div
+            @click="modalCancel"
+            class="font_active"
+          >X</div>
         </div>
         <div class="modalBody">
-          <div v-for="(item,index) in infoMode" class="flex">
+          <div
+            v-for="(item,index) in infoMode"
+            class="flex"
+          >
             <div class="label">{{item.text}}：</div>
-            <textarea style="outline:none;" v-if="item.text == '备注'" readonly name="" id="" v-model="handleItem[item.value]"></textarea>
-            <select @change="getNewPushData(item,index)" v-else-if="item.optin == true&&item.value == 'anesthesiaDoctorName'" style="width:134px;" v-model="handleItem[item.value]">
+            <textarea
+              style="outline:none;"
+              v-if="item.text == '备注'"
+              readonly
+              name=""
+              id=""
+              v-model="handleItem[item.value]"
+            ></textarea>
+            <select
+              @change="getNewPushData(item,index)"
+              v-else-if="item.optin == true&&item.value == 'anesthesiaDoctorName'"
+              style="width:134px;"
+              v-model="handleItem[item.value]"
+            >
               <option value=""></option>
-              <option v-for="all in options" v-bind:value="all.userName">{{all.userName}}</option>
+              <option
+                v-for="all in options"
+                v-bind:value="all.userName"
+              >{{all.userName}}</option>
             </select>
-            <select @change="getNewPushData(item,index)" v-else-if="item.optin == true&&(item.value == 'firstAnesthesiaAssistantName'||item.value == 'secondAnesthesiaAssistantName')" style="width:134px;" v-model="handleItem[item.value]">
+            <select
+              @change="getNewPushData(item,index)"
+              v-else-if="item.optin == true&&(item.value == 'firstAnesthesiaAssistantName'||item.value == 'secondAnesthesiaAssistantName')"
+              style="width:134px;"
+              v-model="handleItem[item.value]"
+            >
               <option value=""></option>
-              <option v-for="all in MzkUsers" v-bind:value="all.userName">{{all.userName}}</option>
+              <option
+                v-for="all in MzkUsers"
+                v-bind:value="all.userName"
+              >{{all.userName}}</option>
             </select>
-            <select @change="getNewPushData(item,index)" v-else-if="item.optin == true&&(item.value == 'firstAssistantName'||item.value == 'secondAssistantName')" style="width:134px;" v-model="handleItem[item.value]">
+            <select
+              @change="getNewPushData(item,index)"
+              v-else-if="item.optin == true&&(item.value == 'firstAssistantName'||item.value == 'secondAssistantName')"
+              style="width:134px;"
+              v-model="handleItem[item.value]"
+            >
               <option value=""></option>
-              <option v-for="all in assistant" v-bind:value="all.userName">{{all.userName}}</option>
+              <option
+                v-for="all in assistant"
+                v-bind:value="all.userName"
+              >{{all.userName}}</option>
             </select>
-            <select @change="getNewPushData(item,index)" v-else-if="item.optin == true&&(item.value == 'firstOperationNurseName'||item.value == 'secondOperationNurseName')" style="width:134px;" v-model="handleItem[item.value]">
+            <select
+              @change="getNewPushData(item,index)"
+              v-else-if="item.optin == true&&(item.value == 'firstOperationNurseName'||item.value == 'secondOperationNurseName')"
+              style="width:134px;"
+              v-model="handleItem[item.value]"
+            >
               <option value=""></option>
-              <option v-for="all in wash" v-bind:value="all.userName">{{all.userName}}</option>
+              <option
+                v-for="all in wash"
+                v-bind:value="all.userName"
+              >{{all.userName}}</option>
             </select>
-            <select @change="getNewPushData(item,index)" v-else-if="item.optin == true&&(item.value == 'firstSupplyNurseName'||item.value == 'secondSupplyNurseName')" style="width:134px;" v-model="handleItem[item.value]">
+            <select
+              @change="getNewPushData(item,index)"
+              v-else-if="item.optin == true&&(item.value == 'firstSupplyNurseName'||item.value == 'secondSupplyNurseName')"
+              style="width:134px;"
+              v-model="handleItem[item.value]"
+            >
               <option value=""></option>
-              <option v-for="all in tour" v-bind:value="all.userName">{{all.userName}}</option>
+              <option
+                v-for="all in tour"
+                v-bind:value="all.userName"
+              >{{all.userName}}</option>
             </select>
-            <input v-else style="width:130px;outline:none;" v-bind:readonly="readonlyData" type="" name="" v-model="handleItem[item.value]">
+            <input
+              v-else
+              style="width:130px;outline:none;"
+              v-bind:readonly="readonlyData"
+              type=""
+              name=""
+              v-model="handleItem[item.value]"
+            >
           </div>
         </div>
         <div class="modalFoot">
@@ -295,7 +588,7 @@ import Datepicker from 'vuejs-datepicker';
 import { dataTable, dataTableColumn } from "vue-data-table"
 export default {
   name: 'login',
-  data() {
+  data () {
     return {
       options: [],
       MzkUsers: [],
@@ -371,113 +664,113 @@ export default {
         optin: false,
       }],
       infoMode: [{
-          text: '申请时间',
-          value: 'scheduledDateTime',
-          width: 60,
-          optin: false,
-        }, {
-          text: '科室名称',
-          value: 'deptName',
-          width: 60,
-          optin: false,
-        }, {
-          text: '手术医师',
-          value: 'surgeonName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '手术名称',
-          value: 'operationSchName',
-          width: 250,
-          optin: false,
-        }, {
-          text: '台次',
-          value: 'sequence',
-          width: 60,
-          optin: false,
-        }, {
-          text: '病人姓名',
-          value: 'patientName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '年龄',
-          value: 'patienAge',
-          width: 60,
-        }, {
-          text: '性别',
-          value: 'patientSex',
-          width: 60,
-          optin: false,
-        }, {
-          text: '床号',
-          value: 'bedNo',
-          width: 60,
-          optin: false,
-        }, {
-          text: '诊断',
-          value: 'diagBeforeOperation',
-          width: 200,
-          optin: false,
-        }, {
-          text: "手术审核时间",
-          type: "inSelect",
-          value: "reqDateTime",
-          width: 120,
-          optin: false,
-        },
-        {
-          text: '主麻医师',
-          value: 'anesthesiaDoctorName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '副麻医师1',
-          value: 'firstAnesthesiaAssistantName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '副麻医师2',
-          value: 'secondAnesthesiaAssistantName',
-          width: 100,
-          optin: false,
-        },
-        {
-          text: '手术助手1',
-          value: 'firstAssistantName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '手术助手2',
-          value: 'secondAssistantName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '洗手护士1',
-          value: 'firstOperationNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '洗手护士2',
-          value: 'secondOperationNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '巡回护士1',
-          value: 'firstSupplyNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '巡回护士2',
-          value: 'secondSupplyNurseName',
-          width: 100,
-          optin: false,
-        }, {
-          text: '备注',
-          value: 'notesOnOperation',
-          width: 100,
-          optin: false,
-        }
+        text: '申请时间',
+        value: 'scheduledDateTime',
+        width: 60,
+        optin: false,
+      }, {
+        text: '科室名称',
+        value: 'deptName',
+        width: 60,
+        optin: false,
+      }, {
+        text: '手术医师',
+        value: 'surgeonName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '手术名称',
+        value: 'operationSchName',
+        width: 250,
+        optin: false,
+      }, {
+        text: '台次',
+        value: 'sequence',
+        width: 60,
+        optin: false,
+      }, {
+        text: '病人姓名',
+        value: 'patientName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '年龄',
+        value: 'patienAge',
+        width: 60,
+      }, {
+        text: '性别',
+        value: 'patientSex',
+        width: 60,
+        optin: false,
+      }, {
+        text: '床号',
+        value: 'bedNo',
+        width: 60,
+        optin: false,
+      }, {
+        text: '诊断',
+        value: 'diagBeforeOperation',
+        width: 200,
+        optin: false,
+      }, {
+        text: "手术审核时间",
+        type: "inSelect",
+        value: "reqDateTime",
+        width: 120,
+        optin: false,
+      },
+      {
+        text: '主麻医师',
+        value: 'anesthesiaDoctorName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '副麻医师1',
+        value: 'firstAnesthesiaAssistantName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '副麻医师2',
+        value: 'secondAnesthesiaAssistantName',
+        width: 100,
+        optin: false,
+      },
+      {
+        text: '手术助手1',
+        value: 'firstAssistantName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '手术助手2',
+        value: 'secondAssistantName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '洗手护士1',
+        value: 'firstOperationNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '洗手护士2',
+        value: 'secondOperationNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '巡回护士1',
+        value: 'firstSupplyNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '巡回护士2',
+        value: 'secondSupplyNurseName',
+        width: 100,
+        optin: false,
+      }, {
+        text: '备注',
+        value: 'notesOnOperation',
+        width: 100,
+        optin: false,
+      }
       ],
       getLength: '0',
       listChooseBody: [
@@ -562,7 +855,7 @@ export default {
     }
   },
   methods: {
-    getRoomNo() {
+    getRoomNo () {
       let params = {
         deptCode: this.config.wardCode,
         bedType: '0'
@@ -604,10 +897,10 @@ export default {
         }
       )
     },
-    nameDataType(item) {
+    nameDataType (item) {
       // console.log(item)
     },
-    submit() {
+    submit () {
       let params = [];
       let dataInName;
       let commitData = [];
@@ -650,7 +943,7 @@ export default {
       // }
 
     },
-    getNewPushData(item, index) {
+    getNewPushData (item, index) {
       // console.log(item)
       // console.log(index)
       // console.log(this.infoMode)
@@ -661,7 +954,7 @@ export default {
         for (var a = 0; a < this.options.length; a++) {
           if (this.options[a].userName == this.handleItem[item.value]) {
             this.onchangeData.anesthesiaDoctorName = this.options[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.anesthesiaDoctorName = '';
           }
         }
@@ -670,7 +963,7 @@ export default {
         for (var a = 0; a < this.MzkUsers.length; a++) {
           if (this.MzkUsers[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstAnesthesiaAssistantName = this.MzkUsers[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.firstAnesthesiaAssistantName = '';
           }
         }
@@ -679,7 +972,7 @@ export default {
         for (var a = 0; a < this.MzkUsers.length; a++) {
           if (this.MzkUsers[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondAnesthesiaAssistantName = this.MzkUsers[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.secondAnesthesiaAssistantName = '';
           }
         }
@@ -688,7 +981,7 @@ export default {
         for (var a = 0; a < this.assistant.length; a++) {
           if (this.assistant[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstAssistantName = this.assistant[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.firstAssistantName = '';
           }
         }
@@ -697,7 +990,7 @@ export default {
         for (var a = 0; a < this.assistant.length; a++) {
           if (this.assistant[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondAssistantName = this.assistant[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.secondAssistantName = '';
           }
         }
@@ -706,7 +999,7 @@ export default {
         for (var a = 0; a < this.wash.length; a++) {
           if (this.wash[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstOperationNurseName = this.wash[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.firstOperationNurseName = '';
           }
         }
@@ -715,7 +1008,7 @@ export default {
         for (var a = 0; a < this.wash.length; a++) {
           if (this.wash[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondOperationNurseName = this.wash[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.secondOperationNurseName = '';
           }
         }
@@ -724,7 +1017,7 @@ export default {
         for (var a = 0; a < this.tour.length; a++) {
           if (this.tour[a].userName == this.handleItem[item.value]) {
             this.onchangeData.firstSupplyNurseName = this.tour[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.firstSupplyNurseName = '';
           }
         }
@@ -733,14 +1026,14 @@ export default {
         for (var a = 0; a < this.tour.length; a++) {
           if (this.tour[a].userName == this.handleItem[item.value]) {
             this.onchangeData.secondSupplyNurseName = this.tour[a].userId;
-          }else if(this.handleItem[item.value] == ''){
+          } else if (this.handleItem[item.value] == '') {
             this.onchangeData.secondSupplyNurseName = '';
           }
         }
       }
       console.log(this.onchangeData)
     },
-    modalSure() {
+    modalSure () {
       // console.log(this.handleItem)
       console.log(this.onchangeData)
       let params = {
@@ -766,10 +1059,10 @@ export default {
       this.mask = false;
 
     },
-    CancelSchedul() {
+    CancelSchedul () {
       this.maskOfSchedul = false;
     },
-    modalCancel() {
+    modalCancel () {
       // console.log(this.handleItemTow)
       this.handleItem = this.handleItemTow;
       for (var a = 0; a < this.scheduleListRight.length; a++) {
@@ -780,7 +1073,7 @@ export default {
       this.mask = false;
     },
 
-    edit(item) {
+    edit (item) {
       this.handleItem = item;
       this.handleItemTow = JSON.parse(JSON.stringify(item));
       // console.log(this.tableConfig)
@@ -830,7 +1123,7 @@ export default {
         this.readonlyData = true;
       }
     },
-    showShadow(cell) {
+    showShadow (cell) {
       console.log(cell)
       // console.log(this.scheduleListRight)
       for (var a = 0; a < this.scheduleListRight.length; a++) {
@@ -838,15 +1131,15 @@ export default {
       }
       cell.clickShadowData = true;
     },
-    test(event) {
+    test (event) {
       // console.log(event.srcElement.value)
       this.dateValue = event.srcElement.value;
     },
-    dateChange() {
+    dateChange () {
       this.getList(this.dateValue)
 
     },
-    chooseOne(item) {
+    chooseOne (item) {
       // console.log(item)
       this.chooseOneType = item.type;
       // console.log(this.chooseOneType);
@@ -856,31 +1149,31 @@ export default {
         this.chooseData = item.data
       }
     },
-    noFun() {
+    noFun () {
 
     },
     // 清除点击函数
-    cleanFun(event) {
+    cleanFun (event) {
       // console.log(event)
       // 目前手动调整，如果顶部导航栏的高度有所修改，请修改这个值
       this.cleanTop = event.clientY - 186;
       this.cleanLeft = event.clientX - this.$refs.timeChose.offsetWidth;
       this.cleanData = true;
     },
-    overShow() {
+    overShow () {
       this.showList = true;
     },
-    outShow() {
+    outShow () {
       this.showList = false;
     },
-    cleanOutShow() {
+    cleanOutShow () {
       this.cleanData = false;
       this.rightShowData = false;
       for (var a = 0; a < this.scheduleList.length; a++) {
         this.scheduleList[a].clickShadowData = false;
       }
     },
-    cleanFunOnList(type) {
+    cleanFunOnList (type) {
       let commitData = [];
       if (type == 'all') {
         // 将手术间的值变为空
@@ -1163,7 +1456,7 @@ export default {
       this.cleanData = false;
 
     },
-    chooseClassFun(item, index) {
+    chooseClassFun (item, index) {
       this.maxL = [];
       this.roomNum = [];
       this.stateOfNum = false;
@@ -1215,7 +1508,7 @@ export default {
       // console.log(this.roomId)
       // console.log(this.hasChooseRoom)
     },
-    joinData(type, item) {
+    joinData (type, item) {
       // console.log(item)
       // console.log(this.pushDataBody)
       // console.log(this.roomId[this.hasChooseIndex])
@@ -1437,7 +1730,7 @@ export default {
       // console.log(this.hasChooseRoom)
       // console.log(this.pushDataBody)
     },
-    getList(date) {
+    getList (date) {
       this.scheduleList = [];
       this.scheduleListRight = [];
       this.roomNum = [];
@@ -1510,7 +1803,7 @@ export default {
 
         });
     },
-    getSupplyNurseList() {
+    getSupplyNurseList () {
       this.getList(this.dateValue);
       let params = {
         userDept: this.config.wardCode
@@ -1554,7 +1847,7 @@ export default {
       //     this.tour = res;
       //   })
     },
-    resizeStart(e, index, col) {
+    resizeStart (e, index, col) {
       if (index == this.tableConfig.length - 1) {
         return;
       }
@@ -1566,7 +1859,7 @@ export default {
       this.area.addEventListener('mousemove', this.resizeMove);
       this.area.addEventListener('mouseup', this.stopDrag);
     },
-    resizeMove(e) {
+    resizeMove (e) {
       let dX = e.clientX - this.startX;
       if (this.maxWidth >= this.handleCol.width + dX && this.minWidth <= this.handleCol.width + dX) {
         this.startX = e.clientX;
@@ -1575,11 +1868,11 @@ export default {
         //this.nextCol.width -= dX;
       }
     },
-    stopDrag(e) {
+    stopDrag (e) {
       this.area.removeEventListener('mousemove', this.resizeMove);
       this.area.removeEventListener('mouseup', this.stopDrag);
     },
-    plusAll() {
+    plusAll () {
       let totalWidth = 0;
       for (let i = 0; i < this.tableConfig.length; i++) {
         totalWidth += this.tableConfig[i].width;
@@ -1589,13 +1882,13 @@ export default {
     // noneDulClick() {
     //     this.showarrange = false;
     // },
-    getTopLeft(event) {
+    getTopLeft (event) {
       console.log(event)
       this.eventLeft = event.clientX + 15;
       this.eventTop = event.clientY + 20;
       this.rightShowData = true;
     },
-    listOfData(item) {
+    listOfData (item) {
       for (var a = 0; a < this.scheduleList.length; a++) {
         this.scheduleList[a].clickShadowData = false;
       }
@@ -1603,10 +1896,10 @@ export default {
       this.handSchedulItem = item;
       console.log(this.handSchedulItem)
     },
-    maskFun() {
+    maskFun () {
       this.maskOfSchedul = true;
     },
-    arrange(event, item, index) {
+    arrange (event, item, index) {
       // console.log(event)
       // console.log(item)
       // console.log(index)
@@ -1619,10 +1912,11 @@ export default {
       this.spliceIndex = index;
       this.pushData();
     },
-    pushData() {
+    pushData () {
       // console.log(this.pushDataBody)
       // console.log(this.hasChooseRoom)
       this.roomNum = [];
+      this.stateOfNum == false;
       // 手术间赋值
       this.pushDataBody.operatingRoomNo = this.hasChooseRoom.name;
       // 主麻医生赋值
@@ -1754,7 +2048,7 @@ export default {
       this.chooseData = '手术(' + this.scheduleList.length + ')';
       this.listChooseBody[0].dataLength = this.scheduleList.length;
     },
-    sequenceFun() {
+    sequenceFun () {
       // console.log(this.pushDataBody)
       // debugger
       // console.log(this.scheduleListRight)
@@ -1789,7 +2083,7 @@ export default {
         }
       }
     },
-    goBackFun(cell, index) {
+    goBackFun (cell, index) {
       // console.log(cell)
       this.roomNum = [];
       for (var b = index; b < this.scheduleListRight.length; b++) {
@@ -1827,7 +2121,7 @@ export default {
       this.chooseData = '手术(' + this.scheduleList.length + ')';
       this.listChooseBody[0].dataLength = this.scheduleList.length;
     },
-    goTaoLeft(cell, index) {
+    goTaoLeft (cell, index) {
       // debugger
       let submit = [];
       var mNum = '';
@@ -1886,10 +2180,10 @@ export default {
 
 
     },
-    sortNumber(a, b) {
+    sortNumber (a, b) {
       return a.sequence - b.sequence
     },
-    goTaoRight(cell, index) {
+    goTaoRight (cell, index) {
       var mNum = '';
       var submit = [];
       // console.log(cell.sequence)
@@ -1938,7 +2232,7 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     this.getRoomNo();
     this.getSupplyNurseList();
     this.area = window;
@@ -2000,12 +2294,12 @@ export default {
 
 .state2 {
   /* background: #0080FF; */
-  color: #0080FF;
+  color: #0080ff;
 }
 
 .state3 {
   /* background: #FF6666; */
-  color: #FF6666;
+  color: #ff6666;
 }
 
 .tableBox {
@@ -2029,7 +2323,7 @@ export default {
 }
 
 .infoTable {
-  border: 1px solid #B3B3B3;
+  border: 1px solid #b3b3b3;
 }
 
 .resizeAble {
@@ -2091,7 +2385,7 @@ export default {
 }
 
 .newSchedulClass {
-  border-top: 1px solid #B3B3B3;
+  border-top: 1px solid #b3b3b3;
   min-height: 28px;
   width: 100%;
   margin: 0 10px;
@@ -2100,7 +2394,7 @@ export default {
 
 .newClassDiv {
   width: 105px;
-  border-right: 1px solid #B3B3B3;
+  border-right: 1px solid #b3b3b3;
   height: 100%;
   line-height: 28px;
   box-sizing: border-box;
@@ -2123,7 +2417,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  border: 1px solid #B3B3B3;
+  border: 1px solid #b3b3b3;
 }
 
 .head .cell {
@@ -2131,7 +2425,7 @@ export default {
 }
 
 .rows:hover {
-  background-color: #A3BDD9;
+  background-color: #a3bdd9;
   cursor: pointer;
 }
 
@@ -2139,14 +2433,13 @@ export default {
   width: 130px;
   height: auto;
   position: absolute;
-  border: 1px solid #BABABA;
+  border: 1px solid #bababa;
   box-shadow: 2px 2px 5px #888;
   background-color: #fff;
   z-index: 99;
   cursor: pointer;
   padding-left: 5px;
 }
-
 
 .cleanLast {
   padding-left: 5px;
@@ -2155,11 +2448,11 @@ export default {
 }
 
 .cleanLast:hover {
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
 }
 
 .docList {
-  background-color: #ECECEC;
+  background-color: #ececec;
   border: 1px dashed #999;
   font-size: 14px;
   box-sizing: border-box;
@@ -2189,9 +2482,8 @@ export default {
   background: rgb(240, 240, 240);
   border: 1px solid rgb(24, 131, 215);
   cursor: auto;
-  box-shadow: 1px 1px 20px #AAA;
+  box-shadow: 1px 1px 20px #aaa;
 }
-
 
 .tableOut {
   width: 100%;
@@ -2246,12 +2538,12 @@ export default {
 }
 
 .itemBox:hover {
-  background-color: #8383A6;
+  background-color: #8383a6;
   cursor: pointer;
 }
 
 .itemBox:last-child {
-  border-bottom: 1px solid #0D508B;
+  border-bottom: 1px solid #0d508b;
 }
 
 .selectInThere {
@@ -2311,13 +2603,13 @@ export default {
 }
 
 .backgroundColor {
-  background: url('../../assets/bottomBack2.jpg') no-repeat;
+  background: url("../../assets/bottomBack2.jpg") no-repeat;
   background-size: cover;
 }
 
 .roomData {
   /* border: 1px solid #95DDB6; */
-  border: 2px solid #95DDB6;
+  border: 2px solid #95ddb6;
   font-size: 12px;
   margin: 5px 10px;
   width: 250px;
@@ -2328,13 +2620,13 @@ export default {
 }
 
 .boxshadow {
-  box-shadow: 1px 1px 20px #AAA;
+  box-shadow: 1px 1px 20px #aaa;
 }
 
 .goBack {
   width: 20px;
   height: 20px;
-  background-color: #95DDB6;
+  background-color: #95ddb6;
   position: absolute;
   right: 0;
   top: 0;
@@ -2347,7 +2639,7 @@ export default {
 .leftLost {
   width: 20px;
   height: 20px;
-  background-color: #95DDB6;
+  background-color: #95ddb6;
   position: absolute;
   right: 0;
   top: 35px;
@@ -2360,7 +2652,7 @@ export default {
 .rightAdd {
   width: 20px;
   height: 20px;
-  background-color: #95DDB6;
+  background-color: #95ddb6;
   position: absolute;
   right: 0;
   top: 60px;
@@ -2376,8 +2668,8 @@ export default {
   height: auto;
   top: 37px;
   left: 5px;
-  background-color: #F5F7F9;
-  border: 1px solid #77A3DC;
+  background-color: #f5f7f9;
+  border: 1px solid #77a3dc;
   /* box-sizing: border-box; */
   z-index: 9999;
 }
@@ -2394,11 +2686,10 @@ export default {
 }
 
 .insideHover:hover {
-  background: url('../../assets/hoverBac.jpg');
+  background: url("../../assets/hoverBac.jpg");
 }
 
 .hoverClass {
-  background-color: #A3BDD9;
+  background-color: #a3bdd9;
 }
-
 </style>

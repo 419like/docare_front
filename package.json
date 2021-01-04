@@ -16,7 +16,7 @@
     "upload": "node nodeFtp/nodeFtp.js"
   },
   "dependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.21.1",
     "d3": "^4.11.0",
     "ftp": "^0.3.10",
     "ftp-deploy": "^1.2.2",

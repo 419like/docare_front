@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "d3": "^4.11.0",
+    "d3": "^7.6.1",
     "ftp": "^0.3.10",
     "ftp-deploy": "^1.2.2",
     "html2canvas": "^1.0.0-alpha.12",
